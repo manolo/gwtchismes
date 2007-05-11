@@ -1,0 +1,13 @@
+table.GWTCSample {
+   margin-left: auto;
+   margin-right: auto;
+   width: 50em;
+   text-align: center;
+}
+table.GWTCSample>tbody>tr>td > *{
+   margin-top: 1em;
+}
+
+.GWTCSample .gwtc-button {
+//width: 100%;
+}

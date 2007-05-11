@@ -1,0 +1,147 @@
+.Canc_Container{
+    font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+}
+.Canc_Container .gwtc-Button {
+  width: 25em;
+ }
+table.Canc_Container {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 750px; 
+}
+
+/* Top Container: Hotel info */
+.Canc_Container table.Canc_Container_Top {
+}
+.Canc_Container table.Canc_Container_Top>tbody>tr>td {
+	padding: 10px;
+}
+.Canc_Container table.Canc_Container_Top tr td.HotelName {
+	font-size: 1.8em;
+}
+.Canc_Container table.Canc_Container_Top tr td.HotelAddress {
+	vertical-align: bottom;
+	color: #555;
+	border: 1px solid #aaa;
+	background: #f9f9f9;
+}
+
+/* Botom Container: Login or Reserve Info*/
+.Canc_Container table.Canc_Container_Bottom {
+	width: 100%;
+	text-align: center;
+	border-top : 1px solid #888;
+	border-bottom : 1px solid #888;
+}
+.Canc_Container table.Canc_Container_Bottom>tbody>tr>td {
+}
+
+/* Login screen */
+.Canc_Container .Canc_Container_Bottom table.cancel_login_box {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+.Canc_Container .Canc_Container_Bottom table.cancel_login_box td {
+	padding-top: 10px;
+}
+.Canc_Container .Canc_Container_Bottom .cancel_login_box_row_title td {
+	border-bottom: 1px solid #dfdfdf;
+	font-weight: bold;
+	text-align: center;
+    margin-bottom : 5px !important;
+}
+.Canc_Container .Canc_Container_Bottom .cancel_login_box_label {
+  padding-left: 30px;
+  color: #333;
+  width: 40% !important;
+  text-align: right;
+}
+.Canc_Container .Canc_Container_Bottom .cancel_login_box_text {
+  padding-left: 15px;
+  text-align: left;
+}
+.Canc_Container .Canc_Container_Bottom input:focus {
+  background : #fff0cf;
+}
+
+/* Bottom Info Screen */
+.Canc_Container table.Canc_Container_Bottom td.rinfo_left,
+.Canc_Container table.Canc_Container_Bottom td.rinfo_right {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  vertical-align: top;
+}  
+.Canc_Container table.Canc_Container_Bottom td.rinfo_left {
+  text-align: right;
+  color: grey;
+  font-weight: bold;
+  padding-right: 10px;
+  width: 30%;
+}
+.Canc_Container table.Canc_Container_Bottom td.rinfo_right {
+  text-align: left;
+}
+.Canc_Container .Canc_Container_Bottom table.sinfo_table {
+  border: 1px solid #aaa;
+  background: #f9f9f9;
+  font-weight: normal;
+  color: black;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+}
+.Canc_Container .Canc_Container_Bottom table.sinfo_table_dates {
+  width: 250px !important;
+  /*border: 1px solid #aaa !important;*/
+}
+.Canc_Container .Canc_Container_Bottom .sinfo_table_dates .sinfo_row_checkin div.gwt-Label,
+.Canc_Container .Canc_Container_Bottom .sinfo_table_dates .sinfo_row_checkout div.gwt-Label,
+.Canc_Container .Canc_Container_Bottom .sinfo_table_dates .sinfo_row_checknights div.gwt-Label {
+  font-weight : bold;
+  /*padding-left: 10px;*/
+}
+.Canc_Container .Canc_Container_Bottom table.sinfo_table_prices {
+  border: 1px solid #666;
+  background: #f8ffcf;
+  text-align: center;
+}  
+.Canc_Container .Canc_Container_Bottom table.sinfo_table_prices td {  
+  vertical-align: top;
+}
+.Canc_Container .Canc_Container_Bottom .sinfo_table_prices .sinfo_prices_titles {
+  text-align: center;
+  background: #000; /* url(/xmas/nhmod/img/fnd-calendar-title.png) repeat-x top;*/
+  color : #f0f0f0;
+  font-weight : bold;
+}
+.Canc_Container .Canc_Container_Bottom .sinfo_table_prices .sinfo_prices_total td{
+  background : #bd0;
+  width : 100%;
+  margin-top : 20px;
+  text-align: right;
+  white-space: nowrap;
+  padding-right: 3px;
+}
+.Canc_Container .Canc_Container_Bottom .sinfo_table_prices .sinfo_prices_total td.sinfo_price  {
+  text-align: right;
+}
+
+.Canc_Container button {
+  margin-top: 20px;
+}
+
+.Canc_Container table.Canc_Container_Bottom .rinfo_cancelled td {
+  color: black;
+  background : #bd0;
+  background: #f8ffcf;
+}
+.Canc_Container td.Canc_not_possible {
+  background : pink;
+  padding-top: 3em;
+}
+

@@ -1,0 +1,26 @@
+/*
+ * Basic CSS for the GWTCWait widget
+ */
+
+.gwtc-wait-bg {
+  z-index: 998;
+  background-image: url(gwtc-wait-bg-semitr.gif);
+  background-color: transparent;
+}
+
+div.GWTCWait {
+  z-index: 999;
+  font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+}  
+.GWTCWait table.gwtc-wait-table { 
+  width: auto;
+  text-align: center;
+  background: transparent;
+}
+

@@ -1,0 +1,293 @@
+<html>
+	<head>
+	
+		<!--                                           -->
+		<!-- Any title is fine                         -->
+		<!--                                           -->
+		<title>Wrapper HTML for Reservation</title>
+
+		<!--                                           -->
+		<!-- Use normal html, such as style            -->
+		<!--                                           -->
+		<style>
+			body,td,a,div,.p{font-family:arial,sans-serif}
+			div,td{color:#000000}
+			a:link,.w,.w a:link{color:#0000cc}
+			a:visited{color:#551a8b}
+			a:active{color:#ff0000}
+		</style>
+
+		<!--                                           -->
+		<!-- The module reference below is the link    -->
+		<!-- between html and your Web Toolkit module  -->		
+		<!--                                           -->
+		<meta name='gwt:module' content='com.mirai.xmas.client.gwt.reservation.Reservation'>
+		
+
+        <link rel='stylesheet' href='css/Reservation.css'/>        
+        		<link rel='stylesheet' href='GWTCalendar.css'/>
+	</head>
+
+	<!--                                           -->
+	<!-- The body can have arbitrary html, or      -->
+	<!-- you can leave the body empty if you want  -->
+	<!-- to create a completely dynamic ui         -->
+	<!--                                           -->
+	<body>
+
+		<!--                                            -->
+		<!-- This script is required bootstrap stuff.   -->
+		<!-- You can put it in the HEAD, but startup    -->
+		<!-- is slightly faster if you include it here. -->
+		<!--                                            -->
+		<script language="javascript" src="gwt.js"></script>
+		
+		<script language="javascript">
+		
+		  function checkAgreementAll(ob){
+		    if (!ob) return;
+		    setAllValues('mirai_confidential_agreement',ob.checked);
+		    setAllValues('hotel_confidential_agreement',ob.checked);
+		    setAllValues('mirai_survey_agreement',ob.checked);
+		    checkAgreement();
+		  }
+		  function checkAgreement(ob){
+		    if (ob) {
+		      if (ob.checked) return;
+		      if (ob.name == 'mirai_confidential_agreement') {
+		        try {
+		          alert(ferrors['errors.mirai.confidential.agreement.required']);
+		        } catch(e) {
+		          alert('errors.mirai.confidential.agreement.required');
+		        }
+		      }
+		      if (ob.name == 'hotel_confidential_agreement') {
+		        try {
+		          alert(ferrors['errors.hotel.confidential.agreement.required']);
+		        } catch(e) {
+		          alert('errors.hotel.confidential.agreement.required');
+		        }
+		      }
+		    } else {
+		      ob=getElementByName('mirai_confidential_agreement');
+		      if (ob) { 
+		        r=getValueByName(document,'mirai_confidential_agreement');
+		        if ( !r || r != 'yes' ) {
+		          try {
+		            alert(ferrors['errors.mirai.confidential.agreement.required']);
+		          } catch(e) {
+		            alert('errors.mirai.confidential.agreement.required');
+		          }
+		          Focus(ob);
+		          return false;
+		        }
+		      }
+		      ob=getElementByName('hotel_confidential_agreement');
+		      if ( ob ) {
+		        r=getValueByName(document,'hotel_confidential_agreement');
+		        if ( !r || r != 'yes' ) {
+		          try {
+		            alert(ferrors['errors.hotel.confidential.agreement.required']);
+		          } catch(e) {
+		            alert('errors.hotel.confidential.agreement.required');
+		          }
+		          Focus(ob);
+		          return false;
+		        }
+		      }
+		    }
+		    return true;
+		  }
+		  
+		  function checkAgreementEnd() {
+		    ob=getElementByName('mirai_confidential_agreement');
+		    if (ob && ob.checked == false ) {
+		      try {
+		        if (confirm(ferrors['errors.mirai.confidential.agreement.required'] + '\n' + ferrors['errors.confidential.agreement.confirm'] )) {
+		          setAllValues('confidential_all',true);
+		          setAllValues('mirai_confidential_agreement',true);
+		          setAllValues('hotel_confidential_agreement',true);
+		          setAllValues('mirai_survey_agreement',true);
+		          return true;
+		        } else {
+		          return false;
+		        }
+		      } catch(e) {
+		        if (confirm('errors.mirai.confidential.agreement.required' + '\n' + 'errors.confidential.agreement.confirm' )) {
+		          setAllValues('confidential_all',true);
+		          setAllValues('mirai_confidential_agreement',true);
+		          setAllValues('hotel_confidential_agreement',true);
+		          setAllValues('mirai_survey_agreement',true);
+		          return true;
+		        } else {
+		          return false;
+		        }
+		      }
+		    }
+		    ob=getElementByName('hotel_confidential_agreement');
+		    if (ob && ob.checked == false ) {
+		      try {
+		        if (confirm(ferrors['errors.hotel.confidential.agreement.required'] + '\n' + ferrors['errors.confidential.agreement.confirm'] )) {
+		          setAllValues('confidential_all',true);
+		          setAllValues('hotel_confidential_agreement',true);
+		          setAllValues('mirai_survey_agreement',true);
+		          return true;
+		        } else {
+		          return false;
+		        }
+		      } catch(e) {
+		        if (confirm('errors.hotel.confidential.agreement.required' + '\n' + 'errors.confidential.agreement.confirm' )) {
+		          setAllValues('confidential_all',true);
+		          setAllValues('hotel_confidential_agreement',true);
+		          setAllValues('mirai_survey_agreement',true);
+		          return true;
+		        } else {
+		          return false;
+		        }
+		      }
+		    }
+		    return true;
+		  }
+		  
+		  function setAllValues(name,checked){
+		    for (i=0;;i++) {
+		      if (!document.forms[i]) return;
+		      for (j=0;;j++) {
+		        if (!document.forms[i].elements[j]) break;
+		        if (document.forms[i].elements[j].name == name && document.forms[i].elements[j].type == 'checkbox' ) {
+		          document.forms[i].elements[j].checked=checked;
+		        }
+		      }
+		    }
+		  }
+		  
+		  function changeStyle(id, newClass, d) {
+		    if (!d) var d=document;
+		    var ob = MM_findObj(id,d);
+		    if (ob && ob.className) ob.className=newClass;
+		  }
+		  
+		  function MM_findObj(n, d) {
+		    try {
+		      var p,i,x;
+		      if(!d) d=document;
+		      if( (p=n.indexOf("?"))>0 && parent.frames.length) {
+		        d=parent.frames[n.substring(p+1)].document;
+		        n=n.substring(0,p);
+		      }
+		      if( !(x=d[n]) && d.all) x=d.all[n];
+		      for ( i=0; !x && i<d.forms.length; i++) x=d.forms[i][n];
+		      for ( i=0; !x && d.layers &&i<d.layers.length; i++) x=MM_findObj(n,d.layers[i].document);
+		      if(!x && d.getElementById) x=d.getElementById(n);
+		      if (!x) x=getElementByName(n,d);
+		      return x;
+		    } catch (e) {
+		      alert("MM_findObj " + n + " " + e);
+		    }
+		  }
+		  
+		  function getElementByName(a,d,v){
+		    try {
+		      if(!d) d=document;
+		      var found=false;
+		      for (var i=0; d.forms[i]; i++) for (var j=0; d.forms[i].elements[j]; j++) {
+		        var ob=null;
+		        try {
+		          ob=eval('d.forms[' + i + '].' + a ); 
+		          //if (a=='days_3_2') {
+		          //alert('ob ' + ob + ' type ' + ob.type + ' val ' + ob.value + ' l ' + ob.length + ' ' + ob[0].name + ' ' + ob[0].type );
+		          //
+		          if (ob && ob.type) return(ob);
+		          if (ob && ob.length && ob[0].name==a && ob[0].type=='radio' ) return(ob);
+		        } catch (e) {}
+		        for (var j=0;ob=d.forms[i].elements[j];j++) if (ob.name==a && ob.type) { 
+		          if (!v || ob.type!="radio" || ob.length) return(ob);
+		          if (ob.value==v) return(ob);
+		        }
+		      }
+		    } catch(e) { alert("getElementByName (" + a +  ", d) " + e ); }
+		  }
+		  
+		  function getValueByName(d,a){
+		    return SetGetValue(d,a,null);
+		  }
+		  
+		  function SetGetValue(d,a,v) {
+		    var ob=getElementByName(a,d,v);
+		    var type = null;
+		    if (ob) {
+		      if (ob.type) type = ob.type;
+		      else if (ob[0].type) type = ob[0].type;
+		    }
+		    if (ob && type) {
+		      try {
+		        switch(type) {
+		          case "select-one": case "hidden": case "text":
+		            if (v!=null || v=='') ob.value=v;
+		            return (ob.value);
+		          case "checkbox":
+		            if (v && ob.value==v) ob.checked=true;
+		            else { if (v != null) { ob.checked=false; } }
+		            
+		            if (ob.checked ) return (ob.value);
+		            else return null;
+		          case "radio":
+		            if (ob.value==v && v != null) { ob.checked=true; }
+		            else for (var j=0; j<ob.length; j++)
+		            
+		            if (v) {if (ob[j].value==v) ob[j].checked=true; else ob[j].checked=false;}
+		            else {if (ob[j].checked) return ob[j].value;}
+		            return v;
+		          default:
+		            alert("SetGetValue(" + a + "," + v + ") type: " + ob.type); return (ob.value);
+		        }
+		      } catch(e) {
+		        alert("SetGetValue(" + a + "," + v + ") " + e);
+		      }
+		    }
+		  }
+		  
+		  function RetNewWindow(mypage, myname, w, h, scroll) {
+		    try {
+		      var sc='no';var tam='';var pos='';
+		      if (scroll && (scroll!='yes' || scroll!=true || scroll!='true') ) sc='yes';
+		      var winl = (screen.width - w) / 2; var wint = (screen.height - h) / 2;
+		      if (w && h) {
+		        tam='height='+h+',width='+w+',';
+		        pos='top='+wint+',left='+winl+',';
+		      }
+		      var winprops = tam+pos+'scrollbars='+sc+',resizable'
+		      var win = window.open(mypage, myname, winprops) ;
+		      if (parseInt(navigator.appVersion) >= 4) win.window.focus();
+		      return win;
+		    } catch (e) {
+		      alert ("RetNewWindow() " + e );
+		    }
+		  }
+		  
+		  function NewWindow(mypage, myname, w, h, scroll) {
+			RetNewWindow(mypage, myname, w, h, scroll);
+		  }
+		</script>
+		
+		<!-- OPTIONAL: include this if you want history support -->
+		<iframe id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
+
+		<h1>Reservation</h1>
+		
+		<!--
+		<p>
+			This is an example of a host page for the Reservation application. 
+			You can attach a Web Toolkit module to any HTML page you like, 
+			making it easy to add bits of AJAX functionality to existing pages 
+			without starting from scratch.
+		</p>
+		-->
+ 
+		<table align=center>
+			<tr>
+				<td id="slot1"></td><td id="slot2"></td>
+			</tr>
+		</table>
+	</body>
+</html>
