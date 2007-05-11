@@ -1,0 +1,262 @@
+body { 
+	background-color: white;
+	color: black;
+	font-family: Arial, sans-serif;
+	font-size: small;
+	margin: 5px;
+}
+
+a {	
+	color: darkblue;
+}
+
+a:visited {	
+	color: darkblue; 
+}
+
+.gwt-DialogBox {
+	border: 2px solid #AAAAAA;
+	background-color: white;
+}
+
+.gwt-DialogBox .Caption {
+	background-image: url(gray_gradient.gif);
+	background-repeat: repeat-x;
+	padding: 4px;
+	padding-bottom: 8px;
+	font-weight: bold;
+	cursor: default;
+}
+
+.gwt-MenuBar {
+	background-color: #C3D9FF;
+	cursor: default;
+}
+
+.gwt-MenuItem {
+	font-size: 80%;
+	margin: 1px;
+	cursor: default;
+}
+
+.gwt-MenuItem-selected {
+	background-color: #E8EEF7;
+}
+
+.gwt-Tree {
+}
+
+.gwt-Tree .gwt-TreeItem {
+	font-size: 80%;
+	cursor: default;
+}
+
+.gwt-Tree .gwt-TreeItem-selected {
+	background-color: #C3D9FF;
+}
+
+.gwt-StackPanel {
+	background-color: white;
+	border: 1px solid #AAAAAA;
+	width: 15em;
+}
+
+.gwt-StackPanel .gwt-StackPanelItem {
+	background-image: url(blue_gradient.gif);
+	background-repeat: repeat-x;
+	background-color: #EEEEEE;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.gwt-StackPanel .gwt-StackPanelItem-selected {
+}
+
+.gwt-TabPanel {
+	
+}
+
+.gwt-TabPanelBottom {
+	border-left: 1px solid #87b3ff;
+	border-right: 1px solid #87b3ff;
+	border-bottom: 1px solid #87b3ff;
+}
+
+.gwt-TabBar {
+	font-size: smaller;
+}
+
+.gwt-TabBar .gwt-TabBarFirst {
+	height: 100%;
+	border-bottom: 1px solid #87b3ff;
+	border-right: 1px solid #87b3ff;
+	padding-left: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarRest {
+	border-bottom: 1px solid #87b3ff;
+	padding-right: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+	border-top: 1px solid #87b3ff;
+	border-bottom: 1px solid #87b3ff;
+	padding: 2px;
+	cursor: hand;
+	white-space: nowrap;
+	border-right: 1px solid #87b3ff;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+	font-weight: bold;
+	background-color: #e8eef7;
+	border-top: 1px solid #87b3ff;
+	border-right: 1px solid #87b3ff;
+	border-bottom: 1px solid #e8eef7;
+	padding: 2px;
+	cursor: default;
+	white-space: nowrap;
+}
+
+
+.step2_table, .step3_table, .step3_table_prices, .step4_table, .step4_credit_card {
+    border-collapse: collapse;
+    background-color: #ffd579;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+    text-align: center;
+}
+.step2_table td, .step3_table td {
+	border:0px solid white;
+}
+.step3_table_prices td {
+	border:1px solid white;
+}
+
+.step2_row1 td, .step2_row2 td {
+    background-color: white;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.step3_row_title td, .step3_row_cancel_title td{
+    background-color: black;
+    color: white;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: center;
+}
+.step4_col_left {
+	 background-color: red;
+}
+.step4_col_right {
+	 background-color: green;
+}
+.step3_row_pay_info td {
+		border-top: 8px solid white; 
+}
+.step2_row_room td {
+	border-top: 8px solid white; 
+}
+.step2_row_total td, .step2_row_taxes td {
+    border-top: 1px solid white; 
+    background-color: white;
+}
+.step2_total_price_value div {
+    background-color: #ffd579;
+	font-size: 12px;
+}
+.step2_total_price_label div{
+    background-color: #ffd579;
+    text-align: right;
+	font-size: 12px;
+}
+.step2_taxes div{
+    background-color: white;
+    text-align: right;
+	font-size: 12px;
+}
+
+
+.step2_row_normal td {
+    border-top: 2px solid white; 
+}
+
+td.step2_cell_noroom {
+	border-top: none; 
+}
+
+td.step2_cell_total_title {
+	width: 30px;
+}
+td.step2_cell_amount_title {
+	width: 15px;
+}	
+td.step2_date {
+	width: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: center;
+
+}	
+.step2_roomname {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.step2_roomname a {
+	font-size: 11px;
+	color: #333333;
+	text-decoration:none;
+}
+.step2_roomname a:link{
+	font-size: 11px;
+	color: #333333;
+	text-decoration:underline; 
+}
+.step2_popup_board {
+	border:0px solid white;
+    background-color: #ffd579;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: center;
+}	
+.step2_price {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333333;
+}
+.step2_partial_price {
+	white-space: nowrap;
+}
+
+.step2_rates {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold; 
+	color: #0033CC;
+	text-align: center;
+   //text-decoration:underline;
+}
+.step2_rates a {
+	text-align: center;
+	color: #0033CC;
+}
+.step2_rates a:link{
+	text-align: center;
+	color: #0033CC;
+}
+select, input, textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	color: #333333;
+    background-color: #ffd579;
+	//height: 15px;
+	//width: 90px;
+	//border-top-width: 1px;
+	//border-top-style: solid;
+	//border-top-color: #CCCCCC;
+}
+

@@ -1,0 +1,5 @@
+<module>
+  <inherits name='com.google.gwt.user.User'/>
+  <servlet path="/XMAS/utils" 
+           class="com.mirai.xmas.client.gwt.utils.server.UtilsServerImpl"/>
+</module>
