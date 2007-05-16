@@ -78,16 +78,8 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
     
     public void onBrowserEvent(Event event) {
         super.onBrowserEvent(event);
-        switch (DOM.eventGetType(event)) {
-        case Event.ONMOUSEDOWN:
-        case Event.ONMOUSEUP:
-        case Event.ONMOUSEMOVE:
-        case Event.ONMOUSEOVER:
-        case Event.ONMOUSEOUT:
-            if (mouseListeners != null)
-                mouseListeners.fireMouseEvent(this, event);
-            break;
-        }
+        if (mouseListeners != null)
+            mouseListeners.fireMouseEvent(this, event);
     }
 
     // Static Methods
