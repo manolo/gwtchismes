@@ -1,0 +1,51 @@
+<project name="GWT Project" default="jar">
+    <property name="project" value="gwtchismes"/>
+    <property name="version" value="0.1"/>
+
+    <property environment="env" />
+    <property name="gwt.dir" value="${env.GWT_HOME}" />
+    <property name="gwt.user.jar" value="${gwt.dir}/gwt-user.jar" />
+    <property name="gwt.dev.jar" value="${gwt.dir}/gwt-dev-linux.jar" />
+    <property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
+    <property name="tmp.dir" value="tmp" />
+
+    <path id="tmp.classpath">
+        <pathelement location="${gwt.user.jar}"/>
+    </path>
+    <target name="jar" >
+        <mkdir dir="${tmp.dir}" />
+        <javac srcdir="src"
+               destdir="${tmp.dir}"
+               deprecation="off" 
+               debug="on" 
+               fork="true">
+             <classpath refid="tmp.classpath" />
+<!--
+src/com/google/code/p/gwtcsample
+-->
+        </javac>
+        <copy todir="${tmp.dir}">
+             <fileset dir="src"/>
+        </copy>
+        <jar jarfile="${project}-${version}.jar" basedir="${tmp.dir}" />
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="javadoc" >
+        <javadoc
+                packagenames="src/com/google/code/p/gwtchismes"
+                destdir="docs/api"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="GWT Chismes">
+            <classpath refid="tmp.classpath" />
+            <packageset dir="src" defaultexcludes="yes"/>
+        </javadoc>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+</project>
+

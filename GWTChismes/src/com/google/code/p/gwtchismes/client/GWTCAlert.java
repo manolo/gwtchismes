@@ -24,28 +24,29 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * This widget is an alert dialog
+ * This widget is a modal dialog for displaying alerts.
+ * It is based in a {@link com.google.gwt.user.client.ui.DialogBox} as container
  *  
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
- * <li>.GWTCAlert { }</li>
- * <li>.GWTCAlert.gwtc-alert-table{ }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-msg{ }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn{ }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{ }</li>
+ * <li>.GWTCAlert { DialogBox container}</li>
+ * <li>.GWTCAlert.gwtc-alert-table{ table into the container }</li>
+ * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-msg{ Message cell }</li>
+ * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn{ Button cell }</li>
+ * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{ Button }</li>
  * </ul>
  * 
  */
 public class GWTCAlert extends Composite {
-    public static final String StyleCAlert = "GWTCAlert";
+    private static final String StyleCAlert = "GWTCAlert";
 
-    public static final String StyleCAlertTable = "gwtc-alert-table";
+    private static final String StyleCAlertTable = "gwtc-alert-table";
 
-    public static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
+    private static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
 
-    public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
+    private static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
 
-    public static final String StyleCAlertBtn = "gwtc-alert-button";
+    private static final String StyleCAlertBtn = "gwtc-alert-button";
 
     private DialogBox alertDlg = new DialogBox();
 
@@ -77,28 +78,50 @@ public class GWTCAlert extends Composite {
         initWidget(new DockPanel());
     }
 
+    /**
+     * Adds a secondary or dependent style name to this object
+     * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
+     */
     public void addStyleName(String s) {
         alertDlg.addStyleName(s);
     }
 
+    /**
+     *  Set the text for OK button
+     * @param ok the internationalizated string
+     */
     public void setLocale(String ok) {
         okButton.setText(ok);
     }
 
+    /**
+     * Set the message text
+     * @param s the message to display
+     */
     public void setText(String s) {
         txt.setText(s);
     }
 
+    /**
+     * Set the message text and show the dialog
+     * @param s the message to display
+     */
     public void alert(String s) {
         setText(s);
         show();
     }
 
+    /**
+     * Show the dialog box
+     */
     public void show() {
         alertDlg.show();
         contentTable.setVisible(true);
     }
 
+    /**
+     * Hide the dialog box
+     */
     public void hide() {
         alertDlg.hide();
         contentTable.setVisible(false);
