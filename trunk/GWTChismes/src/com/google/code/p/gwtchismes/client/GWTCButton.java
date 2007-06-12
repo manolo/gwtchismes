@@ -13,30 +13,38 @@
  */
 package com.google.code.p.gwtchismes.client;
 
-import com.google.gwt.user.client.*;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.MouseListener;
+import com.google.gwt.user.client.ui.MouseListenerCollection;
+import com.google.gwt.user.client.ui.SourcesMouseEvents;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * <p>
  * This class is a wrapper that adds SourcesMouseEvents 
  * implementation for the GWTButton Widget.
- *  
+ *  </p>
+ *  <p>
  * IE6 buttons does not support :hover nor :active classes, 
  * this widget uses javascript to emulate this behaviour.
+ * </p>
  * 
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
  * <li>.gwtc-Button { }</li>
- * <li>.gwtc-Button.gwtc-Hover, .gwtc-Button:hover { }</li>
- * <li>.gwtc-Button.gwtc-Active, .gwtc-Button:active { }</li>
+ * <li>.gwtc-Button.gwtc-Hover, .gwtc-Button:hover { class used when the mouse is over the widget}</li>
+ * <li>.gwtc-Button.gwtc-Active, .gwtc-Button:active { class used when the mouse activate the button}</li>
  * </ul>
  * 
  */
 public class GWTCButton extends Button implements SourcesMouseEvents {
-    public static final String CBUTTON = "gwtc-Button";
+    private static final String CBUTTON = "gwtc-Button";
 
-    public static final String CHOVER = "gwtc-Hover";
+    private static final String CHOVER = "gwtc-Hover";
 
-    public static final String CACTIVE = "gwtc-Active";
+    private static final String CACTIVE = "gwtc-Active";
 
     private void setupGWTCButton() {
         addStyleName(GWTCButton.CBUTTON);
@@ -45,16 +53,30 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
             addMouseListener(mouseOverListener);
     }
 
+    /**
+     * Creates a button with no caption.
+     */
     public GWTCButton() {
         super();
         setupGWTCButton();
     }
 
+    /**
+     * Creates a button with the given HTML caption.
+     * 
+     * @param html the HTML caption
+     */
     public GWTCButton(String html) {
         super(html);
         setupGWTCButton();
     }
 
+    /**
+     * Creates a button with the given HTML caption and click listener.
+     * 
+     * @param html the HTML caption
+     * @param listener the click listener
+     */
     public GWTCButton(String html, ClickListener listener) {
         super(html, listener);
         setupGWTCButton();
@@ -63,6 +85,9 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
     // SourcesMouseEvents Methods
     private MouseListenerCollection mouseListeners = new MouseListenerCollection();
 
+    /**
+     * @see com.google.gwt.user.client.ui.SourcesMouseEvents#addMouseListener(com.google.gwt.user.client.ui.MouseListener)
+     */
     public void addMouseListener(MouseListener listener) {
         if (mouseListeners == null) {
             mouseListeners = new MouseListenerCollection();
@@ -70,12 +95,18 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
         mouseListeners.add(listener);
     }
 
+    /**
+     * @see com.google.gwt.user.client.ui.SourcesMouseEvents#removeMouseListener(com.google.gwt.user.client.ui.MouseListener)
+     */
     public void removeMouseListener(MouseListener listener) {
         if (mouseListeners != null) {
             mouseListeners.remove(listener);
         }
     }
     
+    /**
+     * @see com.google.gwt.user.client.ui.FocusWidget#onBrowserEvent(com.google.gwt.user.client.Event)
+     */
     public void onBrowserEvent(Event event) {
         super.onBrowserEvent(event);
         if (mouseListeners != null)
@@ -106,6 +137,10 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
     };
 
     // Native JS method to detect ie6
+    /**
+     * Detection of Internet Explorer 6.x 
+     * @return true if the browser is ie6
+     */
     public static native boolean isIE6()
     /*-{
      return (window.XMLHttpRequest)? false: true;

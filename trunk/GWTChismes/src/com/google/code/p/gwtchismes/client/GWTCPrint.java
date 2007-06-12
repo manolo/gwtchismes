@@ -20,6 +20,19 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * <p>
+ * This widget is a button (com.google.code.p.gwtchismes.client.GWTCButton) to print the current page.
+ * When the user click the button the browser opens the print dialog 
+ * and the print button is hidden for 5 seconds
+ * </p>
+ *  
+ * <h3>CSS Style Rules</h3>
+ * <ul class="css">
+ * <li>.GWTCPrint { }</li>
+ * </ul>
+ * 
+ */
 public class GWTCPrint extends Composite {
     private String styleName = "GWTCPrint";
     private GWTCButton printButton = new GWTCButton("Print");
@@ -39,10 +52,6 @@ public class GWTCPrint extends Composite {
         });
         initWidget(printButton);
     }
-    public static native void doPrint()
-    /*-{
-     window.print();
-     }-*/;
     public void addStyleName(String s) {
         printButton.addStyleName(s);
     }
@@ -51,7 +60,7 @@ public class GWTCPrint extends Composite {
     }
     public void print() {
         printButton.setVisible(false);
-        doPrint();
+        printWindow();
         Timer t = new Timer() {
             public void run() {
                 printButton.setVisible(true);
@@ -59,4 +68,9 @@ public class GWTCPrint extends Composite {
         };
         t.schedule(5 * 1000);
     }
+    
+    public static native void printWindow()
+    /*-{
+     window.print();
+     }-*/;
 }
