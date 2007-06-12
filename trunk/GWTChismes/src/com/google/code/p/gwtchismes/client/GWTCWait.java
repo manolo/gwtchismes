@@ -26,16 +26,26 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
- * This widget is an alert dialog
+ * <p>
+ * This widget is a dialog designed to appear when the application is working.
+ * </p>
+ *<p>
+ * It has two components:
+ * <ul>
+ * <li>The background pannel designed to be possitioned over all widgets, so the user can not click any element.</li>
+ * <li>The dialog box which has got a message and an image (annimated .gif)</li>
+ * </ul>
+ * </p>
+ *   
  * 
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
- * <li>.GWTCWait { }</li>
- * <li>.gwtc-wait-bg{ }</li>
- * <li>.GWTCWait.gwtc-wait-table{ }</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-msg{ }</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img{ }</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img.gwtc-wait-image{ }</li>
+ * <li>.gwtc-wait-bg{ class for the pannel that is over the page }</li>
+ * <li>.GWTCWait    { class for the dialog box}</li>
+ * <li>.GWTCWait.gwtc-wait-table{ container }</li>
+ * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-msg{ message cell}</li>
+ * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img{ image cell}</li>
+ * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img.gwtc-wait-image{ image }</li>
  * </ul>
  * 
  */
@@ -86,22 +96,43 @@ public class GWTCWait extends Composite {
         initWidget(new DockPanel());
     }
 
+    /**
+     * Adds a secondary or dependent style name to this object
+     * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
+     */
     public void addStyleName(String s) {
         waitDlg.addStyleName(s);
     }
 
+    /**
+     *  Set the caption text
+     * @param s the internationalizated string
+     */
     public void setCaption(String s) {
         waitDlg.setText(s);
     }
 
+    /**
+     *  Set the message text
+     * @param s the internationalizated string
+     */
     public void setMessage(String s) {
         txt.setText(s);
     }
 
+    /**
+     *  Set the url of the image
+     * @param i url where image resides
+     */
     public void setImg(String i) {
         img.setUrl(i);
     }
 
+    /**
+     *  Show the wait dialog for timeout seconds
+     *  
+     * @param timeout seconds to wait before hide the dialog (timeout=0 wait for ever)
+     */
     public void show(int timeout) {
         if (timeout > 0) {
             Timer t = new Timer() {
@@ -119,6 +150,9 @@ public class GWTCWait extends Composite {
         // waitDlg.getWidget().setVisible(true);
     }
 
+    /**
+     * Hide the wait dialog
+     */
     public void hide() {
         waitDlg.hide();
         contentTable.setVisible(false);
