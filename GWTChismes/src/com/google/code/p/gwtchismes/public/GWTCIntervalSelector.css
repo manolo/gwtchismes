@@ -29,7 +29,8 @@ table.GWTCIntervalSelector {
 }
 .GWTCIntervalSelector .checkinButton:hover,
 .GWTCIntervalSelector .checkoutButton:hover {
-	background : #dfdfdf url(gwtc-button-bg-over.jpg) repeat-x bottom;;
+	/*background : #dfdfdf url(gwtc-button-bg-over.jpg) repeat-x bottom;;*/
+	background: #dfdfdf url("gwtc-calendar.gif") no-repeat left center;
 	color : #f60; 
 }
 
