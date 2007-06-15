@@ -40,38 +40,49 @@ public class GWTCIntervalSelector extends Composite {
     private final HorizontalPanel outer = new HorizontalPanel();
 
     private final Label checkinLabel = new Label("Checkin");
+
     private final Label checkinWeekLabel = new Label();
+
     private final Label checkinDateLabel = new Label();
+
     private final Button checkinButton = new Button("...");
+
     private final Hyperlink checkinA = new Hyperlink();
+
     private final GWTCDatePicker checkinCalendar = new GWTCDatePicker(true);
 
     private final Label checkoutLabel = new Label("Checkout");
+
     private final Label checkoutWeekLabel = new Label();
+
     private final Label checkoutDateLabel = new Label();
+
     private final Button checkoutButton = new Button("...");
+
     private final GWTCDatePicker checkoutCalendar = new GWTCDatePicker(true);
 
     private final Label durationLabel = new Label("Duration");
+
     private final Label nightsLabel = new Label("Nights");
+
     private final Label intervalValue = new Label();
+
     private final HorizontalPanel nightsListBoxContainer = new HorizontalPanel();
+
     private ListBox nightsListBox = new ListBox();
+
     int layoutType = 1;
 
     private String longDateFormat = "dd MMMM, yyyy";
+
     private String weekDayFormat = "(ddd)";
 
-    public GWTCIntervalSelector(int type) {
+    public GWTCIntervalSelector(int layoutType) {
         outer.setStyleName(styleName);
         initWidget(outer);
         this.initListeners();
         setMaxdays(maxdays);
-        layout(type);
-    }
-
-    public void layout(int l) {
-        layoutType = l;
+        this.layoutType = layoutType;
         if (layoutType == 2)
             layoutW(2);
         if (layoutType == 3)
@@ -186,6 +197,7 @@ public class GWTCIntervalSelector extends Composite {
             grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
         }
     }
+
     // Methods
     public void updateInputsFromNights() {
         checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
@@ -233,10 +245,12 @@ public class GWTCIntervalSelector extends Composite {
         checkinCalendar.setSelectedDate(d);
         updateInputsFromCheckin();
     }
+
     public void setNights(int n) {
         nightsListBox.setItemSelected(n, true);
         updateInputsFromNights();
     }
+
     public void setMaxdays(int d) {
         this.maxdays = d;
         nightsListBox = new ListBox();
@@ -308,6 +322,7 @@ public class GWTCIntervalSelector extends Composite {
         checkoutButton.addClickListener(clickListener);
         checkoutDateLabel.addClickListener(clickListener);
     }
+
     // Click Listener
     ClickListener clickListener = new ClickListener() {
         public void onClick(Widget sender) {
@@ -325,12 +340,46 @@ public class GWTCIntervalSelector extends Composite {
 
     // Internationalization
     private Map strs = new HashMap();
+
     private String getMsg(String m) {
         String ret = null;
         if (strs != null)
             ret = (String) strs.get(m);
         return (ret != null ? ret : m);
     }
+
+    /**
+     * <p>
+     * Method for internationalize all elements
+     * </p>
+     * <p>
+     * You need to provide a Map with thesse keys
+     * </p>
+     * <ul >
+     * <li>forma.date</li>
+     * <li>forma.day</li>
+     * <li>key.checkin</li>
+     * <li>key.checkout</li>
+     * <li>key.nights</li>
+     * <li>key.interval</li>
+     * <li>key.change</li>
+     * <li>key.checkin.button</li>
+     * <li>key.checkout.button</li>
+     * <li>key.calendar.checkin.title</li>
+     * <li>key.calendar.checkout.title</li>
+     * <li>key.calendar.help</li>
+     * </ul>
+     * 
+     * @param keys
+     *            Map (key, string)
+     * 
+     * @param wdays
+     *            array with the names of the days [Sunday ... Saturday]
+     * @param months
+     *            array with the names of the months [January ... December]
+     * @param wStart
+     *            first day of the week [1...7]
+     */
     public void setLocale(Map keys, String[] wdays, String[] months, int wStart) {
         checkinCalendar.setLocale(wdays, months, wStart);
         checkoutCalendar.setLocale(wdays, months, wStart);
