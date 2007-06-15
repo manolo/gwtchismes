@@ -1,76 +1,65 @@
 <project name="GWT Project" default="jar">
-    <property name="project" value="gwtchismes"/>
-    <property name="version" value="0.1"/>
+	<property name="project" value="gwtchismes" />
+	<property name="version" value="0.1" />
 
-    <property environment="env" />
-    <property name="gwt.dir" value="${env.GWT_HOME}" />
-    <property name="gwt.user.jar" value="${gwt.dir}/gwt-user.jar" />
-    <property name="gwt.dev.jar" value="${gwt.dir}/gwt-dev-linux.jar" />
-    <property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
+	<property environment="env" />
+	<property name="gwt.dir" value="${env.GWT_HOME}" />
+	<property name="gwt.user.jar" value="${gwt.dir}/gwt-user.jar" />
+	<property name="gwt.dev.jar" value="${gwt.dir}/gwt-dev-linux.jar" />
+	<property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
 
-    <property name="src.dir" value="src" />
-    <property name="tmp.dir" value="tmp" />
-    <property name="doc.dir" value="docs" />
-    <property name="package.dir" value="com/google/code/p/gwtchismes"/>
-    <property name="sample.dir" value="com/google/code/p/gwtcsample"/>
-    <property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample"/>
+	<property name="src.dir" value="src" />
+	<property name="tmp.dir" value="tmp" />
+	<property name="doc.dir" value="docs" />
+	<property name="package.dir" value="com/google/code/p/gwtchismes" />
+	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
+	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
 
-    <path id="tmp.classpath">
-        <pathelement location="${gwt.user.jar}"/>
-    </path>
+	<path id="tmp.classpath">
+		<pathelement location="${gwt.user.jar}" />
+	</path>
 
-    <target name="jar" >
-        <mkdir dir="${tmp.dir}" />
-	<javac srcdir="${src.dir}"  
-               excludes="${sample.dir}/**"
-               destdir="${tmp.dir}"
-               deprecation="off" 
-               debug="on" 
-               fork="true">
-             <classpath refid="tmp.classpath" />
-        </javac>
-        <copy todir="${tmp.dir}">
-	     <fileset dir="${src.dir}" excludes="${sample.dir}/**"/>
-        </copy>
-	<jar jarfile="${project}-${version}.jar" basedir="${tmp.dir}" />
-	<delete dir="${tmp.dir}"/>
-    </target>
+	<target name="jar">
+		<mkdir dir="${tmp.dir}" />
+		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${tmp.dir}" deprecation="off" debug="on" fork="true">
+			<classpath refid="tmp.classpath" />
+		</javac>
+		<copy todir="${tmp.dir}">
+			<fileset dir="${src.dir}" excludes="${sample.dir}/**" />
+		</copy>
+		<jar jarfile="${project}-${version}.jar" basedir="${tmp.dir}" />
+		<delete dir="${tmp.dir}" />
+	</target>
 
-    <target name="javadoc" >
-        <javadoc
-		packagenames="${package.dir}"
-		destdir="${doc.dir}"
-                author="true"
-                version="true"
-                use="true"
-                windowtitle="GWT Chismes">
-            <classpath refid="tmp.classpath" />
-	    <packageset dir="${src.dir}" defaultexcludes="yes"/>
-        </javadoc>
-    </target>
+	<target name="javadoc">
+		<javadoc packagenames="${package.dir}" destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="GWT Chismes">
+			<classpath refid="tmp.classpath" />
+			<packageset dir="${src.dir}" defaultexcludes="yes" />
+		</javadoc>
+	</target>
 
-    <target name="clean">
-	<delete dir="${tmp.dir}"/>
-        <delete dir="${tmp.dir}"/>
-        <delete dir="${doc.dir}"/>
-    </target>
+	<target name="clean">
+		<delete dir="${tmp.dir}" />
+		<delete dir="${tmp.dir}" />
+		<delete dir="${doc.dir}" />
+	</target>
 
-    <target name="all" depends="clean, jar, javadoc"/>
-    <target name="sample" >
-	     <echo message="Compiling sample from java to javascript"/>
-                <java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true">
-                        <classpath>
+	<target name="all" depends="clean, jar, javadoc" />
+	<target name="sample">
+		<echo message="Compiling sample from java to javascript" />
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true">
+			<classpath>
 				<pathelement location="${src.dir}" />
-                                <pathelement location="${gwt.user.jar}" />
-                                <pathelement location="${gwt.servlet.jar}" />
-                                <pathelement location="${gwt.dev.jar}" />
-                        </classpath>
-                        <arg value="-style"/>
-                        <arg value="OBFUSCATED"/>
-                        <arg value="-out" />
-                        <arg file="build" />
+				<pathelement location="${gwt.user.jar}" />
+				<pathelement location="${gwt.servlet.jar}" />
+				<pathelement location="${gwt.dev.jar}" />
+			</classpath>
+			<arg value="-style" />
+			<arg value="OBFUSCATED" />
+			<arg value="-out" />
+			<arg file="build" />
 			<arg value="${sample.module}" />
 		</java>
-</target>
+	</target>
 </project>
 
