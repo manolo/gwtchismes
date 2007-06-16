@@ -148,9 +148,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private HorizontalPanel nextButtons = new HorizontalPanel();
 
     /**
-     *  Constructor, you need specify the behaviour: independient dialog box or not
-     *  
-     * @param dialog true if you wan an independient and drageable dialog box when the picker is showed
+     * Constructor, you need specify the behaviour: independient dialog box or
+     * not
+     * 
+     * @param dialog
+     *            true if you wan an independient and drageable dialog box when
+     *            the picker is showed
      */
     public GWTCDatePicker(boolean dialog) {
         if (dialog) {
@@ -255,7 +258,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         long minimalNum = 1 + GWTCDatePicker.compareDate(firstDate, minimalDate);
         long maximalNum = 1 + GWTCDatePicker.compareDate(firstDate, maximalDate);
         long selectedNum = 1 + GWTCDatePicker.compareDate(firstDate, selectedDate);
-        long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate, cursorDate);
+        // long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate,
+        // cursorDate);
         int firstWDay = firstDate.getDay();
         int numOfDays = GWTCDatePicker.daysInMonth(cursorDate);
         int j = 0 + weekStart;
@@ -389,10 +393,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * This method returns true or false whether a month has selectable days in the allowed interval
+     * This method returns true or false whether a month has selectable days in
+     * the allowed interval
      * 
-     * @param date Date of the selected day
-     * @param months increment of months
+     * @param date
+     *            Date of the selected day
+     * @param months
+     *            increment of months
      * @return true if the month has selectable days
      */
     public boolean isVisibleMonth(Date date, int months) {
@@ -675,6 +682,21 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     private static Date setHourToZero(Date d) {
         return new Date(Date.UTC(d.getYear(), d.getMonth(), d.getDate(), 0, 0, 0));
+    }
+
+    /**
+     * Create a new Date
+     * 
+     * @param y
+     *            year (ie 1980)
+     * @param m
+     *            month (1...12)
+     * @param d
+     *            day of month (1...31)
+     * @return new Date
+     */
+    public static Date newDateFromYMD(int y, int m, int d) {
+        return new Date(Date.UTC(y - 1900, m - 1, d, 0, 0, 0));
     }
 
     /**
