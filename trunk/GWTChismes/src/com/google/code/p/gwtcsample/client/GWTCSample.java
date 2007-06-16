@@ -2,11 +2,17 @@ package com.google.code.p.gwtcsample.client;
 
 import java.util.HashMap;
 
-import com.google.code.p.gwtchismes.client.*;
+import com.google.code.p.gwtchismes.client.GWTCAlert;
+import com.google.code.p.gwtchismes.client.GWTCButton;
+import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
+import com.google.code.p.gwtchismes.client.GWTCPrint;
+import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
+
 
 public class GWTCSample implements EntryPoint {
     private String[] days_en = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
