@@ -366,6 +366,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         else
             helpBtn.setEnabled(true);
     }
+    
+    /**
+     * Disable the close Button
+     */
+    public void disableCloseButton(){
+        this.closeBtn.setVisible(false);
+    }
 
     /**
      * Internationalize the calendar.
@@ -724,7 +731,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         String month_3 = month.length() >= 3 ? month.substring(0, 3) : month;
         String day_3 = day.length() >= 3 ? day.substring(0, 3) : day;
         String day_4 = day.length() >= 4 ? day.substring(0, 4) : day;
-        ret = ret.replaceAll("dddd", day_4);
+        ret = ret.replaceAll("ddddd", day);
+        ret = ret.replaceAll("dddd", day);
         ret = ret.replaceAll("ddd", day_3);
         ret = ret.replaceAll("dd", leftPadding(String.valueOf(date.getDate()), "0", 2));
         ret = ret.replaceAll("yyyy", String.valueOf(1900 + date.getYear()));

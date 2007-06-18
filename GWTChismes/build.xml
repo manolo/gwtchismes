@@ -9,41 +9,48 @@
 	<property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
 
 	<property name="src.dir" value="src" />
-	<property name="tmp.dir" value="tmp" />
+	<property name="class.dir" value="class" />
 	<property name="doc.dir" value="doc" />
+	<property name="www.dir" value="www" />
+
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
 	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
 
-	<path id="gwt.classpath">
+	<path id="compile.lib.classpath">
 		<pathelement location="${gwt.user.jar}" />
+	</path>
+	<path id="compile.sample.classpath">
+		<pathelement location="${src.dir}" />
+		<pathelement location="${gwt.user.jar}" />
+		<pathelement location="${gwt.servlet.jar}" />
+		<pathelement location="${gwt.dev.jar}" />
 	</path>
 
 	<target name="jar">
 		<delete file="${project}-${version}.zip" />
-		<mkdir dir="${tmp.dir}" />
-		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${tmp.dir}" deprecation="off" debug="on" fork="true">
-			<classpath refid="gwt.classpath" />
+		<mkdir dir="${class.dir}" />
+		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${class.dir}" deprecation="off" debug="on" fork="true">
+			<classpath refid="compile.lib.classpath" />
 		</javac>
-		<copy todir="${tmp.dir}">
+		<copy todir="${class.dir}">
 			<fileset dir="${src.dir}" excludes="${sample.dir}/**" />
 		</copy>
-		<copy todir="${tmp.dir}" file="LICENSE" />
-		<jar jarfile="${project}-${version}.jar" basedir="${tmp.dir}" />
-		<delete dir="${tmp.dir}" />
+		<copy todir="${class.dir}" file="LICENSE" />
+		<jar jarfile="${project}-${version}.jar" basedir="${class.dir}" />
+		<delete dir="${class.dir}" />
 	</target>
 
 	<target name="javadoc">
 		<delete dir="${doc.dir}"/>
 		<javadoc packagenames="${package.dir}" destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="GWT Chismes">
-			<classpath refid="gwt.classpath" />
+			<classpath refid="compile.lib.classpath" />
 			<packageset dir="${src.dir}" defaultexcludes="yes" />
 		</javadoc>
 	</target>
 
 	<target name="clean">
-		<delete dir="${tmp.dir}" />
-		<delete dir="${tmp.dir}" />
+		<delete dir="${class.dir}" />
 		<delete dir="${doc.dir}" />
 		<delete dir="${project}-${version}" />
 	</target>
@@ -52,15 +59,7 @@
 
 	<target name="sample">
 		<echo message="Compiling sample from java to javascript" />
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true">
-			<classpath>
-				<pathelement location="${src.dir}" />
-				<pathelement location="${gwt.user.jar}" />
-				<pathelement location="${gwt.servlet.jar}" />
-				<pathelement location="${gwt.dev.jar}" />
-			</classpath>
-			<arg value="-style" />
-			<arg value="OBFUSCATED" />
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
 			<arg value="-out" />
 			<arg file="www" />
 			<arg value="${sample.module}" />
