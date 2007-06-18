@@ -1,7 +1,7 @@
 /*
  Copyright (c) 2007 Manuel Carrasco (manuel.carrasco@alcala.org)  
  
- Some part of the code is taken from Alexei Sokolov (Simple CalendarWidget) http://gwt.components.googlepages.com/
+ Some part of the code has been taken from Alexei Sokolov (SimpleCalendarWidget)
 
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
