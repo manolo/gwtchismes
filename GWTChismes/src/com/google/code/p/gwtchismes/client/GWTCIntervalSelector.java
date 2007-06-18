@@ -42,7 +42,6 @@ import com.google.gwt.user.client.ui.Widget;
      
      <p>  .GWTCIntervalSelector { GWTCIntervalSelector main container} </p>
              grid.addStyleName("GWTCIntervalLayout" + layout);
-
      
      <p> css styles for layouttype=1
         <ul>
