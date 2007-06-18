@@ -10,30 +10,33 @@
 
 	<property name="src.dir" value="src" />
 	<property name="tmp.dir" value="tmp" />
-	<property name="doc.dir" value="docs" />
+	<property name="doc.dir" value="doc" />
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
 	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
 
-	<path id="tmp.classpath">
+	<path id="gwt.classpath">
 		<pathelement location="${gwt.user.jar}" />
 	</path>
 
 	<target name="jar">
+		<delete file="${project}-${version}.zip" />
 		<mkdir dir="${tmp.dir}" />
 		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${tmp.dir}" deprecation="off" debug="on" fork="true">
-			<classpath refid="tmp.classpath" />
+			<classpath refid="gwt.classpath" />
 		</javac>
 		<copy todir="${tmp.dir}">
 			<fileset dir="${src.dir}" excludes="${sample.dir}/**" />
 		</copy>
+		<copy todir="${tmp.dir}" file="LICENSE" />
 		<jar jarfile="${project}-${version}.jar" basedir="${tmp.dir}" />
 		<delete dir="${tmp.dir}" />
 	</target>
 
 	<target name="javadoc">
+		<delete dir="${doc.dir}"/>
 		<javadoc packagenames="${package.dir}" destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="GWT Chismes">
-			<classpath refid="tmp.classpath" />
+			<classpath refid="gwt.classpath" />
 			<packageset dir="${src.dir}" defaultexcludes="yes" />
 		</javadoc>
 	</target>
@@ -42,6 +45,7 @@
 		<delete dir="${tmp.dir}" />
 		<delete dir="${tmp.dir}" />
 		<delete dir="${doc.dir}" />
+		<delete dir="${project}-${version}" />
 	</target>
 
 	<target name="all" depends="clean, jar, javadoc" />
@@ -62,5 +66,30 @@
 			<arg value="${sample.module}" />
 		</java>
 	</target>
-</project>
 
+	<target name="zip" depends=" jar, javadoc, sample">
+		<delete dir="${project}-${version}" />
+		<delete file="${project}-${version}.zip" />
+		<mkdir dir="${project}-${version}" />
+		<echo message="aaa" />
+		<copy todir="${project}-${version}/${src.dir}">
+			<fileset dir="${src.dir}" />
+		</copy>
+		<copy todir="${project}-${version}/${doc.dir}">
+			<fileset dir="${doc.dir}" />
+		</copy>
+		<copy todir="${project}-${version}/www">
+			<fileset dir="www" />
+		</copy>
+		<copy todir="${project}-${version}/" file="LICENSE" />
+		<copy todir="${project}-${version}/" file="build.xml" />
+		<copy todir="${project}-${version}/" file=".classpath" />
+		<copy todir="${project}-${version}/" file=".project" />
+		<exec dir="." executable="zip">
+			<arg line="-r ${project}-${version}.zip ${project}-${version}" />
+		</exec>
+		<delete dir="${project}-${version}" />
+	</target>
+	
+	<target name="distribution" depends="clean, zip, clean"/>
+</project>

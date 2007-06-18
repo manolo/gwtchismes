@@ -22,6 +22,8 @@ import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * @author Manuel Carrasco
+ * <h3>Class description</h3>
  * <p>
  * This class is a wrapper that adds SourcesMouseEvents 
  * implementation for the GWTButton Widget.

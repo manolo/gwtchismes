@@ -21,6 +21,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * @author Manuel Carrasco
+ * <h3>Class description</h3>
  * <p>
  * This widget is a button (com.google.code.p.gwtchismes.client.GWTCButton) to print the current page.
  * When the user click the button the browser opens the print dialog 

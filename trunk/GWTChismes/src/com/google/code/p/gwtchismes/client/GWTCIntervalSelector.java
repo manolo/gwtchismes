@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 /**
  * @author Manuel Carrasco
+ * <h3>Class description</h3>
         <p>
          A widget to select an interval betwen two dates. 
          </p>

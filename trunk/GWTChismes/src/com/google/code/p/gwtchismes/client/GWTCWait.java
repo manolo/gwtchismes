@@ -26,6 +26,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
+ * @author Manuel Carrasco 
+ * <h3>Class description</h3>
  * <p>
  * This widget is a dialog designed to appear when the application is working.
  * </p>
