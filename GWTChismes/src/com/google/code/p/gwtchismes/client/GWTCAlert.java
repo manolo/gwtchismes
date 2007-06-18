@@ -24,16 +24,19 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * This widget is a modal dialog for displaying alerts.
- * It is based in a {@link com.google.gwt.user.client.ui.DialogBox} as container
- *  
+ * @author Manuel Carrasco
+ *         <h3>Class description</h3>
+ * This widget is a modal dialog for displaying alerts. It is based in a
+ * {@link com.google.gwt.user.client.ui.DialogBox} as container
+ * 
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
  * <li>.GWTCAlert { DialogBox container}</li>
  * <li>.GWTCAlert.gwtc-alert-table{ table into the container }</li>
  * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-msg{ Message cell }</li>
  * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn{ Button cell }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{ Button }</li>
+ * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{
+ * Button }</li>
  * </ul>
  * 
  */
@@ -80,6 +83,7 @@ public class GWTCAlert extends Composite {
 
     /**
      * Adds a secondary or dependent style name to this object
+     * 
      * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
      */
     public void addStyleName(String s) {
@@ -87,8 +91,10 @@ public class GWTCAlert extends Composite {
     }
 
     /**
-     *  Set the text for OK button
-     * @param ok the internationalizated string
+     * Set the text for OK button
+     * 
+     * @param ok
+     *            the internationalizated string
      */
     public void setLocale(String ok) {
         okButton.setText(ok);
@@ -96,7 +102,9 @@ public class GWTCAlert extends Composite {
 
     /**
      * Set the message text
-     * @param s the message to display
+     * 
+     * @param s
+     *            the message to display
      */
     public void setText(String s) {
         txt.setText(s);
@@ -104,7 +112,9 @@ public class GWTCAlert extends Composite {
 
     /**
      * Set the message text and show the dialog
-     * @param s the message to display
+     * 
+     * @param s
+     *            the message to display
      */
     public void alert(String s) {
         setText(s);

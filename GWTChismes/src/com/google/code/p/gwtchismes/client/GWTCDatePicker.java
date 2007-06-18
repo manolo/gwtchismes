@@ -39,6 +39,7 @@ import com.google.gwt.i18n.client.constants.DateTimeConstants;
 */
 /**
  * @author Manuel Carrasco
+ *         <h3>Class description</h3>
  *         <p>
  *         A widget to pick a date. It could be implemented as an independent
  *         dialog box or it could be included into another widget.
