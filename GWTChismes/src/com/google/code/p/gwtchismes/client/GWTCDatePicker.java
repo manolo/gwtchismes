@@ -33,7 +33,10 @@ import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.Widget;
-
+/*
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.constants.DateTimeConstants;
+*/
 /**
  * @author Manuel Carrasco
  *         <p>
@@ -45,25 +48,21 @@ import com.google.gwt.user.client.ui.Widget;
  *         (day names, month names, help, and weekStart)
  *         </p>
  *         <p>
- *         This class has static methods useful for Date manipulation
+ *         This class has public static methods useful for Date manipulation
  *         </p>
  *         <h3>CSS Style Rules</h3>
  *         <ul class="css">
- *         <li>.GWTCDatePicker { GWTCDatePicket container, it can be
- *         overwritten }</li>
+ *         <li>.GWTCDatePicker { GWTCDatePicket container, it can be overwritten }</li>
  *         <li>.Caption { calendar text }</li>
  *         <li>.Cal_buttons { navigation buttons }</li>
  *         <li>.Cal_Header { text with the current month and year }</li>
  *         <li>.Cal_WeekHeader { week headers row}</li>
  *         <li>.Cal_CellDayNames { cells with day names} </li>
  *         <li>.Cal_CellEmpty { cell without days }</li>
- *         <li>.Cal_InvalidDays { cell with days which can not be selected
- *         becouse are out of the allowed interval }</li>
+ *         <li>.Cal_InvalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
  *         <li>.Cal_Selected { selected day }</li>
- *         <li>.Cal_AfterSelected { days after the selected day and before the
- *         maximal day } </li>
- *         <li>.Cal_BeforeSelected { days before the selected day and after the
- *         minimal day}</li>
+ *         <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
+ *         <li>.Cal_BeforeSelected { days before the selected day and after the minimal day}</li>
  *         <li>.Cal_Today { today } </li>
  *         </ul>
  */
@@ -85,7 +84,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     private static String StyleCCellDays = "Cal_CellDays";
 
-    private static String StyleCInvalidDay = "Cal_InvalidDays";
+    private static String StyleCInvalidDay = "Cal_InvalidDay";
 
     private static String StyleCSelected = "Cal_Selected";
 
@@ -273,7 +272,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
                     grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellEmpty);
                     grid.setHTML(i, k, "&nbsp;");
                 } else {
-                    HTML html = new CellHTML("<span>" + String.valueOf(displayNum) + "</span>", displayNum);
+                    HTML html = new CellHTML(displayNum);
                     grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellDays);
                     html.setStyleName(GWTCDatePicker.StyleCCellDays);
                     if (displayNum < minimalNum || displayNum > maximalNum) {
@@ -300,9 +299,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
                     // grid.getCellFormatter().addStyleName(i, k, "Cal_Cursor");
                     // }
                     grid.setWidget(i, k, html);
-                    if (isIe6) {
-                        html.addMouseListener(GWTCButton.mouseOverListener);
-                    }
                 }
             }
         }
@@ -408,6 +404,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         firstD.setDate(1);
         Date lastD = new Date(d.getTime());
         lastD.setDate(GWTCDatePicker.daysInMonth(d));
+        
         if (GWTCDatePicker.compareDate(minimalDate, lastD) < 0) {
             return false;
         }
@@ -486,18 +483,17 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * Get a string with the selected date in the desired format
      * 
      * @param format
-     *            representation of the desired format [dddd ddd dd yyyy yy MMMM
-     *            MMM MM]
+     *            representation of the desired format [dddd ddd dd yyyy yy MMMM  MMM MM]
      * @return String
      */
     public String getSelectedDateStr(String format) {
         return formatDate(format, selectedDate, months, days);
     }
 
-    // /////////////////////////////////////////////////////////////////////////////
-    // Methods for the ClickListener interface
+    /*
+     * (non-Javadoc)
+     */
     private ChangeListenerCollection changeListeners;
-
     /*
      * (non-Javadoc)
      * 
@@ -557,19 +553,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             changeListeners.remove(listener);
     }
 
-    // /////////////////////////////////////////////////////////////////////////////
-    // Utility static methods for manipulation of dates
-    static final int YEARS = 1;
-
-    static final int MONTHS = 2;
-
-    static final int DAYS = 3;
-
-    static final int HOURS = 4;
-
-    static final int MINUTES = 5;
-
-    static final int SECONDS = 6;
+    private static final int YEARS = 1;
+    private static final int MONTHS = 2;
+    private static final int DAYS = 3;
+    private static final int HOURS = 4;
+    private static final int MINUTES = 5;
+    private static final int SECONDS = 6;
 
     /**
      * Add days to a reference Date
@@ -650,7 +639,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Increase/decrease a date in milliseconds format
+     * Increase/decrease a date based in a type parameter which specifies the type of operation
+     * 
+     * This method is coded enterely in native javascript because it has native methods to increase dates  
      * 
      * @param time
      *            in milliseconds since 1-1-1970
@@ -663,7 +654,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static native long add(long time, int value, int type)
     /*-{
      var d = new Date(time);
-     if (type == 1) d.setYear(d.getYear() + 1900 + value);
+     if (type == 1) {
+       // this is a hack because getYear returns diferent results with diferent browsers
+        var y = d.getYear();
+        y = y < 1000 ? y + 1900 : y; 
+        d.setYear( value + y);
+     }   
      if (type == 2) d.setMonth(d.getMonth() + value);
      if (type == 3) d.setDate(d.getDate() + value);
      if (type == 4) d.setHour(d.getHour() + value);
@@ -680,7 +676,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      * @return Modified date
      */
-    private static Date setHourToZero(Date d) {
+    public static Date setHourToZero(Date d) {
         return new Date(Date.UTC(d.getYear(), d.getMonth(), d.getDate(), 0, 0, 0));
     }
 
@@ -700,7 +696,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Basic method to format dates TODO: use new classes in GWT 1.4
+     *  Basic method to format dates 
+     *  
+     *  TODO: use the new class DateTimeFormat available in GWT 1.4.  But still there are many people using old versions 
      * 
      * @param format
      *            (supported dddd ddd dd yyyy yy MMMM MMM MM)
@@ -712,6 +710,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return formated string
      */
     static public String formatDate(String format, Date date, String[] months, String days[]) {
+        /*
+        DateTimeFormat dateFormat  = DateTimeFormat.getFormat(format); 
+        Window.alert ("" + date + " " + dateFormat.format(date));
+        */
+        
         if (date == null || format == null || months == null || days == null)
             return "NULL";
         String ret = format;
@@ -747,13 +750,24 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static class CellHTML extends HTML {
         private int day;
 
-        public CellHTML(String text, int day) {
-            super(text);
+        public CellHTML(int day) {
+            super (String.valueOf(day));
             this.day = day;
+        }
+        
+        public void addClickListener(ClickListener listener) {
+            // If the cell has a click-listernet, we add a link, so Selenium is able to use it
+            setHTML("<a href=\"#\">" + String.valueOf(day) + "</a>");
+            super.addClickListener(listener);
+            //  IE6 does not support div:hover style, this listener adds .gwtc-Hover class when the mouse is over
+            if (GWTCButton.isIE6()) {
+                this.addMouseListener(GWTCButton.mouseOverListener);
+            }
         }
 
         public int getDay() {
             return day;
         }
+        
     }
 }
