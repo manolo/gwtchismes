@@ -58,6 +58,10 @@
   border : 1px solid #fff;
 }
 /* Calendar Grid Day Cells */
+.GWTCDatePicker A:link      {color: black; text-decoration: none}
+.GWTCDatePicker A:visited {color: black; text-decoration: none}
+.GWTCDatePicker A:active  {color: black; text-decoration: none; cursor: wait}
+.GWTCDatePicker A:hover  {color: black; text-decoration: none}
 .GWTCDatePicker .Cal_Grid td.Cal_CellDays {
   border: none;
 }
@@ -87,15 +91,13 @@
   background-color: white;
 } 
 .GWTCDatePicker .Cal_Grid div.Cal_InvalidDay, 
-.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay:hover,
-.GWTCDatePicker .Cal_Grid    .Cal_InvalidDay div.gwtc-Hover {	
+.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay:hover {
   cursor: default;
   text-decoration: line-through;
   color : #999;
   background : #fff;
   font-weight : normal;
 } 
-.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay:hover {}
 
 .GWTCDatePicker .Cal_Grid div.Cal_Today {
   cursor: pointer;

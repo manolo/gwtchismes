@@ -45,6 +45,7 @@
 	</target>
 
 	<target name="all" depends="clean, jar, javadoc" />
+
 	<target name="sample">
 		<echo message="Compiling sample from java to javascript" />
 		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true">
@@ -57,7 +58,7 @@
 			<arg value="-style" />
 			<arg value="OBFUSCATED" />
 			<arg value="-out" />
-			<arg file="build" />
+			<arg file="www" />
 			<arg value="${sample.module}" />
 		</java>
 	</target>
