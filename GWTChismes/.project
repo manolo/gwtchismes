@@ -4,7 +4,6 @@
 	<comment></comment>
 	<projects>
 	</projects>
-
 	<buildSpec>
 		<buildCommand>
 			<name>in.cypal.studio.gwt.core.gwtBuilder</name>
@@ -42,5 +41,5 @@
 			<locationURI>GWT_HOME/gwt-servlet.jar</locationURI>
 		</link>
 	</linkedResources>
-	
 </projectDescription>
+
