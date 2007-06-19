@@ -119,7 +119,7 @@ public class GWTCSample implements EntryPoint {
         disabledButton.setEnabled(false);
         
         // Create a new GWTCPrint Button
-        GWTCPrint printButton = new GWTCPrint("This GWTCPrint allows you to print this page");
+        GWTCPrint printButton = new GWTCPrint("This GWTCPrint allows you to send this page to the printer");
         
         // Create a layout1 interval-selector and set the locale in english 
         GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
@@ -160,39 +160,39 @@ public class GWTCSample implements EntryPoint {
         
         // Distribute the widgets into a grid
         grid.setStyleName("GWTCSample");
-        
-        grid.setText(0, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
-        grid.getFlexCellFormatter().setColSpan(0,0,2);
-        grid.getCellFormatter().addStyleName(0, 0, "InfoCell");
-        
-        grid.setWidget(1, 0, waitButton);
-        grid.getFlexCellFormatter().setColSpan(1,0,2);
-        grid.setWidget(2, 0, alertButton);
-        grid.getFlexCellFormatter().setColSpan(2,0,2);
-        grid.setWidget(3, 0, disabledButton);
-        grid.getFlexCellFormatter().setColSpan(3,0,2);
-        grid.setWidget(4, 0, printButton);
-        grid.getFlexCellFormatter().setColSpan(4,0,2);
-        
-        grid.setText(5, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
-        grid.getFlexCellFormatter().setColSpan(5,0,2);
-        grid.getCellFormatter().addStyleName(5, 0, "InfoCell");
-        
-        grid.setWidget(6, 0, picker_en);
-        grid.setWidget(6, 1, picker_es);
-        
-        grid.setText(7, 0, "These are diferent layouts for the GWTCIntervalSelector widget");
-        grid.getFlexCellFormatter().setColSpan(7,0,2);
-        grid.getCellFormatter().addStyleName(7, 0, "InfoCell");
-        
-        
-        grid.setWidget(8, 0, interval1);
-        grid.getFlexCellFormatter().setColSpan(8,0,2);
-        grid.setWidget(9, 0, interval2);
-        grid.getFlexCellFormatter().setColSpan(9,0,2);
-        grid.setWidget(10, 0, interval3);
-        grid.getFlexCellFormatter().setColSpan(10,0,2);
 
+        int row = 0;
+
+        grid.setText(++row, 0, "These are diferent layouts for the GWTCIntervalSelector widget");
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.getCellFormatter().addStyleName(row, 0, "InfoCell");
+        
+        grid.setWidget(++row, 0, interval1);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, interval2);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, interval3);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        
+        grid.setText(++row, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.getCellFormatter().addStyleName(row++, 0, "InfoCell");
+        
+        grid.setWidget(++row, 0, waitButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, alertButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, disabledButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, printButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        
+        grid.setText(++row, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.getCellFormatter().addStyleName(row, 0, "InfoCell");
+        
+        grid.setWidget(++row, 0, picker_en);
+        grid.setWidget(row, 1, picker_es);
 
         // Put the grid into the rootpanel
         RootPanel.get().add(grid);
