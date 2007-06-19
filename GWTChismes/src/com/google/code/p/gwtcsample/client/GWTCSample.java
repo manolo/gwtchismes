@@ -1,15 +1,18 @@
 /*
- Copyright (c) 2007 Manuel Carrasco (manuel.carrasco@alcala.org)  
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- Lesser General Public License for more details.
+ * Copyright 2007 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.google.code.p.gwtcsample.client;
@@ -32,10 +35,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.Window;
 
 /**
- * @author Manuel Carrasco
+ * @author Manuel Carrasco Moñino
  *         <h3>Class description</h3>
  *         
- * This is an example using GWTChismes library
+ * Examples to teach about how to use the GWTChismes library
  * 
  */
 public class GWTCSample implements EntryPoint {
@@ -44,10 +47,10 @@ public class GWTCSample implements EntryPoint {
     private String[] days_es = new String[] { "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
     private String[] months_es = new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
-    public static HashMap strs_en = new HashMap();
-    public static HashMap strs_es = new HashMap();
+    private HashMap strs_en = new HashMap();
+    private HashMap strs_es = new HashMap();
 
-    private final FlexTable outer = new FlexTable();
+    private final FlexTable grid = new FlexTable();
     
     
     /**
@@ -90,7 +93,7 @@ public class GWTCSample implements EntryPoint {
         wait.hide();
         
         // Create the button that shows the wait dialog when is clicked by the user 
-        GWTCButton waitButton = new GWTCButton("Click here view a wait widget during 5 seconds");
+        GWTCButton waitButton = new GWTCButton("Click here view a GWTCWait during 5 seconds");
         waitButton.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 wait.show(5);
@@ -105,7 +108,7 @@ public class GWTCSample implements EntryPoint {
         // Create the button that shows the alert dialog when is clicked by the user 
         GWTCButton alertButton = new GWTCButton();
         alertButton.addStyleName("SampleButton");
-        alertButton.setText("Click here to show an alert dialog");
+        alertButton.setText("Click here to show GWTCAlert dialog");
         alertButton.addClickListener(new ClickListener() { 
             public void onClick(Widget sender) { 
                 alert.show(); 
@@ -117,7 +120,7 @@ public class GWTCSample implements EntryPoint {
         disabledButton.setEnabled(false);
         
         // Create a new GWTCPrint Button
-        GWTCPrint printButton = new GWTCPrint("Print this page");
+        GWTCPrint printButton = new GWTCPrint("This GWTCPrint allows you to print this page");
         
         // Create a layout1 interval-selector and set the locale in english 
         GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
@@ -131,6 +134,7 @@ public class GWTCSample implements EntryPoint {
         GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
         interval3.setLocale(strs_es, days_es, months_es, 1);
         
+        // Create a date-picker in english without the close button, and with the help button disabled
         final GWTCDatePicker picker_en = new GWTCDatePicker(false);
         picker_en.setLocale(days_en, months_en, 0);
         picker_en.disableCloseButton();
@@ -141,55 +145,57 @@ public class GWTCSample implements EntryPoint {
             }
         });
         
+        // Create a date-picker in spanish
         final GWTCDatePicker picker_es = new GWTCDatePicker(false);
         picker_es.setLocale(days_es, months_es, 1);
         picker_es.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
         picker_es.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
-        picker_es.drawCalendar();
+        picker_es.setHelp((String)strs_es.get("key.calendar.help"));
         picker_es.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 alert.alert(picker_es.getSelectedDateStr("dddd,  dd de MMMM de yyyy"));
             }
         });
+        picker_es.drawCalendar();
 
         
         // Distribute the widgets into a grid
-        outer.setStyleName("GWTCSample");
+        grid.setStyleName("GWTCSample");
         
-        outer.setText(0, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
-        outer.getFlexCellFormatter().setColSpan(0,0,2);
-        outer.getCellFormatter().addStyleName(0, 0, "InfoCell");
+        grid.setText(0, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
+        grid.getFlexCellFormatter().setColSpan(0,0,2);
+        grid.getCellFormatter().addStyleName(0, 0, "InfoCell");
         
-        outer.setWidget(1, 0, waitButton);
-        outer.getFlexCellFormatter().setColSpan(1,0,2);
-        outer.setWidget(2, 0, alertButton);
-        outer.getFlexCellFormatter().setColSpan(2,0,2);
-        outer.setWidget(3, 0, disabledButton);
-        outer.getFlexCellFormatter().setColSpan(3,0,2);
-        outer.setWidget(4, 0, printButton);
-        outer.getFlexCellFormatter().setColSpan(4,0,2);
+        grid.setWidget(1, 0, waitButton);
+        grid.getFlexCellFormatter().setColSpan(1,0,2);
+        grid.setWidget(2, 0, alertButton);
+        grid.getFlexCellFormatter().setColSpan(2,0,2);
+        grid.setWidget(3, 0, disabledButton);
+        grid.getFlexCellFormatter().setColSpan(3,0,2);
+        grid.setWidget(4, 0, printButton);
+        grid.getFlexCellFormatter().setColSpan(4,0,2);
         
-        outer.setText(5, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
-        outer.getFlexCellFormatter().setColSpan(5,0,2);
-        outer.getCellFormatter().addStyleName(5, 0, "InfoCell");
+        grid.setText(5, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
+        grid.getFlexCellFormatter().setColSpan(5,0,2);
+        grid.getCellFormatter().addStyleName(5, 0, "InfoCell");
         
-        outer.setWidget(6, 0, picker_en);
-        outer.setWidget(6, 1, picker_es);
+        grid.setWidget(6, 0, picker_en);
+        grid.setWidget(6, 1, picker_es);
         
-        outer.setText(7, 0, "These are diferent layouts for the IntervalSelector widget");
-        outer.getFlexCellFormatter().setColSpan(7,0,2);
-        outer.getCellFormatter().addStyleName(7, 0, "InfoCell");
+        grid.setText(7, 0, "These are diferent layouts for the GWTCIntervalSelector widget");
+        grid.getFlexCellFormatter().setColSpan(7,0,2);
+        grid.getCellFormatter().addStyleName(7, 0, "InfoCell");
         
         
-        outer.setWidget(8, 0, interval1);
-        outer.getFlexCellFormatter().setColSpan(8,0,2);
-        outer.setWidget(9, 0, interval2);
-        outer.getFlexCellFormatter().setColSpan(9,0,2);
-        outer.setWidget(10, 0, interval3);
-        outer.getFlexCellFormatter().setColSpan(10,0,2);
+        grid.setWidget(8, 0, interval1);
+        grid.getFlexCellFormatter().setColSpan(8,0,2);
+        grid.setWidget(9, 0, interval2);
+        grid.getFlexCellFormatter().setColSpan(9,0,2);
+        grid.setWidget(10, 0, interval3);
+        grid.getFlexCellFormatter().setColSpan(10,0,2);
 
 
-        // Put the grid in the rootpanel
-        RootPanel.get().add(outer);
+        // Put the grid into the rootpanel
+        RootPanel.get().add(grid);
     }
 }
