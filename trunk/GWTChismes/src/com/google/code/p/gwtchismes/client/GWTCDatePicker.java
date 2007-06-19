@@ -293,8 +293,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         int numOfDays = GWTCDatePicker.daysInMonth(cursorDate);
         int j = 0 + weekStart;
 
-        boolean isIe6 = GWTCButton.isIE6();
-
         for (int i = 1; i < 7; i++) { // each row in the grid
             for (int k = 0; k < 7; k++, j++) { // each day in the week
                 int displayNum = (firstWDay < weekStart) ? (j - firstWDay - 6) : (j - firstWDay + 1);
@@ -593,9 +591,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static final int YEARS = 1;
     private static final int MONTHS = 2;
     private static final int DAYS = 3;
-    private static final int HOURS = 4;
-    private static final int MINUTES = 5;
-    private static final int SECONDS = 6;
+    //private static final int HOURS = 4;
+    //private static final int MINUTES = 5;
+    //private static final int SECONDS = 6;
 
     /**
      * Add days to a reference Date
@@ -759,7 +757,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         String day = days[date.getDay()];
         String month_3 = month.length() >= 3 ? month.substring(0, 3) : month;
         String day_3 = day.length() >= 3 ? day.substring(0, 3) : day;
-        String day_4 = day.length() >= 4 ? day.substring(0, 4) : day;
+        //String day_4 = day.length() >= 4 ? day.substring(0, 4) : day;
         ret = ret.replaceAll("ddddd", day);
         ret = ret.replaceAll("dddd", day);
         ret = ret.replaceAll("ddd", day_3);
