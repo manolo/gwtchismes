@@ -180,6 +180,8 @@ public class GWTCIntervalSelector extends Composite {
         setMaxdays(maxdays);
         this.layoutType = layoutType;
         drawIntervalWidget(layoutType);
+        checkoutCalendar.addStyleName("GWTCDatePickerCheckout");
+        checkinCalendar.addStyleName("GWTCDatePickerCheckin");
     }
 
     /**
