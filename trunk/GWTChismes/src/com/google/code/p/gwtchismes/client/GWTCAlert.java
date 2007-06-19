@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author Manuel Carrasco
+ * @author Manuel Carrasco Moñino
  *         <h3>Class description</h3>
  *   <p>      
  * This widget is a modal dialog for displaying alerts. It is based in a

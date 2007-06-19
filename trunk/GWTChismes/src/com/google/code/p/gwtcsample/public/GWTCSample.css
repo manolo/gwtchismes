@@ -1,33 +1,35 @@
 table.GWTCSample {
    margin-left: auto;
    margin-right: auto;
-   width: 55em;
+   width: 45em;
    text-align: center;
    font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
    font-size: 10pt;
 }
-table.GWTCSample .InfoRow {
-   border-top-width: 1px;
-   boder-top-style: solid;
-   border-top-color: #777777;
-}
 table.GWTCSample>tbody>tr>td > *{
-   margin-top: 1em;
+   margin-top: 0.5em;
+   margin-bottom: 0.5em;
 }
 
 table.GWTCSample td.InfoCell{
    margin-top: 10em;
-  /*background : #fff4de url(info-bg.jpg) repeat-x top left;*/
-  background-color: #b6edbc; 
+   background-color: #d0e6ff; 
    text-align: left;
    vertical-align: top;
-   padding-top: 16px;
    
-   border-bottom-width: 1px;
-   border-bottom-style: solid;
-   border-bottom-color: #777777; 
+   padding-top: 16px;
+   padding-bottom: 8px;
+   padding-right: 8px;
+   padding-left: 8px;
+   
+   border-top-width: 1px;
+   border-top-style: solid;
+   border-top-color: #777777; 
+   
+   border-botom-width: 1px;
+   border-botom-style: solid;
+   border-botom-color: #777777; 
 }
 
 .GWTCSample .gwtc-button {
-//width: 100%;
 }

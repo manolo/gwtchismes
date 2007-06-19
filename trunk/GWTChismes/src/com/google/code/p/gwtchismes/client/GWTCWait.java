@@ -18,7 +18,6 @@
 package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -27,7 +26,6 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Manuel Carrasco  Moñino
