@@ -1,18 +1,18 @@
 /*
- Copyright (c) 2007 Manuel Carrasco (manuel.carrasco@alcala.org)  
- 
- Some part of the code has been taken from Alexei Sokolov (SimpleCalendarWidget)
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- Lesser General Public License for more details.
-
+ * Copyright 2007 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.google.code.p.gwtchismes.client;
@@ -38,34 +38,61 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 */
 /**
- * @author Manuel Carrasco
- *         <h3>Class description</h3>
- *         <p>
- *         A widget to pick a date. It could be implemented as an independent
- *         dialog box or it could be included into another widget.
- *         </p>
- *         <p>
- *         You can configure minimalDate, maximalDate, cursorDate and locales
- *         (day names, month names, help, and weekStart)
- *         </p>
- *         <p>
- *         This class has public static methods useful for Date manipulation
- *         </p>
- *         <h3>CSS Style Rules</h3>
- *         <ul class="css">
- *         <li>.GWTCDatePicker { GWTCDatePicket container, it can be overwritten }</li>
- *         <li>.Caption { calendar text }</li>
- *         <li>.Cal_buttons { navigation buttons }</li>
- *         <li>.Cal_Header { text with the current month and year }</li>
- *         <li>.Cal_WeekHeader { week headers row}</li>
- *         <li>.Cal_CellDayNames { cells with day names} </li>
- *         <li>.Cal_CellEmpty { cell without days }</li>
- *         <li>.Cal_InvalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
- *         <li>.Cal_Selected { selected day }</li>
- *         <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
- *         <li>.Cal_BeforeSelected { days before the selected day and after the minimal day}</li>
- *         <li>.Cal_Today { today } </li>
- *         </ul>
+ * @author Manuel Carrasco Moñino
+ * 
+     <h3>Class description</h3>
+       <p>
+         A widget to pick a date. It could be implemented as an independent
+         dialog box or it could be included into another widget.
+       </p>
+       <p>
+         You can configure minimalDate, maximalDate, cursorDate and locales
+         (day names, month names, help, and weekStart)
+       </p>
+       <p>
+         This class has public static methods useful for Date manipulation
+       </p>
+   <h3>Example</h3>
+      <pre>
+        // Configure internationalized strings using english language
+        private String[] days_en = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        private String[] months_en = new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        
+        // Create a GWTCDatePicker that is show into the page
+        final GWTCDatePicker picker_en = new GWTCDatePicker(false);
+        // Internationalization
+        picker_en.setLocale(days_en, months_en, 0);
+        // Disable close button, becouse it is not a dialog
+        picker_en.disableCloseButton();
+        // Configure limits
+        picker_en.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -1));
+        picker_en.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
+        // Add an action when the user selects a day
+        picker_en.addChangeListener(new ChangeListener() {
+            public void onChange(Widget sender) {
+                Window.alert(picker_en.getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+            }
+        });
+        // Repaint the calendar
+        picker_en.drawCalendar();
+        
+      </pre>        
+       
+       <h3>CSS Style Rules</h3>
+         <ul>
+           <li>.GWTCDatePicker { GWTCDatePicket container, it can be overwritten }</li>
+           <li>.Caption { calendar text }</li>
+           <li>.Cal_buttons { navigation buttons }</li>
+           <li>.Cal_Header { text with the current month and year }</li>
+           <li>.Cal_WeekHeader { week headers row}</li>
+           <li>.Cal_CellDayNames { cells with day names} </li>
+           <li>.Cal_CellEmpty { cell without days }</li>
+           <li>.Cal_InvalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
+           <li>.Cal_Selected { selected day }</li>
+           <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
+           <li>.Cal_BeforeSelected { days before the selected day and after the minimal day}</li>
+           <li>.Cal_Today { today } </li>
+         </ul>
  */
 public class GWTCDatePicker extends Composite implements ClickListener, SourcesChangeEvents {
     // Style classes
@@ -105,14 +132,17 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
 
-    // Internazionalizable elements
+    // Internationalizable elements
     private String[] days = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
     private String[] months = new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
-    private int weekStart = 1;
+    private int weekStart = 0;
 
-    private String helpStr = "GWTC CalendarPicker\n\n\u003c Previous Month\n\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
+    private String helpStr = "Calendar-Picker is a component of GWTChismes library.\n" +
+                                             "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n" +
+                                             "Navigation buttons:\n" +
+                                             "\u003c Previous Month\n\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
 
     // Containers
     private final DockPanel outer = new DockPanel();
@@ -148,8 +178,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private HorizontalPanel nextButtons = new HorizontalPanel();
 
     /**
-     * Constructor, you need specify the behaviour: independient dialog box or
-     * not
+     * Constructor, you need specify the behaviour: floating dialog box or embeded widget
      * 
      * @param dialog
      *            true if you wan an independient and drageable dialog box when
@@ -342,7 +371,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Set the message text
+     * Set the text for the caption of the dialog box. It is only available if the calendar is shown as a dialog.
      * 
      * @param t
      *            the message to display
@@ -362,9 +391,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setHelp(String t) {
         helpStr = t;
         if (t == null || t.length() == 0)
-            helpBtn.setVisible(false);
+            helpBtn.setEnabled(false);
         else
-            helpBtn.setVisible(true);
+            helpBtn.setEnabled(true);
     }
     
     /**

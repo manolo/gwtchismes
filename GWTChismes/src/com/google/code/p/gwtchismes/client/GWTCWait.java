@@ -1,21 +1,24 @@
 /*
- Copyright (c) 2007 Manuel Carrasco (manuel.carrasco@alcala.org)  
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- Lesser General Public License for more details.
-
-
+ * Copyright 2007 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
+
 package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -24,9 +27,10 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author Manuel Carrasco 
+ * @author Manuel Carrasco  Moñino
  * <h3>Class description</h3>
  * <p>
  * This widget is a dialog designed to appear when the application is working.
@@ -38,10 +42,16 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <li>The dialog box which has got a message and an image (annimated .gif)</li>
  * </ul>
  * </p>
- *   
+   <h3>Example</h3>
+    <pre>
+        final GWTCWait wait = new GWTCWait();
+        wait.setMessage("Please wait ...");
+        wait.hide();
+        wait.show(5);
+    </pre>        
  * 
  * <h3>CSS Style Rules</h3>
- * <ul class="css">
+ * <ul>
  * <li>.gwtc-wait-bg{ class for the pannel that is over the page }</li>
  * <li>.GWTCWait    { class for the dialog box}</li>
  * <li>.GWTCWait.gwtc-wait-table{ container }</li>
