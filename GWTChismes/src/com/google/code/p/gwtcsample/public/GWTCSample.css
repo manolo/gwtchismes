@@ -16,8 +16,9 @@ table.GWTCSample>tbody>tr>td > *{
 }
 
 table.GWTCSample td.InfoCell{
-   margin-top: 1em;
-/*   background-color: #fff4de; */
+   margin-top: 10em;
+  /*background : #fff4de url(info-bg.jpg) repeat-x top left;*/
+  background-color: #b6edbc; 
    text-align: left;
    vertical-align: top;
    padding-top: 16px;

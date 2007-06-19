@@ -145,9 +145,10 @@ public class GWTCSample implements EntryPoint {
         picker_es.setLocale(days_es, months_es, 1);
         picker_es.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
         picker_es.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
+        picker_es.drawCalendar();
         picker_es.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
-                alert.alert(picker_en.getSelectedDateStr("dddd,  dd de MMMM de yyyy"));
+                alert.alert(picker_es.getSelectedDateStr("dddd,  dd de MMMM de yyyy"));
             }
         });
 
@@ -155,7 +156,7 @@ public class GWTCSample implements EntryPoint {
         // Distribute the widgets into a grid
         outer.setStyleName("GWTCSample");
         
-        outer.setText(0, 0, "These buttons are made using the GWTCButton widget, The css class is changed when the mouse is over them  (this is a fix for Internet Explorer 6).");
+        outer.setText(0, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
         outer.getFlexCellFormatter().setColSpan(0,0,2);
         outer.getCellFormatter().addStyleName(0, 0, "InfoCell");
         
@@ -168,7 +169,7 @@ public class GWTCSample implements EntryPoint {
         outer.setWidget(4, 0, printButton);
         outer.getFlexCellFormatter().setColSpan(4,0,2);
         
-        outer.setText(5, 0, "Here you can see two CalendarPickers configured with diferent minimal/maximal restrictions, languages and buttons");
+        outer.setText(5, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
         outer.getFlexCellFormatter().setColSpan(5,0,2);
         outer.getCellFormatter().addStyleName(5, 0, "InfoCell");
         
