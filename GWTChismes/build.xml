@@ -1,4 +1,24 @@
+<!--
+/*
+ * Copyright 2007 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+-->
+
 <project name="GWT Project" default="jar">
+
 	<property name="project" value="gwtchismes" />
 	<property name="version" value="0.1" />
 
@@ -9,9 +29,10 @@
 	<property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
 
 	<property name="src.dir" value="src" />
-	<property name="class.dir" value="class" />
-	<property name="doc.dir" value="doc" />
-	<property name="www.dir" value="www" />
+	<property name="tmp.dir" value="${project}-${version}" />
+	<property name="class.dir" value="${tmp.dir}/class" />
+	<property name="doc.dir" value="${tmp.dir}/doc" />
+	<property name="www.dir" value="${tmp.dir}/www" />
 
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
@@ -27,10 +48,11 @@
 		<pathelement location="${gwt.dev.jar}" />
 	</path>
 
-	<target name="jar">
-		<delete file="${project}-${version}.zip" />
+	<target name="jar" description="Generates the jar distribution file">
+		<delete dir="${project}-${version}" />
+		<delete file="${project}-${version}.jar" />
 		<mkdir dir="${class.dir}" />
-		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${class.dir}" deprecation="off" debug="on" fork="true">
+		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${class.dir}" deprecation="off" debug="on" fork="true" encoding="UTF-8">
 			<classpath refid="compile.lib.classpath" />
 		</javac>
 		<copy todir="${class.dir}">
@@ -41,45 +63,29 @@
 		<delete dir="${class.dir}" />
 	</target>
 
-	<target name="javadoc">
-		<delete dir="${doc.dir}"/>
+	<target name="javadoc" description="Generates de Java documentation files for the project">
+		<delete dir="${doc.dir}" />
 		<javadoc packagenames="${package.dir}" destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="GWT Chismes">
 			<classpath refid="compile.lib.classpath" />
 			<packageset dir="${src.dir}" defaultexcludes="yes" />
 		</javadoc>
 	</target>
 
-	<target name="clean">
-		<delete dir="${class.dir}" />
-		<delete dir="${doc.dir}" />
-		<delete dir="${project}-${version}" />
-	</target>
-
-	<target name="all" depends="clean, jar, javadoc" />
-
-	<target name="sample">
+	<target name="sample" description="Generates the static javascript files needed for deploy the provided example">
 		<echo message="Compiling sample from java to javascript" />
 		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
 			<arg value="-out" />
-			<arg file="www" />
+			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
 		</java>
 	</target>
 
-	<target name="zip" depends=" jar, javadoc, sample">
-		<delete dir="${project}-${version}" />
+	<target name="zip" depends=" jar, javadoc, sample" description="Generates the distibution file that includes the source, license, docs, and jar">
 		<delete file="${project}-${version}.zip" />
-		<mkdir dir="${project}-${version}" />
-		<echo message="aaa" />
 		<copy todir="${project}-${version}/${src.dir}">
 			<fileset dir="${src.dir}" />
 		</copy>
-		<copy todir="${project}-${version}/${doc.dir}">
-			<fileset dir="${doc.dir}" />
-		</copy>
-		<copy todir="${project}-${version}/www">
-			<fileset dir="www" />
-		</copy>
+		<copy todir="${project}-${version}/" file="${project}-${version}.jar" />
 		<copy todir="${project}-${version}/" file="LICENSE" />
 		<copy todir="${project}-${version}/" file="build.xml" />
 		<copy todir="${project}-${version}/" file=".classpath" />
@@ -89,6 +95,13 @@
 		</exec>
 		<delete dir="${project}-${version}" />
 	</target>
-	
-	<target name="distribution" depends="clean, zip, clean"/>
+
+	<target name="clean">
+		<delete dir="${class.dir}" />
+		<delete dir="${doc.dir}" />
+		<delete dir="${project}-${version}" />
+	</target>
+
+	<target name="all" depends="clean, jar, javadoc" />
+	<target name="distribution" depends="clean, zip, clean" />
 </project>
