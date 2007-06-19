@@ -33,19 +33,38 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * @author Manuel Carrasco
  * <h3>Class description</h3>
-        <p>
-         A widget to select an interval betwen two dates. 
-         </p>
-         <p>
-         You can configure minimalDate, maximalDate, layout, and number of days for the interval.
-         </p>
+        <p> A widget to select an interval betwen two dates. </p>
+        <p>You can configure minimalDate, maximalDate, layout, and number of days for the interval. </p>
+   <h3>Example</h3>
+    <pre>
+        // Configure internationalized strings using english language
+        private String[] days_en = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        private String[] months_en = new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        private HashMap strs_en = new HashMap();
+        strs_en.put("format.date", "MMM  dd, yyyy");
+        strs_en.put("format.day", "(ddd.)");
+        strs_en.put("key.checkin", "Checkin");
+        strs_en.put("key.checkout", "Checkout");
+        strs_en.put("key.nights", "Nights");
+        strs_en.put("key.interval", "Interval");
+        strs_en.put("key.change", "Change");
+        strs_en.put("key.checkin.button", "...");
+        strs_en.put("key.checkout.button", "...");
+        strs_en.put("key.calendar.checkin.title", "Select checkin date");
+        strs_en.put("key.calendar.checkout.title", "Select checkout date");
+        
+        // Create a layout1 interval-selector and set the locale in english 
+        GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
+        interval1.setLocale(strs_en, days_en, months_en, 0);
+    </pre>        
+        
      <h3>CSS Style Rules</h3>
-     
-     <p>  .GWTCIntervalSelector { GWTCIntervalSelector main container} </p>
-             grid.addStyleName("GWTCIntervalLayout" + layout);
+       <ul>
+         <li>  .GWTCIntervalSelector { GWTCIntervalSelector main container} </li>
+       </ul>     
      
      <p> css styles for layouttype=1
-        <ul>
+       <ul>
         <li>.GWTCIntervalLayout1 {container table}</li>
         <li>.SelectorContainer {row that contains the table with the selection widgets}</li>
         <li>.DateChanger { class for the table container of selection widgets } </li> 
