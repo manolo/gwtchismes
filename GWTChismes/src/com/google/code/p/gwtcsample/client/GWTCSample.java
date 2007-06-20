@@ -66,10 +66,10 @@ public class GWTCSample implements EntryPoint {
         // Configure internationalized strings for english
         strs_en.put("format.date", "MMM  dd, yyyy");
         strs_en.put("format.day", "(ddd.)");
-        strs_en.put("key.checkin", "Checkin");
-        strs_en.put("key.checkout", "Checkout");
+        strs_en.put("key.checkin", "Check-in:");
+        strs_en.put("key.checkout", "Check-out:");
         strs_en.put("key.nights", "Nights");
-        strs_en.put("key.interval", "Interval");
+        strs_en.put("key.interval", "Number of nights:");
         strs_en.put("key.change", "Change");
         strs_en.put("key.checkin.button", "...");
         strs_en.put("key.checkout.button", "...");
@@ -102,7 +102,7 @@ public class GWTCSample implements EntryPoint {
 
         // Create a GWTAlert widget
         final GWTCAlert alert = new GWTCAlert(); 
-        alert.setText("Hello, you  can put here any message"); 
+        alert.setText("Hello, this is an alert message"); 
         alert.hide();
         
         // Create the button that shows the alert dialog when is clicked by the user 
@@ -175,7 +175,7 @@ public class GWTCSample implements EntryPoint {
         grid.setWidget(++row, 0, interval3);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         
-        grid.setText(++row, 0, "Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
+        grid.setText(++row, 0, "Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workaround for Internet Explorer 6).");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row++, 0, "InfoCell");
         
