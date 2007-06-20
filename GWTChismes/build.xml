@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.1" />
+	<property name="version" value="0.3" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -35,6 +35,7 @@
 	<property name="www.dir" value="${tmp.dir}/www" />
 
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
+	<property name="package.name" value="com.google.code.p.gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
 	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
 
@@ -65,15 +66,15 @@
 
 	<target name="javadoc" description="Generates de Java documentation files for the project">
 		<delete dir="${doc.dir}" />
-		<javadoc packagenames="${package.dir}" destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="GWT Chismes">
+		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" excludepackagenames="${sample.module}.*" destdir="${doc.dir}" encoding="UTF-8" charset="UTF-8" author="true" version="true" use="true" windowtitle="GWTChismes">
 			<classpath refid="compile.lib.classpath" />
-			<packageset dir="${src.dir}" defaultexcludes="yes" />
 		</javadoc>
 	</target>
 
 	<target name="sample" description="Generates the static javascript files needed for deploy the provided example">
-		<echo message="Compiling sample from java to javascript" />
+		<echo message="Compiling sample code from java to javascript" />
 		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
+			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-out" />
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
@@ -90,8 +91,9 @@
 		<copy todir="${project}-${version}/" file="build.xml" />
 		<copy todir="${project}-${version}/" file=".classpath" />
 		<copy todir="${project}-${version}/" file=".project" />
+		<echo message="Creating distribution file: ${project}-${version}.zip" />
 		<exec dir="." executable="zip">
-			<arg line="-r ${project}-${version}.zip ${project}-${version}" />
+			<arg line="-q -r ${project}-${version}.zip ${project}-${version}" />
 		</exec>
 		<delete dir="${project}-${version}" />
 	</target>
@@ -100,6 +102,8 @@
 		<delete dir="${class.dir}" />
 		<delete dir="${doc.dir}" />
 		<delete dir="${project}-${version}" />
+		<delete file="${project}-${version}.jar" />
+		<delete file="${project}-${version}.zip" />
 	</target>
 
 	<target name="all" depends="clean, jar, javadoc" />
