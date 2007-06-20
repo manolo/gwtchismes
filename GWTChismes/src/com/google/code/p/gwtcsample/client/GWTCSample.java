@@ -17,13 +17,13 @@
 
 package com.google.code.p.gwtcsample.client;
 
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCButton;
-import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
+import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
