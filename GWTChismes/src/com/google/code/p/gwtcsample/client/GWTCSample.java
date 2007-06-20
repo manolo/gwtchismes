@@ -58,6 +58,11 @@ public class GWTCSample implements EntryPoint {
      */
     public void onModuleLoad() {
         
+        // Create a GWTCWait widget
+        final GWTCWait wait = new GWTCWait();
+        wait.setMessage("Please wait ...");
+        wait.show(0);
+        
         // Configure internationalized strings for english
         strs_en.put("format.date", "MMM  dd, yyyy");
         strs_en.put("format.day", "(ddd.)");
@@ -86,13 +91,9 @@ public class GWTCSample implements EntryPoint {
         strs_es.put("key.calendar.checkout.title", "Seleccione la fecha de salida");
         strs_es.put("key.calendar.help", "Calendar-Picker es uno de los componentes de la libreria GWTChismes.\n(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\nPulsa sobre los botones de arriba para moverte por las distintas fechas permitidas\nfinalmente pulsa sobre la fecha deseada.");
 
-        // Create a GWTCWait widget, and hide it
-        final GWTCWait wait = new GWTCWait();
-        wait.setMessage("Please wait ...");
-        wait.hide();
         
         // Create the button that shows the wait dialog when is clicked by the user 
-        GWTCButton waitButton = new GWTCButton("Click here view a GWTCWait during 5 seconds");
+        GWTCButton waitButton = new GWTCButton("GWTCWait: click here to view wait dialog during 5 seconds");
         waitButton.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 wait.show(5);
@@ -107,7 +108,7 @@ public class GWTCSample implements EntryPoint {
         // Create the button that shows the alert dialog when is clicked by the user 
         GWTCButton alertButton = new GWTCButton();
         alertButton.addStyleName("SampleButton");
-        alertButton.setText("Click here to show GWTCAlert dialog");
+        alertButton.setText("GWTCAlert: click here to view an alert dialog");
         alertButton.addClickListener(new ClickListener() { 
             public void onClick(Widget sender) { 
                 alert.show(); 
@@ -115,11 +116,11 @@ public class GWTCSample implements EntryPoint {
         }); 
         
         // Create a sample disabled GWTCButton 
-        GWTCButton disabledButton = new GWTCButton("This is a disabled button");
+        GWTCButton disabledButton = new GWTCButton("GWTCButton: This is a disabled button");
         disabledButton.setEnabled(false);
         
         // Create a new GWTCPrint Button
-        GWTCPrint printButton = new GWTCPrint("This GWTCPrint allows you to send this page to the printer");
+        GWTCPrint printButton = new GWTCPrint("GWTCPrint: click to send this page to the printer");
         
         // Create a layout1 interval-selector and set the locale in english 
         GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
@@ -163,7 +164,7 @@ public class GWTCSample implements EntryPoint {
 
         int row = 0;
 
-        grid.setText(++row, 0, "These are diferent layouts for the GWTCIntervalSelector widget");
+        grid.setText(++row, 0, "Diferent layouts for the GWTCIntervalSelector widget");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row, 0, "InfoCell");
         
@@ -174,7 +175,7 @@ public class GWTCSample implements EntryPoint {
         grid.setWidget(++row, 0, interval3);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         
-        grid.setText(++row, 0, "These are examples of GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
+        grid.setText(++row, 0, "Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workarround for Internet Explorer 6).");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row++, 0, "InfoCell");
         
@@ -196,5 +197,7 @@ public class GWTCSample implements EntryPoint {
 
         // Put the grid into the rootpanel
         RootPanel.get().add(grid);
+        
+        wait.hide();
     }
 }
