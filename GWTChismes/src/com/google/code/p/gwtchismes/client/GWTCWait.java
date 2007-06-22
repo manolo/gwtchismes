@@ -50,9 +50,12 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  * <h3>CSS Style Rules</h3>
  * <ul>
- * <li>.gwtc-wait-bg{ class for the pannel that is over the page }</li>
- * <li>.GWTCWait    { class for the dialog box}</li>
- * <li>.GWTCWait.gwtc-wait-table{ container }</li>
+ * <li>.GWTCWait    { main class for the dialog box and the pannel over the page}</li>
+ * 
+ * <li>.GWTCWait.gwtc-wait-bg{ class for the pannel that is over the page }</li>
+ * 
+ * <li>.GWTCWait.gwtc-wait-dlg{ class for the pannel containing the table}</li>
+ * <li>.GWTCWait.gwtc-wait-table{ table }</li>
  * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-msg{ message cell}</li>
  * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img{ image cell}</li>
  * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img.gwtc-wait-image{ image }</li>
@@ -64,6 +67,8 @@ public class GWTCWait extends Composite {
     public static final String StyleCWait = "GWTCWait";
 
     public static final String StyleCWaitBg = "gwtc-wait-bg";
+    
+    public static final String StyleCWaitDlg = "gwtc-wait-dlg";
 
     public static final String StyleCWaitTable = "gwtc-wait-table";
 
@@ -72,8 +77,6 @@ public class GWTCWait extends Composite {
     public static final String StyleCWaitImgCell = "gwtc-wait-cell-img";
 
     public static final String StyleCWaitImg = "gwtc-wait-image";
-
-    private String styleName = "GWTCWait";
 
     private DialogBox waitDlg = new DialogBox();
 
@@ -86,12 +89,16 @@ public class GWTCWait extends Composite {
     private FlexTable contentTable = new FlexTable();
 
     public GWTCWait() {
-        waitDlg.setStyleName(styleName);
 
+        pageBackground.setStyleName(GWTCWait.StyleCWait);
         pageBackground.addStyleName(GWTCWait.StyleCWaitBg);
-        pageBackground.setSize("100%", "100%");
+        // IE6 does has problems with 100% height so is better a huge size
+        // pageBackground.setSize("100%", "100%");
+        // pageBackground.setSize("100%", "99999px");
         RootPanel.get().add(pageBackground, 0, 0);
 
+        waitDlg.setStyleName(GWTCWait.StyleCWait);
+        waitDlg.addStyleName(GWTCWait.StyleCWaitDlg);
         contentTable.setStyleName(GWTCWait.StyleCWaitTable);
         contentTable.getCellFormatter().addStyleName(0, 0, GWTCWait.StyleCWaitMsgCell);
         contentTable.setWidget(0, 0, txt);
@@ -102,9 +109,11 @@ public class GWTCWait extends Composite {
 
         waitDlg.setWidget(contentTable);
         hide();
-
+        
         initWidget(new DockPanel());
     }
+    
+
 
     /**
      * Adds a secondary or dependent style name to this object
@@ -159,6 +168,7 @@ public class GWTCWait extends Composite {
         // Explorer problems
         // waitDlg.getWidget().setVisible(true);
     }
+    
 
     /**
      * Hide the wait dialog
