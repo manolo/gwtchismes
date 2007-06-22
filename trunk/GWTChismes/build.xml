@@ -75,6 +75,8 @@
 		<echo message="Compiling sample code from java to javascript" />
 		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
+			<arg value="-style"/>
+			<arg value="PRETTY"/>
 			<arg value="-out" />
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
