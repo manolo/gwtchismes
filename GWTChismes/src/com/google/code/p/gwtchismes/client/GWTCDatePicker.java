@@ -712,8 +712,16 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return Modified date
      */
     public static Date setHourToZero(Date d) {
-        return new Date(Date.UTC(d.getYear(), d.getMonth(), d.getDate(), 0, 0, 0));
+        return new Date(setHourToZeroImpl(d.getTime()));
     }
+    private static native long setHourToZeroImpl(long time) /*-{
+       var d = new Date(time);
+       d.setHour(0);
+       d.setMinute(0);
+       d.setSecond(0);
+       d.setMillisecond(0);
+       return d.getTime();  
+    }-*/;
 
     /**
      * Create a new Date
