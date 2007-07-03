@@ -666,7 +666,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public static int compareDate(Date a, Date b) {
         long d1 = setHourToZero(a).getTime();
-        System.out.println(">> " + a  + " " + d1);
         long d2 = setHourToZero(b).getTime();
         return (int) ((d2 - d1) / 1000 / 60 / 60 / 24);
     }
