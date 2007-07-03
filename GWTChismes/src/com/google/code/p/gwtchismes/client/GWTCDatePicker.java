@@ -591,9 +591,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static final int YEARS = 1;
     private static final int MONTHS = 2;
     private static final int DAYS = 3;
-    //private static final int HOURS = 4;
-    //private static final int MINUTES = 5;
-    //private static final int SECONDS = 6;
 
     /**
      * Add days to a reference Date
@@ -668,8 +665,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return the difference in days betwen b and a (b - a)
      */
     public static int compareDate(Date a, Date b) {
-        long d1 = Date.UTC(a.getYear(), a.getMonth(), a.getDate(), 0, 0, 0);
-        long d2 = Date.UTC(b.getYear(), b.getMonth(), b.getDate(), 0, 0, 0);
+        long d1 = setHourToZero(a).getTime();
+        System.out.println(">> " + a  + " " + d1);
+        long d2 = setHourToZero(b).getTime();
         return (int) ((d2 - d1) / 1000 / 60 / 60 / 24);
     }
 
@@ -697,15 +695,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      }   
      if (type == 2) d.setMonth(d.getMonth() + value);
      if (type == 3) d.setDate(d.getDate() + value);
-     if (type == 4) d.setHour(d.getHour() + value);
-     if (type == 5) d.setMinute(d.getMinute() + value);
-     if (type == 6) d.setSecond(d.getSecond() + value);
-     if (type == 7) d.setMillisecond(d.getMillisecond() + value);
      return d.getTime();  
      }-*/;
 
     /**
-     * Set hour, minutes, and second to zero.
+     * Set hour, minutes, second and milliseconds to zero.
      * 
      * @param d
      *            Date
@@ -714,7 +708,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public static Date setHourToZero(Date d) {
         return new Date(setHourToZeroImpl(d.getTime()));
     }
-    private static native long setHourToZeroImpl(long time) /*-{
+    private static native long setHourToZero    // a trick to set milliseconds to zero
+        long t = d.getTime() / 1000;
+        t = t * 1000;
+    	return new Date(t);{
        var d = new Date(time);
        d.setHour(0);
        d.setMinute(0);
@@ -729,9 +726,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @param y
      *            year (ie 1980)
      * @param m
-     *            month (1...12)
-     * @param d
-     *            day of month (1...31)
+     *            month (1...1Date dat = new Date();
+        dat.setYear(y - 1900);
+        dat.setMonth(m -1);
+        dat.setDate(d);
+        return setHourToZero(dat..31)
      * @return new Date
      */
     public static Date newDateFromYMD(int y, int m, int d) {
@@ -805,13 +804,4 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             super.addClickListener(listener);
             //  IE6 does not support div:hover style, this listener adds .gwtc-Hover class when the mouse is over
             if (GWTCButton.isIE6()) {
-                this.addMouseListener(GWTCButton.mouseOverListener);
-            }
-        }
-
-        public int getDay() {
-            return day;
-        }
-        
-    }
-}
+               
