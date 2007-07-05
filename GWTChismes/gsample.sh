@@ -20,33 +20,27 @@ echo $DD $PD
 rm -rf  $D
 mkdir -p $D
 
+echo $PD
+echo $PD/$M.nocache.js
+grep unflattenKeylistIntoAnswers $PD/$M.nocache.js
+
+# -e 's#'$P'#CCC#g' \
+# -e 's#'$S'#SSS#g' \
+MGR="sed -e 's#$P#GWTCC#g' -e 's#$M#GWTCMA#g' -e 's#$S#GWTCS#g' "
+for i in `grep unflattenKeylistIntoAnswers $PD/$M.nocache.js | grep "\[" | grep "\]" | cut -d "'" -f 2,4`
+do
+	br=`echo "$i" | cut -d "'" -f1`
+	ha=`echo "$i" | cut -d "'" -f2`
+	MGR="$MGR -e 's#$ha#GWTC-BR-$br#g'"
+done
+
 for i in `find $PD`
 do
 	if [ -f "$i" ]
 	then
-		   # -e 's#'$P'#CCC#g' \
-		   # -e 's#'$S'#SSS#g' \
-		n=`basename $i | sed  \
-		   -e 's#'$P'#GWTCC#g' \
-		   -e 's#'$M'#GWTCMA#g' \
-		   -e 's#'$S'#GWTCS#g' \
-		   -e 's#EAF4040D8384E24D8796F3E82DCF48E0#GWTC-BR-gecko#g' \
-		   -e 's#1ED28EE27FBB87B90EE5B5848DA2C2B7#GWTC-BR-gecko1_8#g' \
-		   -e 's#481ECDDD695CEF888EF16BE45FD2A256#GWTC-BR-ie6#g' \
-		   -e 's#49ECB4391D5E2C4291AD3A7D2366C43C#GWTC-BR-opera#g' \
-		   -e 's#623FEE299B731455D9425EA337191171#GWTC-BR-safari#g' \
-		  `
+		n=`eval "basename $i | $MGR"`
 		echo "$i > $n"
-		cat $i | sed \
-		   -e 's#'$P'#GWTCC#g' \
-		   -e 's#'$M'#GWTCMA#g' \
-		   -e 's#'$S'#GWTCS#g' \
-		   -e 's#EAF4040D8384E24D8796F3E82DCF48E0#GWTC-BR-gecko#g' \
-		   -e 's#1ED28EE27FBB87B90EE5B5848DA2C2B7#GWTC-BR-gecko1_8#g' \
-		   -e 's#481ECDDD695CEF888EF16BE45FD2A256#GWTC-BR-ie6#g' \
-		   -e 's#49ECB4391D5E2C4291AD3A7D2366C43C#GWTC-BR-opera#g' \
-		   -e 's#623FEE299B731455D9425EA337191171#GWTC-BR-safari#g' \
-		   > $D/$n
+		eval "cat $i | $MGR" > $D/$n
 	fi
 done
 
