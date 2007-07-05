@@ -292,6 +292,7 @@ public class GWTCIntervalSelector extends Composite {
 
     private void updateInputsFromNights() {
         checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
+        checkoutCalendar.setSelectedDate(new Date());
         checkoutDateLabel.setText(checkoutCalendar.getSelectedDateStr(longDateFormat));
         checkoutWeekLabel.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
         checkoutCalendar.drawCalendar();

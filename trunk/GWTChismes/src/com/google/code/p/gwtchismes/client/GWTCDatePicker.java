@@ -176,6 +176,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private HorizontalPanel prevButtons = new HorizontalPanel();
 
     private HorizontalPanel nextButtons = new HorizontalPanel();
+    
+    private boolean needsRedraw = true;
 
     /**
      * Constructor, you need specify the behaviour: floating dialog box or embeded widget
@@ -260,6 +262,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * 
      */
     public void drawCalendar() {
+        if (this.isVisible() == false)
+            return;
+        if (!needsRedraw)
+            return;
 
         FlexTable grid = new FlexTable();
         grid.setStyleName(GWTCDatePicker.StyleCGrid);
@@ -334,6 +340,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         nextMBtn.setEnabled(isVisibleMonth(cursorDate, 1));
         prevYBtn.setEnabled(isVisibleMonth(cursorDate, -12));
         nextYBtn.setEnabled(isVisibleMonth(cursorDate, 12));
+        
+        needsRedraw = false;
 
     }
 
@@ -355,6 +363,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             }
         } else
             outer.setVisible(true);
+        
+        this.drawCalendar();
     }
 
     /**
@@ -415,6 +425,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            sunday)
      */
     public void setLocale(String[] d, String[] m, int s) {
+        this.needsRedraw = true;
         if (days.length >= 7)
             days = d;
         if (months.length >= 12)
@@ -457,6 +468,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public void setCursorDate(Date d) {
         if (isVisibleMonth(d, 0)) {
+            this.needsRedraw = true;
             cursorDate = setHourToZero(d);
         }
     }
@@ -480,6 +492,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setMinimalDate(Date d) {
+        this.needsRedraw = true;
         minimalDate = setHourToZero(d);
         if (maximalDate.getTime() < minimalDate.getTime())
             maximalDate = d;
@@ -496,6 +509,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setMaximalDate(Date d) {
+        this.needsRedraw = true;
         maximalDate = setHourToZero(d);
         if (minimalDate.getTime() > maximalDate.getTime())
             minimalDate = d;

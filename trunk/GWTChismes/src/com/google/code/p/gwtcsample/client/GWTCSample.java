@@ -76,7 +76,6 @@ public class GWTCSample implements EntryPoint {
         strs_en.put("key.calendar.checkin.title", "Select checkin date");
         strs_en.put("key.calendar.checkout.title", "Select checkout date");
         
-        
         // Configure internationalized string for spanish
         strs_es.put("format.date", "MMM  dd, yyyy");
         strs_es.put("format.day", "(ddd.)");
@@ -90,7 +89,6 @@ public class GWTCSample implements EntryPoint {
         strs_es.put("key.calendar.checkin.title", "Seleccione la fecha de entrada");
         strs_es.put("key.calendar.checkout.title", "Seleccione la fecha de salida");
         strs_es.put("key.calendar.help", "Calendar-Picker es uno de los componentes de la libreria GWTChismes.\n(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\nPulsa sobre los botones de arriba para moverte por las distintas fechas permitidas\nfinalmente pulsa sobre la fecha deseada.");
-
         
         // Create the button that shows the wait dialog when is clicked by the user 
         GWTCButton waitButton = new GWTCButton("GWTCWait: click here to view wait dialog during 5 seconds");
@@ -157,8 +155,21 @@ public class GWTCSample implements EntryPoint {
             }
         });
         picker_es.drawCalendar();
-
         
+        // Create a default date-picker ant a launcher button
+        final GWTCDatePicker dPicker = new GWTCDatePicker(true);
+        dPicker.addChangeListener(new ChangeListener() {
+            public void onChange(Widget widget) {
+                alert.alert(dPicker.getSelectedDateStr("dd/MMM/yyyy"));
+            }
+        });
+        final GWTCButton dButton = new GWTCButton("Click me");
+        dButton.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                dPicker.show(dButton);
+            }
+        });
+
         // Distribute the widgets into a grid
         grid.setStyleName("GWTCSample");
 
@@ -186,6 +197,8 @@ public class GWTCSample implements EntryPoint {
         grid.setWidget(++row, 0, disabledButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.setWidget(++row, 0, printButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, dButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         
         grid.setText(++row, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
