@@ -807,14 +807,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         private int day;
 
         public CellHTML(int day) {
-            super (String.valueOf(day));
-            this.day = day;
-        }
-        
-        public void addClickListener(ClickListener listener) {
+   boolean ie6 = GWTCButton.isIE6(); 
+            // If the cell has a click-listernet, we add a link, so Selenium is able to use it
+            setHTML( (ie6 ? "<a>" : "<a href=\"#\">")er(ClickListener listener) {
             // If the cell has a click-listernet, we add a link, so Selenium is able to use it
             setHTML("<a href=\"#\">" + String.valueOf(day) + "</a>");
-            super.addClickListener(listener);
-            //  IE6 does not support div:hover style, this listener adds .gwtc-Hover class when the mouse is over
+            supeie6)
+                this.addMouseListener(GWTCButton.mouseOverListener);gwtc-Hover class when the mouse is over
             if (GWTCButton.isIE6()) {
                
