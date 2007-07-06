@@ -2,8 +2,8 @@
 # 
 # GWTChismes utilities
 #
-# This script is designed to change long names in GWT compiled files 
-# to short ones, so is possible to publish it in a google hosted domain.
+# This script is designed to change long names in GWT compiled files to short ones, 
+# so it is possible to publish it in a google hosted domain webspace.
 #
 # The scrip rename the files and change references into files.
 #
