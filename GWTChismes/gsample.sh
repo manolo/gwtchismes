@@ -16,7 +16,7 @@
 V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$##'`
 ## Folder with the compiled sample (ie. gwtchismes-0.4/www)
 DD=gwtchismes-$V/www
-[ ! -d "$DD" ] && exit
+[ ! -d "$DD" ] && echo "Folder $DD doesn't exists" && exit 1
 
 ## Out folder for modified sample
 D=gwtchismes-$V/gwww
@@ -28,7 +28,7 @@ S=`echo "$M" | sed -e 's#\.GWTCSample##'`
 
 ## Folder whit compiled files (ie. gwtchismes-0.4/www/com.google.code.p.gwtcsample.GWTCSample)
 PD=$DD/$M
-[ ! -d "$PD" ] && exit
+[ ! -d "$PD" ] && echo "Folder $PD doesn't exists" && exit 1
 
 ## Main Javascript sample file (ie. gwtchismes-0.4/www/com.google.code.p.gwtcsample.GWTCSample/com.google.code.p.gwtcsample.GWTCSample.nocache.js)
 JSF="$PD/$M.nocache.js"
