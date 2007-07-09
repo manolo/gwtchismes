@@ -714,12 +714,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     /**
      * Set hour, minutes, second and milliseconds to zero.
      * 
-     * @param d
+     * @param date
      *            Date
      * @return Modified date
      */
-    public static Date setHourToZero(Date d) {
-        return new Date(setHourToZeroImpl(d.getTime()));
+    public static Date setHourToZero(Date date) {
+    	Date d = new Date(datetHourToZeroImpl(d.getTime()));
     }
     private static native long setHourToZero    // a trick to set milliseconds to zero
         long t = d.getTime() / 1000;
