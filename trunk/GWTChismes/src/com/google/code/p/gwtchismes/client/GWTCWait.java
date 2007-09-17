@@ -18,6 +18,7 @@
 package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -26,6 +27,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+
 
 /**
  * @author Manuel Carrasco  Moñino
@@ -164,6 +166,12 @@ public class GWTCWait extends Composite {
         waitDlg.show();
         pageBackground.setVisible(true);
         contentTable.setVisible(true);
+        
+        // Configure Background size 
+        pageBackground.setSize(Window.getClientWidth() + "px", Window.getClientHeight() + "px");
+        // Center the dialog
+        GWTCHelper.centerPopupPanel(waitDlg);
+        
         // contentTable.setStyleName("gwtc-wait-table");
         // Explorer problems
         // waitDlg.getWidget().setVisible(true);

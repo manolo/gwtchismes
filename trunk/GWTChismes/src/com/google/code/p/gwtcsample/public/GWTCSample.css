@@ -33,6 +33,6 @@ table.GWTCSample td.InfoCell{
 
 .GWTCSample .gwtc-button {
 }
-.GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
+.GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
   border: 6px solid #d0e6ff;
 }

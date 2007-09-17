@@ -4,7 +4,6 @@
 div.GWTCWait.gwtc-wait-bg {
   z-index: 998;
   width: 100%;
-  
   height: 100%;
   /* IE6 does not work fine with height 100% */
   height: expression('99999px');
@@ -28,10 +27,12 @@ div.GWTCWait.gwtc-wait-dlg {
   z-index: 999;
   font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
   position: absolute;
+  /*
   top: 40%;
   left: 40%;
   width: 0px;
   height: 0px;
+  */
   background-color: transparent;
 }  
 .GWTCWait table.gwtc-wait-table { 

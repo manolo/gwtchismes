@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.MouseListenerCollection;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
+
 /**
  * @author Manuel Carrasco Moñino
  * <h3>Class description</h3>
@@ -55,7 +56,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
     private void setupGWTCButton() {
         addStyleName(GWTCButton.CBUTTON);
         sinkEvents(Event.MOUSEEVENTS);
-        if (isIE6())
+        if (GWTCHelper.isIE6())
             addMouseListener(mouseOverListener);
     }
 
@@ -141,15 +142,5 @@ public class GWTCButton extends Button implements SourcesMouseEvents {
             sender.addStyleName(GWTCButton.CACTIVE);
         }
     };
-
-    // Native JS method to detect ie6
-    /**
-     * Detection of Internet Explorer 6.x 
-     * @return true if the browser is ie6
-     */
-    public static native boolean isIE6()
-    /*-{
-     return (window.XMLHttpRequest)? false: true;
-     }-*/;
 
 }

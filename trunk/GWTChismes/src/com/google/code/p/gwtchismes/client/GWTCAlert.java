@@ -17,6 +17,7 @@
 
 package com.google.code.p.gwtchismes.client;
 
+
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -130,13 +131,14 @@ public class GWTCAlert extends Composite {
     }
 
     /**
-     * Show the dialog box
+     * Show the dialog box, 
      */
     public void show() {
         alertDlg.show();
         contentTable.setVisible(true);
+        GWTCHelper.centerPopupPanel(alertDlg);
     }
-
+    
     /**
      * Hide the dialog box
      */
