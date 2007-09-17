@@ -33,10 +33,7 @@ import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.Widget;
-/*
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.constants.DateTimeConstants;
-*/
+
 /**
  * @author Manuel Carrasco Moñino
  * 
@@ -131,6 +128,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private Date cursorDate = setHourToZero(new Date());
 
     private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
+    
+    private boolean useCellLinks = false;
 
     // Internationalizable elements
     private String[] days = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
@@ -146,6 +145,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     // Containers
     private final DockPanel outer = new DockPanel();
+    private final Object a = DOM.createDiv();
+    //private final Element outer = DOM.createDiv();
 
     private DialogBox calendarContainer = null;
 
@@ -306,7 +307,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
                     grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellEmpty);
                     grid.setHTML(i, k, "&nbsp;");
                 } else {
-                    HTML html = new CellHTML(displayNum);
+                    HTML html = new CellHTML(displayNum, useCellLinks);
                     grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellDays);
                     html.setStyleName(GWTCDatePicker.StyleCCellDays);
                     if (displayNum < minimalNum || displayNum > maximalNum) {
@@ -342,7 +343,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         nextYBtn.setEnabled(isVisibleMonth(cursorDate, 12));
         
         needsRedraw = false;
-
     }
 
     /**
@@ -353,18 +353,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            the widget that the user has clicked
      */
     public void show(Widget sender) {
-        if (calendarContainer != null) {
-            calendarContainer.show();
-            if (sender != null) {
-                int left = sender.getAbsoluteLeft() + 10 - 200;
-                int top = sender.getAbsoluteTop() + 10;
-                calendarContainer.setPopupPosition(left, top);
-                DOM.scrollIntoView(calendarContainer.getElement());
-            }
-        } else
-            outer.setVisible(true);
-        
         this.drawCalendar();
+        if (calendarContainer == null) {
+            outer.setVisible(true);
+        } else {
+            calendarContainer.show();
+            GWTCHelper.positionPopupPanel(calendarContainer, sender);
+        }
     }
 
     /**
@@ -480,9 +475,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setSelectedDate(Date d) {
-        cursorDate = setHourToZero(d);
-        selectedDate = cursorDate;
-        drawCalendar();
+        d = setHourToZero(d);
+        if ( GWTCDatePicker.compareDate(d, selectedDate) != 0) {
+            needsRedraw = true;
+            cursorDate = selectedDate = d;
+            drawCalendar();
+        }
     }
 
     /**
@@ -572,12 +570,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             } else {
                 outer.setVisible(false);
             }
-        } else {
+        } else if (sender instanceof CellHTML) {
             CellHTML cell = (CellHTML) sender;
             setSelectedDate(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay()));
-            if (changeListeners != null) {
+            if (changeListeners != null) 
                 changeListeners.fireChange(this);
-            }
+        } else {
+            // an unknown click listener
         }
     }
 
@@ -792,26 +791,40 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     static private String leftPadding(String text, String character, int maxNumberChars) {
         StringBuffer ret = new StringBuffer();
-        for (int i = text.length(); i < maxNumberChars; i++) {
+        for    
+    /**
+     * Enables the use of links in Cells, it is needed to use Selenium-IDE
+     * It interferes with History 
+     * By default this parameter is disabled.
+     * 
+     * @param b
+     */
+    public void useCellLinks(boolean b) {
+        useCellLinks = b;
+        this.needsRedraw = true     for (int i = text.length(); i < maxNumberChars; i++) {
             ret.append(character);
         }
         ret.append(text);
         return ret.toString();
     }
 
-    /**
-     * Basic Widget that represents each cell in the calendar picker
-     * 
-     */
-    private static class CellHTML extends HTML {
-        private int day;
+    /**        private boolean useCellLinks = false;
 
-        public CellHTML(int day) {
-   boolean ie6 = GWTCButton.isIE6(); 
-            // If the cell has a click-listernet, we add a link, so Selenium is able to use it
-            setHTML( (ie6 ? "<a>" : "<a href=\"#\">")er(ClickListener listener) {
-            // If the cell has a click-listernet, we add a link, so Selenium is able to use it
-            setHTML("<a href=\"#\">" + String.valueOf(day) + "</a>");
+        public CellHTML(int day, boolean useCellLinks) {
+            super (String.valueOf(day));
+            this.useCellLinks = useCellLinks;
+            this.day = day;
+        }
+        
+        public void addClickListener(ClickListener pickListener) {
+            boolean ie6 = GWTCHelper.isIE6(); 
+            if (useCellLinks && ie6 == false) {
+                // If the cell has a click-listernet, we add a link, so Selenium is able to use it
+                // setHTML( "<a href=\"javascript:;\">" + String.valueOf(day) + "</a>");
+                setHTML( "<a href=\"#\">" + String.valueOf(day) + "</a>");
+            }
+            super.addClickListener(pickListener);
+            //  IE6 does not support div:hover style, this listener adds a newtring.valueOf(day) + "</a>");
             supeie6)
                 this.addMouseListener(GWTCButton.mouseOverListener);gwtc-Hover class when the mouse is over
             if (GWTCButton.isIE6()) {

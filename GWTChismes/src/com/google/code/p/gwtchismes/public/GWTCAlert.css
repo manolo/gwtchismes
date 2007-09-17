@@ -13,10 +13,12 @@
    padding :  4px 10px 10px 10px;
    text-align : center;
    width : 230px;
+   /*
    margin-left : -115px;
    position : absolute;
    top : 40%;
    left : 50%;
+   */
 }
 .GWTCAlert .Caption {
   display: none;		

@@ -156,17 +156,17 @@ public class GWTCSample implements EntryPoint {
         });
         picker_es.drawCalendar();
         
-        // Create a default date-picker ant a launcher button
+        // Create a default date-picker and a launcher button
         final GWTCDatePicker dPicker = new GWTCDatePicker(true);
         dPicker.addChangeListener(new ChangeListener() {
             public void onChange(Widget widget) {
                 alert.alert(dPicker.getSelectedDateStr("dd/MMM/yyyy"));
             }
         });
-        final GWTCButton dButton = new GWTCButton("Click me");
+        final GWTCButton dButton = new GWTCButton("GWTCDatePicker: click to show a centered DatePicker");
         dButton.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
-                dPicker.show(dButton);
+                dPicker.show(null);
             }
         });
 
