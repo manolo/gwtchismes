@@ -1,60 +1,48 @@
-
 .x-box-tl {
-	background: transparent url(../images/default/box/corners.gif) no-repeat 0 0;
+	border: 2px;
+	background: transparent url(images/box/corners.gif) no-repeat 0 0;
     zoom:1;
 }
-
 .x-box-tc {
 	height: 8px;
-	background: transparent url(../images/default/box/tb.gif) repeat-x 0 0;
+	background: transparent url(images/box/tb.gif) repeat-x 0 0;
 	overflow: hidden;
 }
-
 .x-box-tr {
-	background: transparent url(../images/default/box/corners.gif) no-repeat right -8px;
+	background: transparent url(images/box/corners.gif) no-repeat right -8px;
 }
 
 .x-box-ml {
-	background: transparent url(../images/default/box/l.gif) repeat-y 0;
+	background: transparent url(images/box/l.gif) repeat-y 0;
 	padding-left: 4px;
 	overflow: hidden;
     zoom:1;
 }
-
 .x-box-mc {
-	background: #eee url(../images/default/box/tb.gif) repeat-x 0 -16px;
+	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
 	padding: 4px 10px;
 	font-family: "Myriad Pro","Myriad Web","Tahoma","Helvetica","Arial",sans-serif;
 	color: #393939;
 	font-size: 12px;
 }
 
-.x-box-mc h3 {
-	font-size: 14px;
-	font-weight: bold;
-	margin: 0 0 4 0;
-    zoom:1;
-}
-
 .x-box-mr {
-	background: transparent url(../images/default/box/r.gif) repeat-y right;
+	background: transparent url(images/box/r.gif) repeat-y right;
 	padding-right: 4px;
 	overflow: hidden;
 }
-
 .x-box-bl {
-	background: transparent url(../images/default/box/corners.gif) no-repeat 0 -16px;
+	background: transparent url(images/box/corners.gif) no-repeat 0 -16px;
     zoom:1;
 }
-
 .x-box-bc {
-	background: transparent url(../images/default/box/tb.gif) repeat-x 0 -8px;
+	background: transparent url(images/box/tb.gif) repeat-x 0 -8px;
 	height: 8px;
 	overflow: hidden;
 }
 
 .x-box-br {
-	background: transparent url(../images/default/box/corners.gif) no-repeat right -24px;
+	background: transparent url(images/box/corners.gif) no-repeat right -24px;
 }
 
 .x-box-tl, .x-box-bl {
@@ -67,12 +55,20 @@
 	overflow: hidden;
 }
 
+
+.x-box-mc h3 {
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0 0 4 0;
+    zoom:1;
+}
+
 .x-box-blue .x-box-bl, .x-box-blue .x-box-br, .x-box-blue .x-box-tl, .x-box-blue .x-box-tr {
-	background-image: url(../images/default/box/corners-blue.gif);
+	background-image: url(images/box/corners-blue.gif);
 }
 
 .x-box-blue .x-box-bc, .x-box-blue .x-box-mc, .x-box-blue .x-box-tc {
-	background-image: url(../images/default/box/tb-blue.gif);
+	background-image: url(images/box/tb-blue.gif);
 }
 
 .x-box-blue .x-box-mc {
@@ -84,9 +80,145 @@
 }
 
 .x-box-blue .x-box-ml {
-	background-image: url(../images/default/box/l-blue.gif);
+	background-image: url(images/box/l-blue.gif);
 }
 
 .x-box-blue .x-box-mr {
-	background-image: url(../images/default/box/r-blue.gif);
+	background-image: url(images/box/r-blue.gif);
 }
+
+
+
+
+
+
+
+
+.GWTCDatePicker {
+  z-index: 99;
+  font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  border: 0px solid #f0f0f0; 
+  background-color: transparent;
+  width: auto;
+}
+.GWTCDatePicker * {
+  font-size: 8pt;
+}
+.GWTCDatePicker .Caption {
+  background: #000 url(gwtc-cpicker-bg-title.png) repeat-x top;
+  padding: 4px;
+  padding-bottom: 8px;
+  font-weight: bold;
+  color : #fff;
+  cursor: move;
+  text-align : center;
+}
+.GWTCDatePicker .Cal_Buttons {
+  width: 100%;
+  background-color: transparent;
+  vertical-align: middle;
+  border-bottom: 1px solid #ACA899;
+}
+.GWTCDatePicker .Cal_Buttons .Cal_Header {
+  background-color: transparent;
+  cursor: default; 
+  text-align : center;
+  font-weight: bold;
+}
+.GWTCDatePicker .Cal_Buttons .gwt-Button {
+  padding-left: 5px;
+  padding-right: 5px;
+  background : #dfdfdf url(gwtc-button-bg.jpg) repeat-x bottom;
+}
+.GWTCDatePicker .Cal_Buttons .gwt-Button:hover, 
+.GWTCDatePicker .Cal_Buttons .gwt-Button.gwtc-Hover {
+  padding-left: 5px;
+  padding-right: 5px;
+  background : #dfdfdf url(gwtc-button-bg-over.jpg) repeat-x bottom;
+}
+/* Calendar Grid */
+.GWTCDatePicker .Cal_Grid {
+  cursor: default;
+  font: 10pt sans-serif;
+  text-align: center;
+}
+/* Calendar Grid WeekHeaders */
+.GWTCDatePicker .Cal_Grid .Cal_WeekHeader {
+  background-color: #ACA899;
+}
+.GWTCDatePicker .Cal_Grid .Cal_WeekHeader .Cal_CellDayNames {
+  text-align : center;
+  font-weight : bold;
+  padding : 4px;
+  background : #d0e6ff;
+  //border : 1px solid #fff;
+}
+/* Calendar Grid Day Cells */
+.GWTCDatePicker A:link      {color: black; text-decoration: none}
+.GWTCDatePicker A:visited {color: black; text-decoration: none}
+.GWTCDatePicker A:active  {color: black; text-decoration: none; cursor: wait}
+.GWTCDatePicker A:hover  {color: black; text-decoration: none}
+.GWTCDatePicker .Cal_Grid td.Cal_CellDays {
+  border: none;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_CellDays {
+  background: #fff url(gwtc-cpicker-bg-day.png) no-repeat center center;
+  text-align: center;
+//  border: 1px solid #fff;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_CellDays:hover,
+.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Hover, 
+.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Active {
+  background: transparent;
+  font-weight : bold;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_CellDays:active,
+.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Active {
+  cursor: wait;	
+  background: pink;
+  padding : 0px;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_CellDays {
+  width: 100%;
+  height: 100%;
+  line-height: 2em;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_CellEmpty {
+  background-color: transparent;
+} 
+.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay, 
+.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay:hover {
+  cursor: default;
+  text-decoration: line-through;
+  color : #999;
+  background : transparent;
+  font-weight : normal;
+} 
+
+.GWTCDatePicker .Cal_Grid div.Cal_Today {
+  cursor: pointer;
+  background: #fff url(gwtc-cpicker-bg-today.png) no-repeat center center;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_Today:hover {
+  cursor: pointer;
+  background: #fff url(gwtc-cpicker-bg-day-over.png) no-repeat center center;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_BeforeSelected {
+  cursor: pointer;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_Selected,
+.GWTCDatePicker .Cal_Grid div.Cal_Selected:hover,
+.GWTCDatePicker .Cal_Grid    .Cal_Selected div.gwtc-Hover {
+  cursor: default;
+  background-color : #dfdfdf;
+  background: #fff url(gwtc-cpicker-bg-selected.png) no-repeat center center;
+  font-weight: normal;
+}
+.GWTCDatePicker .Cal_Grid div.Cal_AfterSelected {
+  cursor: pointer;
+}
+
+
+
+
+
