@@ -17,34 +17,57 @@
 
 package com.google.code.p.uploadsample.client;
 
+import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class uploadsample implements EntryPoint {
 	public void onModuleLoad() {
+        
+        final GWTCAlert alert = new GWTCAlert();
+        ClickListener listener = new ClickListener() {
+            public void onClick(Widget sender) {
+                Window.alert("HOLA");
+                final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS);
+                final GWTCProgress progressBar2 = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
+                progressBar.setText("Uploading file, please wait ...");
+                progressBar2.setTotalMessage("{0}% {1}/{2} KB.");
+                progressBar2.setText("Uploading file, please wait ...");
+                RootPanel.get().add(progressBar);
+                progressBar2.show();
+                Timer t = new Timer() {
+                    int done = 0;
+                    int total = 400;
+                    public void run() {
+                        if (done >= total) {
+                            cancel();
+                            progressBar2.hide();
+                            RootPanel.get().clear();
+                            alert.setOkButtonDisabled(true);
+                            alert.alert("Thank you");
+                        }
+                        progressBar.setProgress(done, total);
+                        progressBar2.setProgress(done, total);
+                        done += 55;
+                    }
+                };
+                t.scheduleRepeating(1000);
+            }
+        };
+        
+        alert.addClickListener(listener);
+        
+        alert.alert( ""
+                + "<div>addfasdf adfa dasf asdf asdf asd ad a faf  f fad</div>\n"
+                + "asdf  asdffdas sd fasas fasf kkads ja a klaj djask ladf klda llaksd klk fk ljklaj klajsd ljasklj lkj "
+                + "" ); 
 
-		final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING + GWTCProgress.SHOW_TEXT + GWTCProgress.SHOW_NUMBERS);
-		progressBar.setText("Uploading file, please wait ...");
-		RootPanel.get().add(progressBar);
-		Timer t = new Timer() {
-			int done = 0;
-			int total = 400;
-			public void run() {
-				/*
-				int progress = progressBar.getProgress() + 4;
-				if (progress > 100)
-					cancel();
-				progressBar.setProgress(progress);
-				*/
-				if (done >= total) 
-					cancel();
-				progressBar.setProgress(done, total);
-				done += 8;
-			}
-		};
-		t.scheduleRepeating(1000);
+        /*
 		/*
 		 * GWTCCornerButton b = new GWTCCornerButton("aaa");
 		 * b.addClickListener(new ClickListener() { public void onClick(Widget
