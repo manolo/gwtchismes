@@ -67,8 +67,18 @@ public class GWTCAlert extends Composite {
     private GWTCButton okButton = new GWTCButton("OK");
 
     FlexTable contentTable = new FlexTable();
-
+    
+    static public int OPTION_DISABLE_OK_BUTTON = 1;
+    private boolean okButtonDisabled = false;
+    
     public GWTCAlert() {
+        this(0);
+    }
+
+    public GWTCAlert(int options) {
+        
+        if ( (options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
+            okButtonDisabled = true;
 
         alertDlg.setStyleName(GWTCAlert.StyleCAlert);
 
@@ -77,6 +87,7 @@ public class GWTCAlert extends Composite {
         contentTable.setWidget(0, 0, txt);
 
         contentTable.getCellFormatter().addStyleName(1, 0, GWTCAlert.StyleCAlertBtnCell);
+        
         contentTable.setWidget(1, 0, okButton);
         okButton.addStyleName(GWTCAlert.StyleCAlertBtn);
         okButton.addClickListener(new ClickListener() {
@@ -84,10 +95,19 @@ public class GWTCAlert extends Composite {
                 hide();
             }
         });
+
+        okButton.setVisible(! okButtonDisabled );
+        
         alertDlg.setWidget(contentTable);
         hide();
-
         initWidget(new DockPanel());
+    }
+    
+    public void addClickListener(ClickListener listener) {
+        okButton.addClickListener(listener);
+    }
+    public void removeClickListener(ClickListener listener) {
+        okButton.removeClickListener(listener);
     }
 
     /**
@@ -145,5 +165,14 @@ public class GWTCAlert extends Composite {
     public void hide() {
         alertDlg.hide();
         contentTable.setVisible(false);
+    }
+
+    public boolean isOkButtonDisabled() {
+        return okButtonDisabled;
+    }
+
+    public void setOkButtonDisabled(boolean b) {
+        okButtonDisabled = b;
+        okButton.setVisible(! okButtonDisabled );
     }
 }

@@ -85,10 +85,10 @@ public class GWTCHelper {
     public static native void scrollTo(int x, int y) /*-{
        $wnd.scrollTo(x,y);
     }-*/;
-    private static native int getVisibleWidth() /*-{
+    public static native int getVisibleWidth() /*-{
        return $wnd.document.documentElement.clientWidth;
     }-*/;
-    private static native int getVisibleHeight() /*-{
+    public static native int getVisibleHeight() /*-{
        return $wnd.document.documentElement.clientHeight;
     }-*/;
 }

@@ -16,9 +16,15 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -106,347 +112,423 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author Bjarne Matzen - Bjarne[dot]Matzen[at]gmail[dot]com
  */
 
-public class GWTCProgress extends VerticalPanel {
-
-	/**
-	 * Option to show text label above progress bar
-	 */
-	public static final int SHOW_TEXT = 2;
-
-	/**
-	 * Option to show time remaining
-	 */
-	public static final int SHOW_TIME_REMAINING = 1;
-	
-	/**
-	 * Option to show elements raised
-	 */
-	public static final int SHOW_NUMBERS = 4;
+public class GWTCProgress extends Composite {
+    
+    private VerticalPanel container = new VerticalPanel();
+    
+    private FocusPanel pageBackground = new FocusPanel();
+    
+    private DialogBox progressDlg = new DialogBox();
 
 
-	/**
-	 * The time the progress bar was started
-	 */
-	private long startTime = System.currentTimeMillis();
 
-	/**
-	 * The number of bar elements to show
-	 */
-	private int elements = 20;
+    public static final int SHOW_TIME_REMAINING = 1;
+    public static final int SHOW_TEXT = 2;
+    public static final int SHOW_NUMBERS = 4;
+    public static final int SHOW_AS_DIALOG = 8;
 
-	/**
-	 * Time element text
-	 */
-	private String secondsMessage = "Time remaining: {0} Seconds";
+    /**
+     * The time the progress bar was started
+     */
+    private long startTime = System.currentTimeMillis();
 
-	private String minutesMessage = "Time remaining: {0} Minutes";
+    /**
+     * The number of bar elements to show
+     */
+    private int elements = 20;
 
-	private String hoursMessage = "Time remaining: {0} Hours";
-	
-	private String numberMessage = "{0}% {1}/{2} KB";
+    /**
+     * Time element text
+     */
+    private String secondsMessage = "Time remaining: {0} Seconds";
 
-	/**
-	 * Current progress (as a percentage)
-	 */
-	private int progress = 0;
+    private String minutesMessage = "Time remaining: {0} Minutes";
 
-	/**
-	 * This is the frame around the progress bar
-	 */
-	private FlexTable barFrame = new FlexTable();
+    private String hoursMessage = "Time remaining: {0} Hours";
 
-	/**
-	 * This is the grid used to show the elements
-	 */
-	private Grid elementGrid;
+    private String percentMessage = "{0}%";
+    private String totalMessage = "{0}% {1}/{2} ";
 
-	/**
-	 * This is the current text label below the progress bar
-	 */
-	private Label remainLabel = new Label();
+    /**
+     * Current progress (as a percentage)
+     */
+    private int progress = 0;
 
-	/**
-	 * This is the current text label above the progress bar
-	 */
-	private Label textLabel = new Label();
-	
-	private Label numberLabel = new Label();
+    /**
+     * This is the frame around the progress bar
+     */
+    private FlexTable barFrame = new FlexTable();
 
-	/**
-	 * internal flags for options
-	 */
-	private boolean showRemaining = false;
-	private boolean showText = false;
-	private boolean showNumbers = false;
+    /**
+     * This is the grid used to show the elements
+     */
+    private Grid elementGrid;
 
-	/**
-	 * Base constructor for this widget
-	 * 
-	 * @param elements
-	 *            The number of elements (bars) to show on the progress bar
-	 * @param options
-	 *            The display options for the progress bar
-	 */
-	public GWTCProgress(int elements, int options) {
-		// Read the options and set convenience variables
-		if ((options & SHOW_TIME_REMAINING) == SHOW_TIME_REMAINING)
-			showRemaining = true;
-		if ((options & SHOW_TEXT) == SHOW_TEXT)
-			showText = true;
-		if ((options & SHOW_NUMBERS) == SHOW_NUMBERS)
-			showText = true;
+    /**
+     * This is the current text label below the progress bar
+     */
+    private Label remainLabel = new Label();
 
-		// Set element count
-		this.elements = elements;
+    /**
+     * This is the current text label above the progress bar
+     */
+    private Label textLabel = new Label();
 
-		// Styling
-		remainLabel.setStyleName("progressbar-remaining");
-		textLabel.setStyleName("progressbar-text");
+    private Label numberLabel = new Label();
 
-		// Initialize the progress elements
-		elementGrid = new Grid(1, elements);
-		elementGrid.setStyleName("progressbar-inner");
-		elementGrid.setCellPadding(0);
-		elementGrid.setCellSpacing(0);
+    /**
+     * internal flags for options
+     */
+    private boolean showRemaining = false;
 
-		for (int loop = 0; loop < elements; loop++) {
-			Grid elm = new Grid(1, 1);
-			// elm.setHTML(0, 0, "&nbsp;");
-			elm.setHTML(0, 0, "");
-			elm.setStyleName("progressbar-blankbar");
-			elm.addStyleName("progressbar-bar");
-			elementGrid.setWidget(0, loop, elm);
-		}
+    private boolean showText = false;
 
-		// Create the container around the elements
-		Grid containerGrid = new Grid(1, 1);
-		containerGrid.setCellPadding(0);
-		containerGrid.setCellSpacing(0);
-		containerGrid.setWidget(0, 0, elementGrid);
-		containerGrid.setStyleName("progressbar-outer");
-		// containerGrid.setBorderWidth(1);
+    private boolean showNumbers = false;
+    
+    private boolean showAsDialog = false;
+    
+    public static final String StyleCProgress = "GWTCProgress";
+    public static final String StyleCProgressDlg = "prg-dialog";
+    public static final String StyleCPrgNumbers = "prg-numbers";
+    public static final String StyleCPrgTime = "prg-time";
+    public static final String StyleCPrgText = "prg-title";
 
-		// Set up the surrounding flex table based on the options
-		int row = 0;
-		if (showText)
-			barFrame.setWidget(row++, 0, textLabel);
-		if (showNumbers)
-			barFrame.setWidget(row, 1, numberLabel);
-		barFrame.setWidget(row++, 0, containerGrid);
-		if (showRemaining)
-			barFrame.setWidget(row++, 0, remainLabel);
+    public static final String StyleCBarOuter = "prg-bar-outer";
+    public static final String StyleCBarInner = "prg-bar-inner";
+    
+    public static final String StyleCBarDone = "prg-bar-done";
+    public static final String StyleCBarBlank = "prg-bar-blank";
+    public static final String StyleCBarElement = "prg-bar-element";
 
-		barFrame.setWidth("100%");
+    /**
+     * Base constructor for this widget
+     * 
+     * @param elements
+     *            The number of elements (bars) to show on the progress bar
+     * @param options
+     *            The display options for the progress bar
+     */
+    public GWTCProgress(int elements, int options) {
+        // Read the options and set convenience variables
+        if ((options & SHOW_TIME_REMAINING) == SHOW_TIME_REMAINING)
+            showRemaining = true;
+        if ((options & SHOW_TEXT) == SHOW_TEXT)
+            showText = true;
+        if ((options & SHOW_NUMBERS) == SHOW_NUMBERS)
+            showNumbers = true;
+        if ((options & SHOW_AS_DIALOG) == SHOW_AS_DIALOG)
+            showAsDialog = true;
 
-		// Add the frame to the panel
-		this.add(barFrame);
+        // Set element count
+        this.elements = elements;
 
-		// Initialize progress bar
-		setProgress(0);
-	}
+        // Styling
+        container.setStyleName(StyleCProgress);
+        numberLabel.setStyleName(StyleCPrgNumbers);
+        remainLabel.setStyleName(StyleCPrgTime);
+        textLabel.setStyleName(StyleCPrgText);
 
-	/**
-	 * Constructor without options
-	 * 
-	 * @param elements
-	 *            The number of elements (bars) to show on the progress bar
-	 */
-	public GWTCProgress(int elements) {
-		this(elements, 0);
-	}
-	
-	
-	public void setProgress(int percent) {
-		setProgress(percent, 0,0);
-	}
-	
-	public void setProgress(int total, int done) {
-		int percent = total * 100 / done;
-		setProgress(percent, total, done);
-	}
 
-	/**
-	 * Set the current progress as a percentage
-	 * 
-	 * @param percentage
-	 *            Set current percentage for the progress bar
-	 */
-	public void setProgress(int percentage, int total, int done) {
-		// Make sure we are error-tolerant
-		if (percentage > 100)
-			percentage = 100;
-		if (percentage < 0)
-			percentage = 0;
-
-		// Set the internal variable
-		progress = percentage;
-
-		// Update the elements in the progress grid to
-		// reflect the status
-		int completed = elements * percentage / 100;
-		for (int loop = 0; loop < elements; loop++) {
-			Grid elm = (Grid) elementGrid.getWidget(0, loop);
-			if (loop < completed) {
-				elm.setStyleName("progressbar-fullbar");
-				elm.addStyleName("progressbar-bar");
-			} else {
-				elm.setStyleName("progressbar-blankbar");
-				elm.addStyleName("progressbar-bar");
-			}
-		}
-
-		if (percentage > 0) {
-			// Calculate the new time remaining
-			long soFar = (System.currentTimeMillis() - startTime) / 1000;
-			long remaining = soFar * (100 - percentage) / percentage;
-			// Select the best UOM
-			String remainText = secondsMessage;
-			if (remaining > 120) {
-				remaining = remaining / 60;
-				remainText = minutesMessage;
-				if (remaining > 120) {
-					remaining = remaining / 60;
-					remainText = hoursMessage;
-				}
-			}
-			remainText = internationalize(remainText, "" + remaining);
-			remainLabel.setText(remainText);
-		} else {
-			// If progress is 0, reset the start time
-			startTime = System.currentTimeMillis();
-		}
-		
-		if (total > -1 ) {
-			Object[] os = {""+percentage, ""+done, ""+total};
-			numberLabel.setText(internationalize(numberMessage, os));
-		}
-	}
-	
-	public String internationalize(String s, String o) {
-		Object[] os = {o};
-		return internationalize(s, os);
-	}
-	
-	public String internationalize(String s, Object[] os) {
-		for (int i = 0; i < os.length; i++) {
-			String o = "" + (os[i] != null ? os[i] : "");
-			String c = "{" + i + "}";
-			for(;;) {
-				int pos = s.indexOf(c);
-				if (pos < 0) break;
-				String trail = "";
-				if (pos + c.length() < s.length())
-					trail = s.substring(pos + c.length());
-				s = s.substring(0, pos) + o + trail;
-			}
+        // Create the out container
+        Grid containerGrid = new Grid(1, 1);
+        containerGrid.setStyleName(StyleCBarOuter);
+        containerGrid.setCellPadding(0);
+        containerGrid.setCellSpacing(0);
+        // Create continer for elements
+        elementGrid = new Grid(1, elements);
+        elementGrid.setStyleName(StyleCBarInner);
+        elementGrid.setCellPadding(0);
+        elementGrid.setCellSpacing(0);
+        containerGrid.setWidget(0, 0, elementGrid);
+        // Create elements
+        for (int loop = 0; loop < elements; loop++) {
+            Grid elm = new Grid(1, 1);
+            // elm.setHTML(0, 0, "&nbsp;");
+            elm.setHTML(0, 0, "");
+            elm.setStyleName(StyleCBarDone);
+            elm.addStyleName(StyleCBarElement);
+            elementGrid.setWidget(0, loop, elm);
         }
-		return s;
-	}
+        // containerGrid.setBorderWidth(1);
+        // Set up the surrounding flex table based on the options
+        barFrame.setWidth("100%");
+        int row = 0;
+        barFrame.setWidget(row++, 0, textLabel);
+        barFrame.setWidget(row, 1, numberLabel);
+        barFrame.setWidget(row++, 0, containerGrid);
+        barFrame.setWidget(row++, 0, remainLabel);
+        // Add the frame to the panel
+        container.add(barFrame);
+        // Initialize progress bar
+        setProgress(0);
+        
+        if (showAsDialog) {
+            // Create the background
+            RootPanel.get().add(pageBackground, 0, 0);
+            pageBackground.setStyleName(GWTCWait.StyleCWait);
+            pageBackground.addStyleName(GWTCWait.StyleCWaitBg);
+            // put the container into a dialog
+            progressDlg.setWidget(container);
+            progressDlg.setStyleName(StyleCProgress);
+            progressDlg.addStyleName(StyleCProgressDlg);
+            // Initialize this composite with an empty element
+            initWidget(new DockPanel());
+            hide();
+        } else {
+            initWidget(container);
+        }
+    }
+    
+    public void hide() {
+        if (!showAsDialog)
+            return;
+        progressDlg.hide();
+        container.setVisible(false);
+        pageBackground.setVisible(false);
+    }
+    
+    public void show() {
+        if (!showAsDialog)
+            return;
+        progressDlg.show();
+        pageBackground.setVisible(true);
+        container.setVisible(true);
+        center();
+    }
+    
+    public void center() {
+        // Configure Background size 
+        pageBackground.setSize(GWTCHelper.getVisibleWidth() + "px", GWTCHelper.getVisibleHeight() + "px");
+        // Center the dialog
+        GWTCHelper.centerPopupPanel(progressDlg);
+    }
 
-	/**
-	 * Get the current progress as a percentage
-	 * 
-	 * @return Current percentage for the progress bar
-	 */
-	public int getProgress() {
-		return (progress);
-	}
 
-	/**
-	 * Get the text displayed above the progress bar
-	 * 
-	 * @return the text
-	 */
-	public String getText() {
-		return this.textLabel.getText();
-	}
+    /**
+     * Constructor without options
+     * 
+     * @param elements
+     *            The number of elements (bars) to show on the progress bar
+     */
+    public GWTCProgress(int elements) {
+        this(elements, 0);
+    }
 
-	/**
-	 * Set the text displayed above the progress bar
-	 * 
-	 * @param text
-	 *            the text to set
-	 */
-	public void setText(String text) {
-		this.textLabel.setText(text);
-	}
+    public void setProgress(int percent) {
+        setProgress(percent, 0, 0);
+    }
 
-	/**
-	 * Get the message used to format the time remaining text for hours
-	 * 
-	 * @return the hours message
-	 */
-	public String getHoursMessage() {
-		return hoursMessage;
-	}
+    public void setProgress(int total, int done) {
+        int percent = total * 100 / done;
+        setProgress(percent, total, done);
+    }
 
-	/**
-	 * Set the message used to format the time remaining text below the progress
-	 * bar. There are 3 messages used for hours, minutes and seconds
-	 * respectively.
-	 * 
-	 * The message must contain a placeholder for the value. The placeholder
-	 * must be {0}. For example, the following is a valid message:
-	 * 
-	 * "Hours remaining: {0}"
-	 * 
-	 * @param hoursMessage
-	 *            the hours message to set
-	 */
-	public void setHoursMessage(String hoursMessage) {
-		this.hoursMessage = hoursMessage;
-	}
+    /**
+     * Set the current progress as a percentage
+     * 
+     * @param percentage
+     *            Set current percentage for the progress bar
+     */
+    public void setProgress(int percentage, int total, int done) {
+        // Make sure we are error-tolerant
+        if (percentage > 100)
+            percentage = 100;
+        if (percentage < 0)
+            percentage = 0;
 
-	/**
-	 * Get the message used to format the time remaining text for minutes
-	 * 
-	 * @return the minutesMessage
-	 */
-	public String getMinutesMessage() {
-		return minutesMessage;
-	}
+        // Set the internal variable
+        progress = percentage;
 
-	/**
-	 * Set the message used to format the time remaining text below the progress
-	 * bar. There are 3 messages used for hours, minutes and seconds
-	 * respectively.
-	 * 
-	 * The message must contain a placeholder for the value. The placeholder
-	 * must be {0}. For example, the following is a valid message:
-	 * 
-	 * "Minutes remaining: {0}"
-	 * 
-	 * @param minutesMessage
-	 *            the minutes message to set
-	 */
-	public void setMinutesMessage(String minutesMessage) {
-		this.minutesMessage = minutesMessage;
-	}
+        // Update the elements in the progress grid to
+        // reflect the status
+        int completed = elements * percentage / 100;
+        for (int loop = 0; loop < elements; loop++) {
+            Grid elm = (Grid) elementGrid.getWidget(0, loop);
+            if (loop < completed) {
+                elm.setStyleName(StyleCBarDone);
+                elm.addStyleName(StyleCBarElement);
+            } else {
+                elm.setStyleName(StyleCBarBlank);
+                elm.addStyleName(StyleCBarElement);
+            }
+        }
 
-	/**
-	 * Get the message used to format the time remaining text for seconds
-	 * 
-	 * @return the secondsMessage
-	 */
-	public String getSecondsMessage() {
-		return secondsMessage;
-	}
+        DOM.setInnerHTML(remainLabel.getElement(), "&nbsp;");
+        DOM.setInnerHTML(numberLabel.getElement(), "&nbsp;");
+        if (percentage > 0) {
+            if (showRemaining) {
+                // Calculate the new time remaining
+                long soFar = (System.currentTimeMillis() - startTime) / 1000;
+                long remaining = soFar * (100 - percentage) / percentage;
+                // Select the best UOM
+                String remainText = secondsMessage;
+                if (remaining > 120) {
+                    remaining = remaining / 60;
+                    remainText = minutesMessage;
+                    if (remaining > 120) {
+                        remaining = remaining / 60;
+                        remainText = hoursMessage;
+                    }
+                }
+                remainLabel.setText(internationalize(remainText, "" + remaining));
+            }
+        } else {
+            // If progress is 0, reset the start time
+            startTime = System.currentTimeMillis();
+        }
+        if (showNumbers) {
+            String message = (total > 0) ? totalMessage : percentMessage;
+            Object[] os = { "" + percentage, "" + total, "" + done };
+            numberLabel.setText(internationalize(message, os));
+        }
+        
+        if (showAsDialog)
+            center();
+    }
 
-	/**
-	 * Set the message used to format the time remaining text below the progress
-	 * bar. There are 3 messages used for hours, minutes and seconds
-	 * respectively.
-	 * 
-	 * The message must contain a placeholder for the value. The placeholder
-	 * must be {0}. For example, the following is a valid message:
-	 * 
-	 * "Seconds remaining: {0}"
-	 * 
-	 * @param secondsMessage
-	 *            the secondsMessage to set
-	 */
-	public void setSecondsMessage(String secondsMessage) {
-		this.secondsMessage = secondsMessage;
-	}
+    public String internationalize(String s, String o) {
+        Object[] os = { o };
+        return internationalize(s, os);
+    }
+
+    public String internationalize(String s, Object[] os) {
+        for (int i = 0; i < os.length; i++) {
+            String o = "" + (os[i] != null ? os[i] : "");
+            String c = "{" + i + "}";
+            for (;;) {
+                int pos = s.indexOf(c);
+                if (pos < 0)
+                    break;
+                String trail = "";
+                if (pos + c.length() < s.length())
+                    trail = s.substring(pos + c.length());
+                s = s.substring(0, pos) + o + trail;
+            }
+        }
+        return s;
+    }
+
+    /**
+     * Get the current progress as a percentage
+     * 
+     * @return Current percentage for the progress bar
+     */
+    public int getProgress() {
+        return (progress);
+    }
+
+    /**
+     * Get the text displayed above the progress bar
+     * 
+     * @return the text
+     */
+    public String getText() {
+        return this.textLabel.getText();
+    }
+
+    /**
+     * Set the text displayed above the progress bar
+     * 
+     * @param text
+     *            the text to set
+     */
+    public void setText(String text) {
+        if (showText)
+            this.textLabel.setText(text);
+    }
+
+    /**
+     * Get the message used to format the time remaining text for hours
+     * 
+     * @return the hours message
+     */
+    public String getHoursMessage() {
+        return hoursMessage;
+    }
+
+    /**
+     * Set the message used to format the time remaining text below the progress
+     * bar. There are 3 messages used for hours, minutes and seconds
+     * respectively.
+     * 
+     * The message must contain a placeholder for the value. The placeholder
+     * must be {0}. For example, the following is a valid message:
+     * 
+     * "Hours remaining: {0}"
+     * 
+     * @param hoursMessage
+     *            the hours message to set
+     */
+    public void setHoursMessage(String hoursMessage) {
+        this.hoursMessage = hoursMessage;
+    }
+
+    /**
+     * Get the message used to format the time remaining text for minutes
+     * 
+     * @return the minutesMessage
+     */
+    public String getMinutesMessage() {
+        return minutesMessage;
+    }
+
+    /**
+     * Set the message used to format the time remaining text below the progress
+     * bar. There are 3 messages used for hours, minutes and seconds
+     * respectively.
+     * 
+     * The message must contain a placeholder for the value. The placeholder
+     * must be {0}. For example, the following is a valid message:
+     * 
+     * "Minutes remaining: {0}"
+     * 
+     * @param minutesMessage
+     *            the minutes message to set
+     */
+    public void setMinutesMessage(String minutesMessage) {
+        this.minutesMessage = minutesMessage;
+    }
+
+    /**
+     * Get the message used to format the time remaining text for seconds
+     * 
+     * @return the secondsMessage
+     */
+    public String getSecondsMessage() {
+        return secondsMessage;
+    }
+
+    /**
+     * Set the message used to format the time remaining text below the progress
+     * bar. There are 3 messages used for hours, minutes and seconds
+     * respectively.
+     * 
+     * The message must contain a placeholder for the value. The placeholder
+     * must be {0}. For example, the following is a valid message:
+     * 
+     * "Seconds remaining: {0}"
+     * 
+     * @param secondsMessage
+     *            the secondsMessage to set
+     */
+    public void setSecondsMessage(String secondsMessage) {
+        this.secondsMessage = secondsMessage;
+    }
+
+    public String getPercentMessage() {
+        return percentMessage;
+    }
+
+    public void setPercentMessage(String percentMessage) {
+        this.percentMessage = percentMessage;
+    }
+
+    public String getTotalMessage() {
+        return totalMessage;
+    }
+
+    public void setTotalMessage(String totalMessage) {
+        this.totalMessage = totalMessage;
+    }
 
 }
