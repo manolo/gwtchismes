@@ -145,8 +145,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     // Containers
     private final DockPanel outer = new DockPanel();
-    private final Object a = DOM.createDiv();
-    //private final Element outer = DOM.createDiv();
 
     private DialogBox calendarContainer = null;
 

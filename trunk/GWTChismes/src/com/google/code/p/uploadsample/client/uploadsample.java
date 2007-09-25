@@ -18,6 +18,7 @@
 package com.google.code.p.uploadsample.client;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
+
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
@@ -32,11 +33,10 @@ public class uploadsample implements EntryPoint {
         final GWTCAlert alert = new GWTCAlert();
         ClickListener listener = new ClickListener() {
             public void onClick(Widget sender) {
-                Window.alert("HOLA");
                 final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS);
                 final GWTCProgress progressBar2 = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
                 progressBar.setText("Uploading file, please wait ...");
-                progressBar2.setTotalMessage("{0}% {1}/{2} KB.");
+                progressBar2.setTotalMessage("{0}% {1}/{2} KB. [{3} KB/s]");
                 progressBar2.setText("Uploading file, please wait ...");
                 RootPanel.get().add(progressBar);
                 progressBar2.show();
