@@ -280,6 +280,7 @@ public class GWTCProgress extends Composite {
     }
     
     public void hide() {
+    	this.setProgress(0);
         if (!showAsDialog)
             return;
         progressDlg.hide();
@@ -288,6 +289,7 @@ public class GWTCProgress extends Composite {
     }
     
     public void show() {
+    	this.setProgress(0);
         if (!showAsDialog)
             return;
         progressDlg.show();
@@ -297,11 +299,12 @@ public class GWTCProgress extends Composite {
     }
     
     public void center() {
-        // Configure Background size 
-        pageBackground.setSize(GWTCHelper.getVisibleWidth() + "px", GWTCHelper.getVisibleHeight() + "px");
+        // Maximize background 
+    	GWTCHelper.maximizeWidget(pageBackground);
         // Center the dialog
         GWTCHelper.centerPopupPanel(progressDlg);
     }
+    
 
 
     /**
@@ -318,9 +321,9 @@ public class GWTCProgress extends Composite {
         setProgress(percent, 0, 0);
     }
 
-    public void setProgress(int total, int done) {
-        int percent = total * 100 / done;
-        setProgress(percent, total, done);
+    public void setProgress(int done, int total) {
+        int percent = done > 0 ? total * 100 / done : 0;
+        setProgress(percent, done, total);
     }
 
     /**
@@ -329,7 +332,7 @@ public class GWTCProgress extends Composite {
      * @param percentage
      *            Set current percentage for the progress bar
      */
-    public void setProgress(int percentage, int total, int done) {
+    public void setProgress(int percentage, int done, int total) {
         // Make sure we are error-tolerant
         if (percentage > 100)
             percentage = 100;
@@ -355,11 +358,12 @@ public class GWTCProgress extends Composite {
 
         DOM.setInnerHTML(remainLabel.getElement(), "&nbsp;");
         DOM.setInnerHTML(numberLabel.getElement(), "&nbsp;");
+        // ellapsed time
+        long soFar = System.currentTimeMillis() - startTime;
         if (percentage > 0) {
             if (showRemaining) {
                 // Calculate the new time remaining
-                long soFar = (System.currentTimeMillis() - startTime) / 1000;
-                long remaining = soFar * (100 - percentage) / percentage;
+                long remaining = (soFar * (100 - percentage) / percentage) / 1000;
                 // Select the best UOM
                 String remainText = secondsMessage;
                 if (remaining > 120) {
@@ -378,7 +382,8 @@ public class GWTCProgress extends Composite {
         }
         if (showNumbers) {
             String message = (total > 0) ? totalMessage : percentMessage;
-            Object[] os = { "" + percentage, "" + total, "" + done };
+            long velocity = soFar > 0 ? ((done * 1000)/ soFar) : 0;
+            Object[] os = { "" + percentage, "" + done, "" + total, "" + velocity };
             numberLabel.setText(internationalize(message, os));
         }
         

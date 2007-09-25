@@ -82,6 +82,14 @@ public class GWTCHelper {
     public static void centerPopupPanel(PopupPanel panel) {
         positionPopupPanel(panel, null);
     }
+    
+    public static void maximizeWidget(Widget widget) {
+    	int w = Math.max(getVisibleWidth(), Window.getClientWidth());
+    	int h = Math.max(getVisibleHeight(), Window.getClientHeight());
+    	widget.setSize(w + "px", h + "px");
+    	
+    	
+    }
     public static native void scrollTo(int x, int y) /*-{
        $wnd.scrollTo(x,y);
     }-*/;

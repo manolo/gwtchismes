@@ -25,8 +25,10 @@ import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
+import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -169,6 +171,32 @@ public class GWTCSample implements EntryPoint {
                 dPicker.show(null);
             }
         });
+        
+        // Create a progress bar and a launcher button
+        final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
+        progressBar.setTotalMessage("{0}% {1}/{2} KB. [{3} KB/s]");
+        progressBar.setText("In process, please wait ...");
+        final Timer t = new Timer() {
+            int done = 0;
+            int total = 400;
+            public void run() {
+                if (done >= total) {
+                    cancel();
+                    progressBar.hide();
+                    done = 0;
+                }
+                progressBar.setProgress(done, total);
+                done += 15;
+            }
+        };
+        final GWTCButton pButton = new GWTCButton("GWTCProgress: click to show a progress dialog");
+        pButton.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+            	progressBar.show();
+                t.scheduleRepeating(200);
+            }
+        });
+
 
         // Distribute the widgets into a grid
         grid.setStyleName("GWTCSample");
@@ -199,6 +227,8 @@ public class GWTCSample implements EntryPoint {
         grid.setWidget(++row, 0, printButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.setWidget(++row, 0, dButton);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, pButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         
         grid.setText(++row, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
