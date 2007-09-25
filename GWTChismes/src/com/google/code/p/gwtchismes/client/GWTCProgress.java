@@ -322,7 +322,7 @@ public class GWTCProgress extends Composite {
     }
 
     public void setProgress(int done, int total) {
-        int percent = done > 0 ? total * 100 / done : 0;
+        int percent = total > 0 ? done * 100 / total : 0;
         setProgress(percent, done, total);
     }
 
@@ -374,7 +374,7 @@ public class GWTCProgress extends Composite {
                         remainText = hoursMessage;
                     }
                 }
-                remainLabel.setText(internationalize(remainText, "" + remaining));
+                remainLabel.setText(GWTCHelper.internationalize(remainText, "" + remaining));
             }
         } else {
             // If progress is 0, reset the start time
@@ -384,33 +384,11 @@ public class GWTCProgress extends Composite {
             String message = (total > 0) ? totalMessage : percentMessage;
             long velocity = soFar > 0 ? ((done * 1000)/ soFar) : 0;
             Object[] os = { "" + percentage, "" + done, "" + total, "" + velocity };
-            numberLabel.setText(internationalize(message, os));
+            numberLabel.setText(GWTCHelper.internationalize(message, os));
         }
         
         if (showAsDialog)
             center();
-    }
-
-    public String internationalize(String s, String o) {
-        Object[] os = { o };
-        return internationalize(s, os);
-    }
-
-    public String internationalize(String s, Object[] os) {
-        for (int i = 0; i < os.length; i++) {
-            String o = "" + (os[i] != null ? os[i] : "");
-            String c = "{" + i + "}";
-            for (;;) {
-                int pos = s.indexOf(c);
-                if (pos < 0)
-                    break;
-                String trail = "";
-                if (pos + c.length() < s.length())
-                    trail = s.substring(pos + c.length());
-                s = s.substring(0, pos) + o + trail;
-            }
-        }
-        return s;
     }
 
     /**
