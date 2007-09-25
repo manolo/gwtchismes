@@ -74,9 +74,13 @@ public class GWTCHelper {
             scrollTo(scrollLeft + xDiff, scrollTop + yDiff);
         } else {
             // Center the panel into the visible part of the document
-            int left = scrollLeft + ((visibleW + objectW) / 2) - objectW;
-            int top = scrollTop + ((visibleH + objectH) / 2) - objectH;
-            panel.setPopupPosition(left, top);
+            if (visibleW == 0 || visibleH == 0) {
+                panel.center();
+            } else {
+                int left = scrollLeft + ((visibleW + objectW) / 2) - objectW;
+                int top = scrollTop + ((visibleH + objectH) / 2) - objectH;
+                panel.setPopupPosition(left, top);
+            }
         }
     }
     public static void centerPopupPanel(PopupPanel panel) {
@@ -99,4 +103,26 @@ public class GWTCHelper {
     public static native int getVisibleHeight() /*-{
        return $wnd.document.documentElement.clientHeight;
     }-*/;
+
+    public static String internationalize(String s, Object[] os) {
+        for (int i = 0; i < os.length; i++) {
+            String o = "" + (os[i] != null ? os[i] : "");
+            String c = "{" + i + "}";
+            for (;;) {
+                int pos = s.indexOf(c);
+                if (pos < 0)
+                    break;
+                String trail = "";
+                if (pos + c.length() < s.length())
+                    trail = s.substring(pos + c.length());
+                s = s.substring(0, pos) + o + trail;
+            }
+        }
+        return s;
+    }
+
+    public static String internationalize(String s, String o) {
+        Object[] os = { o };
+        return internationalize(s, os);
+    }
 }
