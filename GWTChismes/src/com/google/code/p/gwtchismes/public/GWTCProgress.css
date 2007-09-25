@@ -36,7 +36,6 @@ div.GWTCProgress.prg-dialog{
   border: solid 3px pink;
   z-index: 999;
   font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
-  position: absolute;
   background-color:  white;
 }
 
