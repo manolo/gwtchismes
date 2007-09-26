@@ -53,7 +53,8 @@ public class newsample implements EntryPoint {
     	
     	box.add(vp);
     	RootPanel.get().add(box, 200, 200);
-    	GWTCCornerButton b = new GWTCCornerButton("AAAAAAAAAAAAAAa");
+    	GWTCCornerButton b = new GWTCCornerButton("bb");
+    	b.setEnabled(false);
     	b.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 Window.alert("Hola");

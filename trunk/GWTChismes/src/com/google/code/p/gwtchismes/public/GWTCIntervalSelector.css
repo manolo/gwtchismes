@@ -22,15 +22,15 @@ table.GWTCIntervalSelector {
 .GWTCIntervalSelector .checkinButton,
 .GWTCIntervalSelector .checkoutButton {
     border : none;
-    background : #f5f5f5 url("gwtc-calendar.gif") no-repeat left center;
+    background : #f5f5f5 url(images/gwtc-calendar.gif) no-repeat left center;
     color : darkblue;
     cursor : pointer;
     padding-left: 16px !important;
 }
 .GWTCIntervalSelector .checkinButton:hover,
 .GWTCIntervalSelector .checkoutButton:hover {
-	/*background : #dfdfdf url(gwtc-button-bg-over.jpg) repeat-x bottom;;*/
-	background: #dfdfdf url("gwtc-calendar.gif") no-repeat left center;
+	/*background : #dfdfdf url(images/gwtc-button-bg-over.jpg) repeat-x bottom;;*/
+	background: #dfdfdf url(images/gwtc-calendar.gif) no-repeat left center;
 	color : #f60; 
 }
 

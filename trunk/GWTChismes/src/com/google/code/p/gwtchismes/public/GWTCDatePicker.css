@@ -9,7 +9,7 @@
   font-size: 8pt;
 }
 .GWTCDatePicker .Caption {
-  background: #000 url(gwtc-cpicker-bg-title.png) repeat-x top;
+  background: #000 url(images/gwtc-cpicker-bg-title.png) repeat-x top;
   padding: 4px;
   padding-bottom: 8px;
   font-weight: bold;
@@ -32,13 +32,13 @@
 .GWTCDatePicker .Cal_Buttons .gwt-Button {
   padding-left: 5px;
   padding-right: 5px;
-  background : #dfdfdf url(gwtc-button-bg.jpg) repeat-x bottom;
+  background : #dfdfdf url(images/gwtc-button-bg.jpg) repeat-x bottom;
 }
 .GWTCDatePicker .Cal_Buttons .gwt-Button:hover, 
 .GWTCDatePicker .Cal_Buttons .gwt-Button.gwtc-Hover {
   padding-left: 5px;
   padding-right: 5px;
-  background : #dfdfdf url(gwtc-button-bg-over.jpg) repeat-x bottom;
+  background : #dfdfdf url(images/gwtc-button-bg-over.jpg) repeat-x bottom;
 }
 /* Calendar Grid */
 .GWTCDatePicker .Cal_Grid {
@@ -66,14 +66,14 @@
   border: none;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_CellDays {
-  background: #fff url(gwtc-cpicker-bg-day.png) no-repeat center center;
+  background: #fff url(images/gwtc-cpicker-bg-day.png) no-repeat center center;
   text-align: center;
   border: 1px solid #fff;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_CellDays:hover,
 .GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Hover, 
 .GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Active {
-  background: #dfdfdf; /* url(gwtc-cpicker-bg-day-over.png) no-repeat center center;*/
+  background: #dfdfdf; /* url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;*/
   font-weight : bold;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_CellDays:active,
@@ -101,11 +101,11 @@
 
 .GWTCDatePicker .Cal_Grid div.Cal_Today {
   cursor: pointer;
-  background: #fff url(gwtc-cpicker-bg-today.png) no-repeat center center;
+  background: #fff url(images/gwtc-cpicker-bg-today.png) no-repeat center center;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_Today:hover {
   cursor: pointer;
-  background: #fff url(gwtc-cpicker-bg-day-over.png) no-repeat center center;
+  background: #fff url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_BeforeSelected {
   cursor: pointer;
@@ -115,7 +115,7 @@
 .GWTCDatePicker .Cal_Grid    .Cal_Selected div.gwtc-Hover {
   cursor: default;
   background-color : #dfdfdf;
-  background: #fff url(gwtc-cpicker-bg-selected.png) no-repeat center center;
+  background: #fff url(images/gwtc-cpicker-bg-selected.png) no-repeat center center;
   font-weight: normal;
 }
 .GWTCDatePicker .Cal_Grid div.Cal_AfterSelected {
