@@ -110,7 +110,9 @@ public class GWTCSample implements EntryPoint {
         alertButton.addStyleName("SampleButton");
         alertButton.setText("GWTCAlert: click here to view an alert dialog");
         alertButton.addClickListener(new ClickListener() { 
-            public void onClick(Widget sender) { 
+            public void onClick(Widget sender) {
+            	RootPanel.get().clear();
+            	
                 alert.show(); 
             } 
         }); 

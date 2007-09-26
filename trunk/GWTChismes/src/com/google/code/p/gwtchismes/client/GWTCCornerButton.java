@@ -22,6 +22,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.MouseListenerCollection;
@@ -29,7 +30,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class GWTCCornerButton extends ButtonBase { //implements ClickListener, SourcesMouseEvents {
 	static final FlexTable container = new FlexTable();
-	static final Button button = new Button();
 	
 	public GWTCCornerButton(String html, ClickListener listener) {
 		this(html);
@@ -45,25 +45,26 @@ public class GWTCCornerButton extends ButtonBase { //implements ClickListener, S
 		container.setCellSpacing(0);
 		container.setCellPadding(0);
 		container.setBorderWidth(0);
-		container.setStyleName("x-btn");
-		container.addStyleName("x-btn-wrap");
 		container.setWidth("75px");
 		container.setHTML(0, 0, "<i>&nbsp;</i>");
-		container.getCellFormatter().setStyleName(0, 0, "x-btn-left");
-		DOM.setElementAttribute(button.getElement(), "class", "x-btn-text");
-		container.setHTML(0, 1,"<button class=\"gwt-Button x-btn-text\" type=\"button\">");
-		//container.setWidget(0,1,button);
-		container.getCellFormatter().setStyleName(0, 1, "x-btn-center");
+		container.setHTML(0, 1, "<i>&nbsp;</i>");
 		container.setHTML(0, 2, "<i>&nbsp;</i>");
+		
+		container.setStyleName("x-btn");
+		container.addStyleName("x-btn-wrap");
+		container.getCellFormatter().setStyleName(0, 0, "x-btn-left");
+		container.getCellFormatter().setStyleName(0, 1, "x-btn-center");
 		container.getCellFormatter().setStyleName(0, 2, "x-btn-right");
+		
 		sinkEvents(Event.MOUSEEVENTS);
 		addMouseListener(mouseOverListener);
 	}
 	
 
 	public void setHTML(String html) {
-		button.setHTML(html);
+		container.setHTML(0, 1, html);
 	}
+	
 	/* TODO
 	public void click() {
 	}
@@ -79,15 +80,18 @@ public class GWTCCornerButton extends ButtonBase { //implements ClickListener, S
 	// SourcesMouseEvents Methods
 	private MouseListenerCollection mouseListeners = new MouseListenerCollection();
 	public void addMouseListener(MouseListener listener) {
-		if (mouseListeners == null) {
-			mouseListeners = new MouseListenerCollection();
-		}
 		mouseListeners.add(listener);
 	}
 	public void removeMouseListener(MouseListener listener) {
-		if (mouseListeners != null) {
-			mouseListeners.remove(listener);
-		}
+		mouseListeners.remove(listener);
+	}
+	// SourcesMouseEvents Methods
+	private ClickListenerCollection clickListeners = new ClickListenerCollection();
+	public void addClickListener(ClickListener listener) {
+		clickListeners.add(listener);
+	}
+	public void removeClickListener(ClickListener listener) {
+		clickListeners.remove(listener);
 	}
 
 
