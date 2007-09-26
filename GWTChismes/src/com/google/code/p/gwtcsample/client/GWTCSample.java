@@ -101,7 +101,7 @@ public class GWTCSample implements EntryPoint {
         });
 
         // Create a GWTAlert widget
-        final GWTCAlert alert = new GWTCAlert(); 
+        final GWTCAlert alert =new GWTCAlert(); 
         alert.setText("Hello, this is an alert message"); 
         alert.hide();
         
@@ -111,8 +111,7 @@ public class GWTCSample implements EntryPoint {
         alertButton.setText("GWTCAlert: click here to view an alert dialog");
         alertButton.addClickListener(new ClickListener() { 
             public void onClick(Widget sender) {
-            	RootPanel.get().clear();
-            	
+            	//RootPanel.get().clear();
                 alert.show(); 
             } 
         }); 
@@ -219,7 +218,6 @@ public class GWTCSample implements EntryPoint {
         grid.setText(++row, 0, "Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workaround for Internet Explorer 6).");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row++, 0, "InfoCell");
-        
         grid.setWidget(++row, 0, waitButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.setWidget(++row, 0, alertButton);

@@ -48,8 +48,12 @@ public class GWTCHelper {
      * @param widget
      */
     public static void positionPopupPanel(PopupPanel panel, Widget widget) {
+        if (panel==null) return;
+
         int visibleW = getVisibleWidth();
         int visibleH = getVisibleHeight();
+        int windowW = Window.getClientWidth();
+        int windowH = Window.getClientHeight();
         int scrollLeft = Window.getScrollLeft();
         int scrollTop = Window.getScrollTop();
         int objectW = panel.getOffsetWidth();
@@ -75,8 +79,13 @@ public class GWTCHelper {
         } else {
             // Center the panel into the visible part of the document
             if (visibleW == 0 || visibleH == 0) {
+                //Window.alert("center 1");
+                panel.center();
+            } else if ( visibleH > windowH){
+                //Window.alert("center 2");
                 panel.center();
             } else {
+                //Window.alert("center 3");
                 int left = scrollLeft + ((visibleW + objectW) / 2) - objectW;
                 int top = scrollTop + ((visibleH + objectH) / 2) - objectH;
                 panel.setPopupPosition(left, top);
@@ -88,11 +97,10 @@ public class GWTCHelper {
     }
     
     public static void maximizeWidget(Widget widget) {
+        if (widget==null) return;
     	int w = Math.max(getVisibleWidth(), Window.getClientWidth());
     	int h = Math.max(getVisibleHeight(), Window.getClientHeight());
     	widget.setSize(w + "px", h + "px");
-    	
-    	
     }
     public static native void scrollTo(int x, int y) /*-{
        $wnd.scrollTo(x,y);
