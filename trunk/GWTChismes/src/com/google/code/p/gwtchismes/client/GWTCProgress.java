@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * <P>
@@ -114,13 +113,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GWTCProgress extends Composite {
     
-    private VerticalPanel container = new VerticalPanel();
-    
-    private FocusPanel pageBackground = new FocusPanel();
-    
-    private DialogBox progressDlg = new DialogBox();
-
-
+    private FocusPanel pageBackground = null;
+    private DialogBox progressDlg = null;
+    private FlexTable contentTable = new FlexTable();
+    Grid elementGrid = null;
 
     public static final int SHOW_TIME_REMAINING = 1;
     public static final int SHOW_TEXT = 2;
@@ -137,15 +133,9 @@ public class GWTCProgress extends Composite {
      */
     private int elements = 20;
 
-    /**
-     * Time element text
-     */
     private String secondsMessage = "Time remaining: {0} Seconds";
-
     private String minutesMessage = "Time remaining: {0} Minutes";
-
     private String hoursMessage = "Time remaining: {0} Hours";
-
     private String percentMessage = "{0}%";
     private String totalMessage = "{0}% {1}/{2} ";
 
@@ -154,15 +144,10 @@ public class GWTCProgress extends Composite {
      */
     private int progress = 0;
 
-    /**
-     * This is the frame around the progress bar
-     */
-    private FlexTable barFrame = new FlexTable();
 
     /**
      * This is the grid used to show the elements
      */
-    private Grid elementGrid;
 
     /**
      * This is the current text label below the progress bar
@@ -199,7 +184,7 @@ public class GWTCProgress extends Composite {
     public static final String StyleCBarDone = "prg-bar-done";
     public static final String StyleCBarBlank = "prg-bar-blank";
     public static final String StyleCBarElement = "prg-bar-element";
-
+    
     /**
      * Base constructor for this widget
      * 
@@ -208,7 +193,7 @@ public class GWTCProgress extends Composite {
      * @param options
      *            The display options for the progress bar
      */
-    public GWTCProgress(int elements, int options) {
+    public  GWTCProgress(int elements, int options) {
         // Read the options and set convenience variables
         if ((options & SHOW_TIME_REMAINING) == SHOW_TIME_REMAINING)
             showRemaining = true;
@@ -223,23 +208,22 @@ public class GWTCProgress extends Composite {
         this.elements = elements;
 
         // Styling
-        container.setStyleName(StyleCProgress);
+        contentTable.setStyleName(StyleCProgress);
         numberLabel.setStyleName(StyleCPrgNumbers);
         remainLabel.setStyleName(StyleCPrgTime);
         textLabel.setStyleName(StyleCPrgText);
 
-
         // Create the out container
-        Grid containerGrid = new Grid(1, 1);
-        containerGrid.setStyleName(StyleCBarOuter);
-        containerGrid.setCellPadding(0);
-        containerGrid.setCellSpacing(0);
-        // Create continer for elements
+        Grid containerElementGrid = new Grid(1, 1);
+        containerElementGrid.setStyleName(StyleCBarOuter);
+        containerElementGrid.setCellPadding(0);
+        containerElementGrid.setCellSpacing(0);
+        // Create container for elements
         elementGrid = new Grid(1, elements);
         elementGrid.setStyleName(StyleCBarInner);
         elementGrid.setCellPadding(0);
         elementGrid.setCellSpacing(0);
-        containerGrid.setWidget(0, 0, elementGrid);
+        containerElementGrid.setWidget(0, 0, elementGrid);
         // Create elements
         for (int loop = 0; loop < elements; loop++) {
             Grid elm = new Grid(1, 1);
@@ -249,33 +233,32 @@ public class GWTCProgress extends Composite {
             elm.addStyleName(StyleCBarElement);
             elementGrid.setWidget(0, loop, elm);
         }
-        // containerGrid.setBorderWidth(1);
         // Set up the surrounding flex table based on the options
-        barFrame.setWidth("100%");
+        contentTable.setWidth("100%");
         int row = 0;
-        barFrame.setWidget(row++, 0, textLabel);
-        barFrame.setWidget(row, 1, numberLabel);
-        barFrame.setWidget(row++, 0, containerGrid);
-        barFrame.setWidget(row++, 0, remainLabel);
-        // Add the frame to the panel
-        container.add(barFrame);
+        contentTable.setWidget(row++, 0, textLabel);
+        contentTable.setWidget(row, 1, numberLabel);
+        contentTable.setWidget(row++, 0, containerElementGrid);
+        contentTable.setWidget(row++, 0, remainLabel);
+        
         // Initialize progress bar
         setProgress(0);
-        
         if (showAsDialog) {
             // Create the background
-            RootPanel.get().add(pageBackground, 0, 0);
+            pageBackground = new FocusPanel();
             pageBackground.setStyleName(GWTCWait.StyleCWait);
             pageBackground.addStyleName(GWTCWait.StyleCWaitBg);
+            RootPanel.get().add(pageBackground, 0, 0);
             // put the container into a dialog
-            progressDlg.setWidget(container);
+            progressDlg = new DialogBox();
+            progressDlg.setWidget(contentTable);
             progressDlg.setStyleName(StyleCProgress);
             progressDlg.addStyleName(StyleCProgressDlg);
+            hide();
             // Initialize this composite with an empty element
             initWidget(new DockPanel());
-            hide();
         } else {
-            initWidget(container);
+            initWidget(contentTable);
         }
     }
     
@@ -283,22 +266,26 @@ public class GWTCProgress extends Composite {
     	this.setProgress(0);
         if (!showAsDialog)
             return;
+        if (pageBackground != null)
+            pageBackground.setVisible(false);
+        contentTable.setVisible(false);
         progressDlg.hide();
-        container.setVisible(false);
-        pageBackground.setVisible(false);
     }
     
     public void show() {
     	this.setProgress(0);
         if (!showAsDialog)
             return;
+        if (pageBackground != null)
+            pageBackground.setVisible(true);
         progressDlg.show();
-        pageBackground.setVisible(true);
-        container.setVisible(true);
+        contentTable.setVisible(true);
         center();
     }
     
     public void center() {
+        if (! showAsDialog)
+            return;
         // Maximize background 
     	GWTCHelper.maximizeWidget(pageBackground);
         // Center the dialog
@@ -386,9 +373,8 @@ public class GWTCProgress extends Composite {
             Object[] os = { "" + percentage, "" + done, "" + total, "" + velocity };
             numberLabel.setText(GWTCHelper.internationalize(message, os));
         }
-        
-        if (showAsDialog)
-            center();
+        // This fails in safari 2.0  and opera
+        //center();
     }
 
     /**

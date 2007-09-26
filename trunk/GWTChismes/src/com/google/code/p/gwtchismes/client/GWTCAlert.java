@@ -51,15 +51,15 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  */
 public class GWTCAlert extends Composite {
-    private static final String StyleCAlert = "GWTCAlert";
+    public static final String StyleCAlert = "GWTCAlert";
 
-    private static final String StyleCAlertTable = "gwtc-alert-table";
+    public static final String StyleCAlertTable = "gwtc-alert-table";
 
-    private static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
+    public static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
 
-    private static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
+    public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
 
-    private static final String StyleCAlertBtn = "gwtc-alert-button";
+    public static final String StyleCAlertBtn = "gwtc-alert-button";
 
     private DialogBox alertDlg = new DialogBox();
 

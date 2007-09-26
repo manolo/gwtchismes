@@ -83,7 +83,7 @@ public class GWTCWait extends Composite {
 
     private Label txt = new Label("");
 
-    private Image img = new Image("gwtc-wait-loading.gif");
+    private Image img = new Image("images/gwtc-wait-loading.gif");
 
     private FocusPanel pageBackground = new FocusPanel();
 

@@ -35,4 +35,5 @@ table.GWTCSample td.InfoCell{
 }
 .GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
   border: 6px solid #d0e6ff;
+  background: white;
 }

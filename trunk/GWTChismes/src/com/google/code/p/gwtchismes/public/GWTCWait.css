@@ -26,13 +26,6 @@ div.GWTCWait.gwtc-wait-bg {
 div.GWTCWait.gwtc-wait-dlg {
   z-index: 999;
   font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
-  position: absolute;
-  /*
-  top: 40%;
-  left: 40%;
-  width: 0px;
-  height: 0px;
-  */
   background-color: transparent;
 }  
 .GWTCWait table.gwtc-wait-table { 
