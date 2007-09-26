@@ -19,17 +19,19 @@ package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.MouseListenerCollection;
+import com.google.gwt.user.client.ui.SourcesClickEvents;
+import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
-public class GWTCCornerButton extends ButtonBase { //implements ClickListener, SourcesMouseEvents {
-	static final FlexTable container = new FlexTable();
+public class GWTCCornerButton extends Widget implements SourcesMouseEvents, SourcesClickEvents {
+	private static final FlexTable container = new FlexTable();
+	private boolean enabled = true;
+	
 	
 	public GWTCCornerButton(String html, ClickListener listener) {
 		this(html);
@@ -41,7 +43,7 @@ public class GWTCCornerButton extends ButtonBase { //implements ClickListener, S
 	}
 
 	public GWTCCornerButton() {
-		super(container.getElement());
+		setElement(container.getElement());
 		container.setCellSpacing(0);
 		container.setCellPadding(0);
 		container.setBorderWidth(0);
@@ -65,15 +67,23 @@ public class GWTCCornerButton extends ButtonBase { //implements ClickListener, S
 		container.setHTML(0, 1, html);
 	}
 	
-	/* TODO
 	public void click() {
+		clickListeners.fireClick(this);
 	}
-	*/
 
 	public void onBrowserEvent(Event event) {
-		if (mouseListeners != null)
-			mouseListeners.fireMouseEvent(this, event);
-		super.onBrowserEvent(event);
+		mouseListeners.fireMouseEvent(this, event);
+		if (enabled && DOM.eventGetType(event) == Event.ONCLICK)
+			clickListeners.fireClick(this);
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		if (enabled) {
+			this.removeStyleName("x-btn-disabled");
+		} else {
+			this.addStyleName("x-btn-disabled");
+		}
 	}
 	
 
@@ -95,7 +105,7 @@ public class GWTCCornerButton extends ButtonBase { //implements ClickListener, S
 	}
 
 
-	// Static Methods
+	// A listener for changing style when the mouse is over
 	public static final MouseListener mouseOverListener = new MouseListener() {
 		public void onMouseUp(Widget sender, int x, int y) {
 		}
