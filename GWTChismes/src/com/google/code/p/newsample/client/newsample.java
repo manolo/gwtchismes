@@ -23,6 +23,7 @@ import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCRoundedButton;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;

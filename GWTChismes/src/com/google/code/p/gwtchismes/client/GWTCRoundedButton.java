@@ -33,27 +33,32 @@ import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GWTCRoundedButton extends Composite implements ClickListener, SourcesMouseEvents {
+	FlexTable t = new FlexTable();
 	public GWTCRoundedButton() {
 		HTML h = new HTML("<div></div>");
 		initWidget(h);
-//		setElement(DOM.createDiv());
-		FlexTable t = new FlexTable();
 		t.setCellSpacing(0);
 		t.setCellPadding(0);
 		t.setBorderWidth(0);
+		t.setWidth("75px");
+		
+		t.setHTML(0, 0, "<i>&nbsp;</i>");
+		t.setHTML(0, 2, "<i>&nbsp;</i>");
+		
 		t.setStyleName("x-btn");
 		t.addStyleName("x-btn-wrap");
-		t.setWidth("75px");
-		t.setHTML(0, 0, "<i>&nbsp;</i>");
 		t.getCellFormatter().setStyleName(0, 0, "x-btn-left");
 		t.getCellFormatter().setStyleName(0, 1, "x-btn-center");
-		t.setHTML(0, 2, "<i>&nbsp;</i>");
 		t.getCellFormatter().setStyleName(0, 2, "x-btn-right");
+		
 		DOM.appendChild(getElement(), t.getElement());
 		sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK);
 	}
-
+	public GWTCRoundedButton(String html) {
+		this();
+	}
 	public void setHTML(String html) {
+		t.setHTML(0, 1, html);
 	}
 
 	public void addClickListener(ClickListener listener) {
