@@ -29,9 +29,8 @@ import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GWTCCornerButton extends Widget implements SourcesMouseEvents, SourcesClickEvents {
-	private static final FlexTable container = new FlexTable();
+	private FlexTable container = new FlexTable();
 	private boolean enabled = true;
-	
 	
 	public GWTCCornerButton(String html, ClickListener listener) {
 		this(html);

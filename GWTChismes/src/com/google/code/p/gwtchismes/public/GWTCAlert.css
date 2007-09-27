@@ -40,3 +40,8 @@
   padding-right: 5px;
   background : #dfdfdf url(images/gwtc-button-bg-over.jpg) repeat-x bottom;
 }
+
+table.gwtc-alert-rndbutton {
+   margin-left: auto;
+   margin-right: auto;
+}

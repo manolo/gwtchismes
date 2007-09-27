@@ -52,25 +52,20 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCAlert extends Composite {
     public static final String StyleCAlert = "GWTCAlert";
-
     public static final String StyleCAlertTable = "gwtc-alert-table";
-
     public static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
-
     public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
-
     public static final String StyleCAlertBtn = "gwtc-alert-button";
+    static public int OPTION_DISABLE_OK_BUTTON = 1;
+    static public int OPTION_USE_RND_BUTTON = 2;
+    private boolean okButtonDisabled = false;
+    private boolean roundedButton = false;
 
     private DialogBox alertDlg = new DialogBox();
-
-    private Label txt = new Label();
-
-    private GWTCButton okButton = new GWTCButton("OK");
-
     FlexTable contentTable = new FlexTable();
-    
-    static public int OPTION_DISABLE_OK_BUTTON = 1;
-    private boolean okButtonDisabled = false;
+    private Label txt = new Label();
+    private GWTCButton okButton = new GWTCButton("OK");
+    private GWTCCornerButton okRndButton = new GWTCCornerButton("OK");
     
     public GWTCAlert() {
         this(0);
@@ -80,7 +75,9 @@ public class GWTCAlert extends Composite {
         
         if ( (options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
-
+        if ( (options & OPTION_USE_RND_BUTTON) == OPTION_USE_RND_BUTTON)
+            roundedButton = true;
+        
         alertDlg.setStyleName(GWTCAlert.StyleCAlert);
 
         contentTable.setStyleName(GWTCAlert.StyleCAlertTable);
@@ -89,15 +86,21 @@ public class GWTCAlert extends Composite {
 
         contentTable.getCellFormatter().addStyleName(1, 0, GWTCAlert.StyleCAlertBtnCell);
         
-        contentTable.setWidget(1, 0, okButton);
+        if (roundedButton)
+            contentTable.setWidget(1, 0, okRndButton);
+        else
+            contentTable.setWidget(1, 0, okButton);
+        
         okButton.addStyleName(GWTCAlert.StyleCAlertBtn);
-        okButton.addClickListener(new ClickListener() {
+        okRndButton.addStyleName("gwtc-alert-rndbutton");
+        this.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 hide();
             }
         });
-
+        
         okButton.setVisible(! okButtonDisabled );
+        okRndButton.setVisible(! okButtonDisabled );
         
         alertDlg.setWidget(contentTable);
         hide();
@@ -106,9 +109,11 @@ public class GWTCAlert extends Composite {
     
     public void addClickListener(ClickListener listener) {
         okButton.addClickListener(listener);
+        okRndButton.addClickListener(listener);
     }
     public void removeClickListener(ClickListener listener) {
         okButton.removeClickListener(listener);
+        okRndButton.removeClickListener(listener);
     }
 
     /**
@@ -127,7 +132,8 @@ public class GWTCAlert extends Composite {
      *            the internationalizated string
      */
     public void setLocale(String ok) {
-        okButton.setText(ok);
+        okButton.setHTML(ok);
+        okRndButton.setHTML(ok);
     }
 
     /**
@@ -158,7 +164,7 @@ public class GWTCAlert extends Composite {
         alertDlg.show();
         contentTable.setVisible(true);
         GWTCHelper.centerPopupPanel(alertDlg);
-    }
+    }   
     
     /**
      * Hide the dialog box
@@ -175,5 +181,6 @@ public class GWTCAlert extends Composite {
     public void setOkButtonDisabled(boolean b) {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
+        okRndButton.setVisible(! b);
     }
 }

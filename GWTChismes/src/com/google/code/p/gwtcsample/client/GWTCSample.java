@@ -101,7 +101,7 @@ public class GWTCSample implements EntryPoint {
         });
 
         // Create a GWTAlert widget
-        final GWTCAlert alert =new GWTCAlert(); 
+        final GWTCAlert alert =new GWTCAlert(GWTCAlert.OPTION_USE_RND_BUTTON); 
         alert.setText("Hello, this is an alert message"); 
         alert.hide();
         
