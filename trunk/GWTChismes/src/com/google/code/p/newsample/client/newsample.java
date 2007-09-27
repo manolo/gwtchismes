@@ -51,7 +51,7 @@ public class newsample implements EntryPoint {
     	boxblue.add(picker);
     	vp.add(boxblue);
     	
-    	box.add(vp);
+    	//box.add(vp);
     	RootPanel.get().add(box, 200, 200);
     	GWTCCornerButton b = new GWTCCornerButton("bb");
     	b.setEnabled(false);

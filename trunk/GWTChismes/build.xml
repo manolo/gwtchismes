@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.5" />
+	<property name="version" value="0.6" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -108,6 +108,10 @@
 		<delete dir="${project}-${version}" />
 		<delete file="${project}-${version}.jar" />
 		<delete file="${project}-${version}.zip" />
+		<delete dir ="build"/>
+		<delete dir =".gwt-cache"/>
+		<delete dir ="tomcat"/>
+		<delete dir ="www"/>
 	</target>
 
 	<target name="all" depends="clean, jar, javadoc" />

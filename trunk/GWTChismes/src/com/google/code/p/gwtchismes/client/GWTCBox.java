@@ -21,15 +21,19 @@ import java.util.Iterator;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 public class GWTCBox extends Panel {
-	SimplePanel panel = new SimplePanel();
+    DockPanel panel = new DockPanel();
 	public void add(Widget w) {
-		panel.add(w);
+		panel.add(w, DockPanel.NORTH);
 	}
+    public void add(Widget widget, DockLayoutConstant direction) {
+        panel.add(widget, direction);
+    }
 	public boolean remove(Widget w) {
 		return panel.remove(w);
 	}
@@ -55,54 +59,4 @@ public class GWTCBox extends Panel {
 		setStyleName("x-box");
 		System.out.println(this);
 	}
-	
-		/*
-		Element tl = DOM.createDiv();
-		DOM.setElementAttribute(tl, "class", "x-box-tl");
-		Element tr = DOM.createDiv();
-		DOM.setElementAttribute(tr, "class", "x-box-tr");
-		Element tc = DOM.createDiv();
-		DOM.setElementAttribute(tc, "class", "x-box-tc");
-		DOM.appendChild(tl, tr);
-		DOM.appendChild(tr, tc);
-		
-		Element ml = DOM.createDiv();
-		DOM.setElementAttribute(ml, "class", "x-box-ml");
-		Element mr = DOM.createDiv();
-		DOM.setElementAttribute(mr, "class", "x-box-mr");
-		Element mc = DOM.createDiv();
-		DOM.setElementAttribute(mc, "class", "x-box-mc");
-		DOM.appendChild(ml, mr);
-		DOM.appendChild(mr, mc);
-
-		Element bl = DOM.createDiv();
-		DOM.setElementAttribute(bl, "class", "x-box-bl");
-		Element br = DOM.createDiv();
-		DOM.setElementAttribute(br, "class", "x-box-br");
-		Element bc = DOM.createDiv();
-		DOM.setElementAttribute(bc, "class", "x-box-bc");
-		DOM.appendChild(bl, br);
-		DOM.appendChild(br, bc);
-		
-		DOM.appendChild(mc, panel.getElement());
-		Element ppal = DOM.createDiv();
-		DOM.appendChild(ppal, tl);
-		DOM.appendChild(ppal, ml);
-		DOM.appendChild(ppal, bl);
-		
-		setElement(ppal);
-		setStyleName("x-box");
-		*/
-
-	/*
-	protected void onAttach() {
-		String thisID = "gwt-box";
-		String htmlContent = "<div class=\"" + style + "\">" 
-			+ "<div class=\"x-box-tl\"><div class=\"x-box-tr\"><div class=\"x-box-tc\"></div></div></div>" 
-			+ "<div class=\"x-box-ml\"><div class=\"x-box-mr\"><div class=\"x-box-mc\" id=\"" + thisID + "\"></div></div></div>"
-		    + "<div class=\"x-box-bl\"><div class=\"x-box-br\"><div class=\"x-box-bc\"></div></div></div>" + "</div>";
-		DOM.setInnerHTML(getElement(), htmlContent);
-		DOM.appendChild(DOM.getElementById(thisID), panel.getElement());
-	}
-	*/
 }
