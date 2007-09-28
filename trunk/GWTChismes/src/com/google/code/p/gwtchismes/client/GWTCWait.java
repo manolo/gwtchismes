@@ -145,7 +145,10 @@ public class GWTCWait extends Composite {
      * @param i url where image resides
      */
     public void setImg(String i) {
-        img.setUrl(i);
+        if (i == null)
+            img.removeFromParent();
+        else 
+            img.setUrl(i);
     }
 
     /**
