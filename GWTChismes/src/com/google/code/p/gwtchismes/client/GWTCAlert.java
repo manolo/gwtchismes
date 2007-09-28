@@ -103,6 +103,7 @@ public class GWTCAlert extends Composite {
         okRndButton.setVisible(! okButtonDisabled );
         
         alertDlg.setWidget(contentTable);
+        alertDlg.center();
         hide();
         initWidget(new DockPanel());
     }
