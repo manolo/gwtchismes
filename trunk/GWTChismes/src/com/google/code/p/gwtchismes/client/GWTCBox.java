@@ -19,9 +19,6 @@ package com.google.code.p.gwtchismes.client;
 
 import java.util.Iterator;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -77,41 +74,6 @@ public class GWTCBox extends Panel {
     	mc.add(panel);
     	setElement(m.getElement());
     	*/
-
-		/*
-		Element m = DOM.createDiv();
-		Element tl = DOM.createDiv();
-		Element tr = DOM.createDiv();
-		Element tc = DOM.createDiv();
-		Element ml = DOM.createDiv();
-		Element mr = DOM.createDiv();
-		Element mc = DOM.createDiv();
-		Element bl = DOM.createDiv();
-		Element br = DOM.createDiv();
-		Element bc = DOM.createDiv();
-		DOM.setElementAttribute(tl, "class", "x-box-tl");
-		DOM.setElementAttribute(tr, "class", "x-box-tr");
-		DOM.setElementAttribute(tc, "class", "x-box-tc");
-		DOM.setElementAttribute(ml, "class", "x-box-ml");
-		DOM.setElementAttribute(mr, "class", "x-box-mr");
-		DOM.setElementAttribute(mc, "class", "x-box-mc");
-		DOM.setElementAttribute(bl, "class", "x-box-bl");
-		DOM.setElementAttribute(br, "class", "x-box-br");
-		DOM.setElementAttribute(bc, "class", "x-box-bc");
-		DOM.appendChild(m, tl);
-		DOM.appendChild(tl, tr);
-		DOM.appendChild(tr, tc);
-		DOM.appendChild(m, ml);
-		DOM.appendChild(ml, mr);
-		DOM.appendChild(mr, mc);
-		DOM.appendChild(m, bl);
-		DOM.appendChild(bl, br);
-		DOM.appendChild(br, bc);
-		DOM.appendChild(mc, panel.getElement());
-		setElement(m);
-		setStyleName("x-box");
-//		Window.alert(DOM.getInnerHTML(m));
-		 */
 
 		
     	FlowPanel m = new FlowPanel();
