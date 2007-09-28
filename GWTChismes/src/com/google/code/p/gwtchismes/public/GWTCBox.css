@@ -17,7 +17,7 @@ div.x-box-ml {
    zoom:1;
    background: transparent url(images/box/l.gif) repeat-y 0;
 }
-table.x-box-mc {
+div.x-box-mc {
 	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
 	padding: 4px 10px;
 	font-family: "Myriad Pro","Myriad Web","Tahoma","Helvetica","Arial",sans-serif;
@@ -26,7 +26,7 @@ table.x-box-mc {
 	font-size: 12px;
 }
 
-div.x-box-blue > div > div > table.x-box-mc {
+div.x-box-blue > div > div > div.x-box-mc {
 	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
 }
 div.x-box-mr {
@@ -76,7 +76,7 @@ div.x-box-blue > div.x-box-ml {
 }
 
 div.x-box-blue > div > div > div.x-box-bc,
-div.x-box-blue > div > div > table.x-box-mc,
+div.x-box-blue > div > div > div.x-box-mc,
 div.x-box-blue > div > div > div.x-box-tc {
   background-image: url(images/box/tb-blue.gif);
 }
@@ -85,7 +85,7 @@ div.x-box-blue > div > div > div.x-box-tc {
    color: #17385b;
 }
 
-div.x-box-blue > div > div > table.x-box-mc {
+div.x-box-blue > div > div > div.x-box-mc {
    background-color: #c3daf9;
 }
 

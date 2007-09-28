@@ -18,22 +18,29 @@
 package com.google.code.p.newsample.client;
 
 import com.google.code.p.gwtchismes.client.GWTCBox;
-import com.google.code.p.gwtchismes.client.GWTCCornerButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
-import com.google.code.p.gwtchismes.client.GWTCRoundedButton;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class newsample implements EntryPoint {
     public void onModuleLoad() {
+    	
+    	Button b = new Button("OK", new ClickListener() {
+    		public void onClick(Widget sender) {
+    			Window.alert(RootPanel.get().toString());
+    		}
+    	});
     	GWTCBox box = new GWTCBox();
+    	RootPanel.get().add(b);
+        RootPanel.get().add(box);
+        
     	FlexTable table = new FlexTable();
     	ListBox list = new ListBox();
     	list.addItem("1");
@@ -41,18 +48,29 @@ public class newsample implements EntryPoint {
     	table.setWidget(0, 0 , list);
     	table.setText(0, 1,"Habitacion Doble");
     	table.setHTML(0, 2,"1.200,32 &euro;");
-    	
-    	VerticalPanel vp  = new VerticalPanel();
-    	vp.add(table);
+    	box.add(table);
     	
     	GWTCBox boxblue = new GWTCBox();
     	boxblue.setStyleName("x-box-blue");
     	GWTCDatePicker picker = new GWTCDatePicker(false);
     	boxblue.add(picker);
-    	vp.add(boxblue);
+    	box.add(boxblue);
+    	
+    	GWTCBox bb = new GWTCBox();
+    	bb.setStyleName("x-box-blue");
+    	GWTCBox bg = new GWTCBox();
+    	Label lb = new Label("Blue");
+    	Label lg = new Label("Grey");
+    	bb.add(lb);
+    	bg.add(lg);
+    	bb.add(bg);
+    	RootPanel.get().add(bb);
+    	
+    	
+    	
     	
     	//box.add(vp);
-    	RootPanel.get().add(box, 200, 200);
+    	/*
     	GWTCCornerButton b = new GWTCCornerButton("bb");
     	b.setEnabled(false);
     	b.addClickListener(new ClickListener() {
@@ -63,5 +81,6 @@ public class newsample implements EntryPoint {
     	RootPanel.get().add(b);
     	GWTCRoundedButton bb = new GWTCRoundedButton();
     	RootPanel.get().add(bb);
+    	*/
     }
 }
