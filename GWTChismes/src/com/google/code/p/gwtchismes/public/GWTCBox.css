@@ -159,7 +159,7 @@ div.x-box-blue > div > div > div.x-box-mc {
 	padding-right: 8px;
 	overflow: hidden;
 }
-
+/*
 .x-box-blue .x-box-bl, .x-box-blue .x-box-br, .x-box-blue .x-box-tl, .x-box-blue .x-box-tr {
 	background-image: url(images/box/corners-blue.gif);
 }
@@ -183,7 +183,34 @@ div.x-box-blue > div > div > div.x-box-mc {
 .x-box-blue .x-box-mr {
 	background-image: url(images/box/r-blue.gif);
 }
+*/
+div.x-box-blue > div.x-box-bl, 
+div.x-box-blue > div > div.x-box-br, 
+div.x-box-blue > div.x-box-tl, 
+div.x-box-blue > div > div.x-box-tr {
+  background-image: url(images/box/corners-blue.gif); 
+}
 
+div.x-box-blue > div.x-box-ml {
+  background-image: url(images/box/l-blue.gif);
+}
+
+div.x-box-blue > div > div > div.x-box-bc,
+div.x-box-blue > div > div > div.x-box-mc,
+div.x-box-blue > div > div > div.x-box-tc {
+  background-image: url(images/box/tb-blue.gif);
+}
+div.x-box-blue  > div  > div > div.x-box-mc {
+   background-color: #c3daf9;
+}
+
+.x-box-blue .x-box-mc h3 {
+   color: #17385b;
+}
+
+div.x-box-blue  div  div  div.x-box-mc {
+   background-color:  expression('#c3daf9');
+}
 
 
 
