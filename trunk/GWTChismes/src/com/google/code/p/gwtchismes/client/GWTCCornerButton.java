@@ -94,7 +94,7 @@ public class GWTCCornerButton extends Widget implements SourcesMouseEvents, Sour
 	public void removeMouseListener(MouseListener listener) {
 		mouseListeners.remove(listener);
 	}
-	// SourcesMouseEvents Methods
+	// SourcesClickEvents Methods
 	private ClickListenerCollection clickListeners = new ClickListenerCollection();
 	public void addClickListener(ClickListener listener) {
 		clickListeners.add(listener);
@@ -112,13 +112,14 @@ public class GWTCCornerButton extends Widget implements SourcesMouseEvents, Sour
 		public void onMouseMove(Widget sender, int x, int y) {
 		}
 
+        public void onMouseEnter(Widget sender) {
+            sender.addStyleName("x-btn-over");
+        }
+        
 		public void onMouseLeave(Widget sender) {
 			sender.removeStyleName("x-btn-over");
 		}
 
-		public void onMouseEnter(Widget sender) {
-			sender.addStyleName("x-btn-over");
-		}
 
 		public void onMouseDown(Widget sender, int x, int y) {
 		}

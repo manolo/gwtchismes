@@ -254,6 +254,7 @@ public class GWTCProgress extends Composite {
             progressDlg.setWidget(contentTable);
             progressDlg.setStyleName(StyleCProgress);
             progressDlg.addStyleName(StyleCProgressDlg);
+            progressDlg.center();
             hide();
             // Initialize this composite with an empty element
             initWidget(new DockPanel());

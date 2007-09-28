@@ -109,6 +109,7 @@ public class GWTCWait extends Composite {
         img.addStyleName(GWTCWait.StyleCWaitImg);
 
         waitDlg.setWidget(contentTable);
+        waitDlg.center();
         hide();
         
         initWidget(new DockPanel());
