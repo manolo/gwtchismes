@@ -122,6 +122,9 @@
   cursor: pointer;
 }
 
+.GWTCDatePicker .my-btn-c {
+  width: 100%;
+}
 
 
 

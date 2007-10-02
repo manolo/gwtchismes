@@ -200,15 +200,15 @@ div.x-box-blue > div > div > div.x-box-mc,
 div.x-box-blue > div > div > div.x-box-tc {
   background-image: url(images/box/tb-blue.gif);
 }
-div.x-box-blue  > div  > div > div.x-box-mc {
-   background-color: #c3daf9;
+* > div.x-box-blue  > div  > div > div.x-box-mc {
+   	background-color: #c3daf9;
 }
 
 .x-box-blue .x-box-mc h3 {
    color: #17385b;
 }
 
-div.x-box-blue  div  div  div.x-box-mc {
+* > div.x-box-blue  > div  > div  > div.x-box-mc {
    background-color:  expression('#c3daf9');
 }
 

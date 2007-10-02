@@ -57,16 +57,12 @@ public class GWTCAlert extends Composite {
     public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
     public static final String StyleCAlertBtn = "gwtc-alert-button";
     static public int OPTION_DISABLE_OK_BUTTON = 1;
-    static public int OPTION_USE_RND_BUTTON = 2;
     private boolean okButtonDisabled = false;
-    private boolean roundedButton = false;
 
     private DialogBox alertDlg = new DialogBox();
     FlexTable contentTable = new FlexTable();
     private Label txt = new Label();
     private GWTCButton okButton = new GWTCButton("OK");
-    private GWTCCornerButton okRndButton = new GWTCCornerButton("OK");
-    
     public GWTCAlert() {
         this(0);
     }
@@ -75,8 +71,6 @@ public class GWTCAlert extends Composite {
         
         if ( (options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
-        if ( (options & OPTION_USE_RND_BUTTON) == OPTION_USE_RND_BUTTON)
-            roundedButton = true;
         
         alertDlg.setStyleName(GWTCAlert.StyleCAlert);
 
@@ -86,13 +80,10 @@ public class GWTCAlert extends Composite {
 
         contentTable.getCellFormatter().addStyleName(1, 0, GWTCAlert.StyleCAlertBtnCell);
         
-        if (roundedButton)
-            contentTable.setWidget(1, 0, okRndButton);
-        else
-            contentTable.setWidget(1, 0, okButton);
+        contentTable.setWidget(1, 0, okButton);
         
         okButton.addStyleName(GWTCAlert.StyleCAlertBtn);
-        okRndButton.addStyleName("gwtc-alert-rndbutton");
+        okButton.addStyleName("gwtc-alert-rndbutton");
         this.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 hide();
@@ -100,7 +91,6 @@ public class GWTCAlert extends Composite {
         });
         
         okButton.setVisible(! okButtonDisabled );
-        okRndButton.setVisible(! okButtonDisabled );
         
         alertDlg.setWidget(contentTable);
         alertDlg.center();
@@ -110,11 +100,9 @@ public class GWTCAlert extends Composite {
     
     public void addClickListener(ClickListener listener) {
         okButton.addClickListener(listener);
-        okRndButton.addClickListener(listener);
     }
     public void removeClickListener(ClickListener listener) {
         okButton.removeClickListener(listener);
-        okRndButton.removeClickListener(listener);
     }
 
     /**
@@ -134,7 +122,6 @@ public class GWTCAlert extends Composite {
      */
     public void setLocale(String ok) {
         okButton.setHTML(ok);
-        okRndButton.setHTML(ok);
     }
 
     /**
@@ -182,6 +169,5 @@ public class GWTCAlert extends Composite {
     public void setOkButtonDisabled(boolean b) {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
-        okRndButton.setVisible(! b);
     }
 }

@@ -19,7 +19,6 @@ package com.google.code.p.gwtchismes.client;
 
 import java.util.Date;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
@@ -31,7 +30,9 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -144,9 +145,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
                                              "\u003c Previous Month\n\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
 
     // Containers
-    private final DockPanel outer = new DockPanel();
+    private Panel outer = new VerticalPanel();
 
-    private DialogBox calendarContainer = null;
+    private DialogBox calendarDlg = null;
 
     // Navigation Buttons
     private final DockPanel navButtons = new DockPanel();
@@ -177,6 +178,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private HorizontalPanel nextButtons = new HorizontalPanel();
     
     private boolean needsRedraw = true;
+    
+    public static int CONFIG_DIALOG = 1;
+    public static int CONFIG_BORDERS = 2;
 
     /**
      * Constructor, you need specify the behaviour: floating dialog box or embeded widget
@@ -186,9 +190,22 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            the picker is showed
      */
     public GWTCDatePicker(boolean dialog) {
-        if (dialog) {
-            calendarContainer = new DialogBox();
-            calendarContainer.setWidget(outer);
+        if (dialog)
+            initialize(CONFIG_DIALOG);
+        else
+            initialize(0);
+        
+    }
+    public GWTCDatePicker(int config) {
+        initialize(config);
+    }
+    private void initialize(int config) {
+        if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
+            outer = new GWTCBox();
+        }
+        if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
+            calendarDlg = new DialogBox();
+            calendarDlg.setWidget(outer);
             initWidget(new DockPanel());
         } else {
             initWidget(outer);
@@ -238,8 +255,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public void setStyleName(String s) {
         styleName = s;
-        if (calendarContainer != null) {
-            calendarContainer.setStyleName(styleName);
+        if (calendarDlg != null) {
+            calendarDlg.setStyleName(styleName);
         } else
             outer.setStyleName(styleName);
     }
@@ -250,8 +267,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
      */
     public void addStyleName(String s) {
-        if (calendarContainer != null) {
-            calendarContainer.addStyleName(s);
+        if (calendarDlg != null) {
+            calendarDlg.addStyleName(s);
         } else
             outer.addStyleName(s);
     }
@@ -271,8 +288,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         grid.setCellSpacing(0);
 
         outer.clear();
-        outer.add(navButtons, DockPanel.NORTH);
-        outer.add(grid, DockPanel.CENTER);
+        outer.add(navButtons);
+        outer.add(grid);
 
         titleBtn.setHTML(GWTCDatePicker.formatDate("MMMM, yyyy", cursorDate, months, days));
 
@@ -352,11 +369,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public void show(Widget sender) {
         this.drawCalendar();
-        if (calendarContainer == null) {
+        if (calendarDlg == null) {
             outer.setVisible(true);
         } else {
-            calendarContainer.show();
-            GWTCHelper.positionPopupPanel(calendarContainer, sender);
+            calendarDlg.show();
+            GWTCHelper.positionPopupPanel(calendarDlg, sender);
         }
     }
 
@@ -365,9 +382,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * 
      */
     public void hide() {
-        if (calendarContainer != null)
-            calendarContainer.hide();
-        else
+        if (calendarDlg != null) {
+            if (  calendarDlg.isAttached() ) {
+                calendarDlg.hide();
+            }
+        } else
             outer.setVisible(false);
     }
 
@@ -378,8 +397,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            the message to display
      */
     public void setText(String t) {
-        if (calendarContainer != null)
-            calendarContainer.setText(t);
+        if (calendarDlg != null)
+            calendarDlg.setText(t);
     }
 
     /**
@@ -563,8 +582,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         } else if (sender == helpBtn) {
             Window.alert(helpStr);
         } else if (sender == closeBtn) {
-            if (calendarContainer != null) {
-                calendarContainer.hide();
+            if (calendarDlg != null) {
+                calendarDlg.hide();
             } else {
                 outer.setVisible(false);
             }
