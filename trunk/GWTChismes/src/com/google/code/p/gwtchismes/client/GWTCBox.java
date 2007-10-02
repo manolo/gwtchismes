@@ -21,13 +21,17 @@ import java.util.Iterator;
 
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 public class GWTCBox extends Panel {
+    HTML title = null;
+    HTML text = null;
     DockPanel panel = new DockPanel();
+    public static String CONFIG_BLUE = "x-box-blue";
 	public void add(Widget w) {
 		panel.add(w, DockPanel.NORTH);
 	}
@@ -96,4 +100,19 @@ public class GWTCBox extends Panel {
         }
 		setElement(m.getElement());
 	}
+	
+	public void setTitle(String title) {
+	    if (this.title == null) {
+	        this.title = new HTML();
+	        panel.add(this.title, DockPanel.NORTH);
+	    }
+	    this.title.setHTML("<h3>" + title + "</h3>");
+	}
+    public void setText(String text) {
+        if (this.text == null) {
+            this.text = new HTML();
+            panel.add(this.text, DockPanel.CENTER);
+        }
+        this.title.setHTML("<p>" + text + "</p>");
+    }
 }

@@ -31,7 +31,9 @@ table.GWTCSample td.InfoCell{
    border-botom-color: #777777; 
 }
 
-.GWTCSample .gwtc-button {
+.GWTCSample .my-btn, .GWTCSample .x-btn {
+	margin-left: auto;
+	margin-right: auto;
 }
 .GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
   border: 6px solid #d0e6ff;

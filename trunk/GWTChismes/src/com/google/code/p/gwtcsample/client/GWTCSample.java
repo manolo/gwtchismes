@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
+import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
@@ -31,6 +32,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -101,7 +103,7 @@ public class GWTCSample implements EntryPoint {
         });
 
         // Create a GWTAlert widget
-        final GWTCAlert alert =new GWTCAlert(GWTCAlert.OPTION_USE_RND_BUTTON); 
+        final GWTCAlert alert =new GWTCAlert(); 
         alert.setText("Hello, this is an alert message"); 
         alert.hide();
         
@@ -198,12 +200,32 @@ public class GWTCSample implements EntryPoint {
             }
         });
 
-
+        GWTCBox box1 = new GWTCBox();
+        box1.setTitle("Diferent layouts for the GWTCIntervalSelector widget");
+        box1.add(interval1);
+        box1.add(interval2);
+        box1.add(interval3);
+        
+        GWTCBox box2 = new GWTCBox();
+        box2.setTitle("Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workaround for Internet Explorer 6).");
+        box2.add(waitButton);
+        box2.add(alertButton);
+        box2.add(disabledButton);
+        box2.add(disabledButton);
+        box2.add(printButton);
+        box2.add(dButton);
+        box2.add(pButton);
+        box2.setStyleName(GWTCBox.CONFIG_BLUE);
+        
+        GWTCBox box3 = new GWTCBox();
+        box3.setTitle("These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
+        box3.add(picker_en, DockPanel.WEST);
+        box3.add(picker_es, DockPanel.EAST);
+        
         // Distribute the widgets into a grid
         grid.setStyleName("GWTCSample");
-
         int row = 0;
-
+        /*
         grid.setText(++row, 0, "Diferent layouts for the GWTCIntervalSelector widget");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row, 0, "InfoCell");
@@ -214,7 +236,14 @@ public class GWTCSample implements EntryPoint {
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.setWidget(++row, 0, interval3);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
-        
+        */
+        grid.setWidget(++row, 0, box1);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, box2);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        grid.setWidget(++row, 0, box3);
+        grid.getFlexCellFormatter().setColSpan(row,0,2);
+        /*
         grid.setText(++row, 0, "Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workaround for Internet Explorer 6).");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row++, 0, "InfoCell");
@@ -230,13 +259,15 @@ public class GWTCSample implements EntryPoint {
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.setWidget(++row, 0, pButton);
         grid.getFlexCellFormatter().setColSpan(row,0,2);
-        
+        */
+        /*
         grid.setText(++row, 0, "These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
         grid.getFlexCellFormatter().setColSpan(row,0,2);
         grid.getCellFormatter().addStyleName(row, 0, "InfoCell");
         
         grid.setWidget(++row, 0, picker_en);
         grid.setWidget(row, 1, picker_es);
+        */
 
         // Put the grid into the rootpanel
         RootPanel.get().add(grid);

@@ -18,10 +18,14 @@
 package com.google.code.p.newsample.client;
 
 import com.google.code.p.gwtchismes.client.GWTCBox;
-import com.google.code.p.gwtchismes.client.GWTCCornerButton;
+import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
+import com.google.code.p.gwtchismes.client.GWTCDialog;
+import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -30,17 +34,24 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class newsample implements EntryPoint {
     public void onModuleLoad() {
+        /*
+        pruebas0();
+        pruebas1();
+        pruebas2();
         pruebas3();
         pruebas4();
+        pruebas5();
+        */
+        pruebas6();
     }
-
-    public void pruebas2() {
+    
+    // Para ver que codigo html producen los paneles de gwt
+    public void pruebas0() {
         Label l11 = new Label("11");
         Label l12 = new Label("12");
         HorizontalPanel h = new HorizontalPanel();
@@ -80,6 +91,54 @@ public class newsample implements EntryPoint {
         RootPanel.get().add(fp);
         RootPanel.get().add(dp);
     }
+    
+    // un box con informacion y con calendar
+    public void pruebas1() {
+        GWTCBox box = new GWTCBox();
+        FlexTable table = new FlexTable();
+        ListBox list = new ListBox();
+        list.addItem("1");
+        list.addItem("2");
+        table.setWidget(0, 0 , list);
+        table.setText(0, 1,"Habitacion Doble");
+        table.setHTML(0, 2,"1.200,32 &euro;");
+        box.add(table);
+        RootPanel.get().add(box, 400, 50);
+        
+        // final GWTCDatePicker picker = new GWTCDatePicker(GWTCDatePicker.CONFIG_BORDERS | GWTCDatePicker.CONFIG_DIALOG);
+        final GWTCDatePicker picker = new GWTCDatePicker( GWTCDatePicker.CONFIG_DIALOG);
+        ClickListener cb = new ClickListener() {
+            public void onClick(Widget w) {
+                picker.show(null);
+            }
+        };
+        ChangeListener cp = new ChangeListener() {
+            public void onChange(Widget w) {
+                picker.hide();
+                Window.alert(" " + picker.getSelectedDate());
+            }
+        };
+        GWTCButton b1 = new GWTCButton(1, "a", cb);
+        picker.addChangeListener(cp);
+        RootPanel.get().add(b1);
+        
+    }
+    public void pruebas2() {
+        ClickListener c = new ClickListener() {
+            public void onClick(Widget w) {
+                Window.alert("Click");
+            }
+        };
+        GWTCButton b1 = new GWTCButton(1, "a", c);
+        GWTCButton b2 = new GWTCButton(2, "a", c);
+        GWTCButton b3 = new GWTCButton(2, "a", c);
+        RootPanel.get().add(b1);
+        RootPanel.get().add(b2);
+        b3.setEnabled(false);
+        RootPanel.get().add(b3);
+        
+    }
+    // Pruebas de box dentro de box
     public void pruebas3() {
         Label l11 = new Label("11");
         Label l12 = new Label("12");
@@ -102,48 +161,33 @@ public class newsample implements EntryPoint {
         boxblue.add(box);
         RootPanel.get().add(boxblue);
     }
-    public void pruebas1() {
-        GWTCBox box = new GWTCBox();
-        FlexTable table = new FlexTable();
-        ListBox list = new ListBox();
-        list.addItem("1");
-        list.addItem("2");
-        table.setWidget(0, 0 , list);
-        table.setText(0, 1,"Habitacion Doble");
-        table.setHTML(0, 2,"1.200,32 &euro;");
-        box.add(table);
-        RootPanel.get().add(box, 400, 50);
-        
-        GWTCBox boxblue = new GWTCBox();
-        boxblue.setStyleName("x-box-blue");
-        GWTCDatePicker picker = new GWTCDatePicker(false);
-        boxblue.add(picker);
-        RootPanel.get().add(boxblue, 400, 100);
-        
-        
-        
-        
-        
-        
-        if (true) 
-            return;
-        
-        VerticalPanel vp  = new VerticalPanel();
-        vp.add(table);
-        
-        
-        //box.add(vp);
-        RootPanel.get().add(box, 200, 200);
-        GWTCCornerButton b = new GWTCCornerButton("bb");
-        b.setEnabled(false);
-        b.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                Window.alert("Hola");
+    
+    public void pruebas5() {
+        final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS);
+        final GWTCProgress progressBar2 = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
+        progressBar.setText("Uploading file, please wait ...");
+        progressBar2.setTotalMessage("{0}% {1}/{2} KB. [{3} KB/s]");
+        progressBar2.setText("Uploading file, please wait ...");
+        RootPanel.get().add(progressBar);
+        progressBar2.show();
+        Timer t = new Timer() {
+            int done = 0;
+            int total = 400;
+            public void run() {
+                if (done >= total) {
+                    cancel();
+                    progressBar2.hide();
+                }
+                progressBar.setProgress(done, total);
+                progressBar2.setProgress(done, total);
+                done += 55;
             }
-        });
-        RootPanel.get().add(b);
-        GWTCCornerButton bb = new GWTCCornerButton();
-        RootPanel.get().add(bb);
-        
+        };
+        t.scheduleRepeating(1000);
+    }
+    
+    public void pruebas6() {
+        GWTCDialog d = new GWTCDialog();
+        d.show();
     }
 }
