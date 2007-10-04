@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -46,12 +47,14 @@ public class newsample implements EntryPoint {
         pruebas3();
         pruebas4();
         pruebas5();
-        */
         pruebas6();
+        */
     }
     
     // Para ver que codigo html producen los paneles de gwt
     public void pruebas0() {
+        Hyperlink p = new Hyperlink();
+        
         Label l11 = new Label("11");
         Label l12 = new Label("12");
         HorizontalPanel h = new HorizontalPanel();

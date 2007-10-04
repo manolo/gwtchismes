@@ -18,51 +18,35 @@ package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.SourcesClickEvents;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
-public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
-	
-	
-    
-    
-
+public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener, ClickListener, SourcesClickEvents {
   private HTML caption = new HTML();
   private FlexTable titleTable = new FlexTable(); 
   private FlexTable bodyTable = new FlexTable();
   private HTML closeBtn = new HTML();
+  private HorizontalPanel buttons = new HorizontalPanel();
+  private GWTCButton okButton = new GWTCButton("OK");
+  private GWTCButton cancelButton = new GWTCButton("Cancel");
   
   private boolean dragging;
   private int dragStartX, dragStartY;
   private FlexTable panel = new FlexTable();
-  
   DockPanel dockpanel = new DockPanel();
-  public void add(Widget w) {
-      dockpanel.add(w, DockPanel.NORTH);
-  }
-  public void add(Widget widget, DockLayoutConstant direction) {
-      dockpanel.add(widget, direction);
-  }
-  public boolean remove(Widget w) {
-      return dockpanel.remove(w);
-  }
-  public void clear() {
-	  caption.setText("");
-	  dockpanel.clear();
-  }
-  /*
-  public Iterator iterator() {
-      return dockpanel.iterator();
-  }
-  */
+  
 
 
   /**
@@ -116,6 +100,7 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
     closeBtn.setStyleName("my-icon-btn");
     closeBtn.addStyleName("my-shell-close");
     closeBtn.addMouseListener(this);
+    closeBtn.addClickListener(this);
     
     stylePrefix = "my-shell-body";
     bodyTable.setCellSpacing(0);
@@ -146,6 +131,16 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
     panel.getCellFormatter().setWidth(1, 0, "100%");
     panel.getCellFormatter().setAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER, HasVerticalAlignment.ALIGN_MIDDLE);
     super.setWidget(panel);
+    
+    okButton.addClickListener(this);
+    cancelButton.addClickListener(this);
+    buttons.setStyleName("my-btn-bar");
+    buttons.add(okButton);
+    buttons.add(cancelButton);
+    dockpanel.add(buttons, DockPanel.SOUTH);
+    
+    
+    dockpanel.setSize("100%", "100%");
 
     setStyleName("my-style");
     caption.setStyleName("my-shell-hdr-text");
@@ -171,11 +166,17 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
       if (DOM.isOrHasChild(caption.getElement(), DOM.eventGetTarget(event))) {
         DOM.eventPreventDefault(event);
       }
+    } else     if (DOM.eventGetType(event) == Event.ONCLICK) {
+        System.out.println("Click");
     }
+ 
 
     return super.onEventPreview(event);
   }
 
+  
+  
+  // MouseListener
   public void onMouseDown(Widget sender, int x, int y) {
 		if (sender == caption) {
 		    dragging = true;
@@ -213,7 +214,24 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
 		    DOM.releaseCapture(caption.getElement());
 		}
   }
-
+  
+  // SourcesClickEvents
+  // ClickListener
+  ClickListenerCollection clickListeners = new ClickListenerCollection();
+  public void onClick(Widget sender) {
+      if (sender == closeBtn) {
+          this.hide();
+      }
+      clickListeners.fireClick(sender);
+  }
+  public void addClickListener(ClickListener listener) {
+      clickListeners.add(listener);
+  }
+  public void removeClickListener(ClickListener listener) {
+      clickListeners.add(listener);
+  }
+  
+  
 
   public void setHTML(String html) {
     caption.setHTML(html);
@@ -241,5 +259,25 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener {
     // (i.e. can't do this in constructor)
     panel.setWidth("100%");
   }
+  
+  // Panel methods
+  public void add(Widget w) {
+      dockpanel.add(w, DockPanel.NORTH);
+  }
+  public void add(Widget widget, DockLayoutConstant direction) {
+      dockpanel.add(widget, direction);
+  }
+  public boolean remove(Widget w) {
+      return dockpanel.remove(w);
+  }
+  public void clear() {
+      caption.setText("");
+      dockpanel.clear();
+  }
+  /*
+  public Iterator iterator() {
+      return dockpanel.iterator();
+  }
+  */
   
 }

@@ -36,16 +36,32 @@ public class GWTCButton extends Widget implements SourcesMouseEvents, SourcesCli
 	private FlexTable container = new FlexTable();
 	private boolean enabled = true;
     private int contentIndex = 1;
-    private String stylePrefix = "x-btn";
+    private String[] styleComponentsType1 = {"x-btn", "left", "center", "right"};
+    private String[] styleComponentsType2 = {"my-btn", "l", "ml", "c", "mr", "r"};
+    private String[] styleComponents;
     
     public GWTCButton() {
         this(2);
     }
     public GWTCButton(int type) {
-        if (type == BUTTON_TYPE_1)
-            createButtonType1();
-        else
-            createButtonType2();
+        if (type == BUTTON_TYPE_1) {
+            contentIndex = 1;
+            styleComponents = styleComponentsType1;
+        } else {
+            contentIndex = 2;
+            styleComponents = styleComponentsType2;
+        }
+        setElement(container.getElement());
+        container.setStyleName(styleComponents[0]);
+        container.addStyleName("my-no-selection");
+        container.setCellSpacing(0);
+        container.setCellPadding(0);
+        for (int idx = 1; idx < styleComponents.length; idx++) {
+            container.setHTML(0, idx -1 , "<i>&nbsp;</i>");
+            container.getCellFormatter().setStyleName(0, idx -1, styleComponents[0] + "-" + styleComponents[idx]);
+        }
+        sinkEvents(Event.MOUSEEVENTS);
+        addMouseListener(mouseOverListener);
     }
 	public GWTCButton(String html, ClickListener listener) {
 		this(html);
@@ -61,51 +77,6 @@ public class GWTCButton extends Widget implements SourcesMouseEvents, SourcesCli
         addClickListener(listener);
     }
 
-	public void createButtonType1() {
-		setElement(container.getElement());
-		container.setCellSpacing(0);
-		container.setCellPadding(0);
-		container.setBorderWidth(0);
-		container.setWidth("75px");
-		container.setHTML(0, 0, "<i>&nbsp;</i>");
-		container.setHTML(0, 1, "<i>&nbsp;</i>");
-		container.setHTML(0, 2, "<i>&nbsp;</i>");
-		
-        contentIndex = 1;
-        stylePrefix = "x-btn";
-		container.setStyleName(stylePrefix);
-		container.addStyleName(stylePrefix + "-wrap");
-		container.getCellFormatter().setStyleName(0, 0, stylePrefix + "-left");
-		container.getCellFormatter().setStyleName(0, 1, stylePrefix + "-center");
-		container.getCellFormatter().setStyleName(0, 2, stylePrefix + "-right");
-		
-		sinkEvents(Event.MOUSEEVENTS);
-		addMouseListener(mouseOverListener);
-	}
-    public void createButtonType2() {
-        setElement(container.getElement());
-        container.setCellSpacing(0);
-        container.setCellPadding(0);
-        
-        contentIndex = 2;
-        container.setHTML(0, 0, "<i>&nbsp;</i>");
-        container.setHTML(0, 1, "<i>&nbsp;</i>");
-        container.setHTML(0, 2, "<i>&nbsp;</i>");
-        container.setHTML(0, 3, "<i>&nbsp;</i>");
-        container.setHTML(0, 4, "<i>&nbsp;</i>");
-        
-        stylePrefix = "my-btn";
-        container.setStyleName(stylePrefix);
-        container.addStyleName("my-no-selection");
-        container.getCellFormatter().setStyleName(0, 0, stylePrefix + "-l");
-        container.getCellFormatter().setStyleName(0, 1, stylePrefix + "-ml");
-        container.getCellFormatter().setStyleName(0, 2, stylePrefix + "-c");
-        container.getCellFormatter().setStyleName(0, 3, stylePrefix + "-mr");
-        container.getCellFormatter().setStyleName(0, 4, stylePrefix + "-r");
-        
-        sinkEvents(Event.MOUSEEVENTS);
-        addMouseListener(mouseOverListener);
-    }
 	
     
     public void setText(String text) {
