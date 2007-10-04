@@ -187,7 +187,17 @@ public class newsample implements EntryPoint {
     }
     
     public void pruebas6() {
+        //DialogBox d = new DialogBox();
         GWTCDialog d = new GWTCDialog();
+        d.setText("mueveme");
         d.show();
+        Label p = new Label("no me digas que no");
+        d.setWidget(p);
+        Label pp = new Label("no me digas que no");
+        d.setWidget(pp);
+        
+        
+        //GWTCButton b = new GWTCButton("AADFADF");
+        //d.add(b, DockPanel.SOUTH);
     }
 }
