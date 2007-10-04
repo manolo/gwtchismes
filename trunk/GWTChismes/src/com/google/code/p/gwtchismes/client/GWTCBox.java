@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -44,44 +45,17 @@ public class GWTCBox extends Panel {
 	public Iterator iterator() {
 		return panel.iterator();
 	}
+	
+	public static final String STYLE_NORMAL = "x-box";
+	public static final String STYLE_BLUE = "x-box-blue";
+	
 	public GWTCBox() {
-		/*
-    	FlowPanel m = new FlowPanel();
-    	SimplePanel tl = new SimplePanel();
-    	SimplePanel tr = new SimplePanel();
-    	SimplePanel tc = new SimplePanel();
-    	SimplePanel ml = new SimplePanel();
-    	SimplePanel mr = new SimplePanel();
-    	SimplePanel mc = new SimplePanel();
-    	SimplePanel bl = new SimplePanel();
-    	SimplePanel br = new SimplePanel();
-    	SimplePanel bc = new SimplePanel();
-    	m.setStyleName("x-box");
-    	tl.setStyleName("x-box-tl");
-    	tr.setStyleName("x-box-tr");
-    	tc.setStyleName("x-box-tc");
-    	ml.setStyleName("x-box-ml");
-    	mr.setStyleName("x-box-mr");
-    	mc.setStyleName("x-box-mc");
-    	bl.setStyleName("x-box-bl");
-    	br.setStyleName("x-box-br");
-    	bc.setStyleName("x-box-bc");
-    	m.add(tl);
-    	tl.add(tr);
-    	tr.add(tc);
-    	m.add(ml);
-    	ml.add(mr);
-    	mr.add(mc);
-    	m.add(bl);
-    	bl.add(br);
-    	br.add(bc);
-    	mc.add(panel);
-    	setElement(m.getElement());
-    	*/
-
-		
+		this(STYLE_NORMAL);
+	}
+	public GWTCBox(String style) {
     	FlowPanel m = new FlowPanel();
 		m.setStyleName("x-box");
+		m.addStyleName(style);
 		String[] v = {"t", "m", "b"};
 		String[] h = {"l", "r", "c"};
 		for (int i = 0; i < 3; i++) {
@@ -91,10 +65,10 @@ public class GWTCBox extends Panel {
 				e.setStyleName("x-box-" + v[i] + h[j]);
 	            if (j==0) 
 	            	m.add(e);
+	            else if (i==1 && j==2) 
+	            	e.add(panel);
 	            if (l !=null ) 
 	            	l.add(e);
-	            if (i==1 && j==2) 
-	            	e.add(panel);
 	            l = e;
             }
         }
