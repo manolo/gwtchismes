@@ -40,15 +40,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class newsample implements EntryPoint {
     public void onModuleLoad() {
-        /*
-        pruebas0();
-        pruebas1();
-        pruebas2();
-        pruebas3();
-        pruebas4();
-        pruebas5();
+        //pruebas0();
+       // pruebas1();
+        //pruebas2();
+        //pruebas3();
+        //pruebas4();
+        //pruebas5();
         pruebas6();
-        */
     }
     
     // Para ver que codigo html producen los paneles de gwt
