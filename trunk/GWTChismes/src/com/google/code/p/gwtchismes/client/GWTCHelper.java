@@ -133,4 +133,11 @@ public class GWTCHelper {
         Object[] os = { o };
         return internationalize(s, os);
     }
-}
+    
+    public static native boolean isHostedMode()
+    /*-{
+      try {
+         return (window.external && window.external.gwtOnLoad && window.location.search.indexOf('gwt.hybrid')==-1);
+      } catch(e) {return false;}
+     }-*/;
+    }

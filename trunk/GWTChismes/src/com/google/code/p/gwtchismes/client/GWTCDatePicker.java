@@ -309,8 +309,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         long minimalNum = 1 + GWTCDatePicker.compareDate(firstDate, minimalDate);
         long maximalNum = 1 + GWTCDatePicker.compareDate(firstDate, maximalDate);
         long selectedNum = 1 + GWTCDatePicker.compareDate(firstDate, selectedDate);
-        // long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate,
-        // cursorDate);
+        // long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate, cursorDate);
+        //System.out.println("T " + todayNum + " Min:" + minimalNum + " Max:" + maximalNum + " Sel:" + selectedNum);
         int firstWDay = firstDate.getDay();
         int numOfDays = GWTCDatePicker.daysInMonth(cursorDate);
         int j = 0 + weekStart;
@@ -509,12 +509,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setMinimalDate(Date d) {
         this.needsRedraw = true;
         minimalDate = setHourToZero(d);
+        if (cursorDate.getTime() < minimalDate.getTime() || selectedDate.getTime() < minimalDate.getTime())
+            this.setSelectedDate(d);
         if (maximalDate.getTime() < minimalDate.getTime())
             maximalDate = d;
-        if (selectedDate.getTime() < minimalDate.getTime())
-            selectedDate = d;
-        if (cursorDate.getTime() < minimalDate.getTime())
-            this.setSelectedDate(d);
     }
 
     /**
@@ -526,12 +524,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setMaximalDate(Date d) {
         this.needsRedraw = true;
         maximalDate = setHourToZero(d);
+        if (cursorDate.getTime() > maximalDate.getTime() || selectedDate.getTime() > maximalDate.getTime())
+            this.setSelectedDate(d);
         if (minimalDate.getTime() > maximalDate.getTime())
             minimalDate = d;
-        if (selectedDate.getTime() > maximalDate.getTime())
-            selectedDate = d;
-        if (cursorDate.getTime() > maximalDate.getTime())
-            this.setSelectedDate(d);
     }
 
     /**

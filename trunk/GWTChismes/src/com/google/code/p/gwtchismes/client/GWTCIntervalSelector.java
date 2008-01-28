@@ -309,13 +309,15 @@ public class GWTCIntervalSelector extends Composite {
     private void updateInputsFromCheckin() {
         checkoutCalendar.setMinimalDate(getInitDate());
         checkoutCalendar.setMaximalDate(GWTCDatePicker.increaseDate(getInitDate(), maxdays));
-        if (layoutType != 2) {
-            int nbox = nightsListBox.getSelectedIndex();
-            checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nbox));
-        }
+
+        int nightsFromBox = nightsListBox.getSelectedIndex();
+        if (nightsFromBox == 0 || layoutType != 2 )
+            checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsFromBox));
+
         int nights = getNights();
         if (nights >= 0)
             nightsListBox.setItemSelected(nights, true);
+
         updateInputs();
     }
 
@@ -326,7 +328,7 @@ public class GWTCIntervalSelector extends Composite {
         checkoutDateLabel.setText(checkoutCalendar.getSelectedDateStr(longDateFormat));
         checkoutWeekLabel.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
 
-        checkoutCalendar.drawCalendar();
+        // checkoutCalendar.drawCalendar();
 
         intervalValue.setText("" + getNights());
     }
