@@ -21,6 +21,7 @@ import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCDialog;
+import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
@@ -46,7 +47,7 @@ public class newsample implements EntryPoint {
         //pruebas3();
         //pruebas4();
         //pruebas5();
-        pruebas6();
+        pruebas7();
     }
     
     // Para ver que codigo html producen los paneles de gwt
@@ -200,5 +201,9 @@ public class newsample implements EntryPoint {
         
         //GWTCButton b = new GWTCButton("AADFADF");
         //d.add(b, DockPanel.SOUTH);
+    }
+    public void pruebas7() {
+        GWTCIntervalSelector i = new GWTCIntervalSelector(2);
+        RootPanel.get().add(i);
     }
 }

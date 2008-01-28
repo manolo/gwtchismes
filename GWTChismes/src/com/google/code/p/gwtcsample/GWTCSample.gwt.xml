@@ -1,5 +1,10 @@
 <module>
   <inherits name="com.google.gwt.user.User"/>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+  
+  <servlet path="/XMAS/utils"   class="com.miraiespana.xmas.client.gwt.utils.server.UtilsServerImpl"/>
+  <servlet path="/XMAS/upload"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>
+  <servlet path="/XMAS/upload.fu"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>
+  
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
 </module>
