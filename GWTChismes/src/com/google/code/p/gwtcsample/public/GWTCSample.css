@@ -26,9 +26,9 @@ table.GWTCSample td.InfoCell{
    border-top-style: solid;
    border-top-color: #777777; 
    
-   border-botom-width: 1px;
-   border-botom-style: solid;
-   border-botom-color: #777777; 
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+   border-bottom-color: #777777; 
 }
 
 .GWTCSample .my-btn, .GWTCSample .x-btn {

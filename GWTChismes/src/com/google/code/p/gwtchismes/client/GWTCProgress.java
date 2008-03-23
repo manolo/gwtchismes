@@ -265,22 +265,22 @@ public class GWTCProgress extends Composite {
     
     public void hide() {
     	this.setProgress(0);
+        contentTable.setVisible(false);
         if (!showAsDialog)
             return;
         if (pageBackground != null)
             pageBackground.setVisible(false);
-        contentTable.setVisible(false);
         progressDlg.hide();
     }
     
     public void show() {
     	this.setProgress(0);
+        contentTable.setVisible(true);
         if (!showAsDialog)
             return;
         if (pageBackground != null)
             pageBackground.setVisible(true);
         progressDlg.show();
-        contentTable.setVisible(true);
         center();
     }
     
@@ -292,8 +292,6 @@ public class GWTCProgress extends Composite {
         // Center the dialog
         GWTCHelper.centerPopupPanel(progressDlg);
     }
-    
-
 
     /**
      * Constructor without options

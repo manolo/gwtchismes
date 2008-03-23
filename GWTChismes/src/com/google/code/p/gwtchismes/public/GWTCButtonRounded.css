@@ -2,7 +2,7 @@
 	height: 21px;
 	cursor: pointer;
 	-moz-user-select: none;
-	-khtml-user-select: none;
+	/*-khtml-user-select: none; */
 	user-select: none;
 	
    font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -62,7 +62,7 @@ my-btn-bar-left {
 }
 
 .my-btn-icon .my-btn-text {
-	padding: 0 5 0 2px;
+	padding: 0px 5px 0px 2px;
 }
 
 .my-btn-over .my-btn-l {
@@ -99,7 +99,7 @@ my-btn-bar-left {
 
 .my-btn-disabled {
 	cursor: default;
-	color: grey;
+	/*color: grey;*/
 }
 
 .my-btn-disabled .my-btn-text {
