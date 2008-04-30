@@ -1,34 +1,35 @@
 
 
-.prg-title {
+.GWTCProgress .prg-title {
       font-weight: bold;
   }
   
-.prg-numbers,   .prg-time {
+.GWTCProgress .prg-numbers,
+.GWTCProgress .prg-time {
       font-size: 12px;
       font-style: italic;
   }
   
-.prg-bar-outer {
+.GWTCProgress .prg-bar-outer {
       border: 1px solid grey;
 }
   
-.prg-bar-inner {
+.GWTCProgress .prg-bar-inner {
       border: 1px solid black;
       margin: 1px;
 }
   
-.prg-bar-element {
+.GWTCProgress .prg-bar-element {
       width: 5px;
       height: 15px;
       margin: 1px;
 }
   
-.prg-bar-done {
+.GWTCProgress .prg-bar-done {
       background: #83ae76;
 }
   
-.prg-bar-blank {
+.GWTCProgress .prg-bar-blank {
       background: #eee;
 }
 
@@ -39,6 +40,6 @@ div.GWTCProgress.prg-dialog{
   background-color:  white;
 }
 
-.prg-numbers {
+.GWTCProgress .prg-numbers {
 	width: 200px;
 }
