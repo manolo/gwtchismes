@@ -28,64 +28,75 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 public class GWTCBox extends Panel {
-    HTML title = null;
-    HTML text = null;
-    DockPanel panel = new DockPanel();
-    public static String CONFIG_BLUE = "x-box-blue";
-	public void add(Widget w) {
-		panel.add(w, DockPanel.NORTH);
-	}
-    public void add(Widget widget, DockLayoutConstant direction) {
-        panel.add(widget, direction);
+  HTML title = null;
+  HTML text = null;
+  
+  FlowPanel container = new FlowPanel();
+  DockPanel panel = new DockPanel();
+
+  public static final String STYLE_NORMAL = "x-box";
+  public static final String STYLE_BLUE = "x-box-blue";
+
+  public void add(Widget w) {
+    panel.add(w, DockPanel.NORTH);
+  }
+
+  public void add(Widget widget, DockLayoutConstant direction) {
+    panel.add(widget, direction);
+  }
+
+  public boolean remove(Widget w) {
+    return panel.remove(w);
+  }
+
+  public Iterator iterator() {
+    return panel.iterator();
+  }
+
+  public GWTCBox() {
+    this(STYLE_NORMAL);
+  }
+  
+  public void setStyleName(String style) {
+    container.setStyleName("x-box");
+    container.addStyleName(style);
+  }
+  
+
+  public GWTCBox(String style) {
+    setStyleName(style);
+    String[] v = { "t", "m", "b" };
+    String[] h = { "l", "r", "c" };
+    for (int i = 0; i < 3; i++) {
+      Panel l = null;
+      for (int j = 0; j < 3; j++) {
+        Panel e = new SimplePanel();
+        e.setStyleName("x-box-" + v[i] + h[j]);
+        if (j == 0) container.add(e);
+        else if (i == 1 && j == 2) e.add(panel);
+        if (l != null) l.add(e);
+        l = e;
+      }
     }
-	public boolean remove(Widget w) {
-		return panel.remove(w);
-	}
-	public Iterator iterator() {
-		return panel.iterator();
-	}
-	
-	public static final String STYLE_NORMAL = "x-box";
-	public static final String STYLE_BLUE = "x-box-blue";
-	
-	public GWTCBox() {
-		this(STYLE_NORMAL);
-	}
-	public GWTCBox(String style) {
-    	FlowPanel m = new FlowPanel();
-		m.setStyleName("x-box");
-		m.addStyleName(style);
-		String[] v = {"t", "m", "b"};
-		String[] h = {"l", "r", "c"};
-		for (int i = 0; i < 3; i++) {
-			Panel l = null;
-			for (int j = 0; j < 3; j++) {
-				Panel e = new SimplePanel();
-				e.setStyleName("x-box-" + v[i] + h[j]);
-	            if (j==0) 
-	            	m.add(e);
-	            else if (i==1 && j==2) 
-	            	e.add(panel);
-	            if (l !=null ) 
-	            	l.add(e);
-	            l = e;
-            }
-        }
-		setElement(m.getElement());
-	}
-	
-	public void setTitle(String title) {
-	    if (this.title == null) {
-	        this.title = new HTML();
-	        panel.add(this.title, DockPanel.NORTH);
-	    }
-	    this.title.setHTML("<h3>" + title + "</h3>");
-	}
-    public void setText(String text) {
-        if (this.text == null) {
-            this.text = new HTML();
-            panel.add(this.text, DockPanel.CENTER);
-        }
-        this.title.setHTML("<p>" + text + "</p>");
+    setElement(container.getElement());
+  }
+
+  public void setTitle(String title) {
+    if (this.title == null) {
+      this.title = new HTML();
+      panel.add(this.title, DockPanel.NORTH);
     }
+    this.title.setHTML("<h3>" + title + "</h3>");
+  }
+
+  public void setText(String text) {
+    if (this.text == null) {
+      this.text = new HTML();
+      panel.add(this.text, DockPanel.CENTER);
+    }
+    this.text.setHTML("<p>" + text + "</p>");
+  }
 }
+
+
+

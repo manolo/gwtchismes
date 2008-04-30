@@ -19,7 +19,6 @@ package com.google.code.p.gwtchismes.client;
 
 import java.util.Date;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -122,6 +121,8 @@ public class GWTCDatePicker extends Composite implements ClickListener,
   private static String StyleCBeforeSelected = "Cal_BeforeSelected";
 
   private static String StyleCToday = "Cal_Today";
+  
+  private static String StyleHelp = "Cal_Help";
 
   // Configurable parameters
 
@@ -145,6 +146,7 @@ public class GWTCDatePicker extends Composite implements ClickListener,
 
   private int weekStart = 0;
 
+  private final GWTCAlert help = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE); 
   private String helpStr = "Calendar-Picker is a component of GWTChismes library.\n"
       + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n"
       + "Navigation buttons:\n"
@@ -219,6 +221,7 @@ public class GWTCDatePicker extends Composite implements ClickListener,
       drawCalendar();
     }
     setStyleName(styleName);
+    help.addStyleName(StyleHelp);
 
     navButtons.setStyleName(GWTCDatePicker.StyleCButtons);
     titleBtn.setStyleName(GWTCDatePicker.StyleCHeader);
@@ -595,7 +598,8 @@ public class GWTCDatePicker extends Composite implements ClickListener,
       setCursorDate(new Date());
       drawCalendar();
     } else if (sender == helpBtn) {
-      Window.alert(helpStr);
+      //Window.alert(helpStr);
+      help.alert(helpStr.replaceAll("\\n", "<br/>"));
     } else if (sender == closeBtn) {
       if (calendarDlg != null) {
         calendarDlg.hide();
@@ -696,9 +700,19 @@ public class GWTCDatePicker extends Composite implements ClickListener,
    * @return the number of days in this month [1...31]
    */
   public static int daysInMonth(Date d) {
-    Date nd = new Date(GWTCDatePicker
-        .add(d.getTime(), 1, GWTCDatePicker.MONTHS));
-    return GWTCDatePicker.compareDate(d, nd);
+    int m = d.getMonth();
+    switch (m % 2) {
+      case 0: 
+        return 31;
+      case 1: 
+        if (m!=1) return 30;
+        int y = d.getYear();
+        return (y%4 == 0 && y%100 != 0) ? 29 :28;
+    }
+    Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.MONTHS));
+    int ret = GWTCDatePicker.compareDate(d, nd);
+    System.out.println(d.getMonth() + " " + ret);
+    return ret;
   }
 
   /**
@@ -729,7 +743,7 @@ public class GWTCDatePicker extends Composite implements ClickListener,
    *          type of addition (1=days, 2=months, 3=years, 4=hours
    * @return number of milliseconds from 1-1-1970
    */
-  private static native long add(long time, int value, int type)
+  private static native long dadd(long time, int value, int type)
   /*-{
    var d = new Date(time);
    if (type == 1) {
@@ -742,6 +756,17 @@ public class GWTCDatePicker extends Composite implements ClickListener,
    if (type == 3) d.setDate(d.getDate() + value);
    return d.getTime();  
    }-*/;
+  private static  long add(long time, int value, int type) {
+    Date d = new Date(time);
+    d.setHours(12);
+    if (type==1)
+      d.setYear(d.getYear() + value);
+    if (type==2)
+      d.setMonth(d.getMonth() + value);
+    if (type==3)
+      d.setDate(d.getDate() + value);
+    return d.getTime();
+  }
 
   /**
    * Set hour, minutes, second and milliseconds to zero.
@@ -752,7 +777,7 @@ public class GWTCDatePicker extends Composite implements ClickListener,
    */
   public static Date setHourToZero(Date date) {
     Date d = new Date(date.getTime());
-    d.setHours(0);
+    d.setHours(12);
     d.setMinutes(0);
     d.setSeconds(0);
     // a trick to set milliseconds to zero
@@ -811,16 +836,13 @@ ng month = months[date.getMonth()];
     ret = ret.replaceAll("ddddd", day);
     ret = ret.replaceAll("dddd", day);
     ret = ret.replaceAll("ddd", day_3);
-    ret = ret.replaceAll("dd", leftPadding(String.valueOf(date.getDate()), "0",
-        2));
+    ret = ret.replaceAll("dd", leftPadding(String.valueOf(date.getDate()), "0", 2));
     ret = ret.replaceAll("yyyy", String.valueOf(1900 + date.getYear()));
-    ret = ret.replaceAll("yy", ""
-        + leftPadding(String.valueOf(date.getYear() % 100), "0", 2));
+    ret = ret.replaceAll("yy", leftPadding(String.valueOf(date.getYear() % 100), "0", 2));
     ret = ret.replaceAll("MMMM", month);
     ret = ret.replaceAll("MMM", month_3);
 "" + leftPadding(String.valueOf(date.getYear() % 100), "0", 2));
-        ret = 
-        "0", 2));
+        ret =  "0", 2));
     return ret;
   }
 

@@ -21,10 +21,10 @@ package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -32,12 +32,12 @@ import com.google.gwt.user.client.ui.Widget;
  *         <h3>Class description</h3>
  *   <p>      
  * This widget is a modal dialog for displaying alerts. It is based in a
- * {@link com.google.gwt.user.client.ui.DialogBox} as container
+ * {@link com.google.gwt.user.client.ui.PopupPanel} as container
  * </p>
    <h3>Example</h3>
     <pre>
         final GWTCAlert alert = new GWTCAlert(); 
-        alert.alert("Hello, you  can put here any message"); 
+        alert.alert("Hello, you can put here any message"); 
     </pre>        
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
@@ -45,23 +45,28 @@ import com.google.gwt.user.client.ui.Widget;
  * <li>.GWTCAlert.gwtc-alert-table{ table into the container }</li>
  * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-msg{ Message cell }</li>
  * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn{ Button cell }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{
- * Button }</li>
+ * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{ Button }</li>
  * </ul>
  * 
  */
 public class GWTCAlert extends Composite {
     public static final String StyleCAlert = "GWTCAlert";
+    public static final String StyleCAlertBox = "GWTCAlertBox";
     public static final String StyleCAlertTable = "gwtc-alert-table";
     public static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
     public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
     public static final String StyleCAlertBtn = "gwtc-alert-button";
+    
     static public int OPTION_DISABLE_OK_BUTTON = 1;
-    private boolean okButtonDisabled = false;
+    static public int OPTION_SQUARED = 2;
+    static public int OPTION_ROUNDED_GREY = 4;
+    static public int OPTION_ROUNDED_BLUE = 8;
 
-    private DialogBox alertDlg = new DialogBox();
+    private boolean okButtonDisabled = false;
+    
+    private PopupPanel alertDlg = new PopupPanel();
     FlexTable contentTable = new FlexTable();
-    private Label txt = new Label();
+    private HTML txt = new HTML();
     private GWTCButton okButton = new GWTCButton("OK");
     public GWTCAlert() {
         this(0);
@@ -69,11 +74,20 @@ public class GWTCAlert extends Composite {
 
     public GWTCAlert(int options) {
         
-        if ( (options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
+        if ((options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
         
-        alertDlg.setStyleName(GWTCAlert.StyleCAlert);
-
+        if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
+          alertDlg = new GWTCPopupBox(GWTCBox.STYLE_NORMAL);
+          alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
+        } else  if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
+          alertDlg = new GWTCPopupBox(GWTCBox.STYLE_BLUE);
+          alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
+        } else {
+          alertDlg = new PopupPanel();
+          alertDlg.setStyleName(GWTCAlert.StyleCAlert);
+        }
+        
         contentTable.setStyleName(GWTCAlert.StyleCAlertTable);
         contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.StyleCAlertMsgCell);
         contentTable.setWidget(0, 0, txt);
@@ -92,7 +106,7 @@ public class GWTCAlert extends Composite {
         
         okButton.setVisible(! okButtonDisabled );
         
-        alertDlg.setWidget(contentTable);
+        alertDlg.add(contentTable);
         alertDlg.center();
         hide();
         initWidget(new DockPanel());
@@ -105,11 +119,6 @@ public class GWTCAlert extends Composite {
         okButton.removeClickListener(listener);
     }
 
-    /**
-     * Adds a secondary or dependent style name to this object
-     * 
-     * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
-     */
     public void addStyleName(String s) {
         alertDlg.addStyleName(s);
     }
@@ -131,7 +140,8 @@ public class GWTCAlert extends Composite {
      *            the message to display
      */
     public void setText(String s) {
-        txt.setText(s);
+        txt.setHTML(s);
+        //txt.setText(s);
     }
 
     /**
@@ -141,12 +151,12 @@ public class GWTCAlert extends Composite {
      *            the message to display
      */
     public void alert(String s) {
-        setText(s);
+        setText(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
         show();
     }
 
     /**
-     * Show the dialog box, 
+     * Show the alert dialog 
      */
     public void show() {
         alertDlg.show();

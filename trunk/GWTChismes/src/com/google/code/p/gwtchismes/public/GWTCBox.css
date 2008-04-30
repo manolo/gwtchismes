@@ -125,7 +125,7 @@ div.x-box-blue > div > div > div.x-box-mc {
 .x-box-mc h3 {
 	font-size: 14px;
 	font-weight: bold;
-	margin: 0 0 4 0;
+	margin: 0px 0px 4px 0px;
     zoom:1;
 }
 
@@ -208,9 +208,11 @@ div.x-box-blue > div > div > div.x-box-tc {
    color: #17385b;
 }
 
+/*
 * > div.x-box-blue  > div  > div  > div.x-box-mc {
-   background-color:  expression('#c3daf9');
+   background-color:  expression(#c3daf9);
 }
+*/
 
 
 

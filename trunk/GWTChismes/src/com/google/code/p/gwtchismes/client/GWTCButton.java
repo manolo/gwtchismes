@@ -30,13 +30,13 @@ import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
-public class GWTCButtonRounded extends Button implements SourcesMouseEvents,
+public class GWTCButton extends Button implements SourcesMouseEvents,
     SourcesClickEvents {
   public static final int BUTTON_TYPE_0 = 0;
   public static final int BUTTON_TYPE_1 = 1;
   public static final int BUTTON_TYPE_2 = 2;
 
-  public static int DEFAULT_TYPE = 0;
+  public static int DEFAULT_TYPE = 2;
   
   private static final String C_BUTTON = "gwtc-btn";
   private static final String C_OVER = "-over";
@@ -52,29 +52,32 @@ public class GWTCButtonRounded extends Button implements SourcesMouseEvents,
   private String[] componentsType2 = { "my-btn", "l", "ml", "c", "mr", "r" };
   private String[] components;
 
-  public GWTCButtonRounded() {
-    this(0);
+  public GWTCButton() {
+    this(DEFAULT_TYPE);
   }
 
-  public GWTCButtonRounded(int type) {
+  public GWTCButton(int type) {
     super();
     if (type == BUTTON_TYPE_0) {
       contentIndex = 0;
       setStyleName(C_BUTTON);
+      if (GWTCHelper.isIE6()) 
+        addMouseListener(mouseOverListener);
     } else if  (type == BUTTON_TYPE_1) {
       contentIndex = contentIndexType1;
       components = componentsType1;
-      setUpGWTCButtonRounded();
+      setUpGWTCButton();
+      addMouseListener(mouseOverListener);
     } else {
       contentIndex = contentIndexType2;
       components = componentsType2;
-      setUpGWTCButtonRounded();
+      setUpGWTCButton();
+      addMouseListener(mouseOverListener);
     }
     sinkEvents(Event.MOUSEEVENTS);
-    addMouseListener(mouseOverListener);
   }
 
-  private void setUpGWTCButtonRounded() {
+  private void setUpGWTCButton() {
     container = new FlexTable();
     setElement(container.getElement());
     container.setStyleName(components[0]);
@@ -88,22 +91,22 @@ public class GWTCButtonRounded extends Button implements SourcesMouseEvents,
     }
   }
 
-  public GWTCButtonRounded(String html, ClickListener listener) {
+  public GWTCButton(String html, ClickListener listener) {
     this(html);
     addClickListener(listener);
   }
 
-  public GWTCButtonRounded(String html) {
+  public GWTCButton(String html) {
     this();
     setHTML(html);
   }
 
-  public GWTCButtonRounded(int type, String html) {
+  public GWTCButton(int type, String html) {
     this(type);
     setHTML(html);
   }
 
-  public GWTCButtonRounded(int type, String html, ClickListener listener) {
+  public GWTCButton(int type, String html, ClickListener listener) {
     this(type, html);
     addClickListener(listener);
   }

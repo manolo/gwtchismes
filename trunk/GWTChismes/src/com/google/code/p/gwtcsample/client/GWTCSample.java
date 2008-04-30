@@ -23,7 +23,6 @@ import java.util.HashMap;
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
-import com.google.code.p.gwtchismes.client.GWTCButtonSquared;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
@@ -31,7 +30,6 @@ import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -46,36 +44,48 @@ import com.google.gwt.user.client.ui.Widget;
  *         Examples for learning the usage of the GWTChismes library
  */
 public class GWTCSample implements EntryPoint {
-  private String[]        days_en   = new String[] { "Sunday", "Monday",
-      "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-  private String[]        months_en = new String[] { "January", "February",
-      "March", "April", "May", "June", "July", "August", "September",
-      "October", "November", "December" };
-  private String[]        days_es   = new String[] { "Domingo", "Lunes",
-      "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
-  private String[]        months_es = new String[] { "Enero", "Febrero",
-      "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
-      "Octubre", "Noviembre", "Diciembre" };
+  private String[] days_en = new String[] { "Sunday", "Monday", "Tuesday",
+      "Wednesday", "Thursday", "Friday", "Saturday" };
+  private String[] months_en = new String[] { "January", "February", "March",
+      "April", "May", "June", "July", "August", "September", "October",
+      "November", "December" };
+  private String[] days_es = new String[] { "Domingo", "Lunes", "Martes",
+      "Miércoles", "Jueves", "Viernes", "Sábado" };
+  private String[] months_es = new String[] { "Enero", "Febrero", "Marzo",
+      "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
+      "Noviembre", "Diciembre" };
 
-  private HashMap         strs_en   = new HashMap();
-  private HashMap         strs_es   = new HashMap();
+  private HashMap strs_en = new HashMap();
+  private HashMap strs_es = new HashMap();
 
-  private final FlexTable grid      = new FlexTable();
+  private final FlexTable grid = new FlexTable();
 
   /**
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-    // Create a default date-picker and a launcher button
-    final GWTCDatePicker ddPicker = new GWTCDatePicker(false);
-    ddPicker.addChangeListener(new ChangeListener() {
-      public void onChange(Widget widget) {
-        Window.alert(ddPicker.getSelectedDateStr("dd/MMM/yyyy"));
+    /*
+    final GWTCDatePicker pic = new GWTCDatePicker(GWTCDatePicker.CONFIG_BORDERS);
+    pic.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -30));
+    pic.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 30));
+    final Label l = new Label();
+    final TextBox a = new TextBox();
+    GWTCButton b = new GWTCButton("Click");
+    RootPanel.get().add(a);
+    RootPanel.get().add(b);
+    RootPanel.get().add(l);
+    RootPanel.get().add(pic);
+    b.addClickListener(new ClickListener(){
+      public void onClick(Widget sender) {
+        Date dd = GWTCDatePicker.increaseDate(pic.getSelectedDate(), Integer.parseInt(a.getText()));
+        pic.setSelectedDate(dd);
+        l.setText(pic.getSelectedDateStr("yyyy MM dd") + " " + pic.getSelectedDate().toString());
       }
     });
-    RootPanel.get().add(ddPicker);
+    
     if(true) return;
-
+    */
+    
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
     wait.setMessage("Please wait ...");
@@ -109,10 +119,13 @@ public class GWTCSample implements EntryPoint {
     strs_es
         .put(
             "key.calendar.help",
-            "Calendar-Picker es uno de los componentes de la libreria GWTChismes.\n(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\nPulsa sobre los botones de arriba para moverte por las distintas fechas permitidas\nfinalmente pulsa sobre la fecha deseada.");
+            "Calendar-Picker es uno de los componentes de la libreria GWTChismes.\n"
+                + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n"
+                + "Pulsa sobre los botones de arriba para moverte por las distintas fechas permitidas\n"
+                + "finalmente pulsa sobre la fecha deseada.");
 
     // Create the button that shows the wait dialog when is clicked by the user
-    Button waitButton = new GWTCButtonSquared(
+    Button waitButton = new GWTCButton(
         "GWTCWait: click here to view wait dialog during 5 seconds");
     waitButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
@@ -202,7 +215,7 @@ public class GWTCSample implements EntryPoint {
     progressBar.setTotalMessage("{0}% {1}/{2} KB. [{3} KB/s]");
     progressBar.setText("In process, please wait ...");
     final Timer t = new Timer() {
-      int done  = 0;
+      int done = 0;
       int total = 400;
 
       public void run() {
@@ -215,14 +228,14 @@ public class GWTCSample implements EntryPoint {
         done += 15;
       }
     };
+
     final GWTCButton pButton = new GWTCButton(
-        "GWTCProgress: click to show a progress dialog");
-    pButton.addClickListener(new ClickListener() {
-      public void onClick(Widget sender) {
-        progressBar.show();
-        t.scheduleRepeating(200);
-      }
-    });
+        "GWTCProgress: click to show a progress dialog", new ClickListener() {
+          public void onClick(Widget sender) {
+            progressBar.show();
+            t.scheduleRepeating(200);
+          }
+        });
 
     GWTCBox box1 = new GWTCBox();
     box1.setTitle("Diferent layouts for the GWTCIntervalSelector widget");
@@ -240,7 +253,7 @@ public class GWTCSample implements EntryPoint {
     box2.add(printButton);
     box2.add(dButton);
     box2.add(pButton);
-    box2.setStyleName(GWTCBox.CONFIG_BLUE);
+    //box2.setStyleName(GWTCBox.STYLE_BLUE);
 
     GWTCBox box3 = new GWTCBox();
     box3
