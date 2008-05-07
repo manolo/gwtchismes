@@ -558,4 +558,10 @@ public class GWTCIntervalSelector extends Composite {
 
         updateInputs();
     }
+    
+    public void useCellLinks(boolean b) {
+        checkinCalendar.useCellLinks(b);
+        checkoutCalendar.useCellLinks(b);
+      }
+
 }
