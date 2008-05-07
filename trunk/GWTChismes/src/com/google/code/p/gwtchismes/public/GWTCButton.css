@@ -166,7 +166,9 @@ button.gwtc-btn.gwtc-btn-disabled {
 	user-select: none;
    font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
    font-size: 10pt;
-	
+   text-align : center;
+   margin-left: auto;
+   margin-right: auto;	
 }
 my-btn-bar-left {
 	padding-right: 6px;
