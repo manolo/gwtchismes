@@ -74,7 +74,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       setUpGWTCButton();
       addMouseListener(mouseOverListener);
     }
-    sinkEvents(Event.MOUSEEVENTS);
+    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK );
   }
 
   private void setUpGWTCButton() {
@@ -130,7 +130,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   public void onBrowserEvent(Event event) {
     int mevent = DOM.eventGetType(event);
     mouseListeners.fireMouseEvent(this, event);
-    if (enabled && (mevent == Event.ONCLICK || mevent == Event.ONMOUSEUP)) {
+    if (enabled && (mevent == Event.ONCLICK)) {
       removeStyleName(UIObject.getStylePrimaryName(this.getElement()) + C_DOWN);
       removeStyleName(UIObject.getStylePrimaryName(this.getElement()) + C_OVER);
       clickListeners.fireClick(this);
