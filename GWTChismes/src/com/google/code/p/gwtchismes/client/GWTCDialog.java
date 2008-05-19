@@ -245,11 +245,6 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener, Cl
 	  add(w);
   }
 
-  /**
-   * Override, so that interior panel reflows to match parent's new width.
-   * 
-   * @Override
-   */
   public void setWidth(String width) {
     super.setWidth(width);
 
