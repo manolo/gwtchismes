@@ -559,9 +559,14 @@ public class GWTCIntervalSelector extends Composite {
         updateInputs();
     }
     
-    public void useCellLinks(boolean b) {
-        checkinCalendar.useCellLinks(b);
-        checkoutCalendar.useCellLinks(b);
-      }
+    /**
+     * Set the minimal selectable date for the interval
+     * 
+     * @param d
+     *          Date
+     */
+    public void setMinimalDate(Date d) {
+        checkinCalendar.setMinimalDate(d);
+    }
 
 }

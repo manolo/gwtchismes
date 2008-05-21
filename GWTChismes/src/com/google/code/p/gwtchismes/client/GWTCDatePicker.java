@@ -134,8 +134,6 @@ public class GWTCDatePicker extends Composite implements ClickListener,
 
   private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
 
-  private boolean useCellLinks = false;
-
   // Internationalizable elements
   private String[] days = new String[] { "Sunday", "Monday", "Tuesday",
       "Wednesday", "Thursday", "Friday", "Saturday" };
@@ -341,7 +339,7 @@ public class GWTCDatePicker extends Composite implements ClickListener,
               GWTCDatePicker.StyleCCellEmpty);
           grid.setHTML(i, k, "&nbsp;");
         } else {
-          HTML html = new CellHTML(displayNum, useCellLinks);
+          HTML html = new CellHTML(displayNum);
           grid.getCellFormatter().setStyleName(i, k,
               GWTCDatePicker.StyleCCellDays);
           html.setStyleName(GWTCDatePicker.StyleCCellDays);
@@ -743,19 +741,6 @@ public class GWTCDatePicker extends Composite implements ClickListener,
    *          type of addition (1=days, 2=months, 3=years, 4=hours
    * @return number of milliseconds from 1-1-1970
    */
-  private static native long dadd(long time, int value, int type)
-  /*-{
-   var d = new Date(time);
-   if (type == 1) {
-     // this is a hack because getYear returns diferent results with diferent browsers
-      var y = d.getYear();
-      y = y < 1000 ? y + 1900 : y; 
-      d.setYear( value + y);
-   }   
-   if (type == 2) d.setMonth(d.getMonth() + value);
-   if (type == 3) d.setDate(d.getDate() + value);
-   return d.getTime();  
-   }-*/;
   private static  long add(long time, int value, int type) {
     Date d = new Date(time);
     d.setHours(12);
@@ -856,15 +841,6 @@ ng month = months[date.getMonth()];
     return ret.toString();
   }
 
-  /**
-   * Enables the use of links in Cells, it is needed to use Selenium-IDE It interferes with History By default this parameter is disabled.
-   * 
-   * @param b
-   */
-  public void useCellLinks(boolean b) {
-    useCellLinks = b;
-    this.needsRedraw = true;
-  }
 
   /**
    * Basic Widget that represents each cell in the calendar picker
@@ -872,21 +848,13 @@ ng month = months[date.getMonth()];
    */
   private static class CellHTML extends HTML {
     private int day;
-    private boolean useCellLinks = false;
 
-    public CellHTML(int day, boolean useCellLinks) {
+    public CellHTML(int day) {
       super(String.valueOf(day));
-      this.useCellLinks = useCellLinks;
       this.day = day;
     }
 
     public void addClickListener(ClickListener pickListener) {
-      boolean ie6 = GWTCHelper.isIE6();
-      if (useCellLinks && ie6 == false) {
-        // If the cell has a click-listernet, we add a link, so Selenium is able to use it
-        // setHTML( "<a href=\"javascript:;\">" + String.valueOf(day) + "</a>");
-        setHTML("<a href=\"#\">" + String.valueOf(day) + "</a>");
-      }
       super.addClickListener(pickListener);
     }
 
