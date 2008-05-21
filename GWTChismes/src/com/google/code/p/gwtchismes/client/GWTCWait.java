@@ -186,7 +186,8 @@ public class GWTCWait extends Composite {
         // Maximize background 
     	GWTCHelper.maximizeWidget(pageBackground);
         // Center the dialog
-        GWTCHelper.centerPopupPanel(waitDlg);
+    	waitDlg.center();
+        //GWTCHelper.centerPopupPanel(waitDlg);
     }
 
 }
