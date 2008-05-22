@@ -18,7 +18,8 @@
   text-align : center;
 }
 .GWTCDatePicker .Cal_Buttons {
-  width: 100%;
+  /* width: 100%; */
+  width: 240px;
   background-color: #fff;
   vertical-align: middle;
   border-bottom: 1px solid #ACA899;
