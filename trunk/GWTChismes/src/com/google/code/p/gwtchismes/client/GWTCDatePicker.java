@@ -95,6 +95,12 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCDatePicker extends Composite implements ClickListener,
     SourcesChangeEvents {
+    public static String[] DAYS_EN = new String[] { "Sunday", "Monday", "Tuesday",
+            "Wednesday", "Thursday", "Friday", "Saturday" };
+
+    public static String[] MONTHS_EN = new String[] { "January", "February", "March",
+            "April", "May", "June", "July", "August", "September", "October",
+            "November", "December" };
   // Style classes
   private String styleName = "GWTCDatePicker";
 
@@ -135,12 +141,9 @@ public class GWTCDatePicker extends Composite implements ClickListener,
   private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
 
   // Internationalizable elements
-  private String[] days = new String[] { "Sunday", "Monday", "Tuesday",
-      "Wednesday", "Thursday", "Friday", "Saturday" };
+  private String[] days = DAYS_EN;
 
-  private String[] months = new String[] { "January", "February", "March",
-      "April", "May", "June", "July", "August", "September", "October",
-      "November", "December" };
+  private String[] months = MONTHS_EN;
 
   private int weekStart = 0;
 

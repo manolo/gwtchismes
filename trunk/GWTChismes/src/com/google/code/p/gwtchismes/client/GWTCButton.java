@@ -17,6 +17,7 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Button;
@@ -77,9 +78,10 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
     sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK );
   }
 
+  
   private void setUpGWTCButton() {
     container = new FlexTable();
-    setElement(container.getElement());
+    replaceElement(container.getElement());
     container.setStyleName(components[0]);
     container.addStyleName("my-no-selection");
     container.setCellSpacing(0);
@@ -191,5 +193,26 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       sender.addStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_DOWN);
     }
   };
+
+
+    // This code is here because in GWT 1.5 setElement only can be called once
+    Element element = null;
+    private void replaceElement(Element elem) {
+    //    if (super.getElement() != null)
+      //      replaceNode(super.getElement(), elem);
+        this.element = elem;
+    }
+    public Element getElement() {
+        if (this.element == null)
+            this.element = super.getElement();
+        return this.element;
+    }
+    private native void replaceNode(Element node, Element newNode) /*-{
+        if (node == null || newNode == null) return;
+        var p = node.parentNode;
+        if (!p) return;
+        p.insertBefore(newNode, node);
+        p.removeChild(node);
+    }-*/;
 
 }
