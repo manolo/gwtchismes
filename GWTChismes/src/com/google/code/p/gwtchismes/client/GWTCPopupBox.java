@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class GWTCPopupBox extends PopupPanel {
   
-  private String style = "gwtc-PopupPanel";
+  private String style = "gwtc-PopupBox";
   private GWTCBox box = new GWTCBox();
   
   public GWTCPopupBox(String style) {
@@ -18,6 +18,13 @@ public class GWTCPopupBox extends PopupPanel {
     this.setStyleName(style);
     super.add(box);
   }
+
+  public GWTCPopupBox(boolean autohide) {
+      super(autohide);
+      this.setStyleName(style);
+      super.add(box);
+  }
+  
   public void add(Widget w) {
     box.add(w);
   }
