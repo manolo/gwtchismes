@@ -126,16 +126,22 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   }
   
   public void setStyleName(String style) {
-      container.addStyleName(style);
+      super.setStyleName(style);
+      if (container != null)
+          container.addStyleName(style);
   }
   public void addStyleName(String style) {
-      container.addStyleName(style);
+      super.addStyleName(style);
+      if (container != null)
+          container.addStyleName(style);
   }
   public void removeStyleName(String style) {
-      container.removeStyleName(style);
+      super.removeStyleName(style);
+      if (container != null)
+          container.removeStyleName(style);
   }
   public String toString() {
-      return container.toString();
+     return container == null ? super.toString(): container.toString();
   }
 
   public void click() {
