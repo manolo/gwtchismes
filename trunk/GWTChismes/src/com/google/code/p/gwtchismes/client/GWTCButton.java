@@ -124,6 +124,19 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       container.setHTML(0, contentIndex, html);
     }
   }
+  
+  public void setStyleName(String style) {
+      container.addStyleName(style);
+  }
+  public void addStyleName(String style) {
+      container.addStyleName(style);
+  }
+  public void removeStyleName(String style) {
+      container.removeStyleName(style);
+  }
+  public String toString() {
+      return container.toString();
+  }
 
   public void click() {
     clickListeners.fireClick(this);
