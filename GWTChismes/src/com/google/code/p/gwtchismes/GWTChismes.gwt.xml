@@ -1,4 +1,3 @@
 <module>
   <inherits name="com.google.gwt.core.Core"/>
-  <stylesheet src="GWTC.css"/>
 </module>
