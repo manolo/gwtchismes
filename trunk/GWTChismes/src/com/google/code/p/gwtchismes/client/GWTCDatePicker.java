@@ -196,6 +196,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public GWTCDatePicker(int config) {
         initialize(config);
     }
+    
+    public void onAttach() {
+        super.onAttach();
+        adjustDimensions();
+    }
 
     private void initialize(int config) {
         if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
@@ -364,10 +369,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
        outer.setWidth(px);
        if (calendarDlg != null) {
            calendarDlg.setWidth(px);
-       System.out.println(calendarDlg.getOffsetWidth());
        }
-       System.out.println(grid.getOffsetWidth());
-       System.out.println(navButtons.getOffsetWidth());
     }
 
     /**
@@ -787,6 +789,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             return "NULL";
         if (format == null)
             format = DateTimeFormat.getLongDateFormat().getPattern();
+        else
+            format = format.replaceAll("dddd", "EEEE").replaceAll("ddd", "EEE");
         return DateTimeFormat.getFormat(format).format(date);
     }
 
