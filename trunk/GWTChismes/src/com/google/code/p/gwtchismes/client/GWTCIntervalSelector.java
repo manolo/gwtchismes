@@ -500,6 +500,12 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     /**
+     * @deprecated
+     */
+    public void setLocale(Map keys, String[] wdays, String[] months, int wStart) {
+        setLocale(keys);
+    }
+    /**
      * <p>
      * Method for internationalize the components of this interval selector
      * </p>
@@ -531,9 +537,7 @@ public class GWTCIntervalSelector extends Composite {
      * @param wStart
      *            first day of the week [1...7]
      */
-    public void setLocale(Map keys, String[] wdays, String[] months, int wStart) {
-        checkinCalendar.setLocale(wdays, months, wStart);
-        checkoutCalendar.setLocale(wdays, months, wStart);
+    public void setLocale(Map keys) {
         strs = keys;
 /*
         if (getMsg("format.date")!=null) {
