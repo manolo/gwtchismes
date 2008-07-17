@@ -44,16 +44,6 @@ import com.google.gwt.user.client.ui.Widget;
  *         Examples for learning the usage of the GWTChismes library
  */
 public class GWTCSample implements EntryPoint {
-  private String[] days_en = new String[] { "Sunday", "Monday", "Tuesday",
-      "Wednesday", "Thursday", "Friday", "Saturday" };
-  private String[] months_en = new String[] { "January", "February", "March",
-      "April", "May", "June", "July", "August", "September", "October",
-      "November", "December" };
-  private String[] days_es = new String[] { "Domingo", "Lunes", "Martes",
-      "Miércoles", "Jueves", "Viernes", "Sábado" };
-  private String[] months_es = new String[] { "Enero", "Febrero", "Marzo",
-      "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
-      "Noviembre", "Diciembre" };
 
   private HashMap strs_en = new HashMap();
   private HashMap strs_es = new HashMap();
@@ -159,19 +149,18 @@ public class GWTCSample implements EntryPoint {
 
     // Create a layout1 interval-selector and set the locale in english
     GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
-    interval1.setLocale(strs_en, days_en, months_en, 0);
+    interval1.setLocale(strs_en);
 
     // Create a layout2 interval-selector and set the locale in english
     GWTCIntervalSelector interval2 = new GWTCIntervalSelector(2);
-    interval2.setLocale(strs_en, days_en, months_en, 0);
+    interval2.setLocale(strs_en);
 
     // Create a layout3 interval-selector and set the locale in spanish
     GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
-    interval3.setLocale(strs_es, days_es, months_es, 1);
+    interval3.setLocale(strs_es);
 
     // Create a date-picker in english without the close button, and with the help button disabled
     final GWTCDatePicker picker_en = new GWTCDatePicker(false);
-    picker_en.setLocale(days_en, months_en, 0);
     picker_en.disableCloseButton();
     picker_en.setHelp(null);
     picker_en.addChangeListener(new ChangeListener() {
@@ -182,13 +171,12 @@ public class GWTCSample implements EntryPoint {
 
     // Create a date-picker in spanish
     final GWTCDatePicker picker_es = new GWTCDatePicker(false);
-    picker_es.setLocale(days_es, months_es, 1);
     picker_es.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
     picker_es.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
     picker_es.setHelp((String) strs_es.get("key.calendar.help"));
     picker_es.addChangeListener(new ChangeListener() {
       public void onChange(Widget sender) {
-        alert.alert(picker_es.getSelectedDateStr("dddd,  dd de MMMM de yyyy"));
+        alert.alert(picker_es.getSelectedDateStr("dddd,  dd/MMMM/yyyy"));
       }
     });
     picker_es.drawCalendar();
