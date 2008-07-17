@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Manuel Carrasco Moñino
- *         <h3>Class description</h3>
+ *         <h3>Helper Class</h3>
  *         <p>
  *         Utility class for the gwtchismes library
  *         </p>
@@ -83,13 +83,10 @@ public class GWTCHelper {
         } else {
             // Center the panel into the visible part of the document
             if (visibleW == 0 || visibleH == 0) {
-                // Window.alert("center 1");
                 panel.center();
             } else if (visibleH > windowH) {
-                // Window.alert("center 2");
                 panel.center();
             } else {
-                // Window.alert("center 3");
                 int left = scrollLeft + ((visibleW + objectW) / 2) - objectW;
                 int top = scrollTop + ((visibleH + objectH) / 2) - objectH;
                 panel.setPopupPosition(left, top);

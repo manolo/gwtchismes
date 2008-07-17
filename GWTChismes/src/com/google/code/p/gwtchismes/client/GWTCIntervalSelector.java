@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
@@ -164,9 +165,8 @@ public class GWTCIntervalSelector extends Composite {
 
     int layoutType = 1;
 
-    private String longDateFormat = "dd MMMM, yyyy";
-
-    private String weekDayFormat = "(ddd)";
+    private String longDateFormat = DateTimeFormat.getLongDateFormat().getPattern();
+    private String weekDayFormat = "(EEE)";
 
     /**
      * Constructor
@@ -535,10 +535,14 @@ public class GWTCIntervalSelector extends Composite {
         checkinCalendar.setLocale(wdays, months, wStart);
         checkoutCalendar.setLocale(wdays, months, wStart);
         strs = keys;
-
-        longDateFormat = getMsg("format.date");
-        weekDayFormat = getMsg("format.day");
-
+/*
+        if (getMsg("format.date")!=null) {
+            longDateFormat = getMsg("format.date");
+        }
+        if (getMsg("format.day") != null) {
+            weekDayFormat = getMsg("format.day");
+        }
+*/
         checkinLabel.setText(getMsg("key.checkin"));
         checkoutLabel.setText(getMsg("key.checkout"));
         nightsLabel.setText(getMsg("key.nights"));
