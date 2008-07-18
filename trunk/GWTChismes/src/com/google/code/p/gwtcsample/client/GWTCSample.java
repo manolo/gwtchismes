@@ -145,6 +145,7 @@ public class GWTCSample implements EntryPoint {
     // Create a date-picker without the close button, and with the help button disabled
     final GWTCDatePicker dPicker1 = new GWTCDatePicker(false);
     dPicker1.disableCloseButton();
+    dPicker1.disableYearButtons();
     dPicker1.setHelp(null);
     dPicker1.addChangeListener(new ChangeListener() {
       public void onChange(Widget sender) {
