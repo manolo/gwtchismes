@@ -422,7 +422,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setHelp(String t) {
         helpStr = t;
         if (t == null || t.length() == 0)
-            helpBtn.setEnabled(false);
+            helpBtn.setVisible(false);
         else
             helpBtn.setEnabled(true);
     }
@@ -432,6 +432,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public void disableCloseButton() {
         this.closeBtn.setVisible(false);
+    }
+    public void disableYearButtons() {
+        this.nextYBtn.setVisible(false);
+        this.prevYBtn.setVisible(false);
     }
 
     /**
