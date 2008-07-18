@@ -46,7 +46,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCSample implements EntryPoint {
 
-  private HashMap strs_en = new HashMap();
+  private HashMap intervalStrs = new HashMap();
 
   private final FlexTable grid = new FlexTable();
   private final GWTCSampleI18n i18n = (GWTCSampleI18n)GWT.create(GWTCSampleI18n.class);
@@ -82,20 +82,20 @@ public class GWTCSample implements EntryPoint {
     wait.setMessage("Please wait ...");
     wait.show(0);
 
-    // Configure internationalized strings for english
-    strs_en.put("format.date", "MMM  dd, yyyy");
-    strs_en.put("format.day", "(ddd.)");
-    strs_en.put("key.checkin", i18n.key_checkin());
-    strs_en.put("key.checkout", i18n.key_checkout());
-    strs_en.put("key.nights", i18n.key_nights());
-    strs_en.put("key.interval", i18n.key_interval());
-    strs_en.put("key.change", i18n.key_change());
-    strs_en.put("key.checkin.button", i18n.key_checkin_button());
-    strs_en.put("key.checkout.button", i18n.key_checkout_button());
-    strs_en.put("key.calendar.checkin.title", i18n.key_calendar_checkin_title());
-    strs_en.put("key.calendar.checkout.title", i18n.key_calendar_checkout_title());
-    strs_en.put("key.calendar.help", i18n.key_calendar_help());
-
+    // Configure interval locale
+    intervalStrs.put("format.date", "MMM  dd, yyyy");
+    intervalStrs.put("format.day", "(ddd.)");
+    intervalStrs.put("key.checkin", i18n.key_checkin());
+    intervalStrs.put("key.checkout", i18n.key_checkout());
+    intervalStrs.put("key.nights", i18n.key_nights());
+    intervalStrs.put("key.interval", i18n.key_interval());
+    intervalStrs.put("key.change", i18n.key_change());
+    intervalStrs.put("key.checkin.button", i18n.key_checkin_button());
+    intervalStrs.put("key.checkout.button", i18n.key_checkout_button());
+    intervalStrs.put("key.calendar.checkin.title", i18n.key_calendar_checkin_title());
+    intervalStrs.put("key.calendar.checkout.title", i18n.key_calendar_checkout_title());
+    intervalStrs.put("key.calendar.help", i18n.key_calendar_help());
+    
     // Create the button that shows the wait dialog when is clicked by the user
     Button waitButton = new GWTCButton(i18n.button_wait());
     waitButton.addClickListener(new ClickListener() {
@@ -128,15 +128,19 @@ public class GWTCSample implements EntryPoint {
 
     // Create a layout1 interval-selector and set the locale in english
     GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
-    interval1.setLocale(strs_en);
+    interval1.setLocale(intervalStrs);
 
     // Create a layout2 interval-selector and set the locale in english
     GWTCIntervalSelector interval2 = new GWTCIntervalSelector(2);
-    interval2.setLocale(strs_en);
+    interval2.setLocale(intervalStrs);
 
     // Create a layout3 interval-selector and set the locale in spanish
     GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
-    interval3.setLocale(strs_en);
+    interval3.setLocale(intervalStrs);
+    
+    // Create a layout4 interval-selector and set the locale in spanish
+    GWTCIntervalSelector interval4 = new GWTCIntervalSelector(4);
+    interval4.setLocale(intervalStrs);
 
     // Create a date-picker without the close button, and with the help button disabled
     final GWTCDatePicker dPicker1 = new GWTCDatePicker(false);
@@ -210,6 +214,7 @@ public class GWTCSample implements EntryPoint {
     box1.add(interval1);
     box1.add(interval2);
     box1.add(interval3);
+    box1.add(interval4);
 
     GWTCBox box2 = new GWTCBox();
     box2.setTitle(i18n.title_buttons_box());

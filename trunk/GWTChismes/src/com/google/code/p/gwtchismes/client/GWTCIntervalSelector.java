@@ -174,6 +174,8 @@ public class GWTCIntervalSelector extends Composite {
      * @param layoutType type of layout for the interval selector
      */
     public GWTCIntervalSelector(int layoutType) {
+        if (layoutType < 0 || layoutType >4)
+            layoutType = 1;
         outer.setStyleName(styleName);
         initWidget(outer);
         this.initListeners();
@@ -187,7 +189,7 @@ public class GWTCIntervalSelector extends Composite {
     /**
      * Draws the widget using the layout passed as argument
      * 
-     * @param layout (supported layouts 1 2 y 3)
+     * @param layout (supported layouts 1 2 3 4)
      */
     public void drawIntervalWidget(int layout) {
         outer.clear();
@@ -234,7 +236,7 @@ public class GWTCIntervalSelector extends Composite {
             }
             tSelector.getCellFormatter().addStyleName(0, 0, "ColLabels");
             
-        } else if (layout==2 || layout==3){
+        } else if (layout==2 || layout==3 || layout==4){
             int idx = 0;
             
             grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
@@ -274,20 +276,28 @@ public class GWTCIntervalSelector extends Composite {
                 idx++;
 
             }
-            if (layout == 3) {
+            if (layout == 3 || layout == 4) {
                 grid.getRowFormatter().addStyleName(idx, "DateSelect");
                 HorizontalPanel nightsInfo = new HorizontalPanel();
                 durationLabel.addStyleName("durationLabel");
-                grid.setWidget(idx, 0, durationLabel);
                 grid.setWidget(idx, 1, nightsInfo);
                 nightsInfo.add(nightsListBoxContainer);
-                nightsInfo.add(nightsLabel);
+                if (layout==3){
+                    grid.setWidget(idx, 0, durationLabel);
+                    nightsInfo.add(nightsLabel);
+                } 
+                if (layout==4) {
+                    grid.setWidget(idx, 0, nightsLabel);
+                    nightsInfo.add(checkoutLabel);
+                    nightsInfo.add(checkoutDateLabel);
+                }
                 idx++;
             }
             for (int i = 0; i < idx; i++) {
                 grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
             }
         }
+            
     }
 
     private void updateInputsFromNights() {
