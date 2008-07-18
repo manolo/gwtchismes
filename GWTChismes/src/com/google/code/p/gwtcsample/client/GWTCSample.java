@@ -19,6 +19,7 @@ package com.google.code.p.gwtcsample.client;
 
 import java.util.Date;
 import java.util.HashMap;
+import com.google.gwt.core.client.GWT;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCBox;
@@ -46,9 +47,9 @@ import com.google.gwt.user.client.ui.Widget;
 public class GWTCSample implements EntryPoint {
 
   private HashMap strs_en = new HashMap();
-  private HashMap strs_es = new HashMap();
 
   private final FlexTable grid = new FlexTable();
+  private final GWTCSampleI18n i18n = (GWTCSampleI18n)GWT.create(GWTCSampleI18n.class);
 
   /**
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
@@ -84,39 +85,19 @@ public class GWTCSample implements EntryPoint {
     // Configure internationalized strings for english
     strs_en.put("format.date", "MMM  dd, yyyy");
     strs_en.put("format.day", "(ddd.)");
-    strs_en.put("key.checkin", "Check-in:");
-    strs_en.put("key.checkout", "Check-out:");
-    strs_en.put("key.nights", "Nights");
-    strs_en.put("key.interval", "Number of nights:");
-    strs_en.put("key.change", "Change");
-    strs_en.put("key.checkin.button", "...");
-    strs_en.put("key.checkout.button", "...");
-    strs_en.put("key.calendar.checkin.title", "Select checkin date");
-    strs_en.put("key.calendar.checkout.title", "Select checkout date");
-
-    // Configure internationalized string for spanish
-    strs_es.put("format.date", "MMM  dd, yyyy");
-    strs_es.put("format.day", "(ddd.)");
-    strs_es.put("key.checkin", "Fecha de entrada:");
-    strs_es.put("key.checkout", "Fecha de salida");
-    strs_es.put("key.nights", "noches");
-    strs_es.put("key.interval", "Nro. de noches:");
-    strs_es.put("key.change", "Cambiar");
-    strs_es.put("key.checkin.button", "...");
-    strs_es.put("key.checkout.button", "...");
-    strs_es.put("key.calendar.checkin.title", "Seleccione la fecha de entrada");
-    strs_es.put("key.calendar.checkout.title", "Seleccione la fecha de salida");
-    strs_es
-        .put(
-            "key.calendar.help",
-            "Calendar-Picker es uno de los componentes de la libreria GWTChismes.\n"
-                + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n"
-                + "Pulsa sobre los botones de arriba para moverte por las distintas fechas permitidas\n"
-                + "finalmente pulsa sobre la fecha deseada.");
+    strs_en.put("key.checkin", i18n.key_checkin());
+    strs_en.put("key.checkout", i18n.key_checkout());
+    strs_en.put("key.nights", i18n.key_nights());
+    strs_en.put("key.interval", i18n.key_interval());
+    strs_en.put("key.change", i18n.key_change());
+    strs_en.put("key.checkin.button", i18n.key_checkin_button());
+    strs_en.put("key.checkout.button", i18n.key_checkout_button());
+    strs_en.put("key.calendar.checkin.title", i18n.key_calendar_checkin_title());
+    strs_en.put("key.calendar.checkout.title", i18n.key_calendar_checkout_title());
+    strs_en.put("key.calendar.help", i18n.key_calendar_help());
 
     // Create the button that shows the wait dialog when is clicked by the user
-    Button waitButton = new GWTCButton(
-        "GWTCWait: click here to view wait dialog during 5 seconds");
+    Button waitButton = new GWTCButton(i18n.button_wait());
     waitButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
         wait.show(5);
@@ -125,13 +106,13 @@ public class GWTCSample implements EntryPoint {
 
     // Create a GWTAlert widget
     final GWTCAlert alert = new GWTCAlert();
-    alert.setText("Hello, this is an alert message");
+    alert.setText(i18n.hello_message());
     alert.hide();
 
     // Create the button that shows the alert dialog when is clicked by the user
     GWTCButton alertButton = new GWTCButton();
     alertButton.addStyleName("SampleButton");
-    alertButton.setText("GWTCAlert: click here to view an alert dialog");
+    alertButton.setText(i18n.button_alert());
     alertButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
         alert.show();
@@ -139,13 +120,11 @@ public class GWTCSample implements EntryPoint {
     });
 
     // Create a sample disabled GWTCButton
-    GWTCButton disabledButton = new GWTCButton(
-        "GWTCButton: This is a disabled button");
+    GWTCButton disabledButton = new GWTCButton(i18n.button_disabled());
     disabledButton.setEnabled(false);
 
     // Create a new GWTCPrint Button
-    GWTCPrint printButton = new GWTCPrint(
-        "GWTCPrint: click to send this page to the printer");
+    GWTCPrint printButton = new GWTCPrint(i18n.button_print());
 
     // Create a layout1 interval-selector and set the locale in english
     GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
@@ -157,42 +136,40 @@ public class GWTCSample implements EntryPoint {
 
     // Create a layout3 interval-selector and set the locale in spanish
     GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
-    interval3.setLocale(strs_es);
+    interval3.setLocale(strs_en);
 
-    // Create a date-picker in english without the close button, and with the help button disabled
-    final GWTCDatePicker picker_en = new GWTCDatePicker(false);
-    picker_en.disableCloseButton();
-    picker_en.setHelp(null);
-    picker_en.addChangeListener(new ChangeListener() {
+    // Create a date-picker without the close button, and with the help button disabled
+    final GWTCDatePicker dPicker1 = new GWTCDatePicker(false);
+    dPicker1.disableCloseButton();
+    dPicker1.setHelp(null);
+    dPicker1.addChangeListener(new ChangeListener() {
       public void onChange(Widget sender) {
-        alert.alert(picker_en.getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+        alert.alert(dPicker1.getSelectedDateStr("MMMM dd, yyyy (dddd)"));
       }
     });
 
-    // Create a date-picker in spanish
-    final GWTCDatePicker picker_es = new GWTCDatePicker(false);
-    picker_es.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
-    picker_es.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
-    picker_es.setHelp((String) strs_es.get("key.calendar.help"));
-    picker_es.addChangeListener(new ChangeListener() {
+    // Create a date-picker with all buttons enabled 
+    final GWTCDatePicker dPicker2 = new GWTCDatePicker(false);
+    dPicker2.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
+    dPicker2.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
+    dPicker2.addChangeListener(new ChangeListener() {
       public void onChange(Widget sender) {
-        alert.alert(picker_es.getSelectedDateStr("dddd,  dd/MMMM/yyyy"));
+        alert.alert(dPicker2.getSelectedDateStr("dddd,  dd/MMMM/yyyy"));
       }
     });
-    picker_es.drawCalendar();
+    dPicker2.drawCalendar();
 
     // Create a default date-picker and a launcher button
-    final GWTCDatePicker dPicker = new GWTCDatePicker(true);
-    dPicker.addChangeListener(new ChangeListener() {
+    final GWTCDatePicker dPicker3 = new GWTCDatePicker(true);
+    dPicker3.addChangeListener(new ChangeListener() {
       public void onChange(Widget widget) {
-        alert.alert(dPicker.getSelectedDateStr("dd/MMM/yyyy"));
+        alert.alert(dPicker3.getSelectedDateStr("dd/MMM/yyyy"));
       }
     });
-    final GWTCButton dButton = new GWTCButton(
-        "GWTCDatePicker: click to show a centered DatePicker");
+    final GWTCButton dButton = new GWTCButton(i18n.button_picker());
     dButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
-        dPicker.show(null);
+        dPicker3.show(null);
       }
     });
 
@@ -200,8 +177,12 @@ public class GWTCSample implements EntryPoint {
     final GWTCProgress progressBar = new GWTCProgress(40,
         GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT
             | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
-    progressBar.setTotalMessage("{0}% {1}/{2} KB. [{3} KB/s]");
-    progressBar.setText("In process, please wait ...");
+    progressBar.setText(i18n.progress_title());
+    progressBar.setTotalMessage(i18n.progress_total());
+    progressBar.setPercentMessage(i18n.progress_percent());
+    progressBar.setHoursMessage(i18n.progress_hours());
+    progressBar.setMinutesMessage(i18n.progress_minutes());
+    progressBar.setSecondsMessage(i18n.progress_seconds());
     final Timer t = new Timer() {
       int done = 0;
       int total = 400;
@@ -217,8 +198,7 @@ public class GWTCSample implements EntryPoint {
       }
     };
 
-    final GWTCButton pButton = new GWTCButton(
-        "GWTCProgress: click to show a progress dialog", new ClickListener() {
+    final GWTCButton pButton = new GWTCButton(i18n.button_progress(), new ClickListener() {
           public void onClick(Widget sender) {
             progressBar.show();
             t.scheduleRepeating(200);
@@ -226,14 +206,13 @@ public class GWTCSample implements EntryPoint {
         });
 
     GWTCBox box1 = new GWTCBox();
-    box1.setTitle("Diferent layouts for the GWTCIntervalSelector widget");
+    box1.setTitle(i18n.title_intervals_box());
     box1.add(interval1);
     box1.add(interval2);
     box1.add(interval3);
 
     GWTCBox box2 = new GWTCBox();
-    box2
-        .setTitle("Examples using the GWTCButton. Note that the css class is changed when the mouse is over them  (this is a workaround for Internet Explorer 6).");
+    box2.setTitle(i18n.title_buttons_box());
     box2.add(waitButton);
     box2.add(alertButton);
     box2.add(disabledButton);
@@ -244,10 +223,9 @@ public class GWTCSample implements EntryPoint {
     //box2.setStyleName(GWTCBox.STYLE_BLUE);
 
     GWTCBox box3 = new GWTCBox();
-    box3
-        .setTitle("These are two GWTCCalendarPicker configured with diferent restrictions, languages and buttons");
-    box3.add(picker_en, DockPanel.WEST);
-    box3.add(picker_es, DockPanel.EAST);
+    box3.setTitle(i18n.title_pickers_box());
+    box3.add(dPicker1, DockPanel.WEST);
+    box3.add(dPicker2, DockPanel.EAST);
 
     // Distribute the widgets into a grid
     grid.setStyleName("GWTCSample");
