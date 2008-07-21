@@ -174,7 +174,7 @@ public class GWTCIntervalSelector extends Composite {
      * @param layoutType type of layout for the interval selector
      */
     public GWTCIntervalSelector(int layoutType) {
-        if (layoutType < 0 || layoutType >4)
+        if (layoutType < 0 || layoutType >5)
             layoutType = 1;
         outer.setStyleName(styleName);
         initWidget(outer);
@@ -301,6 +301,38 @@ public class GWTCIntervalSelector extends Composite {
             for (int i = 0; i < idx; i++) {
                 grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
             }
+        } else if (layout==5){
+            int idx = 0;
+            
+            grid.getRowFormatter().addStyleName(idx, "CheckinLabel_5");
+            grid.setWidget(idx, 0, checkinLabel);
+            idx ++;
+            
+            HorizontalPanel checkinInfo = new HorizontalPanel();
+            checkinInfo.add(checkinDateLabel);
+            checkinInfo.add(checkinWeekLabel);
+            checkinInfo.add(checkinButton);
+            checkinDateLabel.addStyleName("checkinDateLabel");
+            checkinWeekLabel.addStyleName("checkinWeekLabel");
+            checkinButton.addStyleName("checkinButton");
+            grid.setWidget(idx, 0, checkinInfo);
+            idx++;
+            
+            grid.getRowFormatter().addStyleName(idx, "NightsLabel_5");
+            grid.setWidget(idx, 0, nightsLabel);
+            idx++;
+            
+            grid.setWidget(idx, 0, nightsListBoxContainer);
+            idx++;
+            
+            grid.getRowFormatter().addStyleName(idx, "CheckoutInfo_5");
+            HorizontalPanel nightsInfo = new HorizontalPanel();
+            nightsInfo.add(checkoutLabel);
+            nightsInfo.add(checkoutDateLabel);
+            grid.setWidget(idx, 0, nightsInfo);
+            
+            idx++;
+            
         }
             
     }
@@ -590,6 +622,11 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setMinimalDate(Date d) {
         checkinCalendar.setMinimalDate(d);
+    }
+    
+    public void disableYearButtons() {
+        checkinCalendar.disableYearButtons();
+        checkoutCalendar.disableYearButtons();
     }
 
 }
