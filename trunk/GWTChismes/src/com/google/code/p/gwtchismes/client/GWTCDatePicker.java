@@ -42,7 +42,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * <h3>Class description</h3>
  * <p>
- * A widget to pick a date. It could be implemented as an independent dialog box or it could be included into another widget.
+ * A widget to pick a date. It can be implemented as an independent dialog box or it can be included into another widget.
  * </p>
  * <p>
  * You can configure minimalDate, maximalDate, cursorDate and locales (day names, month names, help, and weekStart)
@@ -117,6 +117,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static String StyleCToday = "Cal_Today";
 
     private static String StyleHelp = "Cal_Help";
+    
+    private static String StyleNoBox = "Cal_NoBox";
 
     // Configurable parameters
 
@@ -178,6 +180,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     public static int CONFIG_DIALOG = 1;
     public static int CONFIG_BORDERS = 2;
+    
+    
 
     /**
      * Constructor, you need specify the behaviour: floating dialog box or embeded widget
@@ -205,6 +209,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private void initialize(int config) {
         if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
             outer = new GWTCBox();
+        } else {
+            outer.addStyleName(StyleNoBox);
         }
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
             calendarDlg = new DialogBox();
@@ -213,6 +219,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         } else {
             initWidget(outer);
             drawCalendar();
+            disableCloseButton();
         }
         setStyleName(styleName);
         help.addStyleName(StyleHelp);
@@ -364,12 +371,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
     
     private void adjustDimensions() {
-       String px = grid.getOffsetWidth() + "px";
-       navButtons.setWidth(px);
-       outer.setWidth(px);
-       if (calendarDlg != null) {
-           calendarDlg.setWidth(px);
-       }
+       int incr = outer instanceof GWTCBox ? 30 : 5;
+       navButtons.setWidth(grid.getOffsetWidth() + "px");
+       outer.setWidth(grid.getOffsetWidth() + incr + "px");
+       if (calendarDlg != null) 
+           calendarDlg.setWidth(outer.getOffsetWidth() + "px");
     }
 
     /**
@@ -518,6 +524,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             this.setSelectedDate(d);
         if (maximalDate.getTime() < minimalDate.getTime())
             maximalDate = d;
+        System.out.println(minimalDate);
+        System.out.println(d);
     }
 
     /**

@@ -38,13 +38,13 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   public static final int BUTTON_TYPE_2 = 2;
 
   public static int DEFAULT_TYPE = 2;
-  
+
   private static final String C_BUTTON = "gwtc-btn";
   private static final String C_OVER = "-over";
   private static final String C_DOWN = "-down";
   private static final String C_DISABLED = "-disabled";
 
-  private FlexTable container = null; 
+  private FlexTable container = null;
   private boolean enabled = true;
   private int contentIndexType1 = 1;
   private int contentIndexType2 = 2;
@@ -54,17 +54,41 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   private String[] components;
 
   public GWTCButton() {
-    this(DEFAULT_TYPE);
+    super();
+    setType(DEFAULT_TYPE);
   }
 
-  public GWTCButton(int type) {
+  public GWTCButton(String html, ClickListener listener) {
+    this(html);
+    addClickListener(listener);
+  }
+
+  public GWTCButton(String html) {
+    this();
+    setHTML(html);
+  }
+
+  public GWTCButton(int type, String html) {
     super();
+    setType(type);
+    setHTML(html);
+  }
+
+  public GWTCButton(int type, String html, ClickListener listener) {
+    this(type, html);
+    addClickListener(listener);
+  }
+
+  public void setType(int type) {
+    String text = getHTML();
+    element = null;
+    if (container !=null) container.clear();
+    container = null;
     if (type == BUTTON_TYPE_0) {
       contentIndex = 0;
       setStyleName(C_BUTTON);
-      if (GWTCHelper.isIE6()) 
-        addMouseListener(mouseOverListener);
-    } else if  (type == BUTTON_TYPE_1) {
+      if (GWTCHelper.isIE6()) addMouseListener(mouseOverListener);
+    } else if (type == BUTTON_TYPE_1) {
       contentIndex = contentIndexType1;
       components = componentsType1;
       setUpGWTCButton();
@@ -75,10 +99,10 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       setUpGWTCButton();
       addMouseListener(mouseOverListener);
     }
-    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK );
+    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK);
+    setHTML(text);
   }
 
-  
   private void setUpGWTCButton() {
     container = new FlexTable();
     replaceElement(container.getElement());
@@ -93,26 +117,6 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
     }
   }
 
-  public GWTCButton(String html, ClickListener listener) {
-    this(html);
-    addClickListener(listener);
-  }
-
-  public GWTCButton(String html) {
-    this();
-    setHTML(html);
-  }
-
-  public GWTCButton(int type, String html) {
-    this(type);
-    setHTML(html);
-  }
-
-  public GWTCButton(int type, String html, ClickListener listener) {
-    this(type, html);
-    addClickListener(listener);
-  }
-
   public void setText(String text) {
     setHTML(text);
   }
@@ -124,24 +128,31 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       container.setHTML(0, contentIndex, html);
     }
   }
-  
+  public String getHTML(){
+    if (container == null) {
+      return super.getHTML();
+    } else {
+      return container.getHTML(0, contentIndex);
+    }
+  }
+
   public void setStyleName(String style) {
-      super.setStyleName(style);
-      if (container != null)
-          container.addStyleName(style);
+    super.setStyleName(style);
+    if (container != null) container.addStyleName(style);
   }
+
   public void addStyleName(String style) {
-      super.addStyleName(style);
-      if (container != null)
-          container.addStyleName(style);
+    super.addStyleName(style);
+    if (container != null) container.addStyleName(style);
   }
+
   public void removeStyleName(String style) {
-      super.removeStyleName(style);
-      if (container != null)
-          container.removeStyleName(style);
+    super.removeStyleName(style);
+    if (container != null) container.removeStyleName(style);
   }
+
   public String toString() {
-     return container == null ? super.toString(): container.toString();
+    return container == null ? super.toString() : container.toString();
   }
 
   public void click() {
@@ -161,9 +172,11 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
     if (enabled) {
-      this.removeStyleName(UIObject.getStylePrimaryName(getElement()) + C_DISABLED);
+      this.removeStyleName(UIObject.getStylePrimaryName(getElement())
+          + C_DISABLED);
     } else {
-      this.addStyleName(UIObject.getStylePrimaryName(getElement()) + C_DISABLED);
+      this
+          .addStyleName(UIObject.getStylePrimaryName(getElement()) + C_DISABLED);
     }
   }
 
@@ -188,50 +201,50 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   public void removeClickListener(ClickListener listener) {
     clickListeners.remove(listener);
   }
-  
 
   // A listener for changing style when the mouse is over
   public static final MouseListener mouseOverListener = new MouseListener() {
     public void onMouseUp(Widget sender, int x, int y) {
-      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_DOWN);
+      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement())
+          + C_DOWN);
     }
 
-    public void onMouseMove(Widget sender, int x, int y) {
-    }
+    public void onMouseMove(Widget sender, int x, int y) {}
 
     public void onMouseEnter(Widget sender) {
-      sender.addStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_OVER);
+      sender.addStyleName(UIObject.getStylePrimaryName(sender.getElement())
+          + C_OVER);
     }
 
     public void onMouseLeave(Widget sender) {
-      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_DOWN);
-      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_OVER);
+      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement())
+          + C_DOWN);
+      sender.removeStyleName(UIObject.getStylePrimaryName(sender.getElement())
+          + C_OVER);
     }
 
     public void onMouseDown(Widget sender, int x, int y) {
-      sender.addStyleName(UIObject.getStylePrimaryName(sender.getElement()) + C_DOWN);
+      sender.addStyleName(UIObject.getStylePrimaryName(sender.getElement())
+          + C_DOWN);
     }
   };
 
+  // This code is here because in GWT 1.5 setElement only can be called once
+  Element element = null;
+  private void replaceElement(Element element) {
+    if (this.element != null) {
+      Element parent = DOM.getParent(this.element);
+      if (parent != null) {
+        DOM.removeChild(parent, this.element);
+        DOM.appendChild(parent, element);
+      }
+    }
+    this.element = element;
+  }
 
-    // This code is here because in GWT 1.5 setElement only can be called once
-    Element element = null;
-    private void replaceElement(Element elem) {
-    //    if (super.getElement() != null)
-      //      replaceNode(super.getElement(), elem);
-        this.element = elem;
-    }
-    public Element getElement() {
-        if (this.element == null)
-            this.element = super.getElement();
-        return this.element;
-    }
-    private native void replaceNode(Element node, Element newNode) /*-{
-        if (node == null || newNode == null) return;
-        var p = node.parentNode;
-        if (!p) return;
-        p.insertBefore(newNode, node);
-        p.removeChild(node);
-    }-*/;
+  public Element getElement() {
+    if (this.element == null) this.element = super.getElement();
+    return this.element;
+  }
 
 }

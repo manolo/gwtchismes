@@ -19,7 +19,6 @@ package com.google.code.p.gwtcsample.client;
 
 import java.util.Date;
 import java.util.HashMap;
-import com.google.gwt.core.client.GWT;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCBox;
@@ -30,14 +29,15 @@ import com.google.code.p.gwtchismes.client.GWTCPrint;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -55,19 +55,23 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-    /*
-    final GWTCDatePicker pic = new GWTCDatePicker(GWTCDatePicker.CONFIG_BORDERS);
-    pic.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -30));
+    final GWTCDatePicker pic = new GWTCDatePicker(GWTCDatePicker.CONFIG_BORDERS | GWTCDatePicker.CONFIG_DIALOG);
+    //pic.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -1));
     pic.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 30));
+    pic.disableCloseButton();
+    pic.setHelp(null);
+    
     final Label l = new Label();
     final TextBox a = new TextBox();
-    GWTCButton b = new GWTCButton("Click");
+    final GWTCButton b = new GWTCButton(2,"Click");
+    b.setType(1);
     RootPanel.get().add(a);
     RootPanel.get().add(b);
     RootPanel.get().add(l);
     RootPanel.get().add(pic);
     b.addClickListener(new ClickListener(){
       public void onClick(Widget sender) {
+        pic.show(b);
         Date dd = GWTCDatePicker.increaseDate(pic.getSelectedDate(), Integer.parseInt(a.getText()));
         pic.setSelectedDate(dd);
         l.setText(pic.getSelectedDateStr("yyyy MM dd") + " " + pic.getSelectedDate().toString());
@@ -75,7 +79,6 @@ public class GWTCSample implements EntryPoint {
     });
     
     if(true) return;
-    */
     
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
@@ -97,7 +100,8 @@ public class GWTCSample implements EntryPoint {
     intervalStrs.put("key.calendar.help", i18n.key_calendar_help());
     
     // Create the button that shows the wait dialog when is clicked by the user
-    Button waitButton = new GWTCButton(i18n.button_wait());
+    GWTCButton waitButton = new GWTCButton(i18n.button_wait());
+    waitButton.setType(GWTCButton.BUTTON_TYPE_0);
     waitButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
         wait.show(5);
@@ -110,9 +114,10 @@ public class GWTCSample implements EntryPoint {
     alert.hide();
 
     // Create the button that shows the alert dialog when is clicked by the user
-    GWTCButton alertButton = new GWTCButton();
+    GWTCButton alertButton = new GWTCButton(GWTCButton.BUTTON_TYPE_1, "");
     alertButton.addStyleName("SampleButton");
     alertButton.setText(i18n.button_alert());
+    alertButton.setType(GWTCButton.BUTTON_TYPE_1);
     alertButton.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
         alert.show();
@@ -121,8 +126,11 @@ public class GWTCSample implements EntryPoint {
 
     // Create a sample disabled GWTCButton
     GWTCButton disabledButton = new GWTCButton(i18n.button_disabled());
+    alertButton.setType(GWTCButton.BUTTON_TYPE_2);
     disabledButton.setEnabled(false);
 
+    
+    System.out.println(waitButton.toString() + "\n" + alertButton.toString() + "\n" + disabledButton.toString());
     // Create a new GWTCPrint Button
     GWTCPrint printButton = new GWTCPrint(i18n.button_print());
 
