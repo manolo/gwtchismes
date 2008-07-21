@@ -55,30 +55,14 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-    final GWTCDatePicker pic = new GWTCDatePicker(GWTCDatePicker.CONFIG_BORDERS | GWTCDatePicker.CONFIG_DIALOG);
-    //pic.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -1));
-    pic.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 30));
-    pic.disableCloseButton();
-    pic.setHelp(null);
+      
+      GWTCIntervalSelector i = new GWTCIntervalSelector(5);
+      RootPanel.get().add(i);
+      
+      if (true) return;
     
-    final Label l = new Label();
-    final TextBox a = new TextBox();
-    final GWTCButton b = new GWTCButton(2,"Click");
-    b.setType(1);
-    RootPanel.get().add(a);
-    RootPanel.get().add(b);
-    RootPanel.get().add(l);
-    RootPanel.get().add(pic);
-    b.addClickListener(new ClickListener(){
-      public void onClick(Widget sender) {
-        pic.show(b);
-        Date dd = GWTCDatePicker.increaseDate(pic.getSelectedDate(), Integer.parseInt(a.getText()));
-        pic.setSelectedDate(dd);
-        l.setText(pic.getSelectedDateStr("yyyy MM dd") + " " + pic.getSelectedDate().toString());
-      }
-    });
     
-    if(true) return;
+    
     
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
