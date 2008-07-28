@@ -51,47 +51,18 @@ public class GWTCHelper {
     public static void positionPopupPanel(PopupPanel panel, Widget widget) {
         if (panel == null)
             return;
-
-        int visibleW = getVisibleWidth();
-        int visibleH = getVisibleHeight();
-        int windowW = Window.getClientWidth();
-        int windowH = Window.getClientHeight();
-        int scrollLeft = Window.getScrollLeft();
-        int scrollTop = Window.getScrollTop();
-        int objectW = panel.getOffsetWidth();
-        int objectH = panel.getOffsetHeight();
-
         if (widget != null) {
             // Put the panel near the widget
             int left = widget.getAbsoluteLeft() - 20;
             int top = widget.getAbsoluteTop() + 10;
             panel.setPopupPosition(left, top);
-            // If part of the panel is not visible, move the scrollbars
-            int xDiff = objectW + left - visibleW - scrollLeft;
-            int yDiff = objectH + top - visibleH - scrollTop;
-            if (xDiff < 0) {
-                xDiff = left - scrollLeft;
-                if (xDiff > 0)
-                    xDiff = 0;
-            }
-            if (yDiff < 0) {
-                yDiff = top - scrollTop;
-                if (yDiff > 0)
-                    yDiff = 0;
-            }
-            scrollTo(scrollLeft + xDiff, scrollTop + yDiff);
         } else {
             // Center the panel into the visible part of the document
-            if (visibleW == 0 || visibleH == 0) {
-                panel.center();
-            } else if (visibleH > windowH) {
-                panel.center();
-            } else {
-                int left = scrollLeft + ((visibleW + objectW) / 2) - objectW;
-                int top = scrollTop + ((visibleH + objectH) / 2) - objectH;
-                panel.setPopupPosition(left, top);
-            }
+            panel.center();
         }
+        
+        // If part of the panel is not visible, move the scrollbars
+        DOM.scrollIntoView(panel.getElement());
     }
 
     public static void centerPopupPanel(PopupPanel panel) {
@@ -106,15 +77,11 @@ public class GWTCHelper {
         widget.setSize(w + "px", h + "px");
     }
 
-    public static native void scrollTo(int x, int y) /*-{
-            $wnd.scrollTo(x,y);
-         }-*/;
-
-    public static native int getVisibleWidth() /*-{
+    private static native int getVisibleWidth() /*-{
             return $wnd.document.documentElement.clientWidth;
          }-*/;
 
-    public static native int getVisibleHeight() /*-{
+    private static native int getVisibleHeight() /*-{
             return $wnd.document.documentElement.clientHeight;
          }-*/;
 

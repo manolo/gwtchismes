@@ -55,12 +55,12 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-      
+      /*
       GWTCIntervalSelector i = new GWTCIntervalSelector(5);
       RootPanel.get().add(i);
       
       if (true) return;
-    
+    */
     
     
     
