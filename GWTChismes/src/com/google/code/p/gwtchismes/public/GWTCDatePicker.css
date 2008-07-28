@@ -19,16 +19,26 @@
 }
 .GWTCDatePicker .Cal_Buttons {
   /* width: 100%; */
-  width: 240px;
+  width: 230px;
   background-color: #fff;
   vertical-align: middle;
   border-bottom: 1px solid #ACA899;
+}
+.GWTCDatePicker .Cal_TopButtons {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 150px;
 }
 .GWTCDatePicker .Cal_Buttons .Cal_Header {
   background-color: #fff;
   cursor: default; 
   text-align : center;
   font-weight: bold;
+}
+.Cal_Header {
+	min-height: 15px;
+	max-height: 20px;
+	padding-top: 5px;
 }
 .GWTCDatePicker .Cal_Buttons .gwt-Button {
   padding-left: 5px;

@@ -20,6 +20,8 @@ package com.google.code.p.gwtchismes.client;
 import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 import com.google.gwt.user.client.ui.ChangeListener;
@@ -93,6 +95,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private String styleName = "GWTCDatePicker";
 
     private static String StyleCButtons = "Cal_Buttons";
+    private static String StyleCTopButtons = "Cal_TopButtons";
+    private static String StyleCBottomButtons = "Cal_BottomButtons";
 
     private static String StyleCHeader = "Cal_Header";
 
@@ -151,7 +155,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     // Navigation Buttons
     private final DockPanel navButtons = new DockPanel();
 
-    private final DockPanel bottonButtons = new DockPanel();
+    private final DockPanel bottomButtons = new DockPanel();
 
     private final DockPanel topButtons = new DockPanel();
     
@@ -227,7 +231,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         navButtons.setStyleName(GWTCDatePicker.StyleCButtons);
         titleBtn.setStyleName(GWTCDatePicker.StyleCHeader);
 
-        navButtons.add(bottonButtons, DockPanel.SOUTH);
+        navButtons.add(bottomButtons, DockPanel.SOUTH);
         navButtons.add(topButtons, DockPanel.NORTH);
 
         prevButtons.add(prevYBtn);
@@ -235,17 +239,19 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         nextButtons.add(nextMBtn);
         nextButtons.add(nextYBtn);
 
-        bottonButtons.add(prevButtons, DockPanel.WEST);
-        bottonButtons.add(actualMBtn, DockPanel.CENTER);
-        bottonButtons.add(nextButtons, DockPanel.EAST);
-        bottonButtons.setVerticalAlignment(DockPanel.ALIGN_MIDDLE);
-        bottonButtons.setCellVerticalAlignment(actualMBtn, HasAlignment.ALIGN_MIDDLE);
-        bottonButtons.setCellHorizontalAlignment(prevButtons, DockPanel.ALIGN_LEFT);
-        bottonButtons.setCellHorizontalAlignment(nextButtons, DockPanel.ALIGN_RIGHT);
-        bottonButtons.setCellHorizontalAlignment(actualMBtn, HasAlignment.ALIGN_CENTER);
-        bottonButtons.setCellWidth(actualMBtn, "100%");
+        bottomButtons.addStyleName(StyleCBottomButtons);
+        bottomButtons.add(prevButtons, DockPanel.WEST);
+        bottomButtons.add(actualMBtn, DockPanel.CENTER);
+        bottomButtons.add(nextButtons, DockPanel.EAST);
+        bottomButtons.setVerticalAlignment(DockPanel.ALIGN_MIDDLE);
+        bottomButtons.setCellVerticalAlignment(actualMBtn, HasAlignment.ALIGN_MIDDLE);
+        bottomButtons.setCellHorizontalAlignment(prevButtons, DockPanel.ALIGN_LEFT);
+        bottomButtons.setCellHorizontalAlignment(nextButtons, DockPanel.ALIGN_RIGHT);
+        bottomButtons.setCellHorizontalAlignment(actualMBtn, HasAlignment.ALIGN_CENTER);
+        bottomButtons.setCellWidth(actualMBtn, "100%");
         actualMBtn.setWidth("100%");
 
+        topButtons.addStyleName(StyleCTopButtons);
         topButtons.add(helpBtn, DockPanel.WEST);
         topButtons.add(titleBtn, DockPanel.CENTER);
         topButtons.add(closeBtn, DockPanel.EAST);
@@ -371,7 +377,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
     
     private void adjustDimensions() {
-       int incr = outer instanceof GWTCBox ? 30 : 5;
+       int incr = outer instanceof GWTCBox ? 30 : 2;
        navButtons.setWidth(grid.getOffsetWidth() + "px");
        outer.setWidth(grid.getOffsetWidth() + incr + "px");
        if (calendarDlg != null) 
@@ -379,7 +385,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Unhide the calendar container, if the calendar picker is a dialog box and param sender is not null the dialog is positioned near of it
+     * show the calendar container, if the calendar picker is a dialog box and param sender is not null the dialog is positioned near of it
      * 
      * @param sender
      *            the widget that the user has clicked
