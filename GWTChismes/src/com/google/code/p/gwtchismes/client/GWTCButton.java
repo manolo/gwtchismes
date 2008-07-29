@@ -158,6 +158,10 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
   public void click() {
     clickListeners.fireClick(this);
   }
+  public void setVisible(boolean visible) {
+      super.setVisible(visible);
+      if (container != null) container.setVisible(visible);
+  }
 
   public void onBrowserEvent(Event event) {
     int mevent = DOM.eventGetType(event);
@@ -175,8 +179,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents,
       this.removeStyleName(UIObject.getStylePrimaryName(getElement())
           + C_DISABLED);
     } else {
-      this
-          .addStyleName(UIObject.getStylePrimaryName(getElement()) + C_DISABLED);
+      this.addStyleName(UIObject.getStylePrimaryName(getElement()) + C_DISABLED);
     }
   }
 
