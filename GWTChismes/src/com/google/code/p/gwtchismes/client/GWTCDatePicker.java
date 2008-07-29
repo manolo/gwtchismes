@@ -325,7 +325,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         long maximalNum = 1 + GWTCDatePicker.compareDate(firstDate, maximalDate);
         long selectedNum = 1 + GWTCDatePicker.compareDate(firstDate, selectedDate);
         // long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate, cursorDate);
-        // System.out.println("T " + todayNum + " Min:" + minimalNum + " Max:" + maximalNum + " Sel:" + selectedNum);
         int firstWDay = firstDate.getDay();
         int numOfDays = GWTCDatePicker.daysInMonth(cursorDate);
         int j = 0 + weekStart;
@@ -530,8 +529,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             this.setSelectedDate(d);
         if (maximalDate.getTime() < minimalDate.getTime())
             maximalDate = d;
-        System.out.println(minimalDate);
-        System.out.println(d);
     }
 
     /**
@@ -709,7 +706,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         }
         Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.MONTHS));
         int ret = GWTCDatePicker.compareDate(d, nd);
-        System.out.println(d.getMonth() + " " + ret);
         return ret;
     }
 
