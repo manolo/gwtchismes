@@ -515,10 +515,10 @@ public class GWTCIntervalSelector extends Composite {
      */
     ClickListener clickListener = new ClickListener() {
         public void onClick(Widget sender) {
-            if (sender == checkinButton || sender == checkinA) {
+            if (sender == checkinButton || sender == checkinA || sender == checkinDateLabel) {
                 checkinCalendar.show(sender);
                 checkoutCalendar.hide();
-            } else if (sender == checkoutButton) {
+            } else if (sender == checkoutButton || sender == checkoutDateLabel) {
                 checkoutCalendar.show(sender);
                 checkinCalendar.hide();
             } else {
