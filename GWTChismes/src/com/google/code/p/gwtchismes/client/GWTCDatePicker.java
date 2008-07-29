@@ -435,7 +435,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         if (t == null || t.length() == 0)
             helpBtn.setVisible(false);
         else
-            helpBtn.setEnabled(true);
+            helpBtn.setVisible(true);
     }
 
     /**
