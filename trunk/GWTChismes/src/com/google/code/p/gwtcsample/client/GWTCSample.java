@@ -125,6 +125,7 @@ public class GWTCSample implements EntryPoint {
     // Create a layout2 interval-selector and set the locale in english
     GWTCIntervalSelector interval2 = new GWTCIntervalSelector(2);
     interval2.setLocale(intervalStrs);
+    interval2.disableYearButtons();
 
     // Create a layout3 interval-selector and set the locale in spanish
     GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
