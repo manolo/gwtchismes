@@ -184,11 +184,11 @@ public class GWTCHelper {
 	}
 
 	public static String getProtocolFromUrl(String url) {
-		return url.matches("(?i)^http") ? url.replaceFirst("(?i)^(https*)", "$1") : "http";
+		return url.toLowerCase().matches("^http") ? url.toLowerCase().replaceFirst("^(https*)", "$1") : "http";
 	}
 
 	public static String getHostFromUrl(String url) {
-		return url.replaceFirst("(?i)^https*\\://", "").replaceAll("[\\?:/].*$", "");
+		return url.toLowerCase().replaceFirst("^https*\\://", "").replaceAll("[\\?:/].*$", "");
 	}
 
 	public static String getParameterFromUrl(String url, String key) {
