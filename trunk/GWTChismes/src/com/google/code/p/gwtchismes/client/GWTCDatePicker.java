@@ -745,7 +745,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      * @return Modified date
      */
-    private static Date setHourToZero(Date date) {
+    public static Date setHourToZero(Date date) {
         Date d = new Date(date.getTime());
         d.setHours(12);
         d.setMinutes(0);
