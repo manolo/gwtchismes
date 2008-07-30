@@ -503,11 +503,12 @@ public class GWTCIntervalSelector extends Composite {
         });
         checkinButton.addClickListener(clickListener);
         checkinDateLabel.addClickListener(clickListener);
+
         checkinA.addClickListener(clickListener);
         checkinA.setTargetHistoryToken("");
 
         checkoutButton.addClickListener(clickListener);
-        checkoutDateLabel.addClickListener(clickListener);
+        //checkoutDateLabel.addClickListener(clickListener);
     }
 
     /**
@@ -527,7 +528,6 @@ public class GWTCIntervalSelector extends Composite {
         }
     };
 
-    // Internationalization
     /**
      *  The internationalized hash map.
      */

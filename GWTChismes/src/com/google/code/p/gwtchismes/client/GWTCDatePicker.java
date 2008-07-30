@@ -20,8 +20,6 @@ package com.google.code.p.gwtchismes.client;
 import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 import com.google.gwt.user.client.ui.ChangeListener;
@@ -47,7 +45,8 @@ import com.google.gwt.user.client.ui.Widget;
  * A widget to pick a date. It can be implemented as an independent dialog box or it can be included into another widget.
  * </p>
  * <p>
- * You can configure minimalDate, maximalDate, cursorDate and locales (day names, month names, help, and weekStart)
+ * You can configure minimalDate, maximalDate, cursorDate and help text
+ * It uses GWT-i18n for day names, month names, help, and weekStart
  * </p>
  * <p>
  * This class has public static methods useful for Date manipulation
@@ -75,9 +74,11 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * <h3>CSS Style Rules</h3>
  * <ul>
- * <li>.GWTCDatePicker { GWTCDatePicket container, it can be overwritten }</li>
+ * <li>.GWTCDatePicker { GWTCDatePicket container }</li>
  * <li>.Caption { calendar text }</li>
  * <li>.Cal_buttons { navigation buttons }</li>
+ * <li>.Cal_TopButtons { container of top navigation buttons }</li>
+ * <li>.Cal_BottomButtons { container of bottom navigation buttons }</li>
  * <li>.Cal_Header { text with the current month and year }</li>
  * <li>.Cal_WeekHeader { week headers row}</li>
  * <li>.Cal_CellDayNames { cells with day names} </li>
@@ -87,11 +88,12 @@ import com.google.gwt.user.client.ui.Widget;
  * <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
  * <li>.Cal_BeforeSelected { days before the selected day and after the minimal day}</li>
  * <li>.Cal_Today { today } </li>
+ * <li>.Cal_Help { help dialog } </li>
+ * <li>.Cal_NoBox { container when it is not drawn a box } </li>
  * </ul>
  */
 public class GWTCDatePicker extends Composite implements ClickListener, SourcesChangeEvents {
 
-    // Style classes
     private String styleName = "GWTCDatePicker";
 
     private static String StyleCButtons = "Cal_Buttons";
@@ -124,7 +126,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     
     private static String StyleNoBox = "Cal_NoBox";
 
-    // Configurable parameters
 
     private Date minimalDate = setHourToZero(new Date());
 
@@ -136,8 +137,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     // Internationalizable elements
     protected static DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
-    public static String[] DAYS_EN = dateTimeConstants.weekdays();
-    public static String[] MONTHS_EN = dateTimeConstants.months();
     private int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
 
     private final GWTCAlert help = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
@@ -444,49 +443,15 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void disableCloseButton() {
         this.closeBtn.setVisible(false);
     }
+    /**
+     * Disable buttons for year jumping
+     */
     public void disableYearButtons() {
         this.nextYBtn.setVisible(false);
         this.prevYBtn.setVisible(false);
     }
 
-    /**
-     * Internationalize the calendar.
-     * 
-     * @param d
-     *            array with the full names of the week days (default english names [Sunday ... Saturday] )
-     * @param m
-     *            array with the full names of the months (default english names: [January ... December])
-     * @param s
-     *            number of the first day in the week [1...7] (default 1 = sunday)
-     * @deprecated
-     */
-    public void setLocale(String[] d, String[] m, int s) {
-    }
 
-    /**
-     * This method returns true or false whether a month has selectable days in the allowed interval
-     * 
-     * @param date
-     *            Date of the selected day
-     * @param months
-     *            increment of months
-     * @return true if the month has selectable days
-     */
-    public boolean isVisibleMonth(Date date, int months) {
-        Date d = GWTCDatePicker.increaseMonth(date, months);
-        Date firstD = new Date(d.getTime());
-        firstD.setDate(1);
-        Date lastD = new Date(d.getTime());
-        lastD.setDate(GWTCDatePicker.daysInMonth(d));
-
-        if (GWTCDatePicker.compareDate(minimalDate, lastD) < 0) {
-            return false;
-        }
-        if (GWTCDatePicker.compareDate(maximalDate, firstD) > 0) {
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Set the date where the calendar is positioned
@@ -632,9 +597,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             changeListeners.remove(listener);
     }
 
-    private static final int YEARS = 1;
-    private static final int MONTHS = 2;
-    private static final int DAYS = 3;
+    public static final int CONST_YEARS = 1;
+    public static final int CONST_MONTHS = 2;
+    public static final int CONST_DAYS = 3;
 
     /**
      * Add days to a reference Date
@@ -646,7 +611,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return the new Date
      */
     public static Date increaseDate(Date d, int n) {
-        Date ret = new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.DAYS));
+        Date ret = new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_DAYS));
         return ret;
     }
 
@@ -663,14 +628,14 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         if (d.getDate() > 28) {
             Date tmp = new Date(d.getTime());
             tmp.setDate(1);
-            GWTCDatePicker.add(tmp.getTime(), n, GWTCDatePicker.MONTHS);
+            GWTCDatePicker.add(tmp.getTime(), n, GWTCDatePicker.CONST_MONTHS);
             int d1 = daysInMonth(d);
             int d2 = daysInMonth(tmp);
             if (d1 > d2)
                 d.setDate(d2);
         }
 
-        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.MONTHS));
+        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_MONTHS));
     }
 
     /**
@@ -683,7 +648,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return the new Date
      */
     public static Date increaseYear(Date d, int n) {
-        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.YEARS));
+        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_YEARS));
     }
 
     /**
@@ -704,7 +669,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             int y = d.getYear();
             return (y % 4 == 0 && y % 100 != 0) ? 29 : 28;
         }
-        Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.MONTHS));
+        Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.CONST_MONTHS));
         int ret = GWTCDatePicker.compareDate(d, nd);
         return ret;
     }
@@ -748,6 +713,30 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             d.setDate(d.getDate() + value);
         return d.getTime();
     }
+    /**
+     * This method returns true or false whether a month has selectable days in the allowed interval
+     * 
+     * @param date
+     *            Date of the selected day
+     * @param months
+     *            increment of months
+     * @return true if the month has selectable days
+     */
+    private boolean isVisibleMonth(Date date, int months) {
+        Date d = GWTCDatePicker.increaseMonth(date, months);
+        Date firstD = new Date(d.getTime());
+        firstD.setDate(1);
+        Date lastD = new Date(d.getTime());
+        lastD.setDate(GWTCDatePicker.daysInMonth(d));
+
+        if (GWTCDatePicker.compareDate(minimalDate, lastD) < 0) {
+            return false;
+        }
+        if (GWTCDatePicker.compareDate(maximalDate, firstD) > 0) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Set hour, minutes, second and milliseconds to zero.
@@ -756,7 +745,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      * @return Modified date
      */
-    public static Date setHourToZero(Date date) {
+    private static Date setHourToZero(Date date) {
         Date d = new Date(date.getTime());
         d.setHours(12);
         d.setMinutes(0);
