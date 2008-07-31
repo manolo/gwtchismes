@@ -769,6 +769,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public static Date newDateFromYMD(int y, int m, int d) {
         Date dat = new Date();
+        dat.setDate(1);
         dat.setYear(y - 1900);
         dat.setMonth(m - 1);
         dat.setDate(d);
