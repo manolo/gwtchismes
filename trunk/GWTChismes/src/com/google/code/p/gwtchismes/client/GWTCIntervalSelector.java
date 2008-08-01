@@ -375,8 +375,6 @@ public class GWTCIntervalSelector extends Composite {
         checkoutDateLabel.setText(checkoutCalendar.getSelectedDateStr(longDateFormat));
         checkoutWeekLabel.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
 
-        // checkoutCalendar.drawCalendar();
-
         intervalValue.setText("" + getNights());
     }
 
@@ -452,37 +450,27 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     /**
-     *  A collection to store click listeners
+     *  A collection to store change listeners
      */
-    private ChangeListenerCollection changeListeners;
+    private ChangeListenerCollection changeListeners = new ChangeListenerCollection();
+
 
     /**
-     * method for th onClick event 
-     */
-    public void onClick(Widget sender) {
-        if (changeListeners != null)
-            changeListeners.fireChange(this);
-    }
-
-    /**
-     * Adds a click listener
+     * Adds a change listener
      * 
      * @param listener
      */
     public void addChangeListener(ChangeListener listener) {
-        if (changeListeners == null)
-            changeListeners = new ChangeListenerCollection();
         changeListeners.add(listener);
     }
 
     /**
-     * Removes a click listener
+     * Removes a change listener
      * 
      * @param listener
      */
     public void removeChangeListener(ChangeListener listener) {
-        if (changeListeners != null)
-            changeListeners.remove(listener);
+        changeListeners.remove(listener);
     }
 
     /**
@@ -493,12 +481,14 @@ public class GWTCIntervalSelector extends Composite {
             public void onChange(Widget sender) {
                 checkinCalendar.hide();
                 updateInputsFromCheckin();
+                changeListeners.fireChange(sender);
             }
         });
         checkoutCalendar.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 checkoutCalendar.hide();
                 updateInputsFromCheckout();
+                changeListeners.fireChange(sender);
             }
         });
         checkinButton.addClickListener(clickListener);
