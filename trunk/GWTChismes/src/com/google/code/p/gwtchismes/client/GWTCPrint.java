@@ -76,8 +76,7 @@ public class GWTCPrint extends Composite {
         t.schedule(5 * 1000);
     }
     
-    public static native void printWindow()
-    /*-{
-     window.print();
-     }-*/;
+    public static native void printWindow() /*-{
+     $wnd.print();
+    }-*/;
 }
