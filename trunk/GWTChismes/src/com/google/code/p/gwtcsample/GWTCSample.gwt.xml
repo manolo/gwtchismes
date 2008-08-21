@@ -7,4 +7,10 @@
   <servlet path="/XMAS/upload.fu"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>
   
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
+  
+  <extend-property name="locale" values="fr"/>
+  <extend-property name="locale" values="es"/>
+  <extend-property name="locale" values="en"/>
+  <extend-property name="locale" values="ja"/>
+  
 </module>
