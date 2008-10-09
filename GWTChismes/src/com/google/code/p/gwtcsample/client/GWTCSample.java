@@ -30,14 +30,16 @@ import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -55,15 +57,6 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-      /*
-      GWTCIntervalSelector i = new GWTCIntervalSelector(5);
-      RootPanel.get().add(i);
-      
-      if (true) return;
-    */
-    
-    
-    
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
     wait.setMessage("Please wait ...");
@@ -114,7 +107,6 @@ public class GWTCSample implements EntryPoint {
     disabledButton.setEnabled(false);
 
     
-    System.out.println(waitButton.toString() + "\n" + alertButton.toString() + "\n" + disabledButton.toString());
     // Create a new GWTCPrint Button
     GWTCPrint printButton = new GWTCPrint(i18n.button_print());
 
@@ -241,5 +233,74 @@ public class GWTCSample implements EntryPoint {
     RootPanel.get().add(grid);
 
     wait.hide();
+    
   }
+  
+
+  
+  /* This is stuff I use for playing with gwtchismes */
+  public void pruebas() {
+      //FlowPanel f = new FlowPanel();
+      GWTCBox b = new GWTCBox();
+      GWTCButton bu = new GWTCButton("Here");
+      
+      bu.addClickListener(new ClickListener(){
+          public void onClick(Widget sender) {
+              Window.alert("Click en button");
+          }
+      });
+      b.add(bu);
+      //grid.setWidget(++row, 0,b);
+      //f.add(b);
+      RootPanel.get().add(b);
+      //DOM.removeEventPreview(b.getElement());
+      
+      DecoratorPanel pp = new DecoratorPanel();
+      pp.add(new Label("ppp"));
+      RootPanel.get().add(pp);
+      
+      /*
+      DockPanel panel = new DockPanel();
+      GWTCDecorator p = new GWTCDecorator();
+      
+      Label l1 = new Label("l1");
+      panel.add(l1, DockPanel.NORTH);
+      Label l2 = new Label("l2");
+      panel.add(l2, DockPanel.NORTH);
+      p.add(panel);
+      
+      RootPanel.get().add(p);
+      
+      
+      GWTCBox box = new GWTCBox();
+      Label b1 = new Label("B1");
+      box.add(b1, DockPanel.NORTH);
+      Label b2 = new Label("B1");
+      box.add(b2, DockPanel.NORTH);
+      RootPanel.get().add(box);
+      
+      if (true) return;
+      */
+      /*
+      
+      GWTCIntervalSelector i = new GWTCIntervalSelector(4);
+      RootPanel.get().add(i);
+      if (true) return;
+      
+      
+      GWTCDatePicker p = new GWTCDatePicker(true);
+      RootPanel.get().add(p);
+      p.show(null);
+      
+      if (true) return;
+    */
+    
+      
+      if (true) return;
+      
+  }
+  
+  
+  
+  
 }

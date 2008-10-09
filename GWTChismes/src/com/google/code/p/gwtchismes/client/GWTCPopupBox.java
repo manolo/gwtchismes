@@ -17,6 +17,11 @@ public class GWTCPopupBox extends PopupPanel {
     super();
     this.setStyleName(style);
     super.add(box);
+    setAnimationEnabled(true);
+  }
+  
+  public void setAnimationEnabled(boolean enable) {
+      super.setAnimationEnabled(enable);
   }
 
   public GWTCPopupBox(boolean autohide) {
