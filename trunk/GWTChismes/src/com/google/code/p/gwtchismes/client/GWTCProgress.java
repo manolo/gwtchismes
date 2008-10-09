@@ -281,18 +281,10 @@ public class GWTCProgress extends Composite {
         if (pageBackground != null)
             pageBackground.setVisible(true);
         progressDlg.show();
-        center();
+        progressDlg.center();
+        GWTCHelper.maximizeWidget(pageBackground);
     }
     
-    public void center() {
-        if (! showAsDialog)
-            return;
-        // Maximize background 
-    	GWTCHelper.maximizeWidget(pageBackground);
-        // Center the dialog
-        GWTCHelper.centerPopupPanel(progressDlg);
-    }
-
     /**
      * Constructor without options
      * 

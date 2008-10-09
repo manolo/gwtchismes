@@ -36,6 +36,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.DOM;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -216,8 +217,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             outer.addStyleName(StyleNoBox);
         }
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
-            calendarDlg = new DialogBox();
+            calendarDlg = new DialogBox(true);
             calendarDlg.setWidget(outer);
+            calendarDlg.setAnimationEnabled(true);
             initWidget(new DockPanel());
         } else {
             initWidget(outer);
@@ -297,7 +299,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             return;
         if (!needsRedraw)
             return;
-
+        
         grid.setStyleName(GWTCDatePicker.StyleCGrid);
         grid.setCellSpacing(0);
 
@@ -393,8 +395,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         if (calendarDlg == null) {
             outer.setVisible(true);
         } else {
+            if (sender != null)
+                calendarDlg.setPopupPosition(sender.getAbsoluteLeft() + 20, sender.getAbsoluteTop() + 10);
+            else
+                calendarDlg.center();
             calendarDlg.show();
-            GWTCHelper.positionPopupPanel(calendarDlg, sender);
+            DOM.scrollIntoView(calendarDlg.getElement());
         }
         adjustDimensions();
     }
@@ -660,18 +666,21 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public static int daysInMonth(Date d) {
         int m = d.getMonth();
-        switch (m % 2) {
-        case 0:
-            return 31;
-        case 1:
-            if (m != 1)
-                return 30;
+        switch (m) {
+        case 2:
             int y = d.getYear();
             return (y % 4 == 0 && y % 100 != 0) ? 29 : 28;
+        case 1: case 3: case 5: case 8: case 10: 
+            return 30;
+        default:
+            return 31;
         }
+        /*
         Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.CONST_MONTHS));
         int ret = GWTCDatePicker.compareDate(d, nd);
+        System.out.println(m + " " + ret);
         return ret;
+        */
     }
 
     /**

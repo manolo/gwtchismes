@@ -19,24 +19,14 @@ package com.google.code.p.gwtchismes.client;
 
 import java.util.Iterator;
 
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.*;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
-public class GWTCBox extends Panel {
+public class GWTCDecorator extends DecoratorPanel {
   HTML title = null;
   HTML text = null;
-  FlowPanel mainPanel = new FlowPanel();
-  FlowPanel container = new FlowPanel();
   DockPanel panel = new DockPanel();
-
-  public static final String STYLE_NORMAL = "x-box";
-  public static final String STYLE_BLUE = "x-box-blue";
 
   public void add(Widget w) {
     panel.add(w, DockPanel.NORTH);
@@ -54,33 +44,26 @@ public class GWTCBox extends Panel {
     return panel.iterator();
   }
 
-  public GWTCBox() {
-    this(STYLE_NORMAL);
-  }
-  
-  public void setStyleName(String style) {
-    mainPanel.setStyleName("x-box");
-    container.setStyleName(style);
-  }
-  
-
-  public GWTCBox(String style) {
-    setStyleName(style);
-    String[] v = { "t", "m", "b" };
-    String[] h = { "l", "r", "c" };
-    for (int i = 0; i < 3; i++) {
-      Panel l = null;
-      for (int j = 0; j < 3; j++) {
-        Panel e = new SimplePanel();
-        e.setStyleName("x-box-" + v[i] + h[j]);
-        if (j == 0) container.add(e);
-        else if (i == 1 && j == 2) e.add(panel);
-        if (l != null) l.add(e);
-        l = e;
+  public GWTCDecorator() {
+      super();
+      for (int i=0; i<3; i++) {
+          Element aditional = DOM.createDiv();
+          Element original = this.getCellElement(i, 0);
+          aditional.setAttribute("class", original.getAttribute("class") + "Center");
+          DOM.appendChild(DOM.getParent(original), aditional);
+          aditional = DOM.createDiv();
+          original = this.getCellElement(i, 2);
+          aditional.setAttribute("class", original.getAttribute("class"));
+          original.setAttribute("class", aditional.getAttribute("class"));
+          DOM.appendChild(DOM.getParent(original), aditional);
+          
       }
-    }
-    mainPanel.add(container);
-    setElement(mainPanel.getElement());
+      System.out.println(this);
+  }
+
+  public GWTCDecorator(String style) {
+      super();
+      setStyleName(style);
   }
 
   public void setTitle(String title) {
@@ -98,13 +81,6 @@ public class GWTCBox extends Panel {
     }
     this.text.setHTML("<p>" + text + "</p>");
   }
-  /*
-  public void onBrowserEvent(Event event) {
-      super.onBrowserEvent(event);
-      System.out.println("box: event");
-      panel.onBrowserEvent(event);
-  }
-  */
 }
 
 

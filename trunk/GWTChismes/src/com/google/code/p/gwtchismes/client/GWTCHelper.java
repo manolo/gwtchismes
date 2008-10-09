@@ -17,7 +17,8 @@
 
 package com.google.code.p.gwtchismes.client;
 
-import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.*;
+import com.google.gwt.core.client.*;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -25,8 +26,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author Manuel Carrasco Moñino
- *         <h3>Helper Class</h3>
+ * @author Manuel Carrasco Moñino <h3>Helper Class</h3>
  *         <p>
  *         Utility class for the gwtchismes library
  *         </p>
@@ -39,35 +39,9 @@ public class GWTCHelper {
      * @return true if the browser is ie6
      */
     public static native boolean isIE6() /*-{
-           return (window.XMLHttpRequest)? false: true;
-         }-*/;
+              return (window.XMLHttpRequest)? false: true;
+            }-*/;
 
-    /**
-     * This method move the panel near the widget provided. If widget is null, the panel is centered into the visible area of the browser. Hack: PopupPanel.center() does not work because it centers the panel in the window.
-     * 
-     * @param panel
-     * @param widget
-     */
-    public static void positionPopupPanel(PopupPanel panel, Widget widget) {
-        if (panel == null)
-            return;
-        if (widget != null) {
-            // Put the panel near the widget
-            int left = widget.getAbsoluteLeft() - 20;
-            int top = widget.getAbsoluteTop() + 10;
-            panel.setPopupPosition(left, top);
-        } else {
-            // Center the panel into the visible part of the document
-            panel.center();
-        }
-        
-        // If part of the panel is not visible, move the scrollbars
-        DOM.scrollIntoView(panel.getElement());
-    }
-
-    public static void centerPopupPanel(PopupPanel panel) {
-        positionPopupPanel(panel, null);
-    }
 
     public static void maximizeWidget(Widget widget) {
         if (widget == null)
@@ -78,12 +52,12 @@ public class GWTCHelper {
     }
 
     private static native int getVisibleWidth() /*-{
-            return $wnd.document.documentElement.clientWidth;
-         }-*/;
+               return $wnd.document.documentElement.clientWidth;
+            }-*/;
 
     private static native int getVisibleHeight() /*-{
-            return $wnd.document.documentElement.clientHeight;
-         }-*/;
+               return $wnd.document.documentElement.clientHeight;
+            }-*/;
 
     public static String internationalize(String s, Object[] os) {
         for (int i = 0; i < os.length; i++) {
@@ -107,19 +81,17 @@ public class GWTCHelper {
         return internationalize(s, os);
     }
 
-    public static native boolean isHostedMode()/*-{
-          try {
-             return (window.external && window.external.gwtOnLoad && window.location.search.indexOf('gwt.hybrid')==-1);
-          } catch(e) {return false;}
-         }-*/;
+    public static boolean isHostedMode() {
+        return !GWT.isScript();
+    }
 
-    public static native String getLocationUrl() /*-{
-        return ("" + $doc.location);
-       }-*/;
+    public static String getLocationUrl() {
+        return Window.Location.getHref();
+    }
 
     public static native Element getHeadElement() /*-{
-        return ($doc.head);
-       }-*/;
+           return ($doc.head);
+          }-*/;
 
     public static String getScriptLocation(String id) {
         Element js = DOM.getElementById(id);
@@ -159,40 +131,41 @@ public class GWTCHelper {
         DOM.setElementAttribute(css, "id", url);
         DOM.appendChild(head, css);
     }
-    public static void insertJS (String id, String url) {
-		Element js = DOM.getElementById(id);
-		Element parent = RootPanel.getBodyElement();
-		if (js != null) {
-			parent = DOM.getParent(js);
-			DOM.removeChild(parent, js);
-		}
-		js = DOM.createElement("script");			
-		DOM.appendChild(parent, js);
-		DOM.setElementAttribute(js, "src", url);
-		DOM.setElementAttribute(js, "type", "text/javascript");
-		DOM.setElementAttribute(js, "id", id!=null ? id : url);
+
+    public static void insertJS(String id, String url) {
+        Element js = DOM.getElementById(id);
+        Element parent = RootPanel.getBodyElement();
+        if (js != null) {
+            parent = DOM.getParent(js);
+            DOM.removeChild(parent, js);
+        }
+        js = DOM.createElement("script");
+        DOM.appendChild(parent, js);
+        DOM.setElementAttribute(js, "src", url);
+        DOM.setElementAttribute(js, "type", "text/javascript");
+        DOM.setElementAttribute(js, "id", id != null ? id : url);
     }
 
     public static void insertCrossScript(String url, Class c, String method) {
-	url = url + "?call=" + "@" + c.getName() + "::" + method + "()";
-	insertJS(null, url);
+        url = url + "?call=" + "@" + c.getName() + "::" + method + "()";
+        insertJS(null, url);
     }
 
+    public static String getProtocolAndHostFromUrl(String url) {
+        return url.replaceAll("([^/])[/?][^/].*$", "$1");
+    }
 
-	public static String getProtocolAndHostFromUrl(String url) {
-		return url.replaceAll("([^/])[/?][^/].*$", "$1");
-	}
+    public static String getProtocolFromUrl(String url) {
+        return url.toLowerCase().matches("^http") ? url.toLowerCase().replaceFirst("^(https*)", "$1") : "http";
+    }
 
-	public static String getProtocolFromUrl(String url) {
-		return url.toLowerCase().matches("^http") ? url.toLowerCase().replaceFirst("^(https*)", "$1") : "http";
-	}
+    public static String getHostFromUrl(String url) {
+        return url.toLowerCase().replaceFirst("^https*\\://", "").replaceAll("[\\?:/].*$", "");
+    }
 
-	public static String getHostFromUrl(String url) {
-		return url.toLowerCase().replaceFirst("^https*\\://", "").replaceAll("[\\?:/].*$", "");
-	}
-
-	public static String getParameterFromUrl(String url, String key) {
-		String reg = "[?&]" + key + "=";
-		return url.matches(".*" + reg + ".*") ? url.replaceFirst("^.*[?&]" + key + "=", "").replaceAll("&.*$", "") : null;
-	}
+    public static String getParameterFromUrl(String url, String key) {
+        String reg = "[?&]" + key + "=";
+        url = url.replaceAll("&amp;", "&");
+        return url.matches(".*" + reg + ".*") ? url.replaceFirst("^.*[?&]" + key + "=", "").replaceAll("&.*$", "") : null;
+    }
 }

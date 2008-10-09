@@ -1,6 +1,11 @@
 <module>
   <inherits name="com.google.gwt.user.User"/>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+  <!-- 
+  <inherits name="com.google.gwt.user.theme.standard.Standard"/>
+  <inherits name="com.google.gwt.user.theme.dark.Dark"/>
+  <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
+  -->
   
   <servlet path="/XMAS/utils"   class="com.miraiespana.xmas.client.gwt.utils.server.UtilsServerImpl"/>
   <servlet path="/XMAS/upload"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>

@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -61,6 +61,8 @@ public class GWTCAlert extends Composite {
     static public int OPTION_SQUARED = 2;
     static public int OPTION_ROUNDED_GREY = 4;
     static public int OPTION_ROUNDED_BLUE = 8;
+    
+    FocusWidget focusWidget = null;
 
     private boolean okButtonDisabled = false;
     
@@ -86,7 +88,9 @@ public class GWTCAlert extends Composite {
         } else {
           alertDlg = new PopupPanel();
           alertDlg.setStyleName(GWTCAlert.StyleCAlert);
+          alertDlg.setAnimationEnabled(true);
         }
+        
         
         contentTable.setStyleName(GWTCAlert.StyleCAlertTable);
         contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.StyleCAlertMsgCell);
@@ -101,6 +105,9 @@ public class GWTCAlert extends Composite {
         this.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 hide();
+                if (focusWidget != null)
+                    focusWidget.setFocus(true);
+                focusWidget = null;
             }
         });
         
@@ -155,13 +162,19 @@ public class GWTCAlert extends Composite {
         show();
     }
 
+    public void alert(String s, FocusWidget focus) {
+        setText(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
+        focusWidget = focus;
+        show();
+    }
+
     /**
      * Show the alert dialog 
      */
     public void show() {
         alertDlg.show();
         contentTable.setVisible(true);
-        GWTCHelper.centerPopupPanel(alertDlg);
+        alertDlg.center();
     }   
     
     /**
