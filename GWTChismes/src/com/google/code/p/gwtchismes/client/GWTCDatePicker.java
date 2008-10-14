@@ -77,13 +77,14 @@ import com.google.gwt.user.client.DOM;
  * <ul>
  * <li>.GWTCDatePicker { GWTCDatePicket container }</li>
  * <li>.Caption { calendar text }</li>
- * <li>.Cal_buttons { navigation buttons }</li>
+ * <li>.Cal_Buttons { navigation buttons }</li>
  * <li>.Cal_TopButtons { container of top navigation buttons }</li>
  * <li>.Cal_BottomButtons { container of bottom navigation buttons }</li>
  * <li>.Cal_Header { text with the current month and year }</li>
  * <li>.Cal_WeekHeader { week headers row}</li>
  * <li>.Cal_CellDayNames { cells with day names} </li>
  * <li>.Cal_CellEmpty { cell without days }</li>
+ * <li>.Cal_CellDay { primary style on each cell that has days }</li>
  * <li>.Cal_InvalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
  * <li>.Cal_Selected { selected day }</li>
  * <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
@@ -466,9 +467,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setCursorDate(Date d) {
-        if (isVisibleMonth(d, 0)) {
+        Date fd = new Date(d.getYear(), d.getMonth(), 1);
+        if (isVisibleMonth(fd, 0)) {
             this.needsRedraw = true;
-            cursorDate = setHourToZero(d);
+            cursorDate = setHourToZero(fd);
         }
     }
 
@@ -482,7 +484,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         d = setHourToZero(d);
         if (GWTCDatePicker.compareDate(d, selectedDate) != 0) {
             needsRedraw = true;
-            cursorDate = selectedDate = d;
+            selectedDate = d;
+            setCursorDate(d);
             drawCalendar();
         }
     }
@@ -667,10 +670,10 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public static int daysInMonth(Date d) {
         int m = d.getMonth();
         switch (m) {
-        case 2:
-            int y = d.getYear();
-            return (y % 4 == 0 && y % 100 != 0) ? 29 : 28;
-        case 1: case 3: case 5: case 8: case 10: 
+        case 1:
+            int y = d.getYear() + 1900;
+            return  (y % 4 == 0 && y % 100 != 0) ? 29 : 28;
+        case 3: case 5: case 8: case 10: 
             return 30;
         default:
             return 31;
