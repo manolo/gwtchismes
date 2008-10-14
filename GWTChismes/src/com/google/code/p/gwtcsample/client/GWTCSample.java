@@ -113,7 +113,7 @@ public class GWTCSample implements EntryPoint {
     // Create a layout1 interval-selector and set the locale in english
     GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
     interval1.setLocale(intervalStrs);
-
+    
     // Create a layout2 interval-selector and set the locale in english
     GWTCIntervalSelector interval2 = new GWTCIntervalSelector(2);
     interval2.setLocale(intervalStrs);
@@ -132,6 +132,7 @@ public class GWTCSample implements EntryPoint {
     dPicker1.disableCloseButton();
     dPicker1.disableYearButtons();
     dPicker1.setHelp(null);
+    dPicker1.setMinimalDate(GWTCDatePicker.increaseDate(new Date(), -365));
     dPicker1.addChangeListener(new ChangeListener() {
       public void onChange(Widget sender) {
         alert.alert(dPicker1.getSelectedDateStr("MMMM dd, yyyy (dddd)"));
