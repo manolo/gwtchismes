@@ -19,93 +19,69 @@ package com.google.code.p.gwtchismes.client;
 
 import java.util.Iterator;
 
-import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
-public class GWTCBox extends Panel {
-  HTML title = null;
-  HTML text = null;
-  FlowPanel mainPanel = new FlowPanel();
-  FlowPanel container = new FlowPanel();
-  DockPanel panel = new DockPanel();
+public class GWTCBox extends DecoratorPanel {
+    public static final String StyleFlat = "GWTCBox";
+    public static final String StyleBlue = "GWTCBox-blue";
+    public static final String StyleGrey = "GWTCBox-grey";
+    public static final String StylePanel = "panelCenter";
+    
+    HTML title = null;
+    HTML text = null;
+    DockPanel panel = new DockPanel();
 
-  public static final String STYLE_NORMAL = "x-box";
-  public static final String STYLE_BLUE = "x-box-blue";
-
-  public void add(Widget w) {
-    panel.add(w, DockPanel.NORTH);
-  }
-
-  public void add(Widget widget, DockLayoutConstant direction) {
-    panel.add(widget, direction);
-  }
-
-  public boolean remove(Widget w) {
-    return panel.remove(w);
-  }
-
-  public Iterator iterator() {
-    return panel.iterator();
-  }
-
-  public GWTCBox() {
-    this(STYLE_NORMAL);
-  }
-  
-  public void setStyleName(String style) {
-    mainPanel.setStyleName("x-box");
-    container.setStyleName(style);
-  }
-  
-
-  public GWTCBox(String style) {
-    setStyleName(style);
-    String[] v = { "t", "m", "b" };
-    String[] h = { "l", "r", "c" };
-    for (int i = 0; i < 3; i++) {
-      Panel l = null;
-      for (int j = 0; j < 3; j++) {
-        Panel e = new SimplePanel();
-        e.setStyleName("x-box-" + v[i] + h[j]);
-        if (j == 0) container.add(e);
-        else if (i == 1 && j == 2) e.add(panel);
-        if (l != null) l.add(e);
-        l = e;
-      }
+    public GWTCBox() {
+        super();
+        super.add(panel);
+        panel.setStyleName(StylePanel);
+        setStyleName(StyleFlat);
     }
-    mainPanel.add(container);
-    setElement(mainPanel.getElement());
-  }
 
-  public void setTitle(String title) {
-    if (this.title == null) {
-      this.title = new HTML();
-      panel.add(this.title, DockPanel.NORTH);
+    public GWTCBox(String style) {
+        this();
+        if (style != null && style.length() > 0 && style != StyleFlat)
+            addStyleName(style);
     }
-    this.title.setHTML("<h3>" + title + "</h3>");
-  }
 
-  public void setText(String text) {
-    if (this.text == null) {
-      this.text = new HTML();
-      panel.add(this.text, DockPanel.CENTER);
+    @Override
+    public void add(Widget w) {
+        panel.add(w, DockPanel.NORTH);
     }
-    this.text.setHTML("<p>" + text + "</p>");
-  }
-  /*
-  public void onBrowserEvent(Event event) {
-      super.onBrowserEvent(event);
-      System.out.println("box: event");
-      panel.onBrowserEvent(event);
-  }
-  */
+
+    public void add(Widget widget, DockLayoutConstant direction) {
+        panel.add(widget, direction);
+    }
+
+    @Override
+    public boolean remove(Widget w) {
+        return panel.remove(w);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return panel.iterator();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        if (this.title == null) {
+            this.title = new HTML();
+            panel.add(this.title, DockPanel.NORTH);
+        }
+        this.title.setHTML("<h3>" + title + "</h3>");
+    }
+
+    public void setText(String text) {
+        if (this.text == null) {
+            this.text = new HTML();
+            panel.add(this.text, DockPanel.CENTER);
+        }
+        this.text.setHTML("<p>" + text + "</p>");
+    }
+
 }
-
-
-

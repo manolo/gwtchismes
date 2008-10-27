@@ -1,220 +1,123 @@
-/*
-div.x-box-tl {
-    border: 2px;
-    zoom:1;
-    background: transparent url(images/box/corners.gif) no-repeat 0 0;
-}
-div.x-box-tc {
-	height: 8px;
-	overflow: hidden;
-    background: transparent url(images/box/tb.gif) repeat-x 0 0;
-}
-div.x-box-tr {
-   background: transparent url(images/box/corners.gif) no-repeat right -8px;
-}
-div.x-box-ml {
-   padding-left: 4px;
-   overflow: hidden;
-   zoom:1;
-   background: transparent url(images/box/l.gif) repeat-y 0;
-}
-div.x-box-mc {
-	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
-	padding: 4px 10px;
+
+.GWTCBox {
 	font-family: "Myriad Pro","Myriad Web","Tahoma","Helvetica","Arial",sans-serif;
-	color: #393939;
-        width: 100%;
+	font-size: 12px;
+}
+.GWTCBox .panelCenter {
 	font-size: 12px;
 }
 
-div.x-box-blue > div > div > div.x-box-mc {
-	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
-}
-div.x-box-mr {
-	padding-right: 4px;
-	overflow: hidden;
-    background: transparent url(images/box/r.gif) repeat-y right;
-}
-div.x-box-bl {
-    zoom:1;
-    background: transparent url(images/box/corners.gif) no-repeat 0 -16px;
-}
-div.x-box-bc {
-    height: 8px;
-    overflow: hidden;
-    background: transparent url(images/box/tb.gif) repeat-x 0 -8px;
-}
-div.x-box-br {
-    background: transparent url(images/box/corners.gif) no-repeat right -24px;
-}
-
-.x-box-tl, .x-box-bl {
-   padding-left: 8px;
-   overflow: hidden;
-}
-
-.x-box-tr, .x-box-br {
-   padding-right: 8px;
-   overflow: hidden;
-}
-
-.x-box-mc h3 {
-	font-size: 14px;
-	font-weight: bold;
-    margin: 0 0 4 0;
-    zoom:1;
-}
-
-div.x-box-blue > div.x-box-bl, 
-div.x-box-blue > div > div.x-box-br, 
-div.x-box-blue > div.x-box-tl, 
-div.x-box-blue > div > div.x-box-tr {
-  background-image: url(images/box/corners-blue.gif); 
-}
-
-div.x-box-blue > div.x-box-ml {
-  background-image: url(images/box/l-blue.gif);
-}
-
-div.x-box-blue > div > div > div.x-box-bc,
-div.x-box-blue > div > div > div.x-box-mc,
-div.x-box-blue > div > div > div.x-box-tc {
-  background-image: url(images/box/tb-blue.gif);
-}
-
-.x-box-blue .x-box-mc h3 {
-   color: #17385b;
-}
-
-div.x-box-blue > div > div > div.x-box-mc {
-   background-color: #c3daf9;
-}
-
-*/
-
-.x-box-tl {
-	background: transparent url(images/box/corners.gif) no-repeat 0 0;
-    zoom:1;
-}
-
-.x-box-tc {
+.GWTCBox .topCenter {
 	height: 8px;
-	background: transparent url(images/box/tb.gif) repeat-x 0 0;
 	overflow: hidden;
 }
-
-.x-box-tr {
-	background: transparent url(images/box/corners.gif) no-repeat right -8px;
+.GWTCBox .bottomCenter {
+	height: 8px;
+	overflow: hidden;
 }
-
-.x-box-ml {
-	background: transparent url(images/box/l.gif) repeat-y 0;
+.GWTCBox .middleLeft{
 	padding-left: 4px;
 	overflow: hidden;
-    zoom:1;
 }
-
-.x-box-mc {
-	background: #eee url(images/box/tb.gif) repeat-x 0 -16px;
-	padding: 4px 10px;
-	font-family: "Myriad Pro","Myriad Web","Tahoma","Helvetica","Arial",sans-serif;
-	color: #393939;
-	font-size: 12px;
-}
-
-.x-box-mc h3 {
-	font-size: 14px;
-	font-weight: bold;
-	margin: 0px 0px 4px 0px;
-    zoom:1;
-}
-
-.x-box-mr {
-	background: transparent url(images/box/r.gif) repeat-y right;
+.GWTCBox .middleRight {
 	padding-right: 4px;
 	overflow: hidden;
 }
-
-.x-box-bl {
-	background: transparent url(images/box/corners.gif) no-repeat 0 -16px;
-    zoom:1;
+.GWTCBox .middleCenter {
+	padding: 4px 10px;
 }
-
-.x-box-bc {
-	background: transparent url(images/box/tb.gif) repeat-x 0 -8px;
-	height: 8px;
+.GWTCBox .topLeftInner,
+.GWTCBox .topRightInner,
+.GWTCBox .bottomLeftInner,
+.GWTCBox .bottomRightInner {
+    width: 8px;
+    height: 8px;
+    zoom: 1;
 	overflow: hidden;
 }
 
-.x-box-br {
-	background: transparent url(images/box/corners.gif) no-repeat right -24px;
+.GWTCBox .topCenter {
+	background: transparent url(images/box/m-tb.png) repeat-x 0 0;
+}
+.GWTCBox .bottomCenter {
+	background: transparent url(images/box/m-bb.png) repeat-x 0 0;
+}
+.GWTCBox .middleLeft{
+	background: transparent url(images/box/m-cl.png) repeat-y 0 0px;
+}
+.GWTCBox .middleRight {
+	background: transparent url(images/box/m-cr.png) repeat-y 0 0px;
+}
+.GWTCBox .middleCenter {
+	background: transparent url(images/box/m-cb.png) repeat-x 0 -16px;
+}
+.GWTCBox .topLeft {
+  background: transparent url(images/box/m-corners.png) no-repeat 0 0;
+}
+.GWTCBox .topRight {
+  background: transparent url(images/box/m-corners.png) no-repeat right -8px;
+}
+.GWTCBox .bottomLeft {
+	background: transparent url(images/box/m-corners.png) no-repeat 0 -16px;
+}
+.GWTCBox .bottomRight {
+  background: transparent url(images/box/m-corners.png) no-repeat right -24px;
 }
 
-.x-box-tl, .x-box-bl {
-	padding-left: 8px;
-	overflow: hidden;
+.GWTCBox-grey .topCenter {
+	background: transparent url(images/box/g-tb.gif) repeat-x 0 0;
+}
+.GWTCBox-grey .bottomCenter {
+	background: transparent url(images/box/g-tb.gif) repeat-x 0 -8px;
+}
+.GWTCBox-grey .middleLeft{
+	background: transparent url(images/box/g-cl.gif) repeat-y 0 0px;
+}
+.GWTCBox-grey .middleRight {
+	background: transparent url(images/box/g-cr.gif) repeat-y 0 0px;
+}
+.GWTCBox-grey .middleCenter {
+	background: #eee url(images/box/g-tb.gif) repeat-x 0 -16px;
+}
+.GWTCBox-grey .topLeft {
+  background: transparent url(images/box/g-corners.gif) no-repeat 0 0;
+}
+.GWTCBox-grey .topRight {
+  background: transparent url(images/box/g-corners.gif) no-repeat right -8px;
+}
+.GWTCBox-grey .bottomLeft {
+	background: transparent url(images/box/g-corners.gif) no-repeat 0 -16px;
+}
+.GWTCBox-grey .bottomRight {
+  background: transparent url(images/box/g-corners.gif) no-repeat right -24px;
 }
 
-.x-box-tr, .x-box-br {
-	padding-right: 8px;
-	overflow: hidden;
-}
-/*
-.x-box-blue .x-box-bl, .x-box-blue .x-box-br, .x-box-blue .x-box-tl, .x-box-blue .x-box-tr {
-	background-image: url(images/box/corners-blue.gif);
-}
 
-.x-box-blue .x-box-bc, .x-box-blue .x-box-mc, .x-box-blue .x-box-tc {
-	background-image: url(images/box/tb-blue.gif);
+.GWTCBox-blue .topCenter {
+	background: transparent url(images/box/b-tb.gif) repeat-x 0 0;
 }
-
-.x-box-blue .x-box-mc {
-	background-color: #c3daf9;
+.GWTCBox-blue .bottomCenter {
+	background: transparent url(images/box/b-tb.gif) repeat-x 0 -8px;
 }
-
-.x-box-blue .x-box-mc h3 {
-	color: #17385b;
+.GWTCBox-blue .middleLeft{
+	background: transparent url(images/box/b-cl.gif) repeat-y 0 0px;
 }
-
-.x-box-blue .x-box-ml {
-	background-image: url(images/box/l-blue.gif);
+.GWTCBox-blue .middleRight {
+	background: transparent url(images/box/b-cr.gif) repeat-y 0 0px;
 }
-
-.x-box-blue .x-box-mr {
-	background-image: url(images/box/r-blue.gif);
+.GWTCBox-blue .middleCenter {
+	background: #c3daf9 url(images/box/b-tb.gif) repeat-x 0 -16px;
 }
-*/
-div.x-box-blue > div.x-box-bl, 
-div.x-box-blue > div > div.x-box-br, 
-div.x-box-blue > div.x-box-tl, 
-div.x-box-blue > div > div.x-box-tr {
-  background-image: url(images/box/corners-blue.gif); 
+.GWTCBox-blue .topLeft {
+  background: transparent url(images/box/b-corners.gif) no-repeat 0 0;
 }
-
-div.x-box-blue > div.x-box-ml {
-  background-image: url(images/box/l-blue.gif);
+.GWTCBox-blue .topRight {
+  background: transparent url(images/box/b-corners.gif) no-repeat right -8px;
 }
-
-div.x-box-blue > div > div > div.x-box-bc,
-div.x-box-blue > div > div > div.x-box-mc,
-div.x-box-blue > div > div > div.x-box-tc {
-  background-image: url(images/box/tb-blue.gif);
+.GWTCBox-blue .bottomLeft {
+	background: transparent url(images/box/b-corners.gif) no-repeat 0 -16px;
 }
-* > div.x-box-blue  > div  > div > div.x-box-mc {
-   	background-color: #c3daf9;
+.GWTCBox-blue .bottomRight {
+  background: transparent url(images/box/b-corners.gif) no-repeat right -24px;
 }
-
-.x-box-blue .x-box-mc h3 {
-   color: #17385b;
-}
-
-/*
-* > div.x-box-blue  > div  > div  > div.x-box-mc {
-   background-color:  expression(#c3daf9);
-}
-*/
-
-
-
-
 

@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class GWTCPopupBox extends PopupPanel {
   
   private String style = "gwtc-PopupBox";
-  private GWTCBox box = new GWTCBox();
+  private GWTCSimpleBox box = new GWTCSimpleBox();
   
   public GWTCPopupBox(String style) {
     this();
