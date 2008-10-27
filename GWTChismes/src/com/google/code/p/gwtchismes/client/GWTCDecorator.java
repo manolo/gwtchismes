@@ -58,7 +58,6 @@ public class GWTCDecorator extends DecoratorPanel {
           DOM.appendChild(DOM.getParent(original), aditional);
           
       }
-      System.out.println(this);
   }
 
   public GWTCDecorator(String style) {

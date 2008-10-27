@@ -1,3 +1,8 @@
+body {
+	font-family: Verdana, Arial;
+	font-size: 12px;
+}
+
 table.GWTCSample {
    margin-left: auto;
    margin-right: auto;
@@ -5,10 +10,6 @@ table.GWTCSample {
    text-align: center;
    font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
    font-size: 10pt;
-}
-table.GWTCSample>tbody>tr>td > *{
-   margin-top: 0.5em;
-   margin-bottom: 0.5em;
 }
 
 table.GWTCSample td.InfoCell{
@@ -35,7 +36,9 @@ table.GWTCSample td.InfoCell{
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
   border: 6px solid #d0e6ff;
   background: white;
 }
+

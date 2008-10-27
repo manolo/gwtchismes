@@ -678,12 +678,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         default:
             return 31;
         }
-        /*
-        Date nd = new Date(GWTCDatePicker.add(d.getTime(), 1, GWTCDatePicker.CONST_MONTHS));
-        int ret = GWTCDatePicker.compareDate(d, nd);
-        System.out.println(m + " " + ret);
-        return ret;
-        */
     }
 
     /**

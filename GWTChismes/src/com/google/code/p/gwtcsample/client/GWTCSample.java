@@ -31,7 +31,6 @@ import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -57,6 +56,7 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
+    pruebas(); if(true)return;
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
     wait.setMessage("Please wait ...");
@@ -241,28 +241,65 @@ public class GWTCSample implements EntryPoint {
   
   /* This is stuff I use for playing with gwtchismes */
   public void pruebas() {
+      final GWTCProgress pb = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_LEFT_TEXT | GWTCProgress.SHOW_NUMBERS);
+      pb.setText("gwt-file.jar");
+      pb.addStyleName("gwtcu-thinBar");
+      pb.setProgress(40, 40, 100);
+      //pb.setStyleName("kk");
+      RootPanel.get().add(pb);
+      if(true) return;
+      
+      final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
+        progressBar.setText(i18n.progress_title());
+        progressBar.setTotalMessage(i18n.progress_total());
+        progressBar.setPercentMessage(i18n.progress_percent());
+        progressBar.setHoursMessage(i18n.progress_hours());
+        progressBar.setMinutesMessage(i18n.progress_minutes());
+        progressBar.setSecondsMessage(i18n.progress_seconds());
+        progressBar.setProgress(55, 105);
+        progressBar.show();
+
+        RootPanel.get().add(progressBar);
+ 
+        final Timer t = new Timer() {
+            int done = 0;
+            int total = 400;
+
+            public void run() {
+                if (done >= total) {
+                    cancel();
+                    progressBar.hide();
+                    done = 0;
+                }
+                System.out.println(done + " " + total);
+                progressBar.setProgress(done, total);
+                done += 15;
+            }
+        };
+
+        t.scheduleRepeating(200);
+
       //FlowPanel f = new FlowPanel();
-      GWTCBox b = new GWTCBox();
-      GWTCButton bu = new GWTCButton("Here");
+//      GWTCBox b = new GWTCBox();
+//      GWTCButton bu = new GWTCButton("Here");
+//      
+//      bu.addClickListener(new ClickListener(){
+//          public void onClick(Widget sender) {
+//              Window.alert("Click en button");
+//          }
+//      });
+//      b.add(bu);
+//      //grid.setWidget(++row, 0,b);
+//      //f.add(b);
+//      RootPanel.get().add(b);
+//      //DOM.removeEventPreview(b.getElement());
+//      
+//      DecoratorPanel pp = new DecoratorPanel();
+//      pp.add(new Label("ppp"));
+//      RootPanel.get().add(pp);
       
-      bu.addClickListener(new ClickListener(){
-          public void onClick(Widget sender) {
-              Window.alert("Click en button");
-          }
-      });
-      b.add(bu);
-      //grid.setWidget(++row, 0,b);
-      //f.add(b);
-      RootPanel.get().add(b);
-      //DOM.removeEventPreview(b.getElement());
-      
-      DecoratorPanel pp = new DecoratorPanel();
-      pp.add(new Label("ppp"));
-      RootPanel.get().add(pp);
-      
-      /*
       DockPanel panel = new DockPanel();
-      GWTCDecorator p = new GWTCDecorator();
+      DecoratorPanel p = new DecoratorPanel();
       
       Label l1 = new Label("l1");
       panel.add(l1, DockPanel.NORTH);
@@ -281,7 +318,6 @@ public class GWTCSample implements EntryPoint {
       RootPanel.get().add(box);
       
       if (true) return;
-      */
       /*
       
       GWTCIntervalSelector i = new GWTCIntervalSelector(4);
