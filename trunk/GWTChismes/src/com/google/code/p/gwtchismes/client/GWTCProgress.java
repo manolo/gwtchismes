@@ -117,21 +117,14 @@ public class GWTCProgress extends Composite {
     private DialogBox progressDlg = null;
     private FlexTable contentTable = new FlexTable();
     Grid elementGrid = null;
+    private Label remainLabel = new Label();
+    private Label textLabel = new Label();
+    private Label numberLabel = new Label();
 
-    public static final int SHOW_TIME_REMAINING = 1;
-    public static final int SHOW_TEXT = 2;
-    public static final int SHOW_NUMBERS = 4;
-    public static final int SHOW_AS_DIALOG = 8;
 
-    /**
-     * The time the progress bar was started
-     */
     private long startTime = System.currentTimeMillis();
-
-    /**
-     * The number of bar elements to show
-     */
     private int elements = 20;
+    private int progress = 0;
 
     private String secondsMessage = "Time remaining: {0} Seconds";
     private String minutesMessage = "Time remaining: {0} Minutes";
@@ -139,37 +132,18 @@ public class GWTCProgress extends Composite {
     private String percentMessage = "{0}%";
     private String totalMessage = "{0}% {1}/{2} ";
 
-    /**
-     * Current progress (as a percentage)
-     */
-    private int progress = 0;
 
+    public static final int SHOW_TIME_REMAINING = 1;
+    public static final int SHOW_TEXT = 2;
+    public static final int SHOW_LEFT_TEXT = 16;
+    public static final int SHOW_NUMBERS = 4;
+    public static final int SHOW_AS_DIALOG = 8;
+    public static final int SHOW_DEFAULT = SHOW_AS_DIALOG | SHOW_NUMBERS | SHOW_TEXT | SHOW_TIME_REMAINING;
 
-    /**
-     * This is the grid used to show the elements
-     */
-
-    /**
-     * This is the current text label below the progress bar
-     */
-    private Label remainLabel = new Label();
-
-    /**
-     * This is the current text label above the progress bar
-     */
-    private Label textLabel = new Label();
-
-    private Label numberLabel = new Label();
-
-    /**
-     * internal flags for options
-     */
     private boolean showRemaining = false;
-
     private boolean showText = false;
-
+    private boolean showLeftText = false;
     private boolean showNumbers = false;
-    
     private boolean showAsDialog = false;
     
     public static final String StyleCProgress = "GWTCProgress";
@@ -203,7 +177,9 @@ public class GWTCProgress extends Composite {
             showNumbers = true;
         if ((options & SHOW_AS_DIALOG) == SHOW_AS_DIALOG)
             showAsDialog = true;
-
+        if ((options & SHOW_LEFT_TEXT) == SHOW_LEFT_TEXT)
+            showText = showLeftText = true;
+            
         // Set element count
         this.elements = elements;
 
@@ -227,19 +203,26 @@ public class GWTCProgress extends Composite {
         // Create elements
         for (int loop = 0; loop < elements; loop++) {
             Grid elm = new Grid(1, 1);
-            // elm.setHTML(0, 0, "&nbsp;");
             elm.setHTML(0, 0, "");
             elm.setStyleName(StyleCBarDone);
             elm.addStyleName(StyleCBarElement);
             elementGrid.setWidget(0, loop, elm);
         }
+    
         // Set up the surrounding flex table based on the options
-        contentTable.setWidth("100%");
+        // contentTable.setWidth("100%");
         int row = 0;
-        contentTable.setWidget(row++, 0, textLabel);
-        contentTable.setWidget(row, 1, numberLabel);
-        contentTable.setWidget(row++, 0, containerElementGrid);
-        contentTable.setWidget(row++, 0, remainLabel);
+        int col = 0;
+        
+        if (showLeftText)
+            contentTable.setWidget(row, col++, textLabel);
+        else if (showText)
+            contentTable.setWidget(row++, col, textLabel);
+        if (showNumbers)    
+            contentTable.setWidget(row, col + 1 , numberLabel);
+        
+        contentTable.setWidget(row++, col, containerElementGrid);
+        contentTable.setWidget(row++, col, remainLabel);
         
         // Initialize progress bar
         setProgress(0);
@@ -264,7 +247,6 @@ public class GWTCProgress extends Composite {
     }
     
     public void hide() {
-    	this.setProgress(0);
         contentTable.setVisible(false);
         if (!showAsDialog)
             return;
@@ -274,7 +256,6 @@ public class GWTCProgress extends Composite {
     }
     
     public void show() {
-    	this.setProgress(0);
         contentTable.setVisible(true);
         if (!showAsDialog)
             return;
@@ -311,17 +292,9 @@ public class GWTCProgress extends Composite {
      *            Set current percentage for the progress bar
      */
     public void setProgress(int percentage, int done, int total) {
-        // Make sure we are error-tolerant
-        if (percentage > 100)
-            percentage = 100;
-        if (percentage < 0)
-            percentage = 0;
-
-        // Set the internal variable
+        percentage = Math.min(Math.max(percentage, 0),100);
         progress = percentage;
 
-        // Update the elements in the progress grid to
-        // reflect the status
         int completed = elements * percentage / 100;
         for (int loop = 0; loop < elements; loop++) {
             Grid elm = (Grid) elementGrid.getWidget(0, loop);
@@ -333,16 +306,13 @@ public class GWTCProgress extends Composite {
                 elm.addStyleName(StyleCBarElement);
             }
         }
-
         DOM.setInnerHTML(remainLabel.getElement(), "&nbsp;");
         DOM.setInnerHTML(numberLabel.getElement(), "&nbsp;");
-        // ellapsed time
+
         long soFar = System.currentTimeMillis() - startTime;
         if (percentage > 0) {
             if (showRemaining) {
-                // Calculate the new time remaining
                 long remaining = (soFar * (100 - percentage) / percentage) / 1000;
-                // Select the best UOM
                 String remainText = secondsMessage;
                 if (remaining > 120) {
                     remaining = remaining / 60;
@@ -393,8 +363,7 @@ public class GWTCProgress extends Composite {
      *            the text to set
      */
     public void setText(String text) {
-        if (showText)
-            this.textLabel.setText(text);
+        this.textLabel.setText(text);
     }
 
     /**

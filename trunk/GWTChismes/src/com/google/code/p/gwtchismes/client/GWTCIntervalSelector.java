@@ -521,7 +521,7 @@ public class GWTCIntervalSelector extends Composite {
     /**
      *  The internationalized hash map.
      */
-    private Map strs = new HashMap();
+    private Map<String,String> strs = new HashMap<String,String>();
 
     /**
      * An useful method to extract internaitonalized string for the Map str
@@ -532,7 +532,7 @@ public class GWTCIntervalSelector extends Composite {
     private String getMsg(String m) {
         String ret = null;
         if (strs != null)
-            ret = (String) strs.get(m);
+            ret = strs.get(m);
         return (ret != null ? ret : m);
     }
 
@@ -542,12 +542,13 @@ public class GWTCIntervalSelector extends Composite {
     public void setLocale(Map keys, String[] wdays, String[] months, int wStart) {
         setLocale(keys);
     }
+
     /**
      * <p>
      * Method for internationalize the components of this interval selector
      * </p>
      * <p>
-     * You have to provide a Map with ant least these keys
+     * You have to provide a Map(String, String) with ant least these keys
      * </p>
      * <ul >
      * <li>format.date {format for date representation, default 'dd MMMM, yyyy'} </li>
@@ -565,25 +566,9 @@ public class GWTCIntervalSelector extends Composite {
      * </ul>
      * 
      * @param keys
-     *            Map (key, string)
-     * 
-     * @param wdays
-     *            array with the names of the days [Sunday ... Saturday]
-     * @param months
-     *            array with the names of the months [January ... December]
-     * @param wStart
-     *            first day of the week [1...7]
      */
-    public void setLocale(Map keys) {
+    public void setLocale(Map<String,String> keys) {
         strs = keys;
-/*
-        if (getMsg("format.date")!=null) {
-            longDateFormat = getMsg("format.date");
-        }
-        if (getMsg("format.day") != null) {
-            weekDayFormat = getMsg("format.day");
-        }
-*/
         checkinLabel.setText(getMsg("key.checkin"));
         checkoutLabel.setText(getMsg("key.checkout"));
         nightsLabel.setText(getMsg("key.nights"));
@@ -612,7 +597,7 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setMinimalDate(Date d) {
         checkinCalendar.setMinimalDate(d);
-    }
+    }   
     
     public void disableYearButtons() {
         checkinCalendar.disableYearButtons();

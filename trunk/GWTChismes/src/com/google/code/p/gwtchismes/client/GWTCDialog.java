@@ -166,8 +166,8 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener, Cl
       if (DOM.isOrHasChild(caption.getElement(), DOM.eventGetTarget(event))) {
         DOM.eventPreventDefault(event);
       }
-    } else     if (DOM.eventGetType(event) == Event.ONCLICK) {
-        System.out.println("Click");
+    } else if (DOM.eventGetType(event) == Event.ONCLICK) {
+        //System.out.println("Click");
     }
  
 
@@ -245,18 +245,8 @@ public class GWTCDialog extends PopupPanel implements HasHTML, MouseListener, Cl
 	  add(w);
   }
 
-  /**
-   * Override, so that interior panel reflows to match parent's new width.
-   * 
-   * @Override
-   */
   public void setWidth(String width) {
     super.setWidth(width);
-
-    // note that you CANNOT call panel.setWidth("100%") until parent's width
-    // has been explicitly set, b/c until then parent's width is unconstrained
-    // and setting panel's width to 100% will flow parent to 100% of browser
-    // (i.e. can't do this in constructor)
     panel.setWidth("100%");
   }
   

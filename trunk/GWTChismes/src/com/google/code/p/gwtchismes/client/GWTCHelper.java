@@ -163,6 +163,10 @@ public class GWTCHelper {
         return url.toLowerCase().replaceFirst("^https*\\://", "").replaceAll("[\\?:/].*$", "");
     }
 
+    public static String getSrvltContPathFromUrl(String url) {
+        return url.replaceFirst("^https*\\://[^/]+/+", "").replaceAll("[\\?:/].*$", "");
+    }
+
     public static String getParameterFromUrl(String url, String key) {
         String reg = "[?&]" + key + "=";
         url = url.replaceAll("&amp;", "&");

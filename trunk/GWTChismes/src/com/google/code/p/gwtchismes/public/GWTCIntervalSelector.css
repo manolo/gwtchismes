@@ -1,7 +1,7 @@
 .GWTCIntervalSelector * {
   font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
   font-size: 10pt;
-  vertical-align: center;
+  vertical-align: middle;
 }
 table.GWTCIntervalSelector {
 	width: 100%;
@@ -23,7 +23,7 @@ table.GWTCIntervalSelector {
 .GWTCIntervalSelector .checkoutButton {
     border : none;
     background : #f5f5f5 url(images/gwtc-calendar.gif) no-repeat left center;
-    color : darkblue;
+    color : navy;
     cursor : pointer;
     padding-left: 16px !important;
 }
