@@ -18,7 +18,7 @@
 package com.google.code.p.uploadsample.client;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
-import com.google.code.p.gwtchismes.client.GWTCBox;
+import com.google.code.p.gwtchismes.client.GWTCSimpleBox;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.gwt.core.client.EntryPoint;
@@ -34,7 +34,7 @@ public class uploadsample implements EntryPoint {
 	}
 	
 	private void app2() {
-	  GWTCBox box = new GWTCBox();
+	  GWTCSimpleBox box = new GWTCSimpleBox();
 	  GWTCTabPanel tp = new GWTCTabPanel();
 	  Label l1 = new Label("label1");
     Label l2 = new Label("label2");

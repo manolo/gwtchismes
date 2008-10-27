@@ -213,7 +213,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     private void initialize(int config) {
         if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
-            outer = new GWTCBox();
+            outer = new GWTCSimpleBox();
         } else {
             outer.addStyleName(StyleNoBox);
         }
@@ -378,7 +378,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
     
     private void adjustDimensions() {
-       int incr = outer instanceof GWTCBox ? 30 : 2;
+       int incr = outer instanceof GWTCSimpleBox ? 30 : 2;
        navButtons.setWidth(grid.getOffsetWidth() + "px");
        outer.setWidth(grid.getOffsetWidth() + incr + "px");
        if (calendarDlg != null) 

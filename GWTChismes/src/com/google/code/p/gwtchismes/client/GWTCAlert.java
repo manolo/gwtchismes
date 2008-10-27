@@ -80,10 +80,10 @@ public class GWTCAlert extends Composite {
             okButtonDisabled = true;
         
         if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-          alertDlg = new GWTCPopupBox(GWTCBox.STYLE_NORMAL);
+          alertDlg = new GWTCPopupBox(GWTCSimpleBox.STYLE_NORMAL);
           alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
         } else  if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-          alertDlg = new GWTCPopupBox(GWTCBox.STYLE_BLUE);
+          alertDlg = new GWTCPopupBox(GWTCSimpleBox.STYLE_BLUE);
           alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
         } else {
           alertDlg = new PopupPanel();
