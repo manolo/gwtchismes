@@ -433,6 +433,7 @@ public class GWTCIntervalSelector extends Composite {
         grid.setWidget(idx, 0, nightsLabel);
         idx++;
 
+        grid.getRowFormatter().addStyleName(idx, "CheckoutInfo");
         grid.setWidget(idx, 0, checkoutLabel);
         grid.setWidget(idx, 1, checkoutDateLabel);
         idx++;
