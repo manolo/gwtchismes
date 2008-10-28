@@ -125,6 +125,13 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCIntervalSelector extends Composite {
 
+    public static final int LAYOUT_1 = 1;
+    public static final int LAYOUT_2 = 2;
+    public static final int LAYOUT_3 = 3;
+    public static final int LAYOUT_4 = 4;
+    public static final int LAYOUT_5 = 5;
+    public static final int LAYOUT_6 = 6;
+
     private String styleName = "GWTCIntervalSelector";
 
     private int maxdays = 365 * 2;
@@ -174,8 +181,8 @@ public class GWTCIntervalSelector extends Composite {
      * @param layoutType type of layout for the interval selector
      */
     public GWTCIntervalSelector(int layoutType) {
-        if (layoutType < 0 || layoutType >5)
-            layoutType = 1;
+        if (layoutType < 0 || layoutType >LAYOUT_6)
+            layoutType = LAYOUT_1;
         outer.setStyleName(styleName);
         initWidget(outer);
         this.initListeners();
@@ -189,7 +196,7 @@ public class GWTCIntervalSelector extends Composite {
     /**
      * Draws the widget using the layout passed as argument
      * 
-     * @param layout (supported layouts 1 2 3 4)
+     * @param layout (supported layouts 1 2 3 4 5 6)
      */
     public void drawIntervalWidget(int layout) {
         outer.clear();
@@ -199,144 +206,242 @@ public class GWTCIntervalSelector extends Composite {
         nightsListBoxContainer.add(nightsListBox);
 
         grid.addStyleName("GWTCIntervalLayout" + layout);
+        
+        switch (layout) {
+        case LAYOUT_1:
+            drawLayout1(grid);
+            break;
+        case LAYOUT_2:
+            drawLayout2(grid);
+            break;
+        case LAYOUT_3:
+            drawLayout3(grid);
+            break;
+        case LAYOUT_4:
+            drawLayout4(grid);
+            break;
+        case LAYOUT_5:
+            drawLayout5(grid);
+            break;
+        case LAYOUT_6:
+            drawLayout6(grid);
+            break;
 
-        if (layout==1){
-            grid.getRowFormatter().addStyleName(0, "SelectorContainer");
-            grid.getRowFormatter().addStyleName(1, "InfoContainer");
-
-            FlexTable tSelector = new FlexTable();
-            tSelector.addStyleName("DateChanger");
-            tSelector.setWidget(0, 0, checkinA);
-            tSelector.getCellFormatter().addStyleName(0, 0, "DateSelector");
-            tSelector.setWidget(0, 1, nightsLabel);
-            tSelector.getCellFormatter().addStyleName(0, 0, "NighsSelectorLabel");
-            tSelector.setWidget(0, 2, nightsListBoxContainer);
-            tSelector.getCellFormatter().addStyleName(0, 0, "NightsSelectorListBox");
-            grid.setWidget(0, 0, tSelector);
-
-            FlexTable tInfo = new FlexTable();
-            tInfo.addStyleName("DateInfo");
-            tInfo.getRowFormatter().addStyleName(0, "CheckinInfo");
-            tInfo.getRowFormatter().addStyleName(1, "CheckoutInfo");
-            tInfo.setWidget(0, 0, checkinLabel);
-            tInfo.getCellFormatter().addStyleName(0, 0, "DateLabel");
-            tInfo.setWidget(0, 1, checkinDateLabel);
-            tInfo.getCellFormatter().addStyleName(0, 1, "DateValue");
-            tInfo.setWidget(0, 2, checkinWeekLabel);
-            tInfo.getCellFormatter().addStyleName(0, 2, "DateWeekD");
-            tInfo.setWidget(1, 0, checkoutLabel);
-            tInfo.getCellFormatter().addStyleName(1, 0, "DateLabel");
-            tInfo.setWidget(1, 1, checkoutDateLabel);
-            tInfo.getCellFormatter().addStyleName(1, 1, "DateValue");
-            tInfo.setWidget(1, 2, checkoutWeekLabel);
-            tInfo.getCellFormatter().addStyleName(1, 2, "DateWeekD");
-            grid.setWidget(1, 0, tInfo);
-            for (int i = 0; i < 3; i++) {
-                tInfo.getCellFormatter().addStyleName(i, 0, "ColLabels");
-            }
-            tSelector.getCellFormatter().addStyleName(0, 0, "ColLabels");
-            
-        } else if (layout==2 || layout==3 || layout==4){
-            int idx = 0;
-            
-            grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
-            HorizontalPanel checkinInfo = new HorizontalPanel();
-            grid.setWidget(idx, 0, checkinLabel);
-            checkinInfo.add(checkinDateLabel);
-            if (layout == 4) {
-                checkinInfo.add(checkinButton);
-                checkinInfo.add(checkinWeekLabel);
-            } else {
-                checkinInfo.add(checkinWeekLabel);
-                checkinInfo.add(checkinButton);
-            }
-            checkinLabel.addStyleName("checkinLabel");
-            checkinDateLabel.addStyleName("checkinDateLabel");
-            checkinWeekLabel.addStyleName("checkinWeekLabel");
-            checkinButton.addStyleName("checkinButton");
-            grid.setWidget(idx, 1, checkinInfo);
-            idx++;
-
-            if (layout == 2) {
-                grid.getRowFormatter().addStyleName(idx, "CheckoutInfo");
-                HorizontalPanel checkoutInfo = new HorizontalPanel();
-                grid.setWidget(idx, 0, checkoutLabel);
-                checkoutInfo.add(checkoutDateLabel);
-                checkoutInfo.add(checkoutWeekLabel);
-                checkoutInfo.add(checkoutButton);
-                checkoutLabel.addStyleName("checkoutLabel");
-                checkoutDateLabel.addStyleName("checkoutDateLabel");
-                checkoutWeekLabel.addStyleName("checkoutWeekLabel");
-                checkoutButton.addStyleName("checkoutButton");
-                grid.setWidget(idx, 1, checkoutInfo);
-
-                idx++;
-                grid.getRowFormatter().addStyleName(idx, "DateInfo");
-                HorizontalPanel nightsInfo = new HorizontalPanel();
-                durationLabel.addStyleName("durationLabel");
-                grid.setWidget(idx, 0, durationLabel);
-                grid.setWidget(idx, 1, nightsInfo);
-                nightsInfo.add(intervalValue);
-                nightsInfo.add(nightsLabel);
-                idx++;
-
-            }
-            if (layout == 3 || layout == 4) {
-                grid.getRowFormatter().addStyleName(idx, "DateSelect");
-                HorizontalPanel nightsInfo = new HorizontalPanel();
-                durationLabel.addStyleName("durationLabel");
-                grid.setWidget(idx, 1, nightsInfo);
-                nightsInfo.add(nightsListBoxContainer);
-                if (layout==3){
-                    grid.setWidget(idx, 0, durationLabel);
-                    nightsInfo.add(nightsLabel);
-                } 
-                if (layout==4) {
-                    grid.setWidget(idx, 0, nightsLabel);
-                    nightsInfo.add(checkoutLabel);
-                    nightsInfo.add(checkoutDateLabel);
-                }
-                idx++;
-            }
-            for (int i = 0; i < idx; i++) {
-                grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
-            }
-        } else if (layout==5){
-            int idx = 0;
-            
-            grid.getRowFormatter().addStyleName(idx, "CheckinLabel_5");
-            grid.setWidget(idx, 0, checkinLabel);
-            idx ++;
-            
-            HorizontalPanel checkinInfo = new HorizontalPanel();
-            checkinInfo.add(checkinDateLabel);
-            checkinInfo.add(checkinWeekLabel);
-            checkinInfo.add(checkinButton);
-            checkinDateLabel.addStyleName("checkinDateLabel");
-            checkinWeekLabel.addStyleName("checkinWeekLabel");
-            checkinButton.addStyleName("checkinButton");
-            grid.setWidget(idx, 0, checkinInfo);
-            idx++;
-            
-            grid.getRowFormatter().addStyleName(idx, "NightsLabel_5");
-            grid.setWidget(idx, 0, nightsLabel);
-            idx++;
-            
-            grid.setWidget(idx, 0, nightsListBoxContainer);
-            idx++;
-            
-            grid.getRowFormatter().addStyleName(idx, "CheckoutInfo_5");
-            HorizontalPanel nightsInfo = new HorizontalPanel();
-            nightsInfo.add(checkoutLabel);
-            nightsInfo.add(checkoutDateLabel);
-            grid.setWidget(idx, 0, nightsInfo);
-            
-            idx++;
-            
+        default:
+            drawLayout1(grid);
+            break;
         }
-            
     }
 
+    private void drawLayout1(FlexTable grid) {
+        grid.getRowFormatter().addStyleName(0, "SelectorContainer");
+        grid.getRowFormatter().addStyleName(1, "InfoContainer");
+
+        FlexTable tSelector = new FlexTable();
+        tSelector.addStyleName("DateChanger");
+        tSelector.setWidget(0, 0, checkinA);
+        tSelector.getCellFormatter().addStyleName(0, 0, "DateSelector");
+        tSelector.setWidget(0, 1, nightsLabel);
+        tSelector.getCellFormatter().addStyleName(0, 0, "NighsSelectorLabel");
+        tSelector.setWidget(0, 2, nightsListBoxContainer);
+        tSelector.getCellFormatter().addStyleName(0, 0, "NightsSelectorListBox");
+        grid.setWidget(0, 0, tSelector);
+
+        FlexTable tInfo = new FlexTable();
+        tInfo.addStyleName("DateInfo");
+        tInfo.getRowFormatter().addStyleName(0, "CheckinInfo");
+        tInfo.getRowFormatter().addStyleName(1, "CheckoutInfo");
+        tInfo.setWidget(0, 0, checkinLabel);
+        tInfo.getCellFormatter().addStyleName(0, 0, "DateLabel");
+        tInfo.setWidget(0, 1, checkinDateLabel);
+        tInfo.getCellFormatter().addStyleName(0, 1, "DateValue");
+        tInfo.setWidget(0, 2, checkinWeekLabel);
+        tInfo.getCellFormatter().addStyleName(0, 2, "DateWeekD");
+        tInfo.setWidget(1, 0, checkoutLabel);
+        tInfo.getCellFormatter().addStyleName(1, 0, "DateLabel");
+        tInfo.setWidget(1, 1, checkoutDateLabel);
+        tInfo.getCellFormatter().addStyleName(1, 1, "DateValue");
+        tInfo.setWidget(1, 2, checkoutWeekLabel);
+        tInfo.getCellFormatter().addStyleName(1, 2, "DateWeekD");
+        grid.setWidget(1, 0, tInfo);
+        for (int i = 0; i < 3; i++) {
+            tInfo.getCellFormatter().addStyleName(i, 0, "ColLabels");
+        }
+        tSelector.getCellFormatter().addStyleName(0, 0, "ColLabels");
+    }
+    
+
+    private void drawLayout2(FlexTable grid) {
+        int idx = 0;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
+        HorizontalPanel checkinInfo = new HorizontalPanel();
+        grid.setWidget(idx, 0, checkinLabel);
+        checkinInfo.add(checkinDateLabel);
+        checkinInfo.add(checkinWeekLabel);
+        checkinInfo.add(checkinButton);
+        checkinLabel.addStyleName("checkinLabel");
+        checkinDateLabel.addStyleName("checkinDateLabel");
+        checkinWeekLabel.addStyleName("checkinWeekLabel");
+        checkinButton.addStyleName("checkinButton");
+        grid.setWidget(idx, 1, checkinInfo);
+
+        idx++;
+        grid.getRowFormatter().addStyleName(idx, "CheckoutInfo");
+        HorizontalPanel checkoutInfo = new HorizontalPanel();
+        grid.setWidget(idx, 0, checkoutLabel);
+        checkoutInfo.add(checkoutDateLabel);
+        checkoutInfo.add(checkoutWeekLabel);
+        checkoutInfo.add(checkoutButton);
+        checkoutLabel.addStyleName("checkoutLabel");
+        checkoutDateLabel.addStyleName("checkoutDateLabel");
+        checkoutWeekLabel.addStyleName("checkoutWeekLabel");
+        checkoutButton.addStyleName("checkoutButton");
+        grid.setWidget(idx, 1, checkoutInfo);
+
+        idx++;
+        grid.getRowFormatter().addStyleName(idx, "DateInfo");
+        HorizontalPanel nightsInfo = new HorizontalPanel();
+        durationLabel.addStyleName("durationLabel");
+        grid.setWidget(idx, 0, durationLabel);
+        grid.setWidget(idx, 1, nightsInfo);
+        nightsInfo.add(intervalValue);
+        nightsInfo.add(nightsLabel);
+        idx++;
+        
+        for (int i = 0; i < idx; i++) {
+            grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
+        }
+    }
+    
+    
+    private void drawLayout3(FlexTable grid) {
+        int idx = 0;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
+        HorizontalPanel checkinInfo = new HorizontalPanel();
+        grid.setWidget(idx, 0, checkinLabel);
+        checkinInfo.add(checkinDateLabel);
+        checkinInfo.add(checkinWeekLabel);
+        checkinInfo.add(checkinButton);
+        checkinLabel.addStyleName("checkinLabel");
+        checkinDateLabel.addStyleName("checkinDateLabel");
+        checkinWeekLabel.addStyleName("checkinWeekLabel");
+        checkinButton.addStyleName("checkinButton");
+        grid.setWidget(idx, 1, checkinInfo);
+        idx++;
+
+        grid.getRowFormatter().addStyleName(idx, "DateSelect");
+        HorizontalPanel nightsInfo = new HorizontalPanel();
+        durationLabel.addStyleName("durationLabel");
+        grid.setWidget(idx, 1, nightsInfo);
+        nightsInfo.add(nightsListBoxContainer);
+            grid.setWidget(idx, 0, durationLabel);
+            nightsInfo.add(nightsLabel);
+        idx++;
+
+        for (int i = 0; i < idx; i++) {
+            grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
+        }
+    }
+    
+    private void drawLayout4(FlexTable grid) {
+        int idx = 0;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
+        HorizontalPanel checkinInfo = new HorizontalPanel();
+        grid.setWidget(idx, 0, checkinLabel);
+        checkinInfo.add(checkinDateLabel);
+        checkinInfo.add(checkinButton);
+        checkinInfo.add(checkinWeekLabel);
+        checkinLabel.addStyleName("checkinLabel");
+        checkinDateLabel.addStyleName("checkinDateLabel");
+        checkinWeekLabel.addStyleName("checkinWeekLabel");
+        checkinButton.addStyleName("checkinButton");
+        grid.setWidget(idx, 1, checkinInfo);
+        idx++;
+
+        grid.getRowFormatter().addStyleName(idx, "DateSelect");
+        HorizontalPanel nightsInfo = new HorizontalPanel();
+        durationLabel.addStyleName("durationLabel");
+        grid.setWidget(idx, 1, nightsInfo);
+        nightsInfo.add(nightsListBoxContainer);
+        grid.setWidget(idx, 0, nightsLabel);
+        nightsInfo.add(checkoutLabel);
+        nightsInfo.add(checkoutDateLabel);
+        idx++;
+
+        for (int i = 0; i < idx; i++) {
+            grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
+        }
+    }
+    
+    private void drawLayout5(FlexTable grid) {
+        int idx = 0;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckinLabel_5");
+        grid.setWidget(idx, 0, checkinLabel);
+        idx ++;
+        
+        HorizontalPanel checkinInfo = new HorizontalPanel();
+        checkinInfo.add(checkinDateLabel);
+        checkinInfo.add(checkinWeekLabel);
+        checkinInfo.add(checkinButton);
+        checkinDateLabel.addStyleName("checkinDateLabel");
+        checkinWeekLabel.addStyleName("checkinWeekLabel");
+        checkinButton.addStyleName("checkinButton");
+        grid.setWidget(idx, 0, checkinInfo);
+        idx++;
+        
+        grid.getRowFormatter().addStyleName(idx, "NightsLabel_5");
+        grid.setWidget(idx, 0, nightsLabel);
+        idx++;
+        
+        grid.setWidget(idx, 0, nightsListBoxContainer);
+        idx++;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckoutInfo_5");
+        HorizontalPanel nightsInfo = new HorizontalPanel();
+        nightsInfo.add(checkoutLabel);
+        nightsInfo.add(checkoutDateLabel);
+        grid.setWidget(idx, 0, nightsInfo);
+        
+        idx++;
+    }
+
+    private void drawLayout6(FlexTable grid) {
+        int idx = 0;
+        
+        grid.getRowFormatter().addStyleName(idx, "CheckinInfo");
+        HorizontalPanel checkinInfo = new HorizontalPanel();
+        grid.setWidget(idx, 0, checkinLabel);
+        checkinInfo.add(checkinDateLabel);
+        checkinInfo.add(checkinWeekLabel);
+        checkinInfo.add(checkinButton);
+        checkinLabel.addStyleName("checkinLabel");
+        checkinDateLabel.addStyleName("checkinDateLabel");
+        checkinWeekLabel.addStyleName("checkinWeekLabel");
+        checkinButton.addStyleName("checkinButton");
+        grid.setWidget(idx, 1, checkinInfo);
+        idx++;
+
+        grid.getRowFormatter().addStyleName(idx, "DateSelect");
+        HorizontalPanel nightsInfo = new HorizontalPanel();
+        durationLabel.addStyleName("durationLabel");
+        grid.setWidget(idx, 1, nightsInfo);
+        nightsInfo.add(nightsListBoxContainer);
+        grid.setWidget(idx, 0, nightsLabel);
+        idx++;
+
+        grid.setWidget(idx, 0, checkoutLabel);
+        grid.setWidget(idx, 1, checkoutDateLabel);
+        idx++;
+
+        for (int i = 0; i < idx; i++) {
+            grid.getCellFormatter().addStyleName(i, 0, "ColLabels");
+        }
+    }
+    
     private void updateInputsFromNights() {
         checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
         checkoutDateLabel.setText(checkoutCalendar.getSelectedDateStr(longDateFormat));
@@ -358,7 +463,7 @@ public class GWTCIntervalSelector extends Composite {
         checkoutCalendar.setMaximalDate(GWTCDatePicker.increaseDate(getInitDate(), maxdays));
 
         int nightsFromBox = nightsListBox.getSelectedIndex();
-        if (nightsFromBox == 0 || layoutType != 2 )
+        if (nightsFromBox == 0 || layoutType != LAYOUT_2 )
             checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsFromBox));
 
         int nights = getNights();

@@ -59,6 +59,9 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
+      testDatePickerLayout(6);
+      if (true) return;
+      
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
     wait.setMessage("Please wait ...");
@@ -309,8 +312,8 @@ public class GWTCSample implements EntryPoint {
       p.show(null);
   }
 
-  public void testDatePicker() {
-      GWTCIntervalSelector i = new GWTCIntervalSelector(4);
+  public void testDatePickerLayout(int layout) {
+      GWTCIntervalSelector i = new GWTCIntervalSelector(layout);
       RootPanel.get().add(i);
   }
   
