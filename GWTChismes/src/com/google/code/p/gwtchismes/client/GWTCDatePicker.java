@@ -22,6 +22,7 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -36,7 +37,6 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.DOM;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -213,7 +213,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     private void initialize(int config) {
         if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
-            outer = new GWTCSimpleBox();
+            outer = new GWTCBox();
         } else {
             outer.addStyleName(StyleNoBox);
         }
