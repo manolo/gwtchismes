@@ -59,9 +59,6 @@ public class GWTCSample implements EntryPoint {
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
-      testDatePickerLayout(6);
-      if (true) return;
-      
     // Create a GWTCWait widget
     final GWTCWait wait = new GWTCWait();
     wait.setMessage("Please wait ...");
@@ -132,6 +129,14 @@ public class GWTCSample implements EntryPoint {
     GWTCIntervalSelector interval4 = new GWTCIntervalSelector(4);
     interval4.setLocale(intervalStrs);
 
+    // Create a layout5 interval-selector and set the locale in spanish
+    GWTCIntervalSelector interval5 = new GWTCIntervalSelector(5);
+    interval5.setLocale(intervalStrs);
+
+    // Create a layout6 interval-selector and set the locale in spanish
+    GWTCIntervalSelector interval6 = new GWTCIntervalSelector(6);
+    interval6.setLocale(intervalStrs);
+    
     // Create a date-picker without the close button, and with the help button disabled
     final GWTCDatePicker dPicker1 = new GWTCDatePicker(false);
     dPicker1.disableCloseButton();
@@ -207,6 +212,8 @@ public class GWTCSample implements EntryPoint {
     box1.add(interval2);
     box1.add(interval3);
     box1.add(interval4);
+    box1.add(interval5);
+    box1.add(interval6);
 
     GWTCBox box2 = new GWTCBox();
     box2.setTitle(i18n.title_buttons_box());
