@@ -10,6 +10,7 @@
 .GWTCBox .topCenter {
 	height: 8px;
 	overflow: hidden;
+	width: 100%;
 }
 .GWTCBox .bottomCenter {
 	height: 8px;
