@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;

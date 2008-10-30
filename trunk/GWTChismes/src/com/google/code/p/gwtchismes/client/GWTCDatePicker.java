@@ -185,9 +185,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     public static int CONFIG_DIALOG = 1;
     public static int CONFIG_BORDERS = 2;
+    public static int CONFIG_AUTOHIDE = 4;
+    public static int CONFIG_SCROLL_INTO = 8;
     
-    
-
     /**
      * Constructor, you need specify the behaviour: floating dialog box or embeded widget
      * 
@@ -218,7 +218,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             outer.addStyleName(StyleNoBox);
         }
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
-            calendarDlg = new DialogBox(true);
+            calendarDlg = new DialogBox((config & CONFIG_AUTOHIDE)== CONFIG_AUTOHIDE);
             calendarDlg.setWidget(outer);
             calendarDlg.setAnimationEnabled(true);
             initWidget(new DockPanel());
@@ -401,8 +401,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             else
                 calendarDlg.center();
             calendarDlg.show();
-            DOM.scrollIntoView(calendarDlg.getElement());
         }
+        DOM.scrollIntoView(grid.getElement());
         adjustDimensions();
     }
 
