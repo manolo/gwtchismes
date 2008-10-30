@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -384,6 +385,26 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
        if (calendarDlg != null) 
            calendarDlg.setWidth(outer.getOffsetWidth() + "px");
     }
+    
+    private void moveIntoVisibleArea() {
+        if (calendarDlg != null) {
+            int w = Window.getClientWidth() + Window.getScrollLeft();
+            int h = Window.getClientHeight() + Window.getScrollTop();
+            int xd = calendarDlg.getAbsoluteLeft();
+            int yd = calendarDlg.getAbsoluteTop();
+            int wd = grid.getOffsetWidth();
+            int hd = grid.getOffsetHeight();
+            
+            if ( (xd + wd) > w ) {
+                xd = xd - ((xd + wd) - w);
+            }
+            if ( (yd + hd) > h ) {
+                yd = (yd + hd) - h;
+            }
+            calendarDlg.setPopupPosition(xd, yd);
+        }
+    }
+
 
     /**
      * show the calendar container, if the calendar picker is a dialog box and param sender is not null the dialog is positioned near of it
@@ -396,15 +417,20 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         if (calendarDlg == null) {
             outer.setVisible(true);
         } else {
-            if (sender != null)
+            
+            
+            if (sender != null) {
                 calendarDlg.setPopupPosition(sender.getAbsoluteLeft() + 20, sender.getAbsoluteTop() + 10);
-            else
+            } else {
                 calendarDlg.center();
+            }
             calendarDlg.show();
         }
-        DOM.scrollIntoView(grid.getElement());
+        //DOM.scrollIntoView(grid.getElement());
+        moveIntoVisibleArea();
         adjustDimensions();
     }
+
 
     /**
      * Hide the calendar container.
