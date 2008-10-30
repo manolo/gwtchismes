@@ -389,17 +389,17 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private void moveIntoVisibleArea() {
         if (calendarDlg != null) {
             int w = Window.getClientWidth() + Window.getScrollLeft();
-            int h = Window.getClientHeight() + Window.getScrollTop();
             int xd = calendarDlg.getAbsoluteLeft();
-            int yd = calendarDlg.getAbsoluteTop();
-            int wd = grid.getOffsetWidth();
-            int hd = grid.getOffsetHeight();
+            int wd = grid.getOffsetWidth() + 40;
             
             if ( (xd + wd) > w ) {
                 xd = xd - ((xd + wd) - w);
             }
+            int h = Window.getClientHeight() + Window.getScrollTop();
+            int yd = calendarDlg.getAbsoluteTop();
+            int hd = calendarDlg.getOffsetHeight();
             if ( (yd + hd) > h ) {
-                yd = (yd + hd) - h;
+                yd = yd - ((yd + hd) - h);
             }
             calendarDlg.setPopupPosition(xd, yd);
         }
@@ -417,8 +417,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         if (calendarDlg == null) {
             outer.setVisible(true);
         } else {
-            
-            
             if (sender != null) {
                 calendarDlg.setPopupPosition(sender.getAbsoluteLeft() + 20, sender.getAbsoluteTop() + 10);
             } else {
@@ -426,9 +424,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             }
             calendarDlg.show();
         }
-        //DOM.scrollIntoView(grid.getElement());
         moveIntoVisibleArea();
         adjustDimensions();
+        DOM.scrollIntoView(grid.getElement());
     }
 
 
