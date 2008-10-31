@@ -212,8 +212,6 @@ public class GWTCIntervalSelector extends Composite {
      * @param layoutType type of layout for the interval selector
      */
     public GWTCIntervalSelector(int layoutType) {
-        if (layoutType < 0 || layoutType >LAYOUT_6)
-            layoutType = LAYOUT_1;
         outer.setStyleName(styleName);
         outer.add(mainGrid);
         initWidget(outer);
@@ -246,6 +244,9 @@ public class GWTCIntervalSelector extends Composite {
         durationLabel.addStyleName(DURATION_LABEL);
         nightsLabel.addStyleName(NIGHTS_LABEL);
         intervalValue.addStyleName(INTERVAL_VALUE);
+        
+        nightsListBoxContainer.clear();
+        nightsListBoxContainer.add(nightsListBox);
 
         this.layoutType = layoutType;
         drawIntervalWidget(layoutType);
@@ -257,39 +258,35 @@ public class GWTCIntervalSelector extends Composite {
      * @param layout (supported layouts 1 2 3 4 5 6)
      */
     public void drawIntervalWidget(int layout) {
-        
-        nightsListBoxContainer.clear();
-        nightsListBoxContainer.add(nightsListBox);
-        
         switch (layout) {
         case LAYOUT_1:
-            drawLayout1(mainGrid);
+            drawLayout1();
             break;
         case LAYOUT_2:
-            drawLayout2(mainGrid);
+            drawLayout2();
             break;
         case LAYOUT_3:
-            drawLayout3(mainGrid);
+            drawLayout3();
             break;
         case LAYOUT_4:
-            drawLayout4(mainGrid);
+            drawLayout4();
             break;
         case LAYOUT_5:
-            drawLayout5(mainGrid);
+            drawLayout5();
             break;
         case LAYOUT_6:
-            drawLayout6(mainGrid);
+            drawLayout6();
             break;
         default:
-            drawLayout1(mainGrid);
+            drawLayout1();
             break;
         }
 
     }
 
-    private void drawLayout1(FlexTable grid) {
-        grid.getRowFormatter().addStyleName(0, SELECTOR_CONTAINER);
-        grid.getRowFormatter().addStyleName(1, INFO_CONTAINER);
+    private void drawLayout1() {
+        mainGrid.getRowFormatter().addStyleName(0, SELECTOR_CONTAINER);
+        mainGrid.getRowFormatter().addStyleName(1, INFO_CONTAINER);
 
         FlexTable tSelector = new FlexTable();
         tSelector.addStyleName(DATE_CHANGER);
@@ -299,7 +296,7 @@ public class GWTCIntervalSelector extends Composite {
         tSelector.getCellFormatter().addStyleName(0, 1, NIGHS_SELECTOR_LABEL);
         tSelector.setWidget(0, 2, nightsListBoxContainer);
         tSelector.getCellFormatter().addStyleName(0, 2, NIGHTS_SELECTOR_LIST_BOX);
-        grid.setWidget(0, 0, tSelector);
+        mainGrid.setWidget(0, 0, tSelector);
 
         FlexTable tInfo = new FlexTable();
         tInfo.addStyleName(DATE_INFO);
@@ -311,130 +308,130 @@ public class GWTCIntervalSelector extends Composite {
         tInfo.setWidget(1, 0, checkoutLabel);
         tInfo.setWidget(1, 1, checkoutDateLabel);
         tInfo.setWidget(1, 2, checkoutWeekLabel);
-        grid.setWidget(1, 0, tInfo);
+        mainGrid.setWidget(1, 0, tInfo);
         for (int i = 0; i < 3; i++) {
             tInfo.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
     
 
-    private void drawLayout2(FlexTable grid) {
+    private void drawLayout2() {
         int idx = 0;
         
-        grid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
-        grid.setWidget(idx, 0, checkinLabel);
+        mainGrid.setWidget(idx, 0, checkinLabel);
         checkinInfo.add(checkinDateLabel);
         checkinInfo.add(checkinWeekLabel);
         checkinInfo.add(checkinButton);
-        grid.setWidget(idx, 1, checkinInfo);
+        mainGrid.setWidget(idx, 1, checkinInfo);
 
         idx++;
-        grid.getRowFormatter().addStyleName(idx, CHECKOUT_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKOUT_INFO);
         HorizontalPanel checkoutInfo = new HorizontalPanel();
-        grid.setWidget(idx, 0, checkoutLabel);
+        mainGrid.setWidget(idx, 0, checkoutLabel);
         checkoutInfo.add(checkoutDateLabel);
         checkoutInfo.add(checkoutWeekLabel);
         checkoutInfo.add(checkoutButton);
-        grid.setWidget(idx, 1, checkoutInfo);
+        mainGrid.setWidget(idx, 1, checkoutInfo);
 
         idx++;
-        grid.getRowFormatter().addStyleName(idx, DATE_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
-        grid.setWidget(idx, 0, durationLabel);
-        grid.setWidget(idx, 1, nightsInfo);
+        mainGrid.setWidget(idx, 0, durationLabel);
+        mainGrid.setWidget(idx, 1, nightsInfo);
         nightsInfo.add(intervalValue);
         nightsInfo.add(nightsLabel);
         idx++;
         
         for (int i = 0; i < idx; i++) {
-            grid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
+            mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
     
     
-    private void drawLayout3(FlexTable grid) {
+    private void drawLayout3() {
         int idx = 0;
         
-        grid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
-        grid.setWidget(idx, 0, checkinLabel);
+        mainGrid.setWidget(idx, 0, checkinLabel);
         checkinInfo.add(checkinDateLabel);
         checkinInfo.add(checkinWeekLabel);
         checkinInfo.add(checkinButton);
-        grid.setWidget(idx, 1, checkinInfo);
+        mainGrid.setWidget(idx, 1, checkinInfo);
         idx++;
 
-        grid.getRowFormatter().addStyleName(idx, DATE_SELECT);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_SELECT);
         HorizontalPanel nightsInfo = new HorizontalPanel();
-        grid.setWidget(idx, 1, nightsInfo);
+        mainGrid.setWidget(idx, 1, nightsInfo);
         nightsInfo.add(nightsListBoxContainer);
-            grid.setWidget(idx, 0, durationLabel);
+            mainGrid.setWidget(idx, 0, durationLabel);
             nightsInfo.add(nightsLabel);
         idx++;
 
         for (int i = 0; i < idx; i++) {
-            grid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
+            mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
     
-    private void drawLayout4(FlexTable grid) {
+    private void drawLayout4() {
         int idx = 0;
         
-        grid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
-        grid.setWidget(idx, 0, checkinLabel);
+        mainGrid.setWidget(idx, 0, checkinLabel);
         checkinInfo.add(checkinDateLabel);
         checkinInfo.add(checkinWeekLabel);
         checkinInfo.add(checkinButton);
-        grid.setWidget(idx, 1, checkinInfo);
+        mainGrid.setWidget(idx, 1, checkinInfo);
         idx++;
 
-        grid.getRowFormatter().addStyleName(idx, DATE_SELECT);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_SELECT);
         HorizontalPanel nightsInfo = new HorizontalPanel();
-        grid.setWidget(idx, 1, nightsInfo);
+        mainGrid.setWidget(idx, 1, nightsInfo);
         nightsInfo.add(nightsListBoxContainer);
-        grid.setWidget(idx, 0, nightsLabel);
+        mainGrid.setWidget(idx, 0, nightsLabel);
         nightsInfo.add(checkoutLabel);
         nightsInfo.add(checkoutDateLabel);
         idx++;
 
         for (int i = 0; i < idx; i++) {
-            grid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
+            mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
     
-    private void drawLayout5(FlexTable grid) {
+    private void drawLayout5() {
         int idx = 0;
         
-        grid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
-        grid.setWidget(idx, 0, checkinLabel);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
+        mainGrid.setWidget(idx, 0, checkinLabel);
         idx ++;
         
         HorizontalPanel checkinInfo = new HorizontalPanel();
         checkinInfo.add(checkinDateLabel);
         checkinInfo.add(checkinWeekLabel);
         checkinInfo.add(checkinButton);
-        grid.setWidget(idx, 0, checkinInfo);
+        mainGrid.setWidget(idx, 0, checkinInfo);
         idx++;
         
-        grid.getRowFormatter().addStyleName(idx, DATE_INFO);
-        grid.setWidget(idx, 0, nightsLabel);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
+        mainGrid.setWidget(idx, 0, nightsLabel);
         idx++;
         
-        grid.setWidget(idx, 0, nightsListBoxContainer);
+        mainGrid.setWidget(idx, 0, nightsListBoxContainer);
         idx++;
         
-        grid.getRowFormatter().addStyleName(idx, CHECKOUT_INFO);
+        mainGrid.getRowFormatter().addStyleName(idx, CHECKOUT_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
         nightsInfo.add(checkoutLabel);
         nightsInfo.add(checkoutDateLabel);
-        grid.setWidget(idx, 0, nightsInfo);
+        mainGrid.setWidget(idx, 0, nightsInfo);
         
         idx++;
     }
 
-    private void drawLayout6(FlexTable mainGrid) {
+    private void drawLayout6() {
         int idx = 0;
         
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
