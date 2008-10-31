@@ -134,7 +134,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     private Date selectedDate = setHourToZero(new Date());
 
-    private Date cursorDate = setHourToZero(new Date());
+    private Date cursorDate =  getFirstDayOfMonth(selectedDate);
 
     private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
 
@@ -322,7 +322,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             grid.setText(0, l++, dateTimeConstants.shortWeekdays()[0]);
         }
 
-        Date firstDate = new Date(cursorDate.getYear(), cursorDate.getMonth(), 1);
+        Date firstDate = getFirstDayOfMonth(cursorDate);
         long todayNum = 1 + GWTCDatePicker.compareDate(firstDate, new Date());
         long minimalNum = 1 + GWTCDatePicker.compareDate(firstDate, minimalDate);
         long maximalNum = 1 + GWTCDatePicker.compareDate(firstDate, maximalDate);
@@ -362,9 +362,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
                         html.addStyleName(GWTCDatePicker.StyleCToday);
                         grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCToday);
                     }
-                    // else if (displayNum == cursorNum) {
-                    // grid.getCellFormatter().addStyleName(i, k, "Cal_Cursor");
-                    // }
                     grid.setWidget(i, k, html);
                 }
             }
@@ -378,32 +375,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         adjustDimensions();
     }
     
-    private void adjustDimensions() {
-       int incr = outer instanceof GWTCSimpleBox ? 30 : 2;
-       navButtons.setWidth(grid.getOffsetWidth() + "px");
-       outer.setWidth(grid.getOffsetWidth() + incr + "px");
-       if (calendarDlg != null) 
-           calendarDlg.setWidth(outer.getOffsetWidth() + "px");
-    }
-    
-    private void moveIntoVisibleArea() {
-        if (calendarDlg != null) {
-            int w = Window.getClientWidth() + Window.getScrollLeft();
-            int xd = calendarDlg.getAbsoluteLeft();
-            int wd = grid.getOffsetWidth() + 40;
-            
-            if ( (xd + wd) > w ) {
-                xd = xd - ((xd + wd) - w);
-            }
-            int h = Window.getClientHeight() + Window.getScrollTop();
-            int yd = calendarDlg.getAbsoluteTop();
-            int hd = calendarDlg.getOffsetHeight();
-            if ( (yd + hd) > h ) {
-                yd = yd - ((yd + hd) - h);
-            }
-            calendarDlg.setPopupPosition(xd, yd);
-        }
-    }
 
 
     /**
@@ -413,6 +384,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            the widget that the user has clicked
      */
     public void show(Widget sender) {
+        setCursorDate(selectedDate);
         this.drawCalendar();
         if (calendarDlg == null) {
             outer.setVisible(true);
@@ -428,6 +400,33 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         adjustDimensions();
         DOM.scrollIntoView(grid.getElement());
     }
+
+    private void adjustDimensions() {
+        int incr = outer instanceof GWTCSimpleBox ? 30 : 2;
+        navButtons.setWidth(grid.getOffsetWidth() + "px");
+        outer.setWidth(grid.getOffsetWidth() + incr + "px");
+        if (calendarDlg != null) 
+            calendarDlg.setWidth(outer.getOffsetWidth() + "px");
+     }
+     
+     private void moveIntoVisibleArea() {
+         if (calendarDlg != null) {
+             int w = Window.getClientWidth() + Window.getScrollLeft();
+             int xd = calendarDlg.getAbsoluteLeft();
+             int wd = grid.getOffsetWidth() + 40;
+             
+             if ( (xd + wd) > w ) {
+                 xd = xd - ((xd + wd) - w);
+             }
+             int h = Window.getClientHeight() + Window.getScrollTop();
+             int yd = calendarDlg.getAbsoluteTop();
+             int hd = calendarDlg.getOffsetHeight();
+             if ( (yd + hd) > h ) {
+                 yd = yd - ((yd + hd) - h);
+             }
+             calendarDlg.setPopupPosition(xd, yd);
+         }
+     }
 
 
     /**
@@ -491,12 +490,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setCursorDate(Date d) {
-        Date fd = new Date(d.getYear(), d.getMonth(), 1);
+        Date fd = getFirstDayOfMonth(d);
         if (isVisibleMonth(fd, 0)) {
             this.needsRedraw = true;
-            cursorDate = setHourToZero(fd);
+            cursorDate = fd;
         }
     }
+    
 
     /**
      * Set the date selected by the user
@@ -785,6 +785,19 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         t = t * 1000;
         return new Date(t);
     }
+    
+    /**
+     * Get the first date of the month
+     * 
+     * @param date
+     *            Date
+     */
+    public static Date getFirstDayOfMonth(Date date) {
+        Date t = new Date(date.getYear(), date.getMonth(), 1);
+        t = setHourToZero (t);
+        return t;
+    }
+
 
     /**
      * Create a new Date
