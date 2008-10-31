@@ -385,8 +385,8 @@ public class GWTCIntervalSelector extends Composite {
         HorizontalPanel checkinInfo = new HorizontalPanel();
         grid.setWidget(idx, 0, checkinLabel);
         checkinInfo.add(checkinDateLabel);
-        checkinInfo.add(checkinButton);
         checkinInfo.add(checkinWeekLabel);
+        checkinInfo.add(checkinButton);
         grid.setWidget(idx, 1, checkinInfo);
         idx++;
 
