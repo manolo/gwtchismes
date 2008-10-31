@@ -42,3 +42,14 @@ table.GWTCSample td.InfoCell{
   background: white;
 }
 
+.sampleContainer {
+	margin-top: 15px;
+}
+
+.intervalTable {
+	margin-left: auto;
+	margin-right: auto;
+}
+.intervalTable td {
+	border 2px;
+}

@@ -19,22 +19,26 @@ package com.google.code.p.gwtchismes.client;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * <P>
- * A simple progress bar that uses table elements to show progress and with a
+ * A progress bar that uses table elements to show progress and with a
  * basic time remaining calculation built in.
  * 
  * <P>
- * You can optionally display some text above the progress bar and/or display
- * time remaining underneath the progress bar. To control the display of those
- * features, set the options in the constructor as shown in the following usage
+ * You can optionally:
+ *  - show it as a modal dialog
+ *  - display some text above or at the left of the progress bar
+ *  - time remaining, percent, done/total pair, and velocity
+ * To control the display of those features, set the options 
+ * in the constructor as shown in the following usage
+ * 
  * example:
  * 
  * <PRE>
@@ -112,40 +116,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 
 public class GWTCProgress extends Composite {
-    
-    private FocusPanel pageBackground = null;
-    private DialogBox progressDlg = null;
-    private FlexTable contentTable = new FlexTable();
-    Grid elementGrid = null;
-    private Label remainLabel = new Label();
-    private Label textLabel = new Label();
-    private Label numberLabel = new Label();
 
-
-    private long startTime = System.currentTimeMillis();
-    private int elements = 20;
-    private int progress = 0;
-
-    private String secondsMessage = "Time remaining: {0} Seconds";
-    private String minutesMessage = "Time remaining: {0} Minutes";
-    private String hoursMessage = "Time remaining: {0} Hours";
-    private String percentMessage = "{0}%";
-    private String totalMessage = "{0}% {1}/{2} ";
-
-
-    public static final int SHOW_TIME_REMAINING = 1;
-    public static final int SHOW_TEXT = 2;
-    public static final int SHOW_LEFT_TEXT = 16;
-    public static final int SHOW_NUMBERS = 4;
-    public static final int SHOW_AS_DIALOG = 8;
-    public static final int SHOW_DEFAULT = SHOW_AS_DIALOG | SHOW_NUMBERS | SHOW_TEXT | SHOW_TIME_REMAINING;
-
-    private boolean showRemaining = false;
-    private boolean showText = false;
-    private boolean showLeftText = false;
-    private boolean showNumbers = false;
-    private boolean showAsDialog = false;
-    
     public static final String StyleCProgress = "GWTCProgress";
     public static final String StyleCProgressDlg = "prg-dialog";
     public static final String StyleCPrgNumbers = "prg-numbers";
@@ -159,6 +130,38 @@ public class GWTCProgress extends Composite {
     public static final String StyleCBarBlank = "prg-bar-blank";
     public static final String StyleCBarElement = "prg-bar-element";
     
+    public static final int SHOW_TIME_REMAINING = 1;
+    public static final int SHOW_TEXT = 2;
+    public static final int SHOW_LEFT_TEXT = 16;
+    public static final int SHOW_NUMBERS = 4;
+    public static final int SHOW_AS_DIALOG = 8;
+    public static final int SHOW_DEFAULT = SHOW_AS_DIALOG | SHOW_NUMBERS | SHOW_TEXT | SHOW_TIME_REMAINING;
+
+    private FocusPanel pageBackground = null;
+    private DialogBox progressDlg = null;
+    private FlexTable contentTable = new FlexTable();
+    private Grid elementGrid = null;
+    private Label remainLabel = new Label();
+    private Label textLabel = new Label();
+    private Label numberLabel = new Label();
+
+    private long startTime = System.currentTimeMillis();
+    private int elements = 20;
+    private int progress = 0;
+
+    private String secondsMessage = "Time remaining: {0} Seconds";
+    private String minutesMessage = "Time remaining: {0} Minutes";
+    private String hoursMessage = "Time remaining: {0} Hours";
+    private String percentMessage = "{0}%";
+    private String totalMessage = "{0}% {1}/{2} ";
+
+    private boolean showRemaining = false;
+    private boolean showText = false;
+    private boolean showLeftText = false;
+    private boolean showNumbers = false;
+    private boolean showAsDialog = false;
+    
+    
     /**
      * Base constructor for this widget
      * 
@@ -168,7 +171,7 @@ public class GWTCProgress extends Composite {
      *            The display options for the progress bar
      */
     public  GWTCProgress(int elements, int options) {
-        // Read the options and set convenience variables
+        // Read the options and set variables
         if ((options & SHOW_TIME_REMAINING) == SHOW_TIME_REMAINING)
             showRemaining = true;
         if ((options & SHOW_TEXT) == SHOW_TEXT)
@@ -210,17 +213,14 @@ public class GWTCProgress extends Composite {
         }
     
         // Set up the surrounding flex table based on the options
-        // contentTable.setWidth("100%");
         int row = 0;
         int col = 0;
-        
         if (showLeftText)
             contentTable.setWidget(row, col++, textLabel);
         else if (showText)
             contentTable.setWidget(row++, col, textLabel);
         if (showNumbers)    
             contentTable.setWidget(row, col + 1 , numberLabel);
-        
         contentTable.setWidget(row++, col, containerElementGrid);
         contentTable.setWidget(row++, col, remainLabel);
         
@@ -240,7 +240,7 @@ public class GWTCProgress extends Composite {
             progressDlg.center();
             hide();
             // Initialize this composite with an empty element
-            initWidget(new DockPanel());
+            initWidget(new SimplePanel());
         } else {
             initWidget(contentTable);
         }
@@ -334,8 +334,6 @@ public class GWTCProgress extends Composite {
             Object[] os = { "" + percentage, "" + done, "" + total, "" + velocity };
             numberLabel.setText(GWTCHelper.internationalize(message, os));
         }
-        // This fails in safari 2.0  and opera
-        //center();
     }
 
     /**
