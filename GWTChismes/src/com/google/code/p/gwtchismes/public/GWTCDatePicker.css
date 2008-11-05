@@ -17,29 +17,129 @@
   cursor: move;
   text-align : center;
 }
-.GWTCDatePicker .Cal_Buttons {
-  /* width: 100%; */
-  width: 230px;
-  background-color: #fff;
+.GWTCDatePicker .panelButtons {
   vertical-align: middle;
   border-bottom: 1px solid #ACA899;
 }
-.GWTCDatePicker .Cal_TopButtons {
+.GWTCDatePicker .topButtons {
   margin-left: auto;
   margin-right: auto;
   min-width: 150px;
 }
-.GWTCDatePicker .Cal_Buttons .Cal_Header {
+.GWTCDatePicker .panelButtons .header {
   background-color: #fff;
   cursor: default; 
   text-align : center;
   font-weight: bold;
+  min-height: 15px;
+  max-height: 20px;
+  padding-top: 5px;
 }
-.Cal_Header {
-	min-height: 15px;
-	max-height: 20px;
-	padding-top: 5px;
+
+.GWTCDatePicker .panelDays {
+  cursor: default;
+  font: 10pt sans-serif;
+  text-align: center;
 }
+.GWTCDatePicker .panelDays .weekHeader {
+  background-color: #ACA899;
+}
+
+.GWTCDatePicker .panelDays .weekHeader .cellDayNames {
+  text-align : center;
+  font-weight : bold;
+  padding : 4px; /*This is the main responsible attribute for the datapicker width */
+  background : #d0e6ff;
+  border : 1px solid #fff;
+}
+
+.GWTCDatePicker .panelDays A:link    {color: black; text-decoration: none}
+.GWTCDatePicker .panelDays A:visited {color: black; text-decoration: none}
+.GWTCDatePicker .panelDays A:active  {color: black; text-decoration: none; cursor: wait}
+.GWTCDatePicker .panelDays A:hover   {color: black; text-decoration: none}
+.GWTCDatePicker .panelDays td.cellDays {
+  border: none;
+}
+.GWTCDatePicker .panelDays div.cellDays {
+  background: #fff url(images/gwtc-cpicker-bg-day.png) no-repeat center center;
+  text-align: center;
+  border: 1px solid #fff;
+}
+.GWTCDatePicker .panelDays div.cellDays:hover,
+.GWTCDatePicker .panelDays    .cellDays div.gwtc-Hover, 
+.GWTCDatePicker .panelDays    .cellDays div.gwtc-Active {
+  background: #dfdfdf; /* url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;*/
+  font-weight : bold;
+}
+.GWTCDatePicker .panelDays div.cellDays:active,
+.GWTCDatePicker .panelDays    .cellDays div.gwtc-Active {
+  cursor: wait;	
+  background: pink;
+  padding : 0px;
+}
+.GWTCDatePicker .panelDays div.cellDays {
+  width: 100%;
+  height: 100%;
+  line-height: 2em;
+}
+.GWTCDatePicker .panelDays div.cellEmpty {
+  background-color: white;
+} 
+.GWTCDatePicker .panelDays div.invalidDay, 
+.GWTCDatePicker .panelDays div.invalidDay:hover {
+  cursor: default;
+  text-decoration: line-through;
+  color : #999;
+  background : #fff;
+  font-weight : normal;
+} 
+
+.GWTCDatePicker .panelDays div.today {
+  cursor: pointer;
+  background: #fff url(images/gwtc-cpicker-bg-today.png) no-repeat center center;
+}
+.GWTCDatePicker .panelDays div.today:hover {
+  cursor: pointer;
+  background: #fff url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;
+}
+.GWTCDatePicker .panelDays div.beforeSelected {
+  cursor: pointer;
+}
+.GWTCDatePicker .panelDays div.selectedDay,
+.GWTCDatePicker .panelDays div.selectedDay:hover,
+.GWTCDatePicker .panelDays    .selectedDay div.gwtc-Hover {
+  cursor: default;
+  background-color : #dfdfdf;
+  background: #fff url(images/gwtc-cpicker-bg-selected.png) no-repeat center center;
+  font-weight: normal;
+}
+.GWTCDatePicker .panelDays div.afterSelected {
+  cursor: pointer;
+}
+
+.GWTCDatePicker-help .GWTCBox {
+	font-size: 9pt;
+}
+
+.GWTCDatePicker-box, 
+.GWTCDatePicker-box .panelButtons .header,
+.GWTCDatePicker-box .Caption {
+  background: transparent;
+}
+.GWTCDatePicker-box .Caption {
+	height: 16px;
+}
+.GWTCDatePicker-box  {
+  border: none;
+}
+
+.GWTCDatePicker .my-btn-c {
+  width: 100%;
+}
+
+
+
+/*
 .GWTCDatePicker .Cal_Buttons .gwt-Button {
   padding-left: 5px;
   padding-right: 5px;
@@ -51,96 +151,6 @@
   padding-right: 5px;
   background : #dfdfdf url(images/gwtc-button-bg-over.jpg) repeat-x bottom;
 }
-/* Calendar Grid */
-.GWTCDatePicker .Cal_Grid {
-  cursor: default;
-  font: 10pt sans-serif;
-  text-align: center;
-}
-/* Calendar Grid WeekHeaders */
-.GWTCDatePicker .Cal_Grid .Cal_WeekHeader {
-  background-color: #ACA899;
-}
-.GWTCDatePicker .Cal_Grid .Cal_WeekHeader .Cal_CellDayNames {
-  text-align : center;
-  font-weight : bold;
-  padding : 4px;
-  background : #d0e6ff;
-  border : 1px solid #fff;
-}
-/* Calendar Grid Day Cells */
-.GWTCDatePicker A:link      {color: black; text-decoration: none}
-.GWTCDatePicker A:visited {color: black; text-decoration: none}
-.GWTCDatePicker A:active  {color: black; text-decoration: none; cursor: wait}
-.GWTCDatePicker A:hover  {color: black; text-decoration: none}
-.GWTCDatePicker .Cal_Grid td.Cal_CellDays {
-  border: none;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_CellDays {
-  background: #fff url(images/gwtc-cpicker-bg-day.png) no-repeat center center;
-  text-align: center;
-  border: 1px solid #fff;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_CellDays:hover,
-.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Hover, 
-.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Active {
-  background: #dfdfdf; /* url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;*/
-  font-weight : bold;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_CellDays:active,
-.GWTCDatePicker .Cal_Grid    .Cal_CellDays div.gwtc-Active {
-  cursor: wait;	
-  background: pink;
-  padding : 0px;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_CellDays {
-  width: 100%;
-  height: 100%;
-  line-height: 2em;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_CellEmpty {
-  background-color: white;
-} 
-.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay, 
-.GWTCDatePicker .Cal_Grid div.Cal_InvalidDay:hover {
-  cursor: default;
-  text-decoration: line-through;
-  color : #999;
-  background : #fff;
-  font-weight : normal;
-} 
-
-.GWTCDatePicker .Cal_Grid div.Cal_Today {
-  cursor: pointer;
-  background: #fff url(images/gwtc-cpicker-bg-today.png) no-repeat center center;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_Today:hover {
-  cursor: pointer;
-  background: #fff url(images/gwtc-cpicker-bg-day-over.png) no-repeat center center;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_BeforeSelected {
-  cursor: pointer;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_Selected,
-.GWTCDatePicker .Cal_Grid div.Cal_Selected:hover,
-.GWTCDatePicker .Cal_Grid    .Cal_Selected div.gwtc-Hover {
-  cursor: default;
-  background-color : #dfdfdf;
-  background: #fff url(images/gwtc-cpicker-bg-selected.png) no-repeat center center;
-  font-weight: normal;
-}
-.GWTCDatePicker .Cal_Grid div.Cal_AfterSelected {
-  cursor: pointer;
-}
-
-.GWTCDatePicker .my-btn-c {
-  width: 100%;
-}
-
-.Cal_Help .gwtc-alert-cell-msg {
-	font-size: 9pt;
-}
-
-
+*/
 
 

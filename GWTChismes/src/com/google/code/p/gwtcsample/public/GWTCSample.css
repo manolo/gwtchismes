@@ -3,6 +3,10 @@ body {
 	font-size: 12px;
 }
 
+.sampleContainer {
+	margin-top: 15px;
+}
+
 table.GWTCSample {
    margin-left: auto;
    margin-right: auto;
@@ -37,19 +41,37 @@ table.GWTCSample td.InfoCell{
 	margin-right: auto;
 }
 
+/*
 .GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
   border: 6px solid #d0e6ff;
   background: white;
 }
+*/
 
-.sampleContainer {
-	margin-top: 15px;
-}
-
+		
 .intervalTable {
-	margin-left: auto;
-	margin-right: auto;
 }
-.intervalTable td {
-	border 2px;
+
+.intervalTitles {
+	border: solid 1px black;
 }
+
+.GWTCIntervalSelector table.GWTCIntervalGrid {
+	border : 1px solid #dfdfdf; 
+}
+
+.checkinLabel, .checkoutLabel, .durationLabel 
+{
+	font-weight: bold; color : #000;
+	margin-right: 4px;
+}
+
+.sampleBox .panel td {
+  border:1px solid #BBBBBB;
+  padding:3px;
+}
+
+
+
+
+

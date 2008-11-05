@@ -17,8 +17,13 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -29,10 +34,11 @@ public class GWTCBox extends DecoratorPanel {
     public static final String StyleFlat = "GWTCBox";
     public static final String StyleBlue = "GWTCBox-blue";
     public static final String StyleGrey = "GWTCBox-grey";
-    public static final String StylePanel = "panelCenter";
-    
-    HTML title = null;
-    HTML text = null;
+    public static final String StyleTitle = "title";
+    public static final String StyleText = "text";
+    public static final String StylePanel = "panel";
+    HTML title = new HTML();
+    HTML text = new HTML();
     DockPanel panel = new DockPanel();
 
     public GWTCBox() {
@@ -40,6 +46,29 @@ public class GWTCBox extends DecoratorPanel {
         super.add(panel);
         panel.setStyleName(StylePanel);
         setStyleName(StyleFlat);
+        panel.add(this.title, DockPanel.NORTH);
+        panel.add(this.text, DockPanel.NORTH);
+    }
+    
+    @Override
+    public void setSize(String width, String height) {
+        super.setSize(width, height);
+        adjustSize(width);
+    }
+
+    @Override
+    public void setWidth(String width) {
+        super.setWidth(width);
+        adjustSize(width);
+    }
+
+    private void adjustSize(String width) {
+        Element topCenter = DOM.getChild(DOM.getChild(DOM.getChild(getElement(), 0), 0), 1);
+        if (width.equals("auto")){
+            DOM.setStyleAttribute(topCenter, "width", "auto");
+        } else {
+            DOM.setStyleAttribute(topCenter, "width", "100%");
+        }
     }
 
     public GWTCBox(String style) {
@@ -69,19 +98,12 @@ public class GWTCBox extends DecoratorPanel {
 
     @Override
     public void setTitle(String title) {
-        if (this.title == null) {
-            this.title = new HTML();
-            panel.add(this.title, DockPanel.NORTH);
-        }
-        this.title.setHTML("<h3>" + title + "</h3>");
+        this.title.setHTML("<h3" + " class=\"" + StyleTitle + "\">"+ title + "</h3>");
     }
 
     public void setText(String text) {
-        if (this.text == null) {
-            this.text = new HTML();
-            panel.add(this.text, DockPanel.CENTER);
-        }
-        this.text.setHTML("<p>" + text + "</p>");
+        this.text.setHTML("<p" + " class=\"" + StyleText + "\">" + text + "</p>");
     }
+    
 
 }

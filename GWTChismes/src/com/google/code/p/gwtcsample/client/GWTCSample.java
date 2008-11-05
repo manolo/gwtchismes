@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
+import com.google.code.p.gwtchismes.client.GWTCBackPanel;
 import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
@@ -34,7 +35,15 @@ import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.ChangeListener;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Manuel Carrasco Moñino
@@ -47,7 +56,6 @@ public class GWTCSample implements EntryPoint {
 
 private HashMap intervalStrs = new HashMap();
 
-  private final FlexTable grid = new FlexTable();
   private final GWTCSampleI18n i18n = (GWTCSampleI18n)GWT.create(GWTCSampleI18n.class);
   
   private final GWTCAlert alert = new GWTCAlert();
@@ -76,6 +84,7 @@ private HashMap intervalStrs = new HashMap();
    * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
    */
   public void onModuleLoad() {
+      
     GWTCTabPanel tp = new GWTCTabPanel();
     
     GWTCBox p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
@@ -95,6 +104,7 @@ private HashMap intervalStrs = new HashMap();
     tp.add(p1, "Progress Bar");
 
     p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+    testBox(p1);
     testBigBox(p1);
     tp.add(p1, "Rounded Box");
 
@@ -133,14 +143,17 @@ private HashMap intervalStrs = new HashMap();
 
       FlexTable grid = new FlexTable();
       grid.addStyleName("intervalTable");
+      grid.getRowFormatter().setStyleName(0, "intervalTitles");
       grid.setText(0, 0, "Layout 1");
       grid.setText(0, 1, "Layout 2");
       grid.setWidget(1,0,interval1);
       grid.setWidget(1,1,interval2);
+      grid.getRowFormatter().setStyleName(2, "intervalTitles");
       grid.setText(2, 0, "Layout 3");
       grid.setText(2, 1, "Layout 4");
       grid.setWidget(3,0,interval3);
       grid.setWidget(3,1,interval4);
+      grid.getRowFormatter().setStyleName(4, "intervalTitles");
       grid.setText(4, 0, "Layout 5");
       grid.setText(4, 1, "Layout 6");
       grid.setWidget(5,0,interval5);
@@ -172,10 +185,9 @@ private HashMap intervalStrs = new HashMap();
           alert.alert(dPicker2.getSelectedDateStr("dddd,  dd/MMMM/yyyy"));
         }
       });
-      dPicker2.drawCalendar();
 
       // Create a default date-picker and a launcher button
-      final GWTCDatePicker dPicker3 = new GWTCDatePicker(true);
+      final GWTCDatePicker dPicker3 = new GWTCDatePicker(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_DRAW_BOX );
       dPicker3.addChangeListener(new ChangeListener() {
         public void onChange(Widget widget) {
           alert.alert(dPicker3.getSelectedDateStr("dd/MMM/yyyy"));
@@ -190,7 +202,8 @@ private HashMap intervalStrs = new HashMap();
 
       box.setTitle(i18n.title_pickers_box());
       box.add(dPicker1, DockPanel.WEST);
-      box.add(dPicker2, DockPanel.EAST);
+      box.add(dPicker2, DockPanel.WEST);
+      box.add(dButton, DockPanel.WEST);
       
   }
 
@@ -207,7 +220,6 @@ private HashMap intervalStrs = new HashMap();
 
       // Create the button that shows the alert dialog when is clicked by the user
       GWTCButton alertButton = new GWTCButton(GWTCButton.BUTTON_TYPE_1, "");
-      alertButton.addStyleName("SampleButton");
       alertButton.setText(i18n.button_alert());
       alertButton.setType(GWTCButton.BUTTON_TYPE_1);
       alertButton.addClickListener(new ClickListener() {
@@ -216,6 +228,19 @@ private HashMap intervalStrs = new HashMap();
         }
       });
 
+      // Create the button that shows the alert dialog when is clicked by the user
+      GWTCButton alertButton2 = new GWTCButton(GWTCButton.BUTTON_TYPE_2, "");
+      final GWTCAlert alert2 = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
+      alert2.setText("This is a decorated alert");
+      alertButton2.setText(i18n.button_alert());
+      alertButton2.setType(GWTCButton.BUTTON_TYPE_2);
+      alertButton2.addClickListener(new ClickListener() {
+        public void onClick(Widget sender) {
+          alert2.show();
+        }
+      });
+      
+      
       // Create a sample disabled GWTCButton
       GWTCButton disabledButton = new GWTCButton(i18n.button_disabled());
       alertButton.setType(GWTCButton.BUTTON_TYPE_2);
@@ -227,6 +252,7 @@ private HashMap intervalStrs = new HashMap();
       box.setTitle(i18n.title_buttons_box());
       box.add(waitButton);
       box.add(alertButton);
+      box.add(alertButton2);
       box.add(disabledButton);
       box.add(disabledButton);
       box.add(printButton);
@@ -258,12 +284,12 @@ private HashMap intervalStrs = new HashMap();
           }
       }
 
-      // Create a progress bar that is looping for ever
       final GWTCProgress prgBar1 = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_LEFT_TEXT | GWTCProgress.SHOW_NUMBERS);
       prgBar1.setText("gwt-file.jar");
       prgBar1.addStyleName("gwtcu-thinBar");
-      final Timer t2 = new pTimer(prgBar1, true);
-      t2.scheduleRepeating(200);
+      final Timer t1 = new pTimer(prgBar1, true);
+      t1.scheduleRepeating(500);
+      
 
       // Create a progress bar and a launcher button
       final GWTCProgress prgBar2 = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
@@ -273,53 +299,21 @@ private HashMap intervalStrs = new HashMap();
       prgBar2.setHoursMessage(i18n.progress_hours());
       prgBar2.setMinutesMessage(i18n.progress_minutes());
       prgBar2.setSecondsMessage(i18n.progress_seconds());
-      final Timer t = new pTimer(prgBar2, false);
+      final Timer t2 = new pTimer(prgBar2, false);
 
       final GWTCButton pButton = new GWTCButton(i18n.button_progress(), new ClickListener() {
             public void onClick(Widget sender) {
-                t2.cancel();
                 prgBar2.show();
-                t.scheduleRepeating(200);
+                t2.scheduleRepeating(200);
             }
         });
       
       box.setTitle("TODO: i18n ProgressBars");
-      box.add(prgBar1);
-      box.add(pButton);
+      box.add(prgBar1, DockPanel.WEST);
+      box.add(pButton, DockPanel.WEST);
 
   }
 
-  public void testProgressWithLeftText() {
-  }
-
-  public void testProgressDialog() {
-      final GWTCProgress progressBar = new GWTCProgress(40, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT | GWTCProgress.SHOW_NUMBERS | GWTCProgress.SHOW_AS_DIALOG);
-      progressBar.setText(i18n.progress_title());
-      progressBar.setTotalMessage(i18n.progress_total());
-      progressBar.setPercentMessage(i18n.progress_percent());
-      progressBar.setHoursMessage(i18n.progress_hours());
-      progressBar.setMinutesMessage(i18n.progress_minutes());
-      progressBar.setSecondsMessage(i18n.progress_seconds());
-      progressBar.setProgress(55, 105);
-      progressBar.show();
-      RootPanel.get().add(progressBar);
-      final Timer t = new Timer() {
-          int done = 0;
-          int total = 400;
-
-          public void run() {
-              if (done >= total) {
-                  cancel();
-                  progressBar.hide();
-                  done = 0;
-              }
-              System.out.println(done + " " + total);
-              progressBar.setProgress(done, total);
-              done += 15;
-          }
-      };
-      t.scheduleRepeating(200);
-  }
 
   String  styles[] = {GWTCBox.StyleFlat, GWTCBox.StyleBlue, GWTCBox.StyleGrey};
   GWTCBox bigBox = new GWTCBox();
@@ -338,8 +332,30 @@ private HashMap intervalStrs = new HashMap();
       for(int i=0; i<40; i++) {
           bigBox.add(new Label("This is the line " + i));
       }
-      box.add(b);
-      box.add(bigBox);
+      box.add(b, DockPanel.NORTH);
+      box.add(bigBox, DockPanel.NORTH);
+  }
+  
+  public void testBox(GWTCBox box) {
+      
+      GWTCBox mb = new GWTCBox(GWTCBox.StyleBlue);
+      mb.addStyleName("sampleBox");
+      mb.setTitle("setTitle: Title is placed on the top");
+      mb.setText("setText: Text is placed bellow the title");
+      mb.add(new Label("NORTH 1"), DockPanel.NORTH);
+      mb.add(new Label("SOUTH 1"), DockPanel.SOUTH);
+      mb.add(new Label("WEST 1"), DockPanel.WEST);
+      mb.add(new Label("EAST 1"), DockPanel.EAST);
+      mb.add(new Label("CENTER"), DockPanel.CENTER);
+      mb.add(new Label("NORTH 2"), DockPanel.NORTH);
+      mb.add(new Label("NORTH 3"), DockPanel.NORTH);
+      mb.add(new Label("SOUTH 2"), DockPanel.SOUTH);
+      mb.add(new Label("SOUTH 3"), DockPanel.SOUTH);
+      mb.add(new Label("WEST 2"), DockPanel.WEST);
+      mb.add(new Label("WEST 3"), DockPanel.WEST);
+      mb.add(new Label("EAST 2"), DockPanel.EAST);
+      mb.add(new Label("EAST 3"), DockPanel.EAST);
+      box.add(mb, DockPanel.WEST);
   }
   
   public void testTabPanel() {

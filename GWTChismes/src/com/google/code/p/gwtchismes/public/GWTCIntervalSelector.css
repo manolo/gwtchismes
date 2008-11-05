@@ -3,12 +3,13 @@
   font-size: 10pt;
   vertical-align: middle;
 }
-/*
-table.GWTCIntervalSelector {
-	width: 100%;
-	margin-top: 10px;
+
+.NightsSelectorListBox {
+	font-size: 10px;
+	height: 18px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
-*/
 
 .GWTCIntervalSelector .GWTCIntervalLayout1 table.DateInfo, 
 .GWTCIntervalSelector .GWTCIntervalLayout1 table.DateChanger {
@@ -51,9 +52,13 @@ table.GWTCIntervalSelector {
 	color : #f60; 
 }
 
+.GWTCIntervalLayout2 .nightsLabel {
+    margin-left: 7px;
+}
+
 .GWTCIntervalLayout2 .checkinLabel, .GWTCIntervalLayout2 .checkoutLabel, .GWTCIntervalLayout2 .durationLabel, 
 .GWTCIntervalLayout3 .checkinLabel, .GWTCIntervalLayout3 .checkoutLabel, .GWTCIntervalLayout3 .durationLabel, 
-.GWTCIntervalLayout4 .checkinLabel, .GWTCIntervalLayout4 .nightsLabel 
+.GWTCIntervalLayout4 .checkinLabel, .GWTCIntervalLayout4 .checkoutLabel, .GWTCIntervalLayout4 .nightsLabel 
 {
 	font-weight: bold; color : #000;
 }

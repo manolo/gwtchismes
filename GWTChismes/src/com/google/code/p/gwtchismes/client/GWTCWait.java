@@ -169,7 +169,8 @@ public class GWTCWait extends Composite {
         waitDlg.show();
         pageBackground.setVisible(true);
         contentTable.setVisible(true);
-        center();
+        GWTCHelper.maximizeWidget(pageBackground);
+        waitDlg.center();
     }
     
 
@@ -182,12 +183,4 @@ public class GWTCWait extends Composite {
         pageBackground.setVisible(false);
     }
     
-    public void center() {
-        // Maximize background 
-    	GWTCHelper.maximizeWidget(pageBackground);
-        // Center the dialog
-    	waitDlg.center();
-        //GWTCHelper.centerPopupPanel(waitDlg);
-    }
-
 }

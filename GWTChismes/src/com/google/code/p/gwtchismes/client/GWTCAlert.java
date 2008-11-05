@@ -19,26 +19,31 @@
 package com.google.code.p.gwtchismes.client;
 
 
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.*;
 
 /**
- * @author Manuel Carrasco Moñino
- *         <h3>Class description</h3>
- *   <p>      
- * This widget is a modal dialog for displaying alerts. It is based in a
- * {@link com.google.gwt.user.client.ui.PopupPanel} as container
+ * <p>
+ * <b>Modal dialog for displaying alerts.</b> 
  * </p>
-   <h3>Example</h3>
-    <pre>
-        final GWTCAlert alert = new GWTCAlert(); 
-        alert.alert("Hello, you can put here any message"); 
-    </pre>        
+ * @author Manuel Carrasco Moñino
+ * 
+ * <h3>Features</h3>
+ * <ul>
+ * <li>It can be shown inside of a decorated box with rounded corners</li>
+ * <li>Possibility of showing a semitransparent background layer, avoiding the user interaction with other controls</li>
+ * <li>Auto-hide after a configurable period</li>
+ * <li>Customizable Ok-button.</li>
+ * </ul>
+ *  <h3>Example</h3>
+ *   <pre>
+      final GWTCAlert alert = new GWTCAlert(); 
+      alert.alert("Hello, you can put here any message");
+         
+      alert = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE | GWTCAlert.OPTION_DISABLE_OK_BUTTON | GWTCAlert.OPTION_ANIMATION );
+      alert.alert("This is a message that will desapear after a while", 3);
+     </pre>     
+ *   </pre>        
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
  * <li>.GWTCAlert { DialogBox container}</li>
@@ -58,9 +63,11 @@ public class GWTCAlert extends Composite {
     public static final String StyleCAlertBtn = "gwtc-alert-button";
     
     static public int OPTION_DISABLE_OK_BUTTON = 1;
-    static public int OPTION_SQUARED = 2;
+    static public int OPTION_ROUNDED_FLAT = 2;
     static public int OPTION_ROUNDED_GREY = 4;
     static public int OPTION_ROUNDED_BLUE = 8;
+    static public int OPTION_DISABLE_BACKGROUND = 16;
+    static public int OPTION_ANIMATION = 32;
     
     FocusWidget focusWidget = null;
 
@@ -70,27 +77,50 @@ public class GWTCAlert extends Composite {
     FlexTable contentTable = new FlexTable();
     private HTML txt = new HTML();
     private GWTCButton okButton = new GWTCButton("OK");
+    private GWTCBackPanel pageBackground = null;
+    
+    /**
+     * Constructor with default options
+     */
     public GWTCAlert() {
         this(0);
     }
 
+    /**
+     * Base constructor. 
+     * Different options can be passed joining these constant using the or bit wise operator
+     * <ul>
+     * <li>OPTION_DISABLE_BACKGROUND    don't show the background layer</li>
+     * <li>OPTION_ROUNDED_GREY          put a flat GWTCBox arround the alert</li>
+     * <li>OPTION_ROUNDED_GREY          put a grey GWTCBox arround the alert</li>
+     * <li>OPTION_ROUNDED_BLUE          put a blue GWTCBox arround the alert</li>
+     * <li>OPTION_DISABLE_OK_BUTTON     don't show the OK button</li>
+     * <li>CONFIG_ANIMATION      animate the dialog box when it is showed/hidden</li>    
+     * </ul>
+     *  
+     * @param config
+     *      cofiguration options.
+     */
     public GWTCAlert(int options) {
         
         if ((options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
         
         if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-          alertDlg = new GWTCPopupBox(GWTCSimpleBox.STYLE_NORMAL);
-          alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
+          alertDlg = new GWTCPopupBox(GWTCBox.StyleGrey);
+          alertDlg.addStyleName(GWTCAlert.StyleCAlertBox);
         } else  if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-          alertDlg = new GWTCPopupBox(GWTCSimpleBox.STYLE_BLUE);
-          alertDlg.setStyleName(GWTCAlert.StyleCAlertBox);
+          alertDlg = new GWTCPopupBox(GWTCBox.StyleBlue);
+          alertDlg.addStyleName(GWTCAlert.StyleCAlertBox);
         } else {
           alertDlg = new PopupPanel();
           alertDlg.setStyleName(GWTCAlert.StyleCAlert);
-          alertDlg.setAnimationEnabled(true);
         }
-        
+        alertDlg.setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
+
+        if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
+            pageBackground = new GWTCBackPanel();
+        }
         
         contentTable.setStyleName(GWTCAlert.StyleCAlertTable);
         contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.StyleCAlertMsgCell);
@@ -116,7 +146,7 @@ public class GWTCAlert extends Composite {
         alertDlg.add(contentTable);
         alertDlg.center();
         hide();
-        initWidget(new DockPanel());
+        initWidget(new SimplePanel());
     }
     
     public void addClickListener(ClickListener listener) {
@@ -136,7 +166,7 @@ public class GWTCAlert extends Composite {
      * @param ok
      *            the internationalizated string
      */
-    public void setLocale(String ok) {
+    public void setOkButtonMsg(String ok) {
         okButton.setHTML(ok);
     }
 
@@ -147,21 +177,40 @@ public class GWTCAlert extends Composite {
      *            the message to display
      */
     public void setText(String s) {
-        txt.setHTML(s);
-        //txt.setText(s);
+        txt.setHTML(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
     }
 
     /**
-     * Set the message text and show the dialog
+     * Sets the message text and shows the dialog
      * 
      * @param s
      *            the message to display
      */
     public void alert(String s) {
-        setText(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
+        setText(s);
         show();
     }
 
+    /**
+     * Sets the message text, shows the dialog, and automatically hides it after a period
+     * 
+     * @param s
+     *            the message to display
+     * @param timeout
+     *            timeout in seconds for autohide           
+     */
+    public void alert(String s, int timeout) {
+        setText(s);
+        show(timeout);
+    }
+
+    /**
+     * Sets the message text, shows the dialog and eventually moves the focus to the widget after the user pushes ok.
+     * This is thought for validation messages in forms
+     * 
+     * @param s
+     *            the message to display
+     */
     public void alert(String s, FocusWidget focus) {
         setText(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
         focusWidget = focus;
@@ -169,26 +218,49 @@ public class GWTCAlert extends Composite {
     }
 
     /**
-     * Show the alert dialog 
+     * Shows the alert dialog 
      */
     public void show() {
-        alertDlg.show();
+        if (pageBackground != null) 
+            pageBackground.show();
         contentTable.setVisible(true);
         alertDlg.center();
     }   
     
     /**
-     * Hide the dialog box
+     * Shows the alert dialog, and hides it after a period
+     *  
+     * @param timeout
+     *            timeout in seconds for autohide           
+     */
+    public void show(int timeout) {
+        if (timeout > 0) {
+            Timer t = new Timer() {
+                public void run() {
+                    hide();
+                }
+            };
+            t.schedule(timeout * 1000);
+        }
+        show();
+    }
+
+    
+    /**
+     * Hides the dialog box
      */
     public void hide() {
         alertDlg.hide();
         contentTable.setVisible(false);
+        if (pageBackground != null)
+            pageBackground.hide();
     }
 
-    public boolean isOkButtonDisabled() {
-        return okButtonDisabled;
-    }
-
+    /**
+     * Disable the OK button. Useful for showing autohide messages.
+     * 
+     * @param b
+     */
     public void setOkButtonDisabled(boolean b) {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
