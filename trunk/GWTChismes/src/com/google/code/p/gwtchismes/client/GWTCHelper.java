@@ -17,11 +17,10 @@
 
 package com.google.code.p.gwtchismes.client;
 
-import com.google.gwt.user.client.*;
-import com.google.gwt.core.client.*;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -172,4 +171,20 @@ public class GWTCHelper {
         url = url.replaceAll("&amp;", "&");
         return url.matches(".*" + reg + ".*") ? url.replaceFirst("^.*[?&]" + key + "=", "").replaceAll("&.*$", "") : null;
     }
+    
+    public static Element getFirstElementByAttr(Element ele, String attr, String value) {
+        int n = DOM.getChildCount(ele);
+        for (int i=0; i<n; i++) {
+            Element e = DOM.getChild(ele, i);
+            String v = DOM.getElementAttribute(e, attr);
+            if (v != null && v.matches(value)) 
+                return e;
+            if (DOM.getChildCount(ele) > 0) 
+                e = getFirstElementByAttr(e, attr, value);
+            if (e != null)
+                return e;
+        }
+        return null;
+    }
+
 }

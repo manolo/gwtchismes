@@ -33,100 +33,127 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
-/**
- * @author Manuel Carrasco Moñino
- * <h3>Class description</h3>
-        <p> A widget to select an interval betwen two dates. </p>
-        <p>You can configure minimalDate, maximalDate, layout, and number of days for the interval. </p>
-   <h3>Example</h3>
-    <pre>
-        // Configure internationalized strings using english language
-        private HashMap strs_en = new HashMap();
-        strs_en.put("format.date", "MMM  dd, yyyy");
-        strs_en.put("format.day", "(ddd.)");
-        strs_en.put("key.checkin", "Checkin");
-        strs_en.put("key.checkout", "Checkout");
-        strs_en.put("key.nights", "Nights");
-        strs_en.put("key.interval", "Interval");
-        strs_en.put("key.change", "Change");
-        strs_en.put("key.checkin.button", "...");
-        strs_en.put("key.checkout.button", "...");
-        strs_en.put("key.calendar.checkin.title", "Select checkin date");
-        strs_en.put("key.calendar.checkout.title", "Select checkout date");
-        
-        // Create a layout1 interval-selector and set the locale in english 
-        GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
-        interval1.setLocale(strs_en);
-    </pre>        
-        
-     <h3>CSS Style Rules</h3>
-       <ul>
-         <li>.GWTCIntervalSelector { GWTCIntervalSelector main container} </li>
-         <li>.GWTCIntervalLayout[1..n] {container table}</li>
-       </ul>     
-     
-     <p> css styles for layouttype=1
-       <ul>
-        <li>.SelectorContainer {row that contains the table with the selection widgets}</li>
-        <li>.DateChanger { class for the table container of selection widgets } </li> 
-        <li>.DateChanger.DateSelector { class for the cell with the link that lauch the DatePicker} </li>
-        <li>.DateChanger.NighsSelectorLabel  {class for the cell with the interval label } </li>
-        <li>.DateChanger.NightsSelectorListBox { class for the cell with the interval selector box } </li>
-        
-        <li>.InfoContainer  {row that contains the table with information about the interval } </li> 
-        <li> .DateInfo { class for the table container of info about the interval } </li>
-        <li> .DateInfo.CheckinInfo { class for the row <tr> with the info of the begin of interval } <li>
-        <li> .DateInfo.CheckoutInfo { class for the row <tr> with the info of the end of interval } <li>
-        <li> .DateLabel (class for the cell with the date label) </li>
-        <li> .DateValue (class for the cell with the date value) </li>
-        <li> .DateWeekD (class for the cell with the weekday name) </li>
-        <li> .ColLabels (aditional class for the cells of the fisrt column) </li>
-       </ul>
-      </p>
-      
-     <p> css styles for layouttype=2
-     <ul>
-        <li>.GWTCIntervalLayout2 {container table}</li>
-        <li> .CheckinInfo { class for the row <tr> with the info of the begin of interval } <li>
-        <li> .checkinLabel {class for the label for the first day in interval } </li>
-        <li> .checkinDateLabel {class for the label with the initial date in interval} </li>
-        <li> .checkinWeekLabel { class for the label with the weekday name ) </li>
-        <li> .checkinButton {class for the button that launchs the DatePicker for initial day} </li>
-        
-        <li> .CheckoutInfo { class for the row <tr> with the info of the end of interval } <li>
-        <li> .checkoutLabel {class for the label for the last day in interval } </li>
-        <li> .checkoutDateLabel {class for the label with the lastl date in interval} </li>
-        <li> .checkoutWeekLabel { class for the label with the weekday name ) </li>
-        <li> .checkoutButton {class for the button that launchs the DatePicker for end day} </li>
-        
-        <li> .DateInfo { class for the row <tr> with the iterval info} </li>
-        <li> .durationLabel { class of the duration label} </li>
-        
-        <li> .ColLabels { aditional class for cells in the first column } </li>
-       </ul> 
-      </p>
-      
-     <p> css styles for layouttype=3
-      <ul>
-        <li>.GWTCIntervalLayout3 {container table}</li>
-        <li> .CheckinInfo { class for the row <tr> with the info of the begin of interval } <li>
-        <li> .checkinLabel {class for the label for the first day in interval } </li>
-        <li> .checkinDateLabel {class for the label with the initial date in interval} </li>
-        <li> .checkinWeekLabel { class for the label with the weekday name ) </li>
-        <li> .checkinButton {class for the button that launchs the DatePicker for initial day} </li>
 
-        <li> .DateInfo { class for the row <tr> with the iterval info} </li>
-        <li> .durationLabel { class of the duration label} </li>
-        
-        <li> .ColLabels { aditional class for cells in the first column } </li>
-       </ul>
-      </p>   
+/**
+ * @author Manuel Carrasco Moñino <h3>Class description</h3>
+ *         <p>
+ *         A widget to select an interval betwen two dates.
+ *         </p>
+ *         <p>
+ *         You can configure minimalDate, maximalDate, layout, and number of days for the interval.
+ *         </p>
+ *         <h3>Example</h3>
+ * 
+ *         <pre>
+ * // Configure internationalized strings using english language
+ * private HashMap strs_en = new HashMap();
+ * strs_en.put(&quot;format.date&quot;, &quot;MMM  dd, yyyy&quot;);
+ * strs_en.put(&quot;format.day&quot;, &quot;(ddd.)&quot;);
+ * strs_en.put(&quot;key.checkin&quot;, &quot;Checkin&quot;);
+ * strs_en.put(&quot;key.checkout&quot;, &quot;Checkout&quot;);
+ * strs_en.put(&quot;key.nights&quot;, &quot;Nights&quot;);
+ * strs_en.put(&quot;key.interval&quot;, &quot;Interval&quot;);
+ * strs_en.put(&quot;key.change&quot;, &quot;Change&quot;);
+ * strs_en.put(&quot;key.checkin.button&quot;, &quot;...&quot;);
+ * strs_en.put(&quot;key.checkout.button&quot;, &quot;...&quot;);
+ * strs_en.put(&quot;key.calendar.checkin.title&quot;, &quot;Select checkin date&quot;);
+ * strs_en.put(&quot;key.calendar.checkout.title&quot;, &quot;Select checkout date&quot;);
+ * 
+ * // Create a layout1 interval-selector and set the locale in english 
+ * GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
+ * interval1.setLocale(strs_en);
+ * </pre>
+ * 
+ *         <h3>CSS Style Rules</h3>
+ *         <ul>
+ *         <li>.GWTCIntervalSelector { GWTCIntervalSelector main container}</li>
+ *         <li>.GWTCIntervalLayout[1..n] {container table}</li>
+ *         </ul>
+ * 
+ *         <p>
+ *         css styles for layouttype=1
+ *         <ul>
+ *         <li>.SelectorContainer {row that contains the table with the selection widgets}</li>
+ *         <li>.DateChanger { class for the table container of selection widgets }</li>
+ *         <li>.DateChanger.DateSelector { class for the cell with the link that lauch the DatePicker}</li>
+ *         <li>.DateChanger.NighsSelectorLabel {class for the cell with the interval label }</li>
+ *         <li>.DateChanger.NightsSelectorListBox { class for the cell with the interval selector box }</li>
+ * 
+ *         <li>.InfoContainer {row that contains the table with information about the interval }</li>
+ *         <li>.DateInfo { class for the table container of info about the interval }</li>
+ *         <li>.DateInfo.CheckinInfo { class for the row
+ *         <tr>
+ *         with the info of the begin of interval }
+ *         <li>
+ *         <li>.DateInfo.CheckoutInfo { class for the row
+ *         <tr>
+ *         with the info of the end of interval }
+ *         <li>
+ *         <li>.DateLabel (class for the cell with the date label)</li>
+ *         <li>.DateValue (class for the cell with the date value)</li>
+ *         <li>.DateWeekD (class for the cell with the weekday name)</li>
+ *         <li>.ColLabels (aditional class for the cells of the fisrt column)</li>
+ *         </ul>
+ *         </p>
+ * 
+ *         <p>
+ *         css styles for layouttype=2
+ *         <ul>
+ *         <li>.GWTCIntervalLayout2 {container table}</li>
+ *         <li>.CheckinInfo { class for the row
+ *         <tr>
+ *         with the info of the begin of interval }
+ *         <li>
+ *         <li>.checkinLabel {class for the label for the first day in interval }</li>
+ *         <li>.checkinDateLabel {class for the label with the initial date in interval}</li>
+ *         <li>.checkinWeekLabel { class for the label with the weekday name )</li>
+ *         <li>.checkinButton {class for the button that launchs the DatePicker for initial day}</li>
+ * 
+ *         <li>.CheckoutInfo { class for the row
+ *         <tr>
+ *         with the info of the end of interval }
+ *         <li>
+ *         <li>.checkoutLabel {class for the label for the last day in interval }</li>
+ *         <li>.checkoutDateLabel {class for the label with the lastl date in interval}</li>
+ *         <li>.checkoutWeekLabel { class for the label with the weekday name )</li>
+ *         <li>.checkoutButton {class for the button that launchs the DatePicker for end day}</li>
+ * 
+ *         <li>.DateInfo { class for the row
+ *         <tr>
+ *         with the iterval info}</li>
+ *         <li>.durationLabel { class of the duration label}</li>
+ * 
+ *         <li>.ColLabels { aditional class for cells in the first column }</li>
+ *         </ul>
+ *         </p>
+ * 
+ *         <p>
+ *         css styles for layouttype=3
+ *         <ul>
+ *         <li>.GWTCIntervalLayout3 {container table}</li>
+ *         <li>.CheckinInfo { class for the row
+ *         <tr>
+ *         with the info of the begin of interval }
+ *         <li>
+ *         <li>.checkinLabel {class for the label for the first day in interval }</li>
+ *         <li>.checkinDateLabel {class for the label with the initial date in interval}</li>
+ *         <li>.checkinWeekLabel { class for the label with the weekday name )</li>
+ *         <li>.checkinButton {class for the button that launchs the DatePicker for initial day}</li>
+ * 
+ *         <li>.DateInfo { class for the row
+ *         <tr>
+ *         with the iterval info}</li>
+ *         <li>.durationLabel { class of the duration label}</li>
+ * 
+ *         <li>.ColLabels { aditional class for cells in the first column }</li>
+ *         </ul>
+ *         </p>
  */
 public class GWTCIntervalSelector extends Composite {
 
     private String styleName = "GWTCIntervalSelector";
-    protected static final String DATE_SELECT = "DateSelect";
     protected static final String GWTCINTERVAL_LAYOUT = "GWTCIntervalLayout";
+    protected static final String GWTCINTERVAL_GRID = "GWTCIntervalGrid";
 
     protected static final String CHECKOUT_BUTTON = "checkoutButton";
     protected static final String CHECKIN_BUTTON = "checkinButton";
@@ -135,7 +162,7 @@ public class GWTCIntervalSelector extends Composite {
     protected static final String CHECKOUT_LABEL = "checkoutLabel";
     protected static final String DATE_LABEL = "DateLabel";
     protected static final String DURATION_LABEL = "durationLabel";
-    
+
     protected static final String CHECKIN_WEEK_LABEL = "checkinWeekLabel";
     protected static final String CHECKOUT_WEEK_LABEL = "checkoutWeekLabel";
     protected static final String CHECKIN_DATE_LABEL = "checkinDateLabel";
@@ -147,7 +174,7 @@ public class GWTCIntervalSelector extends Composite {
 
     private static final String INTERVAL_VALUE = "intervalValue";
     private static final String NIGHTS_LABEL = "nightsLabel";
-    
+
     protected static final String COL_LABELS = "ColLabels";
     protected static final String NIGHTS_SELECTOR_LIST_BOX = "NightsSelectorListBox";
     protected static final String NIGHS_SELECTOR_LABEL = "NighsSelectorLabel";
@@ -197,8 +224,6 @@ public class GWTCIntervalSelector extends Composite {
 
     protected final Label intervalValue = new Label();
 
-    protected final HorizontalPanel nightsListBoxContainer = new HorizontalPanel();
-
     protected ListBox nightsListBox = new ListBox();
 
     private int layoutType = 1;
@@ -208,8 +233,9 @@ public class GWTCIntervalSelector extends Composite {
 
     /**
      * Constructor
-     *  
-     * @param layoutType type of layout for the interval selector
+     * 
+     * @param layoutType
+     *            type of layout for the interval selector
      */
     public GWTCIntervalSelector(int layoutType) {
         outer.setStyleName(styleName);
@@ -218,35 +244,35 @@ public class GWTCIntervalSelector extends Composite {
 
         this.initListeners();
         setMaxdays(maxdays);
-       
+
+        mainGrid.addStyleName(GWTCINTERVAL_GRID);
         mainGrid.addStyleName(GWTCINTERVAL_LAYOUT + layoutType);
-        
+
         checkoutCalendar.addStyleName(GWTCDATE_PICKER_CHECKOUT);
         checkinCalendar.addStyleName(GWTCDATE_PICKER_CHECKIN);
-        
+
         checkinLabel.addStyleName(DATE_LABEL);
         checkinLabel.addStyleName(CHECKIN_LABEL);
         checkinDateLabel.addStyleName(DATE_VALUE);
         checkinDateLabel.addStyleName(CHECKIN_DATE_LABEL);
         checkinWeekLabel.addStyleName(DATE_WEEK_D);
         checkinWeekLabel.addStyleName(CHECKIN_WEEK_LABEL);
-        
+
         checkoutLabel.addStyleName(DATE_LABEL);
         checkoutLabel.addStyleName(CHECKOUT_LABEL);
         checkoutDateLabel.addStyleName(DATE_VALUE);
         checkoutDateLabel.addStyleName(CHECKOUT_DATE_LABEL);
         checkoutWeekLabel.addStyleName(DATE_WEEK_D);
         checkoutWeekLabel.addStyleName(CHECKOUT_WEEK_LABEL);
-        
+
         checkinButton.addStyleName(CHECKIN_BUTTON);
         checkoutButton.addStyleName(CHECKOUT_BUTTON);
 
         durationLabel.addStyleName(DURATION_LABEL);
         nightsLabel.addStyleName(NIGHTS_LABEL);
         intervalValue.addStyleName(INTERVAL_VALUE);
-        
-        nightsListBoxContainer.clear();
-        nightsListBoxContainer.add(nightsListBox);
+
+        nightsListBox.addStyleName(NIGHTS_SELECTOR_LIST_BOX);
 
         this.layoutType = layoutType;
         drawIntervalWidget(layoutType);
@@ -255,7 +281,8 @@ public class GWTCIntervalSelector extends Composite {
     /**
      * Draws the widget using the layout passed as argument
      * 
-     * @param layout (supported layouts 1 2 3 4 5 6)
+     * @param layout
+     *            (supported layouts 1 2 3 4 5 6)
      */
     public void drawIntervalWidget(int layout) {
         switch (layout) {
@@ -294,7 +321,7 @@ public class GWTCIntervalSelector extends Composite {
         tSelector.getCellFormatter().addStyleName(0, 0, DATE_SELECTOR);
         tSelector.setWidget(0, 1, nightsLabel);
         tSelector.getCellFormatter().addStyleName(0, 1, NIGHS_SELECTOR_LABEL);
-        tSelector.setWidget(0, 2, nightsListBoxContainer);
+        tSelector.setWidget(0, 2, nightsListBox);
         tSelector.getCellFormatter().addStyleName(0, 2, NIGHTS_SELECTOR_LIST_BOX);
         mainGrid.setWidget(0, 0, tSelector);
 
@@ -313,11 +340,10 @@ public class GWTCIntervalSelector extends Composite {
             tInfo.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
-    
 
     private void drawLayout2() {
         int idx = 0;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 0, checkinLabel);
@@ -343,16 +369,15 @@ public class GWTCIntervalSelector extends Composite {
         nightsInfo.add(intervalValue);
         nightsInfo.add(nightsLabel);
         idx++;
-        
+
         for (int i = 0; i < idx; i++) {
             mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
-    
-    
+
     private void drawLayout3() {
         int idx = 0;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 0, checkinLabel);
@@ -362,22 +387,22 @@ public class GWTCIntervalSelector extends Composite {
         mainGrid.setWidget(idx, 1, checkinInfo);
         idx++;
 
-        mainGrid.getRowFormatter().addStyleName(idx, DATE_SELECT);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 1, nightsInfo);
-        nightsInfo.add(nightsListBoxContainer);
-            mainGrid.setWidget(idx, 0, durationLabel);
-            nightsInfo.add(nightsLabel);
+        nightsInfo.add(nightsListBox);
+        mainGrid.setWidget(idx, 0, durationLabel);
+        nightsInfo.add(nightsLabel);
         idx++;
 
         for (int i = 0; i < idx; i++) {
             mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
-    
+
     private void drawLayout4() {
         int idx = 0;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 0, checkinLabel);
@@ -387,10 +412,10 @@ public class GWTCIntervalSelector extends Composite {
         mainGrid.setWidget(idx, 1, checkinInfo);
         idx++;
 
-        mainGrid.getRowFormatter().addStyleName(idx, DATE_SELECT);
+        mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 1, nightsInfo);
-        nightsInfo.add(nightsListBoxContainer);
+        nightsInfo.add(nightsListBox);
         mainGrid.setWidget(idx, 0, nightsLabel);
         nightsInfo.add(checkoutLabel);
         nightsInfo.add(checkoutDateLabel);
@@ -400,40 +425,40 @@ public class GWTCIntervalSelector extends Composite {
             mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
-    
+
     private void drawLayout5() {
         int idx = 0;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         mainGrid.setWidget(idx, 0, checkinLabel);
-        idx ++;
-        
+        idx++;
+
         HorizontalPanel checkinInfo = new HorizontalPanel();
         checkinInfo.add(checkinDateLabel);
         checkinInfo.add(checkinWeekLabel);
         checkinInfo.add(checkinButton);
         mainGrid.setWidget(idx, 0, checkinInfo);
         idx++;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
         mainGrid.setWidget(idx, 0, nightsLabel);
         idx++;
-        
-        mainGrid.setWidget(idx, 0, nightsListBoxContainer);
+
+        mainGrid.setWidget(idx, 0, nightsListBox);
         idx++;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKOUT_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
         nightsInfo.add(checkoutLabel);
         nightsInfo.add(checkoutDateLabel);
         mainGrid.setWidget(idx, 0, nightsInfo);
-        
+
         idx++;
     }
 
     private void drawLayout6() {
         int idx = 0;
-        
+
         mainGrid.getRowFormatter().addStyleName(idx, CHECKIN_INFO);
         HorizontalPanel checkinInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 0, checkinLabel);
@@ -446,7 +471,7 @@ public class GWTCIntervalSelector extends Composite {
         mainGrid.getRowFormatter().addStyleName(idx, DATE_INFO);
         HorizontalPanel nightsInfo = new HorizontalPanel();
         mainGrid.setWidget(idx, 1, nightsInfo);
-        nightsInfo.add(nightsListBoxContainer);
+        nightsInfo.add(nightsListBox);
         mainGrid.setWidget(idx, 0, nightsLabel);
         idx++;
 
@@ -459,7 +484,7 @@ public class GWTCIntervalSelector extends Composite {
             mainGrid.getCellFormatter().addStyleName(i, 0, COL_LABELS);
         }
     }
-    
+
     private void updateInputsFromNights() {
         checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
         checkoutDateLabel.setText(checkoutCalendar.getSelectedDateStr(longDateFormat));
@@ -481,7 +506,7 @@ public class GWTCIntervalSelector extends Composite {
         checkoutCalendar.setMaximalDate(GWTCDatePicker.increaseDate(getInitDate(), maxdays));
 
         int nightsFromBox = nightsListBox.getSelectedIndex();
-        if (nightsFromBox == 0 || layoutType != LAYOUT_2 )
+        if (nightsFromBox == 0 || layoutType != LAYOUT_2)
             checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsFromBox));
 
         int nights = getNights();
@@ -502,9 +527,10 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     /**
-     *  set the first day of the interval
-     *   
-     * @param d Date
+     * set the first day of the interval
+     * 
+     * @param d
+     *            Date
      */
     public void setInitDate(Date d) {
         checkinCalendar.setSelectedDate(d);
@@ -513,7 +539,7 @@ public class GWTCIntervalSelector extends Composite {
 
     /**
      * Set the number of days in the interval
-     *  
+     * 
      * @param n
      */
     public void setNights(int n) {
@@ -528,9 +554,8 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setMaxdays(int d) {
         this.maxdays = d;
-        nightsListBox = new ListBox();
-        nightsListBoxContainer.clear();
-        nightsListBoxContainer.add(nightsListBox);
+        nightsListBox.clear();
+        
 
         nightsListBox.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
@@ -543,7 +568,6 @@ public class GWTCIntervalSelector extends Composite {
         updateInputs();
     }
 
-    
     /**
      * Gets the first day selected by the user
      * 
@@ -553,7 +577,6 @@ public class GWTCIntervalSelector extends Composite {
         return checkinCalendar.getSelectedDate();
     }
 
-    
     /**
      * Gets the last day selected by the user
      * 
@@ -573,10 +596,9 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     /**
-     *  A collection to store change listeners
+     * A collection to store change listeners
      */
     private ChangeListenerCollection changeListeners = new ChangeListenerCollection();
-
 
     /**
      * Adds a change listener
@@ -597,7 +619,7 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     /**
-     *  Configure the default listeners for the elements of this interval selector  
+     * Configure the default listeners for the elements of this interval selector
      */
     private void initListeners() {
         checkinCalendar.addChangeListener(new ChangeListener() {
@@ -621,11 +643,11 @@ public class GWTCIntervalSelector extends Composite {
         checkinA.setTargetHistoryToken("");
 
         checkoutButton.addClickListener(clickListener);
-        //checkoutDateLabel.addClickListener(clickListener);
+        // checkoutDateLabel.addClickListener(clickListener);
     }
 
     /**
-     *  a clicklistener preconfigured to launch DatePicker when the user clicks the buttons
+     * a clicklistener preconfigured to launch DatePicker when the user clicks the buttons
      */
     ClickListener clickListener = new ClickListener() {
         public void onClick(Widget sender) {
@@ -642,14 +664,15 @@ public class GWTCIntervalSelector extends Composite {
     };
 
     /**
-     *  The internationalized hash map.
+     * The internationalized hash map.
      */
-    private Map<String,String> strs = new HashMap<String,String>();
+    private Map<String, String> strs = new HashMap<String, String>();
 
     /**
      * An useful method to extract internaitonalized string for the Map str
      * 
-     * @param m key string to internationalize
+     * @param m
+     *            key string to internationalize
      * @return String the internationalized string
      */
     private String getMsg(String m) {
@@ -674,7 +697,7 @@ public class GWTCIntervalSelector extends Composite {
      * You have to provide a Map(String, String) with ant least these keys
      * </p>
      * <ul >
-     * <li>format.date {format for date representation, default 'dd MMMM, yyyy'} </li>
+     * <li>format.date {format for date representation, default 'dd MMMM, yyyy'}</li>
      * <li>format.day {format for weekday representaion default '(ddd)'</li>
      * <li>key.checkin</li>
      * <li>key.checkout</li>
@@ -685,12 +708,12 @@ public class GWTCIntervalSelector extends Composite {
      * <li>key.checkout.button</li>
      * <li>key.calendar.checkin.title</li>
      * <li>key.calendar.checkout.title</li>
-     * <li>key.calendar.help </li>
+     * <li>key.calendar.help</li>
      * </ul>
      * 
      * @param keys
      */
-    public void setLocale(Map<String,String> keys) {
+    public void setLocale(Map<String, String> keys) {
         strs = keys;
         checkinLabel.setText(getMsg("key.checkin"));
         checkoutLabel.setText(getMsg("key.checkout"));
@@ -711,17 +734,17 @@ public class GWTCIntervalSelector extends Composite {
 
         updateInputs();
     }
-    
+
     /**
      * Set the minimal selectable date for the interval
      * 
      * @param d
-     *          Date
+     *            Date
      */
     public void setMinimalDate(Date d) {
         checkinCalendar.setMinimalDate(d);
-    }   
-    
+    }
+
     public void disableYearButtons() {
         checkinCalendar.disableYearButtons();
         checkoutCalendar.disableYearButtons();

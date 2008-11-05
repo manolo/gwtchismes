@@ -1,26 +1,9 @@
-/*
- * Basic CSS for the GWTCWait widget
- */
-div.GWTCWait.gwtc-wait-bg {
-  z-index: 998;
-  width: 100%;
-  height: 100%;
-  /* IE6 does not work fine with height 100% */
-  height: expression('99999px');
-  
+div.GWTCBackPanel {
   opacity: 0.40;
   background-color:  #d0e6ff;
   /* Transparency for IE */
   background-image: expression('url(images/gwtc-wait-bg-semitr.gif)');
   background-color: expression('transparent');
-  
-  /*
-  opacity: 0.20;
-  position: expression('absolute');
-  height: expression(document.documentElement.scrollHeight+'px');
-  width: expression(document.documentElement.scrollWidth+'px');
-  */
-
 }
 
 div.GWTCWait.gwtc-wait-dlg {

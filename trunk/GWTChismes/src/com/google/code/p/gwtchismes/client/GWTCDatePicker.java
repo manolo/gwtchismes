@@ -40,160 +40,138 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * <p>
+ * <b>A widget to pick a date from a calendar panel.</b> 
+ * </p>
  * @author Manuel Carrasco Moñino
  * 
- * <h3>Class description</h3>
- * <p>
- * A widget to pick a date. It can be implemented as an independent dialog box or it can be included into another widget.
- * </p>
- * <p>
- * You can configure minimalDate, maximalDate, cursorDate and help text
- * It uses GWT-i18n for day names, month names, help, and weekStart
- * </p>
- * <p>
- * This class has public static methods useful for Date manipulation
- * </p>
+ * <h3>Features</h3>
+ * <ul>
+ * <li>It can be implemented as a modal and dragable dialog or it can be included into a panel.</li>
+ * <li>It can be inside of a decorated box with rounded corners</li>
+ * <li>The dialog position is calculated on the fly to avoid be positioned out of the visible area</li>
+ * <li>Configurable restrictions: minimalDate, maximalDate</li>
+ * <li>Congigurable texts: caption and help</li>
+ * <li>Configurable buttons</li>
+ * <li>Uses GWT-i18n for date formating.</li>
+ * <li>The class provides useful public methods for Date manipulation</li>
+ * </ul>
+ * 
  * <h3>Example</h3>
- * 
  * <pre>
- * // Create a GWTCDatePicker that is show into the page
- * final GWTCDatePicker picker_en = new GWTCDatePicker(false);
- * // Disable close button, becouse it is not a dialog
- * picker_en.disableCloseButton();
- * // Configure date limits
- * picker_en.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -1));
- * picker_en.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
- * // Add an action when the user selects a day
- * picker_en.addChangeListener(new ChangeListener() {
- *     public void onChange(Widget sender) {
- *         Window.alert(picker_en.getSelectedDateStr(&quot;MMMM dd, yyyy (dddd)&quot;));
- *     }
- * });
- * // Repaint the calendar
- * picker_en.drawCalendar();
- * 
+    // Create a GWTCDatePicker that will be shown as a dialog  with animation
+    final GWTCDatePicker picker = new GWTCDatePicker(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ANIMATION );
+    
+    // Disable nextYear/previousYear buttons
+    picker.disableYearButtons();
+    
+    // Configure date limits
+    picker.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -1));
+    picker.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
+    
+    // Add the action to be performed when the user selects a day
+    picker.addChangeListener(new ChangeListener() {
+        public void onChange(Widget sender) {
+            Window.alert(picker.getSelectedDateStr(&quot;MMMM dd, yyyy (dddd)&quot;));
+        }
+    });
  * </pre>
  * 
  * <h3>CSS Style Rules</h3>
  * <ul>
  * <li>.GWTCDatePicker { GWTCDatePicket container }</li>
- * <li>.Caption { calendar text }</li>
- * <li>.Cal_Buttons { navigation buttons }</li>
- * <li>.Cal_TopButtons { container of top navigation buttons }</li>
- * <li>.Cal_BottomButtons { container of bottom navigation buttons }</li>
- * <li>.Cal_Header { text with the current month and year }</li>
- * <li>.Cal_WeekHeader { week headers row}</li>
- * <li>.Cal_CellDayNames { cells with day names} </li>
- * <li>.Cal_CellEmpty { cell without days }</li>
- * <li>.Cal_CellDay { primary style on each cell that has days }</li>
- * <li>.Cal_InvalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
- * <li>.Cal_Selected { selected day }</li>
- * <li>.Cal_AfterSelected { days after the selected day and before the maximal day } </li>
- * <li>.Cal_BeforeSelected { days before the selected day and after the minimal day}</li>
- * <li>.Cal_Today { today } </li>
- * <li>.Cal_Help { help dialog } </li>
- * <li>.Cal_NoBox { container when it is not drawn a box } </li>
+ * <li>.GWTCDatePicker .GWTCDatePicker-help { help dialog } </li>
+ * <li>.GWTCDatePicker .GWTCDatePicker-box {GWTCDatePicket container when it is a GWTCBox} </li>
+ * <li>.GWTCDatePicker .Caption { calendar text title}</li>
+ * <li>.GWTCDatePicker .panelButtons { panel with navigation buttons }</li>
+ * <li>.GWTCDatePicker .panelButtons .topButtons { container of top navigation buttons }</li>
+ * <li>.GWTCDatePicker .panelButtons .bottomButtons { container of bottom navigation buttons }</li>
+ * <li>.GWTCDatePicker .panelButtons .header { text with the current month and year }</li>
+ * 
+ * <li>.GWTCDatePicker .panelDays { text with the current month and year }</li>
+ * <li>.GWTCDatePicker .panelDays .weekHeader { week headers row}</li>
+ * <li>.GWTCDatePicker .panelDays .weekHeader .cellDayNames { cells with day names} </li>
+ * <li>.GWTCDatePicker .panelDays .cellEmpty { cell without days }</li>
+ * <li>.GWTCDatePicker .panelDays .cellDays { primary style on each cell that has days }</li>
+ * <li>.GWTCDatePicker .panelDays .invalidDay { cell with days which can not be selected because are out of the allowed interval }</li>
+ * <li>.GWTCDatePicker .panelDays .today { today } </li>
+ * <li>.GWTCDatePicker .panelDays .selectedDay { selected day }</li>
+ * <li>.GWTCDatePicker .panelDays .afterSelected { days after the selected day and before the maximal day } </li>
+ * <li>.GWTCDatePicker .panelDays .beforeSelected { days before the selected day and after the minimal day}</li>
  * </ul>
+ * 
  */
 public class GWTCDatePicker extends Composite implements ClickListener, SourcesChangeEvents {
 
     private String styleName = "GWTCDatePicker";
+    private static final String StyleHelp = "-help";
+    private static final String StyleBox = "-box";
 
-    private static String StyleCButtons = "Cal_Buttons";
-    private static String StyleCTopButtons = "Cal_TopButtons";
-    private static String StyleCBottomButtons = "Cal_BottomButtons";
+    private static final String StyleCButtons = "panelButtons";
+    private static final String StyleCTopButtons = "topButtons";
+    private static final String StyleCBottomButtons = "bottomButtons";
+    private static final String StyleCHeader = "header";
 
-    private static String StyleCHeader = "Cal_Header";
-
-    private static String StyleCGrid = "Cal_Grid";
-
-    private static String StyleCWeekHeader = "Cal_WeekHeader";
-
-    private static String StyleCCellDayNames = "Cal_CellDayNames";
-
-    private static String StyleCCellEmpty = "Cal_CellEmpty";
-
-    private static String StyleCCellDays = "Cal_CellDays";
-
-    private static String StyleCInvalidDay = "Cal_InvalidDay";
-
-    private static String StyleCSelected = "Cal_Selected";
-
-    private static String StyleCAfterSelected = "Cal_AfterSelected";
-
-    private static String StyleCBeforeSelected = "Cal_BeforeSelected";
-
-    private static String StyleCToday = "Cal_Today";
-
-    private static String StyleHelp = "Cal_Help";
+    private static final String StyleCGrid = "panelDays";
+    private static final String StyleCWeekHeader = "weekHeader";
+    private static final String StyleCCellDayNames = "cellDayNames";
+    private static final String StyleCCellEmpty = "cellEmpty";
+    private static final String StyleCCellDays = "cellDays";
+    private static final String StyleCInvalidDay = "invalidDay";
+    private static final String StyleCToday = "today";
+    private static final String StyleCSelected = "selectedDay";
+    private static final String StyleCAfterSelected = "afterSelected";
+    private static final String StyleCBeforeSelected = "beforeSelected";
     
-    private static String StyleNoBox = "Cal_NoBox";
+    public static final int CONFIG_DIALOG = 1;
+    public static final int CONFIG_DRAW_BOX = 2;
+    public static final int CONFIG_AUTOHIDE = 4;
+    public static final int CONFIG_ANIMATION = 8;
 
 
     private Date minimalDate = setHourToZero(new Date());
-
     private Date selectedDate = setHourToZero(new Date());
-
     private Date cursorDate =  getFirstDayOfMonth(selectedDate);
-
     private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
+    private boolean needsRedraw = true;
 
     // Internationalizable elements
-    protected static DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
-    private int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
+    private static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
+    private static final int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
 
-    private final GWTCAlert help = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
+    private GWTCAlert help = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
     private String helpStr = "Calendar-Picker is a component of GWTChismes library.\n" + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n" + "Navigation buttons:\n"
             + "\u003c Previous Month\n\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
 
     // Containers
     private DialogBox calendarDlg = null;
-
     private Panel outer = new VerticalPanel();
     
-    // Date grid
+    // Dates panel
     private final FlexTable grid = new FlexTable();
     
     // Navigation Buttons
     private final DockPanel navButtons = new DockPanel();
-
     private final DockPanel bottomButtons = new DockPanel();
-
     private final DockPanel topButtons = new DockPanel();
-    
     private final HTML titleBtn = new HTML();
-
     private final GWTCButton helpBtn = new GWTCButton("?", this);
-
     private final GWTCButton closeBtn = new GWTCButton("x", this);
-
     private final GWTCButton actualMBtn = new GWTCButton("-", this);
-
-    // public final GWTCButton prevMBtn = new GWTCButton("\u003c", this);
     private final GWTCButton prevMBtn = new GWTCButton("&lt;", this);
-
     private final GWTCButton prevYBtn = new GWTCButton("\u00AB", this);
-
     private final GWTCButton nextMBtn = new GWTCButton("\u003e", this);
-
     private final GWTCButton nextYBtn = new GWTCButton("\u00BB", this);
-
     private HorizontalPanel prevButtons = new HorizontalPanel();
-
     private HorizontalPanel nextButtons = new HorizontalPanel();
 
-    private boolean needsRedraw = true;
-
-    public static int CONFIG_DIALOG = 1;
-    public static int CONFIG_BORDERS = 2;
-    public static int CONFIG_AUTOHIDE = 4;
-    public static int CONFIG_SCROLL_INTO = 8;
     
     /**
-     * Constructor, you need specify the behaviour: floating dialog box or embeded widget
+     * This constructor is deprecated.
      * 
      * @param dialog
-     *            true if you wan an independient and drageable dialog box when the picker is showed
+     *            true if you want an independient and drageable dialog box when the picker is showed
+     * @deprecated
      */
     public GWTCDatePicker(boolean dialog) {
         if (dialog)
@@ -203,33 +181,53 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
 
     }
 
+    /**
+     * Base constructor. 
+     * Different options can be passed joining these constant using the or bit wise operator
+     * <ul>
+     * <li>CONFIG_DIALOG         show as modal dialog</li>
+     * <li>CONFIG_DRAW_BOX       put a GWTCBox arround the datapicker</li>
+     * <li>CONFIG_AUTOHIDE       autohide dialog when the user click out of the picker</li>
+     * <li>CONFIG_ANIMATION      animate the dialog box when it is showed/hidden</li>
+     * </ul>
+     * Example
+     * <pre>
+     * new GWTCDatePicker(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_AUTOHIDE)
+     * </pre>     
+     *  
+     * @param config
+     *      cofiguration options.
+     */
     public GWTCDatePicker(int config) {
         initialize(config);
     }
     
     public void onAttach() {
         super.onAttach();
-        adjustDimensions();
+        drawCalendar();
     }
 
     private void initialize(int config) {
-        if ((config & CONFIG_BORDERS) == CONFIG_BORDERS) {
+        if ((config & CONFIG_DRAW_BOX) == CONFIG_DRAW_BOX) {
             outer = new GWTCBox();
-        } else {
-            outer.addStyleName(StyleNoBox);
         }
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
             calendarDlg = new DialogBox((config & CONFIG_AUTOHIDE)== CONFIG_AUTOHIDE);
             calendarDlg.setWidget(outer);
-            calendarDlg.setAnimationEnabled(true);
+            calendarDlg.setAnimationEnabled((config & CONFIG_ANIMATION)== CONFIG_ANIMATION);
             initWidget(new DockPanel());
         } else {
             initWidget(outer);
-            drawCalendar();
             disableCloseButton();
         }
+        
         setStyleName(styleName);
-        help.addStyleName(StyleHelp);
+
+        if ((config & CONFIG_DRAW_BOX) == CONFIG_DRAW_BOX) {
+            addStyleName(styleName + StyleBox);
+        }
+        
+        help.addStyleName(styleName + StyleHelp);
 
         navButtons.setStyleName(GWTCDatePicker.StyleCButtons);
         titleBtn.setStyleName(GWTCDatePicker.StyleCHeader);
@@ -301,7 +299,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             return;
         if (!needsRedraw)
             return;
-        
+ 
         grid.setStyleName(GWTCDatePicker.StyleCGrid);
         grid.setCellSpacing(0);
 
@@ -557,16 +555,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * Get a string with the selected date in the desired format
      * 
      * @param format
-     *            representation of the desired format [dddd ddd dd yyyy yy MMMM MMM MM]
+     *            representation of the desired format
      * @return String
      */
     public String getSelectedDateStr(String format) {
         return formatDate(format, selectedDate);
     }
 
-    /*
-     * (non-Javadoc)
-     */
     private ChangeListenerCollection changeListeners;
 
     /*
@@ -601,7 +596,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             }
         } else if (sender instanceof CellHTML) {
             CellHTML cell = (CellHTML) sender;
-            setSelectedDate(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay()));
+            setSelectedDate(setHourToZero(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay())));
             if (changeListeners != null)
                 changeListeners.fireChange(this);
         } else {
@@ -630,9 +625,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
             changeListeners.remove(listener);
     }
 
-    public static final int CONST_YEARS = 1;
-    public static final int CONST_MONTHS = 2;
-    public static final int CONST_DAYS = 3;
+    private static final int CONST_YEARS = 1;
+    private static final int CONST_MONTHS = 2;
+    private static final int CONST_DAYS = 3;
 
     /**
      * Add days to a reference Date
@@ -640,35 +635,35 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @param d
      *            Date of reference
      * @param n
-     *            number of days to increase (for decrease use negative values)
+     *            number of days to increase (for decreasing use negative values)
      * @return the new Date
      */
     public static Date increaseDate(Date d, int n) {
-        Date ret = new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_DAYS));
+        Date ret = GWTCDatePicker.add(d, n, GWTCDatePicker.CONST_DAYS);
         return ret;
     }
 
     /**
-     * Add months to a reference Date
+     * Add months to a reference Date. 
+     * If the day of source date doesn't exist in the destination month, set this to the last day of that 
      * 
-     * @param d
+     * @param date
      *            Date of reference
      * @param n
-     *            number of months to increase (for decrease use negative values)
+     *            number of months to increase (for decreasing use negative values)
      * @return the new Date
      */
-    public static Date increaseMonth(Date d, int n) {
-        if (d.getDate() > 28) {
-            Date tmp = new Date(d.getTime());
-            tmp.setDate(1);
-            GWTCDatePicker.add(tmp.getTime(), n, GWTCDatePicker.CONST_MONTHS);
-            int d1 = daysInMonth(d);
-            int d2 = daysInMonth(tmp);
-            if (d1 > d2)
-                d.setDate(d2);
+    public static Date increaseMonth(Date date, int n) {
+        if (date.getDate() > 28) {
+            Date currentMonthFirstDay = getFirstDayOfMonth(date);
+            GWTCDatePicker.add(currentMonthFirstDay, n, GWTCDatePicker.CONST_MONTHS);
+            int currentMonthDays = daysInMonth(date);
+            int finalMonthDays = daysInMonth(currentMonthFirstDay);
+            if (currentMonthDays > finalMonthDays) {
+                return GWTCDatePicker.add(currentMonthFirstDay, n, GWTCDatePicker.CONST_MONTHS);
+            }
         }
-
-        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_MONTHS));
+        return GWTCDatePicker.add(date, n, GWTCDatePicker.CONST_MONTHS);
     }
 
     /**
@@ -677,11 +672,11 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @param d
      *            Date of reference
      * @param n
-     *            number of years to increase (for decrease use negative values)
+     *            number of years to increase (for decreasing use negative values)
      * @return the new Date
      */
     public static Date increaseYear(Date d, int n) {
-        return new Date(GWTCDatePicker.add(d.getTime(), n, GWTCDatePicker.CONST_YEARS));
+        return GWTCDatePicker.add(d, n, GWTCDatePicker.CONST_YEARS);
     }
 
     /**
@@ -705,13 +700,13 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Calculate the number of days betwen two dates
+     * Calculate diference in days between two days
      * 
      * @param a
      *            Date
      * @param b
      *            Date
-     * @return the difference in days betwen b and a (b - a)
+     * @return the difference in days between b and a (b - a)
      */
     public static int compareDate(Date a, Date b) {
         long d1 = setHourToZero(a).getTime();
@@ -719,10 +714,8 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         return (int) ((d2 - d1) / 1000 / 60 / 60 / 24);
     }
 
-    /**
+    /*
      * Increase/decrease a date based in a type parameter which specifies the type of operation
-     * 
-     * This method is coded enterely in native javascript because it has native methods to increase dates
      * 
      * @param time
      *            in milliseconds since 1-1-1970
@@ -732,19 +725,19 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            type of addition (1=days, 2=months, 3=years, 4=hours
      * @return number of milliseconds from 1-1-1970
      */
-    private static long add(long time, int value, int type) {
-        Date d = new Date(time);
-        d.setHours(12);
-        if (type == 1)
+    private static Date add(Date date, int value, int type) {
+        Date d = setHourToZero(new Date(date.getTime()));
+        if (type == CONST_YEARS)
             d.setYear(d.getYear() + value);
-        if (type == 2)
+        if (type == CONST_MONTHS)
             d.setMonth(d.getMonth() + value);
-        if (type == 3)
+        if (type == CONST_DAYS)
             d.setDate(d.getDate() + value);
-        return d.getTime();
+        return d;
     }
+
     /**
-     * This method returns true or false whether a month has selectable days in the allowed interval
+     * Returns true or false whether a month has selectable days in the allowed interval
      * 
      * @param date
      *            Date of the selected day
@@ -754,15 +747,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     private boolean isVisibleMonth(Date date, int months) {
         Date d = GWTCDatePicker.increaseMonth(date, months);
-        Date firstD = new Date(d.getTime());
-        firstD.setDate(1);
-        Date lastD = new Date(d.getTime());
-        lastD.setDate(GWTCDatePicker.daysInMonth(d));
-
-        if (GWTCDatePicker.compareDate(minimalDate, lastD) < 0) {
-            return false;
-        }
-        if (GWTCDatePicker.compareDate(maximalDate, firstD) > 0) {
+        if (GWTCDatePicker.compareDate(minimalDate, getLastDayOfMonth(d)) < 0 || GWTCDatePicker.compareDate(maximalDate, getFirstDayOfMonth(d)) > 0) {
             return false;
         }
         return true;
@@ -780,22 +765,32 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         d.setHours(12);
         d.setMinutes(0);
         d.setSeconds(0);
-        // a trick to set milliseconds to zero
+        
+        // a hack to set milliseconds to zero
         long t = d.getTime() / 1000;
         t = t * 1000;
+
         return new Date(t);
     }
     
     /**
-     * Get the first date of the month
+     * Get the first day of the month
      * 
      * @param date
      *            Date
      */
     public static Date getFirstDayOfMonth(Date date) {
-        Date t = new Date(date.getYear(), date.getMonth(), 1);
-        t = setHourToZero (t);
-        return t;
+        return setHourToZero (new Date(date.getYear(), date.getMonth(), 1));
+    }
+
+    /**
+     * Get the last day of the month
+     * 
+     * @param date
+     *            Date
+     */
+    public static Date getLastDayOfMonth(Date date) {
+        return increaseDate(getFirstDayOfMonth(date), daysInMonth(date) - 1 );
     }
 
 
@@ -820,17 +815,21 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     }
 
     /**
-     * Basic method to format dates
-     * 
-     * @param format
-     *            format patern as explained in DataTimeFormat (GyMdhHmsSakKzv')
-     * @param date
-     * @return formated string
+     * @deprecated
      */
     static public String formatDate(String format, Date date, String[] months, String days[]) {
         return formatDate(format, date);
     }
 
+    /**
+     * Method for formating dates using DateTimeFormat
+     * 
+     * @param format
+     *            format patern as explained in DataTimeFormat (GyMdhHmsSakKzv')
+     * @param date
+     *            the date to represent
+     * @return formated string
+     */
     static public String formatDate(String format, Date date) {
         if (date == null)
             return "NULL";
@@ -841,7 +840,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         return DateTimeFormat.getFormat(format).format(date);
     }
 
-    /**
+    /*
      * Basic Widget that represents each cell in the calendar picker
      * 
      */
