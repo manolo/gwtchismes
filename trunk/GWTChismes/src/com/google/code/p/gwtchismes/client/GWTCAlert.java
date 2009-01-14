@@ -62,7 +62,7 @@ public class GWTCAlert extends Composite {
     static final String STYLE_PANEL = "panel";
     static final String STYLE_MSG = "msgCell";
     static final String STYLE_BTN = "btnCell";
-    static final String STYLE_BUTTON = "button";
+    static final String STYLE_BUTTON = "okButton";
     
     static public int OPTION_DISABLE_OK_BUTTON = 1;
     static public int OPTION_ROUNDED_FLAT = 2;
