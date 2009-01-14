@@ -96,7 +96,7 @@ public static final int BUTTON_TYPE_0 = 0;
       setUpGWTCButton();
     }
     addMouseListener(mouseOverListener);
-    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK );
+    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK | Event.KEYEVENTS );
     setHTML(text);
   }
 
@@ -113,9 +113,9 @@ public static final int BUTTON_TYPE_0 = 0;
     textPanel = new FocusPanel();
     textPanel.addFocusListener(focusListener);
     textPanel.addKeyboardListener(keyboardListener);
+    textPanel.setStyleName("my-btn-focus");
     container.setWidget(0, 1, textPanel);
     
-    container.getCellFormatter().addStyleName(0, 1, "my-btn-text");
     container.setHTML(0, 2, "&nbsp;");
     container.getCellFormatter().setStyleName(0, 2, "my-btn-" + "r");
   }
@@ -128,7 +128,7 @@ public static final int BUTTON_TYPE_0 = 0;
       else {
           textPanel.clear();
           textPanel.setWidget(new Label(txt));
-          textPanel.setStyleName("gwtc-btn-text");
+          textPanel.getWidget().setStyleName("my-btn-text");
       }
   }
 
@@ -144,7 +144,7 @@ public static final int BUTTON_TYPE_0 = 0;
     else {
         textPanel.clear();
         textPanel.setWidget(new HTML(html));
-        textPanel.setStyleName("gwtc-btn-text");
+        textPanel.getWidget().setStyleName("my-btn-text");
     }
   }
   
