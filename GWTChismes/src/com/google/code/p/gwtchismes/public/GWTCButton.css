@@ -26,6 +26,11 @@
    margin-right: auto;
 }
 
+
+div.my-btn-focus:focus {
+   outline:  thin dotted blue;
+}
+
 .my-btn-ml {
 	padding-right: 5px;
 }
@@ -35,7 +40,6 @@
 	overflow: hidden;
 }
 .my-btn-text {
-	color: black;
 	font-size: 12px;
 	white-space: nowrap;
 	text-align: center;
