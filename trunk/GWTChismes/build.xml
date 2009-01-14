@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.8" />
+	<property name="version" value="0.9" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -81,6 +81,7 @@
 			<arg value="-style"/>
 			<arg value="PRETTY"/>
 			<arg value="-out" />
+			<arg value="-Xmx128M" />
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
 		</java>
