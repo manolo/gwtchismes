@@ -23,10 +23,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * <b>This widget is simple button that send to the print the current page.</b>
+ * 
  * @author Manuel Carrasco Moñino
- * <h3>Class description</h3>
  * <p>
- * This widget is a button (com.google.code.p.gwtchismes.client.GWTCButton) to print the current page.
  * When the user click the button the browser opens the print dialog 
  * and the print button is hidden for 5 seconds
  * </p>
@@ -36,41 +36,37 @@ import com.google.gwt.user.client.ui.Widget;
     </pre>        
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
- * <li>.GWTCPrint { }</li>
+ * <li>.GWTCPrint { main style}</li>
  * </ul>
  * 
  */
-public class GWTCPrint extends Composite {
-    private String styleName = "GWTCPrint";
-    private GWTCButton printButton = new GWTCButton("Print");
+public class GWTCPrint extends GWTCButton {
+    private static String MAIN_STYLE = "GWTCPrint";
     public GWTCPrint() {
-        initPrintWidget();
+        this(null);
     }
     public GWTCPrint(String t) {
-        initPrintWidget();
-        printButton.setText(t);
+        super(t);
+        setup();
     }
-    public void initPrintWidget() {
-        printButton.addStyleName(styleName);
-        printButton.addClickListener(new ClickListener() {
+    private void setup(){
+        addStyleName(MAIN_STYLE);
+        addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 print();
             }
         });
-        initWidget(printButton);
+        setImageSrc("images/button/print.gif");
     }
-    public void addStyleName(String s) {
-        printButton.addStyleName(s);
-    }
-    public void setText(String s) {
-        printButton.setText(s);
-    }
+    /**
+     * Sends the page to the printer
+     */
     public void print() {
-        printButton.setVisible(false);
+        setVisible(false);
         printWindow();
         Timer t = new Timer() {
             public void run() {
-                printButton.setVisible(true);
+                setVisible(true);
             }
         };
         t.schedule(5 * 1000);

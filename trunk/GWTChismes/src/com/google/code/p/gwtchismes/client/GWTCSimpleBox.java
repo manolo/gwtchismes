@@ -27,6 +27,15 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
+/**
+ * <p>
+ *  A decorated panel with rounded corners.
+ * </p>
+ * @author Manuel Carrasco Moñino
+ *
+ *@deprecated
+ *   use GWTCBox instead of this class. It is using the new DecoratorPanel from GWT
+ */
 public class GWTCSimpleBox extends Panel {
   HTML title = null;
   HTML text = null;

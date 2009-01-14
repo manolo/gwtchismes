@@ -1,18 +1,14 @@
 div.GWTCBackPanel {
   opacity: 0.40;
-  background-color:  #d0e6ff;
-  /* Transparency for IE */
-  background-image: expression('url(images/gwtc-wait-bg-semitr.gif)');
-  background-color: expression('transparent');
+  background-color: #d0e6ff;
+  #background:  transparent url(images/gwtc-wait-bg-semitr.gif) repeat;
 }
 
-div.GWTCWait.gwtc-wait-dlg {
-  z-index: 999;
+.GWTCWait {
   font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
-  background-color: transparent;
-}  
-.GWTCWait table.gwtc-wait-table { 
-  width: auto;
-  text-align: center;
   background: transparent;
+}  
+
+.GWTCWait .panel { 
+  text-align: center;
 }

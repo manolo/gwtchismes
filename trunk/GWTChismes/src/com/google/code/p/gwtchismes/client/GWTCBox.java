@@ -17,10 +17,7 @@
 
 package com.google.code.p.gwtchismes.client;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -30,24 +27,71 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
+/**
+ * <b>A panel decorated with rounded borders.</b>
+ * 
+ * @author Manuel Carrasco Moñino
+ * 
+ * It uses a DockPanel inside a DecoratorPanel 
+ * 
+   <h3>Example</h3>
+    <pre>
+        GWTCBox box = new GWTCBox(GWTCBox.StyleBlue);
+        box.setTitle("A Title")
+        box.setText("Sample text")
+        box.add(new Label("label"), DockPanel.NORTH);
+        RootPanel.get().add(box);
+    </pre>        
+ * <h3>CSS Style Rules</h3>
+ * <ul class="css">
+ * <li>.GWTCBox { default and main style }</li>
+ * <li>.GWTCBox { blue box }</li>
+ * <li>.GWTCBox { grey box }</li>
+ * <li>.GWTCBox h3.title { title }</li>
+ * <li>.GWTCBox p.text   { text }</li>
+ * <li>.GWTCBox .panel { content panel }</li>
+ * </ul>
+ * 
+ */
 public class GWTCBox extends DecoratorPanel {
-    public static final String StyleFlat = "GWTCBox";
-    public static final String StyleBlue = "GWTCBox-blue";
-    public static final String StyleGrey = "GWTCBox-grey";
-    public static final String StyleTitle = "title";
-    public static final String StyleText = "text";
-    public static final String StylePanel = "panel";
+    public static final String DEFAULT_STYLE = "GWTCBox";
+    public static final String STYLE_FLAT = DEFAULT_STYLE;
+    public static final String STYLE_BLUE = DEFAULT_STYLE + "-blue";
+    public static final String STYLE_GREY = DEFAULT_STYLE + "-grey";
+    private static final String STYLE_TITLE = "title";
+    private static final String STYLE_TEXT = "text";
+    private static final String STYLE_PANEL = "panel";
     HTML title = new HTML();
     HTML text = new HTML();
     DockPanel panel = new DockPanel();
 
+    
+    /**
+     *  Default constructor
+     */
     public GWTCBox() {
         super();
         super.add(panel);
-        panel.setStyleName(StylePanel);
-        setStyleName(StyleFlat);
+        panel.setStyleName(STYLE_PANEL);
+        setStyleName(DEFAULT_STYLE);
         panel.add(this.title, DockPanel.NORTH);
         panel.add(this.text, DockPanel.NORTH);
+    }
+
+    /**
+     * Constructor with an user defined style
+     * There are three styles already configured in the GWTCBox.css
+     * GWTCBox.STYLE_FLAT
+     * GWTCBox.STYLE_GREY
+     * GWTCBox.STYLE_BLUE
+     * 
+     * @param style
+     *     
+     */
+    public GWTCBox(String style) {
+        this();
+        if (style != null && style.length() > 0 && style != DEFAULT_STYLE)
+            addStyleName(style);
     }
     
     @Override
@@ -71,39 +115,56 @@ public class GWTCBox extends DecoratorPanel {
         }
     }
 
-    public GWTCBox(String style) {
-        this();
-        if (style != null && style.length() > 0 && style != StyleFlat)
-            addStyleName(style);
-    }
 
+    /**
+     * Adds elements to the main panel in the NORTH position
+     * 
+     */
     @Override
     public void add(Widget w) {
         panel.add(w, DockPanel.NORTH);
     }
 
+    /**
+     * Adds elements to the panel in the position specified
+     * Valid options are
+     * DockPanel.NORTH DockPanel.SOUTN DockPanel.EAST DockPanel.WEST
+     *  
+     * @param widget
+     * @param direction
+     */
     public void add(Widget widget, DockLayoutConstant direction) {
         panel.add(widget, direction);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.SimplePanel#remove(com.google.gwt.user.client.ui.Widget)
+     */
     @Override
     public boolean remove(Widget w) {
         return panel.remove(w);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.SimplePanel#iterator()
+     */
     @Override
     public Iterator iterator() {
         return panel.iterator();
     }
 
+    /**
+     * writes a title in the north position of the panel, inside a h3 tag 
+     */
     @Override
     public void setTitle(String title) {
-        this.title.setHTML("<h3" + " class=\"" + StyleTitle + "\">"+ title + "</h3>");
+        this.title.setHTML("<h3" + " class=\"" + STYLE_TITLE + "\">"+ title + "</h3>");
     }
 
+    /**
+     * writes a text in the north position of the panel and under the title inside a p tag 
+     */
     public void setText(String text) {
-        this.text.setHTML("<p" + " class=\"" + StyleText + "\">" + text + "</p>");
+        this.text.setHTML("<p" + " class=\"" + STYLE_TEXT + "\">" + text + "</p>");
     }
-    
-
 }

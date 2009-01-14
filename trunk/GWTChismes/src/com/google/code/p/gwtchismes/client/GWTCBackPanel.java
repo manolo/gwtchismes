@@ -4,9 +4,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.*;
 
 /**
- * <p>
- * A panel that covers the document area and avoids user actions.
- * </p>
+ * <p><b>A panel that covers the document area in order to avoid user interaction.</b></p>
  * 
  * @author Manuel Carrasco Moñino
  * 
@@ -53,6 +51,6 @@ public class GWTCBackPanel extends FocusPanel {
      * @param z
      */
     public void setZIndex(int z) {
-        DOM.setStyleAttribute(getElement(), "z-index", String.valueOf(zIndex));
+        DOM.setStyleAttribute(getElement(), "zIndex", String.valueOf(zIndex));
     }
 }

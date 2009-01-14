@@ -17,25 +17,23 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
- * @author Manuel Carrasco  Moñino
- * <h3>Class description</h3>
  * <p>
- * This widget is a dialog designed to appear when the application is working.
+ * <b>Widget designed to inform the user that the application is working</b>
  * </p>
+ * @author Manuel Carrasco  Moñino
  *<p>
- * It has two components:
+ * The widget has two components:
  * <ul>
  * <li>The background pannel designed to be possitioned over all widgets, so the user can not click any element.</li>
  * <li>The dialog box which has got a message and an image (annimated .gif)</li>
@@ -43,98 +41,99 @@ import com.google.gwt.user.client.ui.RootPanel;
  * </p>
    <h3>Example</h3>
     <pre>
-        final GWTCWait wait = new GWTCWait();
+        // Create a wait widget
+        GWTCWait wait = new GWTCWait();
         wait.setMessage("Please wait ...");
-        wait.hide();
-        wait.show(5);
+
+        // Show the wait message, and set a timeout of 8 seconds for autohiding
+        wait.show(8);
+
+        // Execute an async call to the server
+        EsampleServerAsync.method(new AsyncCallback() {
+            public void onSuccess(ResponseGWT response) {
+              // Hide the message when the response comes
+              wait.hide();
+            }
+            public void onFailure(Throwable caught) {
+              // Hide the message after an error
+              wait.hide();
+            }
+        });
     </pre>        
  * 
  * <h3>CSS Style Rules</h3>
  * <ul>
- * <li>.GWTCWait    { main class for the dialog box and the pannel over the page}</li>
- * 
- * <li>.GWTCWait.gwtc-wait-bg{ class for the pannel that is over the page }</li>
- * 
- * <li>.GWTCWait.gwtc-wait-dlg{ class for the pannel containing the table}</li>
- * <li>.GWTCWait.gwtc-wait-table{ table }</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-msg{ message cell}</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img{ image cell}</li>
- * <li>.GWTCWait.gwtc-wait-table.gwtc-wait-cell-img.gwtc-wait-image{ image }</li>
+ * <li>.GWTCWait    { main class for the composite container }</li>
+ * <li>.GWTCWait .panel { class for the content table}</li>
+ * <li>.GWTCWait .panel .msgCell { message cell }</li>
+ * <li>.GWTCWait .panel .imgCell { image cell}</li>
+ * <li>.GWTCWait .panel .imgCell .image { image }</li>
+ *  <li>z-index is setted by code</li> 
  * </ul>
  * 
  */
 public class GWTCWait extends Composite {
 
-    public static final String StyleCWait = "GWTCWait";
+    private static final String MAIN_STYLE = "GWTCWait";
 
-    public static final String StyleCWaitBg = "gwtc-wait-bg";
-    
-    public static final String StyleCWaitDlg = "gwtc-wait-dlg";
+    private static final String STYLE_PANEL = "panel";
 
-    public static final String StyleCWaitTable = "gwtc-wait-table";
+    private static final String STYLE_MSG = "msgCell";
 
-    public static final String StyleCWaitMsgCell = "gwtc-wait-cell-msg";
+    private static final String STYLE_IMG = "imgCell";
 
-    public static final String StyleCWaitImgCell = "gwtc-wait-cell-img";
+    private static final String STYLE_IMAGE = "image";
 
-    public static final String StyleCWaitImg = "gwtc-wait-image";
-
-    private DialogBox waitDlg = new DialogBox();
+    private DialogBox dialog = new DialogBox();
 
     private Label txt = new Label("");
 
     private Image img = new Image("images/gwtc-wait-loading.gif");
 
-    private FocusPanel pageBackground = new FocusPanel();
-
-    private FlexTable contentTable = new FlexTable();
-
-    public GWTCWait() {
-
-        pageBackground.setStyleName(GWTCWait.StyleCWait);
-        pageBackground.addStyleName(GWTCWait.StyleCWaitBg);
-        // IE6 does has problems with 100% height so is better a huge size
-        // pageBackground.setSize("100%", "100%");
-        // pageBackground.setSize("100%", "99999px");
-        RootPanel.get().add(pageBackground, 0, 0);
-
-        waitDlg.setStyleName(GWTCWait.StyleCWait);
-        waitDlg.addStyleName(GWTCWait.StyleCWaitDlg);
-        contentTable.setStyleName(GWTCWait.StyleCWaitTable);
-        contentTable.getCellFormatter().addStyleName(0, 0, GWTCWait.StyleCWaitMsgCell);
-        contentTable.setWidget(0, 0, txt);
-
-        contentTable.getCellFormatter().addStyleName(1, 0, GWTCWait.StyleCWaitImgCell);
-        contentTable.setWidget(1, 0, img);
-        img.addStyleName(GWTCWait.StyleCWaitImg);
-
-        waitDlg.setWidget(contentTable);
-        waitDlg.center();
-        hide();
-        
-        initWidget(new DockPanel());
-    }
+    private FlexTable mainPanel = new FlexTable();
     
+    private static GWTCBackPanel background = new GWTCBackPanel();
 
+    private int zIndex = 999;
 
     /**
-     * Adds a secondary or dependent style name to this object
-     * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
+     *  Default constructor 
      */
+    public GWTCWait() {
+        initWidget(new HTML());
+
+        dialog.setStyleName(GWTCWait.MAIN_STYLE);
+        mainPanel.setStyleName(GWTCWait.STYLE_PANEL);
+        mainPanel.getCellFormatter().addStyleName(0, 0, GWTCWait.STYLE_MSG);
+        mainPanel.setWidget(0, 0, txt);
+        mainPanel.getCellFormatter().addStyleName(1, 0, GWTCWait.STYLE_IMG);
+        mainPanel.setWidget(1, 0, img);
+        img.addStyleName(GWTCWait.STYLE_IMAGE);
+        dialog.setWidget(mainPanel);
+        
+        setZIndex(zIndex);
+    }
+
+    @Override
+    public void setStyleName(String s) {
+        dialog.setStyleName(s);
+    }
+
+    @Override
     public void addStyleName(String s) {
-        waitDlg.addStyleName(s);
+        dialog.setStyleName(s);
     }
 
     /**
-     *  Set the caption text
+     * Set the caption text
      * @param s the internationalizated string
      */
     public void setCaption(String s) {
-        waitDlg.setText(s);
+        dialog.setText(s);
     }
 
     /**
-     *  Set the message text
+     * Set the message text
      * @param s the internationalizated string
      */
     public void setMessage(String s) {
@@ -166,11 +165,8 @@ public class GWTCWait extends Composite {
             };
             t.schedule(timeout * 1000);
         }
-        waitDlg.show();
-        pageBackground.setVisible(true);
-        contentTable.setVisible(true);
-        GWTCHelper.maximizeWidget(pageBackground);
-        waitDlg.center();
+        background.show();
+        dialog.center();
     }
     
 
@@ -178,9 +174,18 @@ public class GWTCWait extends Composite {
      * Hide the wait dialog
      */
     public void hide() {
-        waitDlg.hide();
-        contentTable.setVisible(false);
-        pageBackground.setVisible(false);
+        dialog.hide();
+        background.hide();
     }
-    
+
+    /**
+     * Set the zIndex value
+     * 
+     * @param z
+     */
+    public void setZIndex(int z) {
+        zIndex = z;
+        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(zIndex));
+        background.setZIndex(zIndex - 1);
+    }
 }
