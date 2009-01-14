@@ -18,11 +18,9 @@
 package com.google.code.p.gwtcsample.client;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
-import com.google.code.p.gwtchismes.client.GWTCBackPanel;
 import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
@@ -34,12 +32,14 @@ import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -54,17 +54,17 @@ public class GWTCSample implements EntryPoint {
 
   private static final String STYLE_SAMPLE_CONTAINER = "sampleContainer";
 
-private HashMap intervalStrs = new HashMap();
+  private HashMap intervalStrs = new HashMap();
+  private HashMap pickStrs = new HashMap();
+  private HashMap pickTitStrs = new HashMap();
 
   private final GWTCSampleI18n i18n = (GWTCSampleI18n)GWT.create(GWTCSampleI18n.class);
   
   private final GWTCAlert alert = new GWTCAlert();
+  private final GWTCAlert decorAlert = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
   private final GWTCWait wait = new GWTCWait();
   
   GWTCSample() {
-      // Configure interval locale
-      intervalStrs.put("format.date", "MMM  dd, yyyy");
-      intervalStrs.put("format.day", "(ddd.)");
       intervalStrs.put("key.checkin", i18n.key_checkin());
       intervalStrs.put("key.checkout", i18n.key_checkout());
       intervalStrs.put("key.nights", i18n.key_nights());
@@ -75,187 +75,210 @@ private HashMap intervalStrs = new HashMap();
       intervalStrs.put("key.calendar.checkin.title", i18n.key_calendar_checkin_title());
       intervalStrs.put("key.calendar.checkout.title", i18n.key_calendar_checkout_title());
       intervalStrs.put("key.calendar.help", i18n.key_calendar_help());
+
+      pickTitStrs.put("key.next.month.title", i18n.key_next_month_title());
+      pickTitStrs.put("key.prev.month.title", i18n.key_prev_month_title());
+      pickTitStrs.put("key.today.title", i18n.key_today_title());
+      pickTitStrs.put("key.next.year.title", i18n.key_next_year_title());
+      pickTitStrs.put("key.prev.year.title", i18n.key_prev_year_title());
+      pickTitStrs.put("key.help.title", i18n.key_help_title());
+      pickTitStrs.put("key.close.title", i18n.key_close_title());
+      
+      pickStrs.put("key.next.month", i18n.key_next_month());
+      pickStrs.put("key.prev.month", i18n.key_prev_month());
+      pickStrs.put("key.today", i18n.key_today());
+      pickStrs.put("key.next.year", i18n.key_next_year());
+      pickStrs.put("key.prev.year", i18n.key_prev_year());
+      pickStrs.put("key.help", i18n.key_help());
+      pickStrs.put("key.close", i18n.key_close());
+      
+      pickStrs.putAll(pickTitStrs);
       
       alert.setText(i18n.hello_message());
-      wait.setMessage("Please wait ...");
+      wait.setMessage(i18n.wait_message());
   }
 
-  /**
-   * The entry point method, called automatically by loading a module that declares an implementing class as an entry point.
-   */
   public void onModuleLoad() {
+
+        GWTCBox p1;
+        GWTCTabPanel tp = new GWTCTabPanel();
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testButtons(p1);
+        tp.add(p1, "Buttons");
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testDatePicker(p1);
+        RootPanel.get().add(p1);
+        tp.add(p1, "Date Picker");
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testIntervalSelector(p1);
+        tp.add(p1, "Interval Selector");
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testProgressBar(p1);
+        tp.add(p1, "Progress Bar");
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testBox(p1);
+        testBigBox(p1);
+        tp.add(p1, "Rounded Box");
+
+        tp.selectTab(0);
+        RootPanel.get().add(tp);
+    }
+  
+
+  public Panel createPanelWithDescription(Widget widget, String description) {
+      Panel panel = new HorizontalPanel();
+      panel.addStyleName("samplePickerPanel");
+
+      Label label = new Label(description);
+      label.setStyleName("pickerLabel");
+      panel.add(label);
       
-    GWTCTabPanel tp = new GWTCTabPanel();
-    
-    GWTCBox p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-    testDatePicker(p1);
-    tp.add(p1, "Date Picker");
-    
-    p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-    testIntervalSelector(p1);
-    tp.add(p1, "Interval Selector");
-
-    p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-    testButtons(p1);
-    tp.add(p1, "Buttons");
-
-    p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-    testProgressBar(p1);
-    tp.add(p1, "Progress Bar");
-
-    p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-    testBox(p1);
-    testBigBox(p1);
-    tp.add(p1, "Rounded Box");
-
-        
-    tp.selectTab(0);  
-    RootPanel.get().add(tp);
+      panel.add(widget);
+      
+      return panel;
   }
-  
-  
-  public void testIntervalSelector(GWTCBox box) {
-      // Create a layout1 interval-selector and set the locale in english
-      GWTCIntervalSelector interval1 = new GWTCIntervalSelector(1);
-      interval1.setLocale(intervalStrs);
-      
-      // Create a layout2 interval-selector and set the locale in english
-      GWTCIntervalSelector interval2 = new GWTCIntervalSelector(2);
-      interval2.setLocale(intervalStrs);
-      interval2.disableYearButtons();
+  public Widget createPickerExample(HashMap strs, String caption, String style, int options) {
 
-      // Create a layout3 interval-selector and set the locale in spanish
-      GWTCIntervalSelector interval3 = new GWTCIntervalSelector(3);
-      interval3.setLocale(intervalStrs);
-      
-      // Create a layout4 interval-selector and set the locale in spanish
-      GWTCIntervalSelector interval4 = new GWTCIntervalSelector(4);
-      interval4.setLocale(intervalStrs);
+      final GWTCDatePicker picker = new GWTCDatePicker(options);
+      picker.setText(caption);
+      picker.setI18nMessages(strs);
+      if (style != null)
+             picker.addStyleName(style);
 
-      // Create a layout5 interval-selector and set the locale in spanish
-      GWTCIntervalSelector interval5 = new GWTCIntervalSelector(5);
-      interval5.setLocale(intervalStrs);
+      picker.addChangeListener(new ChangeListener() {
+            public void onChange(Widget sender) {
+                alert.alert(((GWTCDatePicker) sender).getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+            }
+      });
 
-      // Create a layout6 interval-selector and set the locale in spanish
-      GWTCIntervalSelector interval6 = new GWTCIntervalSelector(6);
-      interval6.setLocale(intervalStrs);
-      
-
-      FlexTable grid = new FlexTable();
-      grid.addStyleName("intervalTable");
-      grid.getRowFormatter().setStyleName(0, "intervalTitles");
-      grid.setText(0, 0, "Layout 1");
-      grid.setText(0, 1, "Layout 2");
-      grid.setWidget(1,0,interval1);
-      grid.setWidget(1,1,interval2);
-      grid.getRowFormatter().setStyleName(2, "intervalTitles");
-      grid.setText(2, 0, "Layout 3");
-      grid.setText(2, 1, "Layout 4");
-      grid.setWidget(3,0,interval3);
-      grid.setWidget(3,1,interval4);
-      grid.getRowFormatter().setStyleName(4, "intervalTitles");
-      grid.setText(4, 0, "Layout 5");
-      grid.setText(4, 1, "Layout 6");
-      grid.setWidget(5,0,interval5);
-      grid.setWidget(5,1,interval6);
-      
-      box.setTitle(i18n.title_intervals_box());
-      box.add(grid);
+      if ( (options & GWTCDatePicker.CONFIG_DIALOG) == GWTCDatePicker.CONFIG_DIALOG ) {
+          final GWTCButton button = new GWTCButton(i18n.button_picker());
+          button.setImageSrc("images/gwtc-calendar.gif");
+          button.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+              picker.show(button);
+            }
+          });
+          return button;
+      } else {
+          return picker;
+      }
   }
   
   public void testDatePicker(GWTCBox box) {
-      // Create a date-picker without the close button, and with the help button disabled
-      final GWTCDatePicker dPicker1 = new GWTCDatePicker(false);
-      dPicker1.disableCloseButton();
-      dPicker1.disableYearButtons();
-      dPicker1.setHelp(null);
-      dPicker1.setMinimalDate(GWTCDatePicker.increaseDate(new Date(), -365));
-      dPicker1.addChangeListener(new ChangeListener() {
-        public void onChange(Widget sender) {
-          alert.alert(dPicker1.getSelectedDateStr("MMMM dd, yyyy (dddd)"));
-        }
-      });
+      int options;
+      String descr;
+      Widget widget;
 
-      // Create a date-picker with all buttons enabled 
-      final GWTCDatePicker dPicker2 = new GWTCDatePicker(false);
-      dPicker2.setMinimalDate(GWTCDatePicker.increaseYear(new Date(), -10));
-      dPicker2.setMaximalDate(GWTCDatePicker.increaseYear(new Date(), 10));
-      dPicker2.addChangeListener(new ChangeListener() {
-        public void onChange(Widget sender) {
-          alert.alert(dPicker2.getSelectedDateStr("dddd,  dd/MMMM/yyyy"));
-        }
-      });
+      options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX | GWTCDatePicker.CONFIG_BACKGROUND;
+      descr = "Modal picker in a rounded box, with rounded buttons, background,  and all options enabled";
+      widget = createPickerExample(pickTitStrs, null, null, options);
+      box.add(createPanelWithDescription(widget, descr));
 
-      // Create a default date-picker and a launcher button
-      final GWTCDatePicker dPicker3 = new GWTCDatePicker(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_DRAW_BOX );
-      dPicker3.addChangeListener(new ChangeListener() {
-        public void onChange(Widget widget) {
-          alert.alert(dPicker3.getSelectedDateStr("dd/MMM/yyyy"));
-        }
-      });
-      final GWTCButton dButton = new GWTCButton(i18n.button_picker());
-      dButton.addClickListener(new ClickListener() {
-        public void onClick(Widget sender) {
-          dPicker3.show(null);
-        }
-      });
+      options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_CLOSE_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON| GWTCDatePicker.CONFIG_BACKGROUND | GWTCDatePicker.CONFIG_LAYOUT_2 |GWTCDatePicker.CONFIG_FLAT_BUTTONS;
+      descr = "Modal layout 2 picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons";
+      widget = createPickerExample(pickTitStrs, "Please, select a date", null, options);
+      box.add(createPanelWithDescription(widget, descr));
 
-      box.setTitle(i18n.title_pickers_box());
-      box.add(dPicker1, DockPanel.WEST);
-      box.add(dPicker2, DockPanel.WEST);
-      box.add(dButton, DockPanel.WEST);
+      options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS |  GWTCDatePicker.CONFIG_LAYOUT_3 | GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_BACKGROUND;
+      descr = "Modal customized layout 3 picker, with internationalized buttons, background, and disabled years and help buttons";
+      widget = createPickerExample(pickStrs,  null, "GWTCDatePicker-custom", options);
+      box.add(createPanelWithDescription(widget, descr));
       
+      options = GWTCDatePicker.CONFIG_DEFAULT;
+      descr = "Default Layout, rounded buttons and all options enabled";
+      widget = createPickerExample(pickTitStrs, null, null, options);
+      box.add(createPanelWithDescription(widget, descr));
+      
+      options = GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_STANDARD_BUTTONS;
+      descr = "Layout 2 with standard buttons, disabled years and disabled help";
+      widget = createPickerExample(pickTitStrs, null, null, options);
+      box.add(createPanelWithDescription(widget, descr));
+
+      options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS |  GWTCDatePicker.CONFIG_LAYOUT_3;
+      descr = "Layout 3 with link buttons, help and year buttons disabled and a customized style";
+      widget = createPickerExample(pickStrs, null, "GWTCDatePicker-custom", options);
+      box.add(createPanelWithDescription(widget, descr));
   }
+  
+  public void testIntervalSelector(GWTCBox box) {
 
+        HashMap strs = new HashMap();
+        strs.putAll(intervalStrs);
+        strs.putAll(pickTitStrs);
+        
+        for(int i: new int[]{1,2,3,4,5,6} ) {
+            GWTCIntervalSelector interval = new GWTCIntervalSelector(i);
+            interval.setI18nMessages(strs);
+            box.add(createPanelWithDescription(interval, "Layout " + i), DockPanel.SOUTH);
+        }
+
+        final GWTCIntervalSelector intervalCustomized = new CustomIntervalSelector(0);
+        intervalCustomized.setDateFormat(DateTimeFormat.getShortDateFormat().getPattern().replace("yy", "yyyy"));
+        intervalCustomized.setMaxdays(31);
+        strs.putAll(pickStrs);
+        intervalCustomized.setI18nMessages(strs);
+        final Button customizedButton = new GWTCButton("Click",new ClickListener() {
+            public void onClick(Widget sender) {
+                String ci = GWTCDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getInitDate());
+                String co = GWTCDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getEndDate());
+                alert.alert("From: " + ci + "\nTo: " + co + "\n" + intervalCustomized.getNights() + " nights.");
+            }
+        });
+        intervalCustomized.getGrid().setWidget(1,3, customizedButton);
+        customizedButton.setVisible(false);
+        intervalCustomized.addChangeListener(new ChangeListener(){
+            public void onChange(Widget sender) {
+                customizedButton.setVisible(true);
+            }
+        });
+        box.add(createPanelWithDescription(intervalCustomized, "Customized layout"), DockPanel.NORTH);
+        
+    }
+  
   public void testButtons(Panel box) {
-      
-      // Create the button that shows the wait dialog when is clicked by the user
-      GWTCButton waitButton = new GWTCButton(i18n.button_wait());
-      waitButton.setType(GWTCButton.BUTTON_TYPE_0);
+      GWTCButton waitButton = new GWTCButton(GWTCButton.BUTTON_TYPE_0, i18n.button_picker());
       waitButton.addClickListener(new ClickListener() {
         public void onClick(Widget sender) {
           wait.show(5);
         }
       });
+      box.add(createPanelWithDescription(waitButton, "GWTCButton type 0, it renders a default system button and add on-mouse-over events. Click on it for seeing modal GWTCWait"));
 
-      // Create the button that shows the alert dialog when is clicked by the user
-      GWTCButton alertButton = new GWTCButton(GWTCButton.BUTTON_TYPE_1, "");
-      alertButton.setText(i18n.button_alert());
-      alertButton.setType(GWTCButton.BUTTON_TYPE_1);
+      GWTCButton alertButton = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.button_alert());
       alertButton.addClickListener(new ClickListener() {
         public void onClick(Widget sender) {
-          alert.show();
+          alert.alert(i18n.button_alert());
         }
       });
+      box.add(createPanelWithDescription(alertButton, "GWTCButton type 1. Click on it for seeing a modal alert"));
 
-      // Create the button that shows the alert dialog when is clicked by the user
-      GWTCButton alertButton2 = new GWTCButton(GWTCButton.BUTTON_TYPE_2, "");
-      final GWTCAlert alert2 = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
-      alert2.setText("This is a decorated alert");
-      alertButton2.setText(i18n.button_alert());
-      alertButton2.setType(GWTCButton.BUTTON_TYPE_2);
+      GWTCButton alertButton2 = new GWTCButton(i18n.button_alert());
+      alertButton2.setImageSrc("images/button/warning.gif");
       alertButton2.addClickListener(new ClickListener() {
         public void onClick(Widget sender) {
-          alert2.show();
+          decorAlert.alert(i18n.button_alert());
         }
       });
+      box.add(createPanelWithDescription(alertButton2, "GWTCButton type 2. Click on it for seeing a modal and decorated alert"));
       
       
-      // Create a sample disabled GWTCButton
       GWTCButton disabledButton = new GWTCButton(i18n.button_disabled());
-      alertButton.setType(GWTCButton.BUTTON_TYPE_2);
       disabledButton.setEnabled(false);
+      disabledButton.setImageSrc("images/button/dialog-cancel.gif");
+      box.add(createPanelWithDescription(disabledButton, "GWTCButton type 2 disabled."));
       
       // Create a new GWTCPrint Button
       GWTCPrint printButton = new GWTCPrint(i18n.button_print());
+      box.add(createPanelWithDescription(printButton, "GWTCPrint button. It sends the page to the printer. Note that the button is hidden while the page is being printed"));
       
       box.setTitle(i18n.title_buttons_box());
-      box.add(waitButton);
-      box.add(alertButton);
-      box.add(alertButton2);
-      box.add(disabledButton);
-      box.add(disabledButton);
-      box.add(printButton);
+      
   }
   
   public void testProgressBar(GWTCBox box) {
@@ -315,7 +338,7 @@ private HashMap intervalStrs = new HashMap();
   }
 
 
-  String  styles[] = {GWTCBox.StyleFlat, GWTCBox.StyleBlue, GWTCBox.StyleGrey};
+  String  styles[] = {GWTCBox.DEFAULT_STYLE, GWTCBox.STYLE_BLUE, GWTCBox.STYLE_GREY};
   GWTCBox bigBox = new GWTCBox();
   public void testBigBox(GWTCBox box) {
       GWTCButton b = new GWTCButton("Change Style", new ClickListener() {
@@ -338,7 +361,7 @@ private HashMap intervalStrs = new HashMap();
   
   public void testBox(GWTCBox box) {
       
-      GWTCBox mb = new GWTCBox(GWTCBox.StyleBlue);
+      GWTCBox mb = new GWTCBox(GWTCBox.STYLE_BLUE);
       mb.addStyleName("sampleBox");
       mb.setTitle("setTitle: Title is placed on the top");
       mb.setText("setText: Text is placed bellow the title");
@@ -369,11 +392,11 @@ private HashMap intervalStrs = new HashMap();
       Panel pp = new DecoratorPanel();
       pp.add(new Label(pp.getClass().getName()));
       RootPanel.get().add(pp);
-      pp.setStyleName(GWTCBox.StyleFlat);
+      pp.setStyleName(GWTCBox.DEFAULT_STYLE);
     }
 
     public void testGWTCBox() {
-        for (String style : Arrays.asList(null, GWTCBox.StyleBlue, GWTCBox.StyleGrey) ) {
+        for (String style : Arrays.asList(null, GWTCBox.STYLE_BLUE, GWTCBox.STYLE_GREY) ) {
             GWTCBox pp = new GWTCBox(style);
             pp.setTitle("Title");
             pp.setText("Content");
@@ -400,7 +423,5 @@ private HashMap intervalStrs = new HashMap();
         GWTCIntervalSelector i = new GWTCIntervalSelector(layout);
         RootPanel.get().add(i);
     }
-    
-  
   
 }

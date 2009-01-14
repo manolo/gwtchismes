@@ -25,10 +25,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author Manuel Carrasco Moñino <h3>Helper Class</h3>
- *         <p>
- *         Utility class for the gwtchismes library
- *         </p>
+ * <p>
+ *   Utility class of the gwtchismes library
+ * </p>
+ * @author Manuel Carrasco Moñino 
  */
 public class GWTCHelper {
 
@@ -42,6 +42,10 @@ public class GWTCHelper {
             }-*/;
 
 
+    /**
+     * Maximize a widget to fill all the document
+     * @param widget
+     */
     public static void maximizeWidget(Widget widget) {
         if (widget == null)
             return;
@@ -58,6 +62,16 @@ public class GWTCHelper {
                return $wnd.document.documentElement.clientHeight;
             }-*/;
 
+    /**
+     * Changes curly bracket paramters with the correct values
+     * 
+     * @param s
+     *       string to iternationalize, i.e. "Page {1} of {2}"
+     * @param os
+     *       objects, i.e. [2,5]
+     * @return
+     *       internationalized string. i.e. "Page 2 of 5"
+     */
     public static String internationalize(String s, Object[] os) {
         for (int i = 0; i < os.length; i++) {
             String o = "" + (os[i] != null ? os[i] : "");
@@ -80,10 +94,16 @@ public class GWTCHelper {
         return internationalize(s, os);
     }
 
+    /**
+     *  Returns true if the application is running in GWT hosted mode
+     */
     public static boolean isHostedMode() {
         return !GWT.isScript();
     }
 
+    /**
+     * Returns the location url of the window
+     */
     public static String getLocationUrl() {
         return Window.Location.getHref();
     }
@@ -92,6 +112,13 @@ public class GWTCHelper {
            return ($doc.head);
           }-*/;
 
+    /**
+     * Looks for a javascript tag placed in the page which have a known id and returns the location
+     * @param id
+     *      the id of the script tag
+     * @return
+     *      the source of the script or null if not found
+     */
     public static String getScriptLocation(String id) {
         Element js = DOM.getElementById(id);
         if (js == null)
@@ -102,10 +129,26 @@ public class GWTCHelper {
         return url;
     }
 
+    /**
+     * Calculates the location of a web resource that is located
+     * in the same path of other whose location it's known
+     * 
+     * @param url
+     *     location of a known resource
+     * @param asset
+     *     name of the asset
+     * @return
+     *     full path for the asset
+     */
     public static String calculateLocation(String url, String asset) {
         return (url.contains("://") ? url.replaceFirst("[^/][^/]+$", "") : "") + asset;
     }
 
+    /**
+     * Loads a css resource including it in the head block
+     * @param url
+     *     full path of the css resource
+     */
     public static void insertCSS(String url) {
         if (DOM.getElementById(url) != null)
             return;
@@ -131,6 +174,14 @@ public class GWTCHelper {
         DOM.appendChild(head, css);
     }
 
+    /**
+     * Loads a script into the page
+     * 
+     * @param id
+     *   id to give to the new element
+     * @param url
+     *   path for the script
+     */
     public static void insertJS(String id, String url) {
         Element js = DOM.getElementById(id);
         Element parent = RootPanel.getBodyElement();
@@ -145,46 +196,92 @@ public class GWTCHelper {
         DOM.setElementAttribute(js, "id", id != null ? id : url);
     }
 
-    public static void insertCrossScript(String url, Class c, String method) {
-        url = url + "?call=" + "@" + c.getName() + "::" + method + "()";
-        insertJS(null, url);
-    }
-
+    /**
+     * Returns the first part of an url (protocol and hostname)
+     * @param url
+     *     reference url
+     * @return
+     *     protocol and hostname, or original url
+     */
     public static String getProtocolAndHostFromUrl(String url) {
         return url.replaceAll("([^/])[/?][^/].*$", "$1");
     }
 
+    /**
+     * Returns the protocol part of an url (http or https)
+     * @param url
+     *    reference url
+     * @return
+     *    protocol
+     */
     public static String getProtocolFromUrl(String url) {
         return url.toLowerCase().matches("^http") ? url.toLowerCase().replaceFirst("^(https*)", "$1") : "http";
     }
 
+    /**
+     * Returns the hostname of an url
+     * @param url
+     *     reference url
+     * @return
+     *     hostname
+     */
     public static String getHostFromUrl(String url) {
         return url.toLowerCase().replaceFirst("^https*\\://", "").replaceAll("[\\?:/].*$", "");
     }
 
+    /**
+     * Returns the first path element of an url.
+     * Normally it is the servlet path in a java application
+     * @param url
+     *     reference url
+     * @return
+     *     first word of the path
+     */
     public static String getSrvltContPathFromUrl(String url) {
         return url.replaceFirst("^https*\\://[^/]+/+", "").replaceAll("[\\?:/].*$", "");
     }
 
+    /**
+     * Return the value of a parameter present in the url
+     * @param url
+     *     reference url
+     * @param key
+     *     parameter name
+     * @return
+     *     the value or null if it is not present
+     */
     public static String getParameterFromUrl(String url, String key) {
         String reg = "[?&]" + key + "=";
         url = url.replaceAll("&amp;", "&");
         return url.matches(".*" + reg + ".*") ? url.replaceFirst("^.*[?&]" + key + "=", "").replaceAll("&.*$", "") : null;
     }
     
-    public static Element getFirstElementByAttr(Element ele, String attr, String value) {
-        int n = DOM.getChildCount(ele);
+    /**
+     * Browse an element tree looking for the first element that matches attribute=value
+     * @param element
+     * @param attribute
+     * @param value
+     * @return
+     *    the first matched element
+     */
+    public static Element getFirstElementByAttr(Element element, String attribute, String value) {
+        int n = DOM.getChildCount(element);
         for (int i=0; i<n; i++) {
-            Element e = DOM.getChild(ele, i);
-            String v = DOM.getElementAttribute(e, attr);
+            Element e = DOM.getChild(element, i);
+            String v = DOM.getElementAttribute(e, attribute);
             if (v != null && v.matches(value)) 
                 return e;
-            if (DOM.getChildCount(ele) > 0) 
-                e = getFirstElementByAttr(e, attr, value);
+            if (DOM.getChildCount(element) > 0) 
+                e = getFirstElementByAttr(e, attribute, value);
             if (e != null)
                 return e;
         }
         return null;
     }
+//  public static void insertCrossScript(String url, Class c, String method) {
+//  url = url + "?call=" + "@" + c.getName() + "::" + method + "()";
+//  insertJS(null, url);
+//}
+
 
 }

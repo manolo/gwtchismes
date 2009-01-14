@@ -137,7 +137,7 @@ public class GWTCProgress extends Composite {
     public static final int SHOW_AS_DIALOG = 8;
     public static final int SHOW_DEFAULT = SHOW_AS_DIALOG | SHOW_NUMBERS | SHOW_TEXT | SHOW_TIME_REMAINING;
 
-    private FocusPanel pageBackground = null;
+    private GWTCBackPanel background = null;
     private DialogBox progressDlg = null;
     private FlexTable contentTable = new FlexTable();
     private Grid elementGrid = null;
@@ -228,10 +228,7 @@ public class GWTCProgress extends Composite {
         setProgress(0);
         if (showAsDialog) {
             // Create the background
-            pageBackground = new FocusPanel();
-            pageBackground.setStyleName(GWTCWait.StyleCWait);
-            pageBackground.addStyleName(GWTCWait.StyleCWaitBg);
-            RootPanel.get().add(pageBackground, 0, 0);
+            background = new GWTCBackPanel();
             // put the container into a dialog
             progressDlg = new DialogBox();
             progressDlg.setWidget(contentTable);
@@ -250,8 +247,8 @@ public class GWTCProgress extends Composite {
         contentTable.setVisible(false);
         if (!showAsDialog)
             return;
-        if (pageBackground != null)
-            pageBackground.setVisible(false);
+        if (background != null)
+            background.hide();
         progressDlg.hide();
     }
     
@@ -259,11 +256,9 @@ public class GWTCProgress extends Composite {
         contentTable.setVisible(true);
         if (!showAsDialog)
             return;
-        if (pageBackground != null)
-            pageBackground.setVisible(true);
-        progressDlg.show();
+        if (background != null)
+            background.show();
         progressDlg.center();
-        GWTCHelper.maximizeWidget(pageBackground);
     }
     
     /**

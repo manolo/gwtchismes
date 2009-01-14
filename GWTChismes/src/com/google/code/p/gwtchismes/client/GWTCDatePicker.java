@@ -18,12 +18,16 @@
 package com.google.code.p.gwtchismes.client;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -33,7 +37,9 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -41,7 +47,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>
- * <b>A widget to pick a date from a calendar panel.</b> 
+ * <b>A calendar widget to pick a date.</b> 
  * </p>
  * @author Manuel Carrasco Moñino
  * 
@@ -103,14 +109,17 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCDatePicker extends Composite implements ClickListener, SourcesChangeEvents {
 
-    private String styleName = "GWTCDatePicker";
-    private static final String StyleHelp = "-help";
-    private static final String StyleBox = "-box";
+    private static final String styleName = "GWTCDatePicker";
+    private static final String StyleLayout = "layout";
+    private static final String StyleHelp = styleName + "-help";
+    private static final String StyleBox = "box";
+    private static final String StyleEmbeded = "embeded";
+    private static final String StyleDialog = "dialog";
 
     private static final String StyleCButtons = "panelButtons";
     private static final String StyleCTopButtons = "topButtons";
+    private static final String StyleCMiddleButtons = "middleButtons";
     private static final String StyleCBottomButtons = "bottomButtons";
-    private static final String StyleCHeader = "header";
 
     private static final String StyleCGrid = "panelDays";
     private static final String StyleCWeekHeader = "weekHeader";
@@ -118,52 +127,71 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     private static final String StyleCCellEmpty = "cellEmpty";
     private static final String StyleCCellDays = "cellDays";
     private static final String StyleCInvalidDay = "invalidDay";
+    private static final String StyleCValidDay = "validDay";
     private static final String StyleCToday = "today";
+    private static final String StyleCWeekend = "weekend";
     private static final String StyleCSelected = "selectedDay";
     private static final String StyleCAfterSelected = "afterSelected";
     private static final String StyleCBeforeSelected = "beforeSelected";
+    private static final String StyleMouseDefault = "gwtc-cursor-default";
+    private static final String StyleMouseWait = "gwtc-cursor-wait";
     
-    public static final int CONFIG_DIALOG = 1;
-    public static final int CONFIG_DRAW_BOX = 2;
-    public static final int CONFIG_AUTOHIDE = 4;
-    public static final int CONFIG_ANIMATION = 8;
-
-
+    static int c = 0;
+    public static final int CONFIG_DEFAULT = c;
+    public static final int CONFIG_DIALOG = (int)Math.pow(2,c++);
+    public static final int CONFIG_ROUNDED_BOX = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_AUTOHIDE = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_ANIMATION = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_CLOSE_BUTTON = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_HELP_BUTTON = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_YEAR_BUTTON = (int)Math.pow(2,c++);
+    public static final int CONFIG_BACKGROUND = (int)Math.pow(2,c++);
+    public static final int CONFIG_FLAT_BUTTONS = (int)Math.pow(2,c++);
+    public static final int CONFIG_STANDARD_BUTTONS = (int)Math.pow(2,c++);
+    public static final int CONFIG_LAYOUT_2 = (int)Math.pow(2,c++);
+    public static final int CONFIG_LAYOUT_3 = (int)Math.pow(2,c++);
+    
     private Date minimalDate = setHourToZero(new Date());
     private Date selectedDate = setHourToZero(new Date());
-    private Date cursorDate =  getFirstDayOfMonth(selectedDate);
-    private Date maximalDate = GWTCDatePicker.increaseDate(selectedDate, 365);
+    private Date cursorDate =  getFirstDayOfMonth(new Date());
+    private Date maximalDate = GWTCDatePicker.increaseDate(new Date(), 365);
     private boolean needsRedraw = true;
 
     // Internationalizable elements
     private static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
     private static final int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
 
-    private GWTCAlert help = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
-    private String helpStr = "Calendar-Picker is a component of GWTChismes library.\n" + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n" + "Navigation buttons:\n"
-            + "\u003c Previous Month\n\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
+    private GWTCAlert helpDlg = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
+    private String helpStr = "Calendar-Picker is a component of GWTChismes library.\n" 
+        + "(c) Manuel Carrasco 2007\nhttp://code.google.com/p/gwtchismes\n\n" + "Navigation buttons:\n"
+        + "\u003c Previous Month\n" + "\u003e Next Month\n\u00AB Previous Year\n\u00BB Next Year\n- Actual Month\nx Close\n ";
 
     // Containers
     private DialogBox calendarDlg = null;
     private Panel outer = new VerticalPanel();
     
     // Dates panel
-    private final FlexTable grid = new FlexTable();
+    private final FlexTable calendarGrid = new FlexTable();
+    private GWTCBackPanel background = null;
     
     // Navigation Buttons
     private final DockPanel navButtons = new DockPanel();
     private final DockPanel bottomButtons = new DockPanel();
     private final DockPanel topButtons = new DockPanel();
-    private final HTML titleBtn = new HTML();
-    private final GWTCButton helpBtn = new GWTCButton("?", this);
-    private final GWTCButton closeBtn = new GWTCButton("x", this);
-    private final GWTCButton actualMBtn = new GWTCButton("-", this);
-    private final GWTCButton prevMBtn = new GWTCButton("&lt;", this);
-    private final GWTCButton prevYBtn = new GWTCButton("\u00AB", this);
-    private final GWTCButton nextMBtn = new GWTCButton("\u003e", this);
-    private final GWTCButton nextYBtn = new GWTCButton("\u00BB", this);
-    private HorizontalPanel prevButtons = new HorizontalPanel();
-    private HorizontalPanel nextButtons = new HorizontalPanel();
+    private final DockPanel middleButtons = new DockPanel();
+    private  Button helpBtn ;
+    private  Button closeBtn ;
+    private  Button todayBtn ;
+    private  Button prevMBtn ;
+    private  Button prevYBtn ;
+    private  Button nextMBtn ;
+    private  Button nextYBtn ;
+    
+    private int layout = 0;
+    MenuBar monthHeader = new MenuBar();
+    MenuBar monthMenu = new MenuBar(true);
+
+    private ChangeListenerCollection changeListeners = new ChangeListenerCollection();
 
     
     /**
@@ -174,13 +202,9 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @deprecated
      */
     public GWTCDatePicker(boolean dialog) {
-        if (dialog)
-            initialize(CONFIG_DIALOG);
-        else
-            initialize(0);
-
+        this(dialog? CONFIG_DIALOG : 0);
     }
-
+        
     /**
      * Base constructor. 
      * Different options can be passed joining these constant using the or bit wise operator
@@ -197,135 +221,305 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *  
      * @param config
      *      cofiguration options.
+     * 
      */
     public GWTCDatePicker(int config) {
-        initialize(config);
-    }
-    
-    public void onAttach() {
-        super.onAttach();
-        drawCalendar();
-    }
-
-    private void initialize(int config) {
-        if ((config & CONFIG_DRAW_BOX) == CONFIG_DRAW_BOX) {
+        layout = config & CONFIG_LAYOUT_2 | config & CONFIG_LAYOUT_3;
+        int buttonsType = config & CONFIG_FLAT_BUTTONS | config & CONFIG_STANDARD_BUTTONS;
+        
+        if ((config & CONFIG_ROUNDED_BOX) == CONFIG_ROUNDED_BOX) {
             outer = new GWTCBox();
         }
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
-            calendarDlg = new DialogBox((config & CONFIG_AUTOHIDE)== CONFIG_AUTOHIDE);
+            if ((config & CONFIG_BACKGROUND) == CONFIG_BACKGROUND) {
+                background = new GWTCBackPanel();
+                background.addClickListener(new ClickListener(){
+                    public void onClick(Widget sender) {
+                        hide();
+                    }
+                });
+            }
+            calendarDlg = new DialogBox( ! ((config & CONFIG_NO_AUTOHIDE)== CONFIG_NO_AUTOHIDE) ) {
+                @Override
+                protected void onDetach() {
+                    super.onDetach();
+                    if(background != null)
+                        background.hide();
+                }
+            };
             calendarDlg.setWidget(outer);
-            calendarDlg.setAnimationEnabled((config & CONFIG_ANIMATION)== CONFIG_ANIMATION);
+            calendarDlg.setAnimationEnabled( ! ((config & CONFIG_NO_ANIMATION)== CONFIG_NO_ANIMATION));
             initWidget(new DockPanel());
+            setStyleName(styleName);
+            addStyleDependentName(StyleDialog);
+            setZIndex(999);
         } else {
             initWidget(outer);
-            disableCloseButton();
+            setStyleName(styleName);
+            addStyleDependentName(StyleEmbeded);
+        }
+
+        helpBtn = createButton(buttonsType, "?", this);
+        closeBtn = createButton(buttonsType, "x", this);
+        todayBtn = createButton(buttonsType, "-", this);
+        prevMBtn = createButton(buttonsType, "\u003c", this);
+        prevYBtn = createButton(buttonsType, "\u00AB", this);
+        nextMBtn = createButton(buttonsType, "\u003e", this);
+        nextYBtn = createButton(buttonsType, "\u00BB", this);
+        
+        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || ((config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON))
+            closeBtn.setVisible(false);
+
+        if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON )
+            helpBtn.setVisible(false);
+
+        if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON ){ 
+            nextYBtn.setVisible(false);
+            prevYBtn.setVisible(false);
         }
         
-        setStyleName(styleName);
-
-        if ((config & CONFIG_DRAW_BOX) == CONFIG_DRAW_BOX) {
-            addStyleName(styleName + StyleBox);
-        }
+        monthHeader.setAnimationEnabled(true);
+        DOM.setStyleAttribute(getElement(), "cursor", "default");
         
-        help.addStyleName(styleName + StyleHelp);
-
+        if ((config & CONFIG_ROUNDED_BOX) == CONFIG_ROUNDED_BOX)
+            addStyleDependentName(StyleBox);
+        
+        calendarGrid.setStyleName(GWTCDatePicker.StyleCGrid);
+        helpDlg.addStyleName(StyleHelp);
+        
         navButtons.setStyleName(GWTCDatePicker.StyleCButtons);
-        titleBtn.setStyleName(GWTCDatePicker.StyleCHeader);
-
-        navButtons.add(bottomButtons, DockPanel.SOUTH);
-        navButtons.add(topButtons, DockPanel.NORTH);
-
-        prevButtons.add(prevYBtn);
-        prevButtons.add(prevMBtn);
-        nextButtons.add(nextMBtn);
-        nextButtons.add(nextYBtn);
-
-        bottomButtons.addStyleName(StyleCBottomButtons);
-        bottomButtons.add(prevButtons, DockPanel.WEST);
-        bottomButtons.add(actualMBtn, DockPanel.CENTER);
-        bottomButtons.add(nextButtons, DockPanel.EAST);
-        bottomButtons.setVerticalAlignment(DockPanel.ALIGN_MIDDLE);
-        bottomButtons.setCellVerticalAlignment(actualMBtn, HasAlignment.ALIGN_MIDDLE);
-        bottomButtons.setCellHorizontalAlignment(prevButtons, DockPanel.ALIGN_LEFT);
-        bottomButtons.setCellHorizontalAlignment(nextButtons, DockPanel.ALIGN_RIGHT);
-        bottomButtons.setCellHorizontalAlignment(actualMBtn, HasAlignment.ALIGN_CENTER);
-        bottomButtons.setCellWidth(actualMBtn, "100%");
-        actualMBtn.setWidth("100%");
-
         topButtons.addStyleName(StyleCTopButtons);
+        middleButtons.addStyleName(StyleCMiddleButtons);
+        bottomButtons.addStyleName(StyleCBottomButtons);
+        
+        drawDatePickerWidget();
+    }
+    
+    public void drawDatePickerWidget() {
+        outer.add(navButtons);
+        outer.add(calendarGrid);
+        if (layout == CONFIG_LAYOUT_2) {
+            addStyleDependentName(StyleLayout + "_2");
+            drawLayout2();
+        } else if (layout == CONFIG_LAYOUT_3) {
+            addStyleDependentName(StyleLayout + "_3");
+            drawLayout3();
+        } else {
+            addStyleDependentName(StyleLayout + "_1");
+            drawLayout1();
+        }
+    }
+    
+    private void drawLayout1() {
         topButtons.add(helpBtn, DockPanel.WEST);
-        topButtons.add(titleBtn, DockPanel.CENTER);
         topButtons.add(closeBtn, DockPanel.EAST);
-        topButtons.setVerticalAlignment(DockPanel.ALIGN_MIDDLE);
-        topButtons.setCellVerticalAlignment(titleBtn, HasAlignment.ALIGN_MIDDLE);
-        topButtons.setCellHorizontalAlignment(helpBtn, DockPanel.ALIGN_LEFT);
-        topButtons.setCellHorizontalAlignment(closeBtn, DockPanel.ALIGN_RIGHT);
-        topButtons.setCellHorizontalAlignment(titleBtn, HasAlignment.ALIGN_CENTER);
-        topButtons.setCellWidth(titleBtn, "100%");
+        topButtons.add(monthHeader, DockPanel.NORTH);
+        topButtons.setCellWidth(monthHeader, "100%");
+        monthHeader.setWidth("100%");
 
+        bottomButtons.add(prevYBtn, DockPanel.WEST);
+        bottomButtons.add(prevMBtn, DockPanel.WEST);
+        bottomButtons.add(nextYBtn, DockPanel.EAST);
+        bottomButtons.add(nextMBtn, DockPanel.EAST);
+        bottomButtons.add(todayBtn, DockPanel.NORTH);
+        bottomButtons.setCellWidth(todayBtn, "100%");
+        todayBtn.setWidth("100%");
+        
+        navButtons.add(topButtons, DockPanel.NORTH);
+        navButtons.add(bottomButtons, DockPanel.NORTH);
+    }
+    
+    private void drawLayout2() {
+        topButtons.add(helpBtn, DockPanel.WEST);
+        topButtons.add(prevYBtn, DockPanel.WEST);
+        topButtons.add(prevMBtn, DockPanel.WEST);
+        
+        topButtons.add(closeBtn, DockPanel.EAST);
+        topButtons.add(nextYBtn, DockPanel.EAST);
+        topButtons.add(nextMBtn, DockPanel.EAST);
+        
+        topButtons.add(monthHeader, DockPanel.NORTH);
+        topButtons.setCellWidth(monthHeader, "100%");
+        monthHeader.setWidth("100%");
+        
+        navButtons.add(topButtons, DockPanel.NORTH);
     }
 
+    private void drawLayout3() {
+        topButtons.add(helpBtn, DockPanel.WEST);
+        topButtons.add(closeBtn, DockPanel.EAST);
+        Label emptyLabel = new Label(" ");
+        topButtons.add(emptyLabel, DockPanel.NORTH);
+        topButtons.setCellWidth(emptyLabel, "100%");
+
+        middleButtons.add(prevYBtn, DockPanel.WEST);
+        middleButtons.add(prevMBtn, DockPanel.WEST);
+        middleButtons.add(nextYBtn, DockPanel.EAST);
+        middleButtons.add(nextMBtn, DockPanel.EAST);
+
+        middleButtons.add(todayBtn, DockPanel.NORTH);
+        middleButtons.setCellWidth(todayBtn, "100%");
+        middleButtons.setCellHorizontalAlignment(todayBtn, HasAlignment.ALIGN_CENTER);
+        todayBtn.setWidth("100%");
+        
+        bottomButtons.setWidth("100%");
+        bottomButtons.add(monthHeader, DockPanel.NORTH);
+        bottomButtons.setCellWidth(monthHeader, "100%");
+        bottomButtons.setCellHorizontalAlignment(monthHeader, HasAlignment.ALIGN_CENTER);
+        
+        navButtons.add(topButtons, DockPanel.NORTH);
+        navButtons.add(middleButtons, DockPanel.NORTH);
+        navButtons.add(bottomButtons, DockPanel.NORTH);
+    }
+    
+    private void internationalize(Button b, Map<String, String> strs, String ktext)  {
+        if (strs==null) return;
+        String text = strs.get(ktext);
+        String title = strs.get(ktext + ".title");
+        if (text != null && text.length()>0)
+            b.setText(text);
+        if (title != null && title.length()>0)
+            b.setTitle(title);
+    }
+
+    public void setI18nMessages(Map<String, String> strs) {
+        internationalize(nextMBtn, strs, "key.next.month");
+        internationalize(prevMBtn, strs, "key.prev.month");
+        internationalize(nextYBtn, strs, "key.next.year");
+        internationalize(prevYBtn, strs, "key.next.year");
+        internationalize(todayBtn, strs, "key.today");
+        internationalize(helpBtn, strs, "key.help");
+        internationalize(closeBtn, strs, "key.close");
+        helpStr = strs.get("key.calendar.help");
+        if (helpStr == null || helpStr.length() == 0)
+            helpBtn.setVisible(false);
+    }
+   
     /**
-     * Sets the object's style name to the calendar container, removing all other styles.
+     * Set the text for the caption of the dialog box. It is only available if the calendar is shown as a dialog.
      * 
-     * @see com.google.gwt.user.client.ui.UIObject#setStyleName(java.lang.String)
+     * @param t
+     *            the message to display
      */
+    public void setText(String t) {
+        if (calendarDlg != null)
+            calendarDlg.setText(t);
+    }
+
+
+    @Override
     public void setStyleName(String s) {
-        styleName = s;
-        if (calendarDlg != null) {
-            calendarDlg.setStyleName(styleName);
-        } else
-            outer.setStyleName(styleName);
-    }
+        if (calendarDlg != null)
+            calendarDlg.setStyleName(s);
+        else
+            outer.setStyleName(s);
 
-    /**
-     * Adds a secondary or dependent style name to this object
-     * 
-     * @see com.google.gwt.user.client.ui.UIObject#addStyleName(java.lang.String)
-     */
+        monthHeader.setStyleName(s + "-MenuBar");
+        monthHeader.addStyleName(s + "-MenuBar-horizontal");
+        monthMenu.setStyleName(s + "-MenuBar");
+        monthMenu.addStyleName(s + "-MenuBar-vertical");
+        if (! s.equals(styleName)) {
+            addStyleName(styleName);
+            monthHeader.addStyleName(styleName + "-MenuBar");
+            monthHeader.addStyleName(styleName + "-MenuBar-horizontal");
+            monthMenu.addStyleName(styleName + "-MenuBar");
+            monthMenu.addStyleName(styleName + "-MenuBar-vertical");
+        }
+    }
+    
+    @Override
     public void addStyleName(String s) {
         if (calendarDlg != null) {
             calendarDlg.addStyleName(s);
-        } else
+        } else {
             outer.addStyleName(s);
+        }
+        monthHeader.addStyleName(s + "-MenuBar");
+        monthMenu.addStyleName(s + "-MenuBar");
+        monthHeader.addStyleName(s + "-MenuBar-horizontal");
+        monthMenu.addStyleName(s + "-MenuBar-vertical");
     }
+    @Override
+    public void addStyleDependentName(String s) {
+        if (calendarDlg != null)
+            calendarDlg.addStyleDependentName(s);
+        else
+            outer.addStyleDependentName(s);
+    }
+    @Override
+    public String getStyleName() {
+        return calendarDlg != null ? calendarDlg.getStyleName(): outer.getStyleName();
+    }
+    @Override
+    public String getStylePrimaryName() {
+        return calendarDlg != null ? calendarDlg.getStylePrimaryName(): outer.getStylePrimaryName();
+    }
+    @Override
+    public Element getElement() {
+        return calendarDlg != null ? calendarDlg.getElement(): outer.getElement();
+    }
+    
 
     /**
      * Draw or redraw all calendar elements into the container
      * 
      */
     public void drawCalendar() {
-        if (this.isVisible() == false)
-            return;
-        if (!needsRedraw)
-            return;
- 
-        grid.setStyleName(GWTCDatePicker.StyleCGrid);
-        grid.setCellSpacing(0);
 
-        outer.clear();
-        outer.add(navButtons);
-        outer.add(grid);
+        if (!isVisible() || !needsRedraw) return;
+        needsRedraw = false;
+        
+        fillElements();
+        fillMenuItems();
+        fillCalendarGrid();
+        
+        prevMBtn.setEnabled(isVisibleMonth(cursorDate, -1));
+        nextMBtn.setEnabled(isVisibleMonth(cursorDate, 1));
+        prevYBtn.setEnabled(isVisibleMonth(cursorDate, -12));
+        nextYBtn.setEnabled(isVisibleMonth(cursorDate, 12));
 
-        titleBtn.setHTML(GWTCDatePicker.formatDate("MMMM, yyyy", cursorDate));
+        adjustDimensions();
+    }
 
-        grid.getRowFormatter().setStyleName(0, GWTCDatePicker.StyleCWeekHeader);
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        drawCalendar();
+    }
+
+    // private boolean initialized = false;
+    private void fillElements() {
+        //  if (initialized && !GWTCHelper.isHostedMode()) return;
+        // initialized = true;
+        calendarGrid.clear();
+        
+        calendarGrid.setCellSpacing(0);
+        calendarGrid.getRowFormatter().setStyleName(0, GWTCDatePicker.StyleCWeekHeader);
         int l = 0;
         for (int i = weekStart; i < 7; i++) {
-            grid.getCellFormatter().setStyleName(0, l, GWTCDatePicker.StyleCCellDayNames);
-            grid.setText(0, l++, dateTimeConstants.shortWeekdays()[i]);
+            calendarGrid.getCellFormatter().setStyleName(0, l, GWTCDatePicker.StyleCCellDayNames);
+            calendarGrid.setText(0, l++, dateTimeConstants.shortWeekdays()[i]);
         }
-        if (l < 7) {
-            grid.getCellFormatter().setStyleName(0, l, GWTCDatePicker.StyleCCellDayNames);
-            grid.setText(0, l++, dateTimeConstants.shortWeekdays()[0]);
+        while (l < 7) {
+            calendarGrid.getCellFormatter().setStyleName(0, l, GWTCDatePicker.StyleCCellDayNames);
+            calendarGrid.setText(0, l++, dateTimeConstants.shortWeekdays()[0]);
         }
+        for (int i = 1; i < 7; i++) { 
+            for (int k = 0; k < 7; k++) { 
+                CellHTML html = new CellHTML();
+                calendarGrid.setWidget(i, k, html);
+                html.addClickListener(this);
+            }
+        }
+    }
 
+    
+    private void fillCalendarGrid() {
         Date firstDate = getFirstDayOfMonth(cursorDate);
         long todayNum = 1 + GWTCDatePicker.compareDate(firstDate, new Date());
         long minimalNum = 1 + GWTCDatePicker.compareDate(firstDate, minimalDate);
         long maximalNum = 1 + GWTCDatePicker.compareDate(firstDate, maximalDate);
-        long selectedNum = 1 + GWTCDatePicker.compareDate(firstDate, selectedDate);
-        // long cursorNum = 1 + GWTCDatePicker.compareDate(firstDate, cursorDate);
+        long selectedNum = selectedDate != null ? 1 + GWTCDatePicker.compareDate(firstDate, selectedDate) : -1;
         int firstWDay = firstDate.getDay();
         int numOfDays = GWTCDatePicker.daysInMonth(cursorDate);
         int j = 0 + weekStart;
@@ -333,76 +527,122 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         for (int i = 1; i < 7; i++) { // each row in the grid
             for (int k = 0; k < 7; k++, j++) { // each day in the week
                 int displayNum = (firstWDay < weekStart) ? (j - firstWDay - 6) : (j - firstWDay + 1);
-                if (j < firstWDay || displayNum > numOfDays || displayNum <= 0) {
-                    grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellEmpty);
-                    grid.setHTML(i, k, "&nbsp;");
+                CellHTML html = (CellHTML) calendarGrid.getWidget(i, k);
+                DOM.setElementAttribute(html.getElement(), "class", "");
+                if (j < firstWDay || displayNum > numOfDays || displayNum < 1 ) {
+                    html.addStyleName(StyleCCellEmpty);
+                    html.setEnabled(false);
+                    html.setDay(0);
                 } else {
-                    HTML html = new CellHTML(displayNum);
-                    grid.getCellFormatter().setStyleName(i, k, GWTCDatePicker.StyleCCellDays);
-                    html.setStyleName(GWTCDatePicker.StyleCCellDays);
+                    html.setDay(displayNum);
+                    html.setEnabled(true);
+                    html.setStyleName(StyleCValidDay);
                     if (displayNum < minimalNum || displayNum > maximalNum) {
-                        html.addStyleName(GWTCDatePicker.StyleCInvalidDay);
-                        grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCInvalidDay);
+                        html.setStyleName(GWTCDatePicker.StyleCInvalidDay);
+                        html.removeStyleName(StyleCValidDay);
+                        html.setEnabled(false);
                     } else if (displayNum == selectedNum) {
                         html.addStyleName(GWTCDatePicker.StyleCSelected);
-                        grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCSelected);
-                        html.addClickListener(this);
                     } else if (displayNum >= selectedNum) {
                         html.addStyleName(GWTCDatePicker.StyleCAfterSelected);
-                        grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCAfterSelected);
-                        html.addClickListener(this);
                     } else {
                         html.addStyleName(GWTCDatePicker.StyleCBeforeSelected);
-                        grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCBeforeSelected);
-                        html.addClickListener(this);
                     }
                     if (displayNum == todayNum) {
                         html.addStyleName(GWTCDatePicker.StyleCToday);
-                        grid.getCellFormatter().addStyleName(i, k, GWTCDatePicker.StyleCToday);
                     }
-                    grid.setWidget(i, k, html);
+                    if (k == 0 || k==6) {
+                        html.addStyleName(StyleCWeekend);
+                    }
+                    html.addStyleName(GWTCDatePicker.StyleCCellDays);
                 }
             }
         }
-        prevMBtn.setEnabled(isVisibleMonth(cursorDate, -1));
-        nextMBtn.setEnabled(isVisibleMonth(cursorDate, 1));
-        prevYBtn.setEnabled(isVisibleMonth(cursorDate, -12));
-        nextYBtn.setEnabled(isVisibleMonth(cursorDate, 12));
-
-        needsRedraw = false;
-        adjustDimensions();
     }
-    
+
+    private void fillMenuItems() {
+        monthMenu.clearItems();
+
+        monthHeader.clearItems();
+        //monthHeader.setAutoOpen(true);
+        monthHeader.addItem(formatDate("MMMM, yyyy", cursorDate), monthMenu);
+        int nmonths = 10;
+        int n = -1 * (nmonths / 2);
+        Date d = new Date(getFirstDayOfMonth(cursorDate).getTime());
+        Date md = new Date(getFirstDayOfMonth(minimalDate).getTime());
+        d = increaseMonth(d, n );
+        while (compareDate(md, d) < 0) { 
+            d = increaseMonth(d, 1);
+            n ++;
+        }
+        n += nmonths;
+        d = increaseMonth(cursorDate, n);
+        while (compareDate(maximalDate, d) > 0) { 
+            d = increaseMonth(d, -1);
+            n --;
+        }
+        n -= nmonths;
+        d = increaseMonth(cursorDate, n);
+        for(int i = n; i<nmonths; i++) {
+            String t = formatDate("MMMM, yyyy", d);
+            MenuCommand c = new MenuCommand(d);
+            d = increaseMonth(d, 1);
+            if ( compareDate(d, maximalDate) >= 0 ) {
+                monthMenu.addItem(t, c);
+            }
+        }
+    }
+
+
 
 
     /**
-     * show the calendar container, if the calendar picker is a dialog box and param sender is not null the dialog is positioned near of it
+     * show the calendar container, 
+     * when the calendar picker is a dialog box and param sender is not null 
+     * the dialog is positioned near of it
      * 
      * @param sender
      *            the widget that the user has clicked
      */
     public void show(Widget sender) {
-        setCursorDate(selectedDate);
+        if (background!=null)
+            background.show();
+        if (selectedDate != null) 
+            setCursorDate(selectedDate);
         this.drawCalendar();
         if (calendarDlg == null) {
+            assert outer.isAttached() : "Calendar has not been attached, even though it is not configured as a popup.";
             outer.setVisible(true);
         } else {
             if (sender != null) {
-                calendarDlg.setPopupPosition(sender.getAbsoluteLeft() + 20, sender.getAbsoluteTop() + 10);
+                calendarDlg.setPopupPosition(sender.getAbsoluteLeft() /*+ 20*/, sender.getAbsoluteTop() + 10);
+                calendarDlg.show();
+                moveIntoVisibleArea();
+                DOM.scrollIntoView(calendarGrid.getElement());
             } else {
                 calendarDlg.center();
             }
-            calendarDlg.show();
         }
-        moveIntoVisibleArea();
         adjustDimensions();
-        DOM.scrollIntoView(grid.getElement());
+    }
+    /**
+     * Set the zIndex value
+     * 
+     * @param z
+     */
+    public void setZIndex(int z) {
+        if (calendarDlg!=null) {
+            DOM.setStyleAttribute(calendarDlg.getElement(), "zIndex", String.valueOf(z));
+            if (background != null)
+                background.setZIndex(z - 1);
+            helpDlg.setZIndex(z + 1);
+        }
     }
 
     private void adjustDimensions() {
-        int incr = outer instanceof GWTCSimpleBox ? 30 : 2;
-        navButtons.setWidth(grid.getOffsetWidth() + "px");
-        outer.setWidth(grid.getOffsetWidth() + incr + "px");
+        int incr = outer instanceof GWTCBox ? 30 : 2;
+        navButtons.setWidth(calendarGrid.getOffsetWidth() + "px");
+        outer.setWidth(calendarGrid.getOffsetWidth() + incr + "px");
         if (calendarDlg != null) 
             calendarDlg.setWidth(outer.getOffsetWidth() + "px");
      }
@@ -411,14 +651,14 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
          if (calendarDlg != null) {
              int w = Window.getClientWidth() + Window.getScrollLeft();
              int xd = calendarDlg.getAbsoluteLeft();
-             int wd = grid.getOffsetWidth() + 40;
+             int wd = calendarGrid.getOffsetWidth() + 40;
              
              if ( (xd + wd) > w ) {
                  xd = xd - ((xd + wd) - w);
              }
              int h = Window.getClientHeight() + Window.getScrollTop();
              int yd = calendarDlg.getAbsoluteTop();
-             int hd = calendarDlg.getOffsetHeight();
+             int hd = calendarDlg.getOffsetHeight() + 20;
              if ( (yd + hd) > h ) {
                  yd = yd - ((yd + hd) - h);
              }
@@ -433,37 +673,14 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      */
     public void hide() {
         if (calendarDlg != null) {
-            if (calendarDlg.isAttached()) {
-                calendarDlg.hide();
+            calendarDlg.hide();
+            if(background != null) {
+                background.hide();
             }
         } else
             outer.setVisible(false);
     }
-
-    /**
-     * Set the text for the caption of the dialog box. It is only available if the calendar is shown as a dialog.
-     * 
-     * @param t
-     *            the message to display
-     */
-    public void setText(String t) {
-        if (calendarDlg != null)
-            calendarDlg.setText(t);
-    }
-
-    /**
-     * Set the help text.
-     * 
-     * @param t
-     *            the help message to display, if t is null help button is disabled
-     */
-    public void setHelp(String t) {
-        helpStr = t;
-        if (t == null || t.length() == 0)
-            helpBtn.setVisible(false);
-        else
-            helpBtn.setVisible(true);
-    }
+    
 
     /**
      * Disable the close Button
@@ -478,8 +695,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         this.nextYBtn.setVisible(false);
         this.prevYBtn.setVisible(false);
     }
-
-
 
     /**
      * Set the date where the calendar is positioned
@@ -503,11 +718,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setSelectedDate(Date d) {
-        d = setHourToZero(d);
-        if (GWTCDatePicker.compareDate(d, selectedDate) != 0) {
+        if (d != null && (selectedDate == null || GWTCDatePicker.compareDate(d, selectedDate) != 0)) {
             needsRedraw = true;
-            selectedDate = d;
-            setCursorDate(d);
+            if (d!=null){
+                selectedDate = setHourToZero(d);
+                setCursorDate(d);
+            }
             drawCalendar();
         }
     }
@@ -521,7 +737,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setMinimalDate(Date d) {
         this.needsRedraw = true;
         minimalDate = setHourToZero(d);
-        if (cursorDate.getTime() < minimalDate.getTime() || selectedDate.getTime() < minimalDate.getTime())
+        if (selectedDate != null && (cursorDate.getTime() < minimalDate.getTime() || selectedDate.getTime() < minimalDate.getTime()))
             this.setSelectedDate(d);
         if (maximalDate.getTime() < minimalDate.getTime())
             maximalDate = d;
@@ -536,7 +752,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
     public void setMaximalDate(Date d) {
         this.needsRedraw = true;
         maximalDate = setHourToZero(d);
-        if (cursorDate.getTime() > maximalDate.getTime() || selectedDate.getTime() > maximalDate.getTime())
+        if (selectedDate != null && (cursorDate.getTime() > maximalDate.getTime() || selectedDate.getTime() > maximalDate.getTime()))
             this.setSelectedDate(d);
         if (minimalDate.getTime() > maximalDate.getTime())
             minimalDate = d;
@@ -562,7 +778,14 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         return formatDate(format, selectedDate);
     }
 
-    private ChangeListenerCollection changeListeners;
+    private void mouseWait(){
+        removeStyleName(StyleMouseDefault);
+        addStyleName(StyleMouseWait);
+    }
+    private void mouseDefault(){
+        removeStyleName(StyleMouseWait);
+        addStyleName(StyleMouseDefault);
+    }
 
     /*
      * (non-Javadoc)
@@ -570,38 +793,47 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @see com.google.gwt.user.client.ui.ClickListener#onClick(com.google.gwt.user.client.ui.Widget)
      */
     public void onClick(Widget sender) {
-        if (sender == prevMBtn) {
+        mouseWait();
+        if (prevMBtn.equals(sender)) {
             setCursorDate(GWTCDatePicker.increaseMonth(cursorDate, -1));
             drawCalendar();
-        } else if (sender == nextMBtn) {
+        } else if (nextMBtn.equals(sender)) {
             setCursorDate(GWTCDatePicker.increaseMonth(cursorDate, 1));
             drawCalendar();
-        } else if (sender == prevYBtn) {
+        } else if (prevYBtn.equals(sender)) {
             setCursorDate(GWTCDatePicker.increaseYear(cursorDate, -1));
             drawCalendar();
-        } else if (sender == nextYBtn) {
+        } else if (nextYBtn.equals(sender)) {
             setCursorDate(GWTCDatePicker.increaseYear(cursorDate, 1));
             drawCalendar();
-        } else if (sender == actualMBtn) {
+        } else if (todayBtn.equals(sender)) {
             setCursorDate(new Date());
             drawCalendar();
-        } else if (sender == helpBtn) {
+        } else if (helpBtn.equals(sender)) {
             // Window.alert(helpStr);
-            help.alert(helpStr.replaceAll("\\n", "<br/>"));
-        } else if (sender == closeBtn) {
+            helpDlg.alert(helpStr.replaceAll("\\n", "<br/>"));
+        } else if (closeBtn.equals(sender)) {
             if (calendarDlg != null) {
-                calendarDlg.hide();
+                hide();
             } else {
                 outer.setVisible(false);
             }
         } else if (sender instanceof CellHTML) {
             CellHTML cell = (CellHTML) sender;
-            setSelectedDate(setHourToZero(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay())));
-            if (changeListeners != null)
+            if (cell.isEnabled()) {
+                if (calendarDlg != null)
+                    hide();
+                setSelectedDate(setHourToZero(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay())));
                 changeListeners.fireChange(this);
+            }
         } else {
             // an unknown click listener
         }
+        mouseDefault();
+    }
+    
+    public void setPickerOptions(int options) {
+        
     }
 
     /*
@@ -610,8 +842,6 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @see com.google.gwt.user.client.ui.SourcesChangeEvents#addChangeListener(com.google.gwt.user.client.ui.ChangeListener)
      */
     public void addChangeListener(ChangeListener listener) {
-        if (changeListeners == null)
-            changeListeners = new ChangeListenerCollection();
         changeListeners.add(listener);
     }
 
@@ -621,8 +851,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @see com.google.gwt.user.client.ui.SourcesChangeEvents#removeChangeListener(com.google.gwt.user.client.ui.ChangeListener)
      */
     public void removeChangeListener(ChangeListener listener) {
-        if (changeListeners != null)
-            changeListeners.remove(listener);
+        changeListeners.remove(listener);
     }
 
     private static final int CONST_YEARS = 1;
@@ -714,7 +943,7 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
         return (int) ((d2 - d1) / 1000 / 60 / 60 / 24);
     }
 
-    /*
+    /**
      * Increase/decrease a date based in a type parameter which specifies the type of operation
      * 
      * @param time
@@ -831,34 +1060,89 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return formated string
      */
     static public String formatDate(String format, Date date) {
-        if (date == null)
-            return "NULL";
         if (format == null)
             format = DateTimeFormat.getLongDateFormat().getPattern();
         else
             format = format.replaceAll("dddd", "EEEE").replaceAll("ddd", "EEE");
+        if (date == null)
+            return format;
         return DateTimeFormat.getFormat(format).format(date);
     }
+    
+    class MenuCommand implements Command {
+        Date date;
+        public MenuCommand(Date d) {
+            date = d;
+        }
+        public void execute() {
+            setCursorDate(date);
+            drawCalendar();
+        }
+    }
 
-    /*
+
+    public Button createButton(int buttonsType, String text, ClickListener listener) {
+        Button b;
+        if(buttonsType == CONFIG_DEFAULT)
+            b = new GWTCButton();
+        else 
+            b = new GWTCButton(GWTCButton.BUTTON_TYPE_0, "");
+        
+        if (buttonsType == CONFIG_FLAT_BUTTONS) 
+            b.addStyleDependentName("flat");
+        
+        if (listener != null)
+            b.addClickListener(listener);
+        
+        b.setText(text);
+        return b;
+    }
+    
+    /**
      * Basic Widget that represents each cell in the calendar picker
      * 
      */
     private static class CellHTML extends HTML {
-        private int day;
-
-        public CellHTML(int day) {
-            super(String.valueOf(day));
-            this.day = day;
+        private int day = 0;
+        private boolean enabled = true;
+        
+        public void setEnabled(boolean b) {
+            enabled = b;
         }
-
-        public void addClickListener(ClickListener pickListener) {
-            super.addClickListener(pickListener);
+        public boolean isEnabled() {
+            return enabled;
         }
 
         public int getDay() {
             return day;
         }
+        public void setDay(int d) {
+            if (day != d) {
+                day = d;
+                setCellContent();
+            }
+        }
+    
+        public void addClickListener(ClickListener pickListener) {
+            super.addClickListener(pickListener);
+            super.addMouseListener(mouseOverListener);
+        }
 
-    }
+        private void setCellContent() {
+            setHTML( (day < 1 || day > 31) ? "&nbsp;" : String.valueOf(day));
+        }
+
+        private static final MouseListener mouseOverListener = new MouseListener() {
+            public void onMouseUp(Widget sender, int x, int y) {}
+            public void onMouseDown(Widget sender, int x, int y) {}
+            public void onMouseMove(Widget sender, int x, int y) {}
+            public void onMouseEnter(Widget sender) {
+                sender.addStyleDependentName("over");
+            }
+            public void onMouseLeave(Widget sender) {
+                sender.removeStyleDependentName("over");
+            }
+        };
+   }
 }
+

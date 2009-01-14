@@ -19,6 +19,7 @@
 package com.google.code.p.gwtchismes.client;
 
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.*;
 
@@ -46,21 +47,22 @@ import com.google.gwt.user.client.ui.*;
  *   </pre>        
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
- * <li>.GWTCAlert { DialogBox container}</li>
- * <li>.GWTCAlert.gwtc-alert-table{ table into the container }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-msg{ Message cell }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn{ Button cell }</li>
- * <li>.GWTCAlert.gwtc-alert-table.gwtc-alert-cell-btn.gwtc-alert-button{ Button }</li>
+ * <li>.GWTCAlert { main class for the composite container }</li>
+ * <li>.GWTCAlert-box { class for the rounded panel, if it exists }</li>
+ * <li>.GWTCAlert .panel .msgCell { message cell }</li>
+ * <li>.GWTCAlert .panel .btnCell { button cell }</li>
+ * <li>.GWTCAlert .panel .button { Button }</li>
+ *  <li>z-index is setted by code</li> 
  * </ul>
  * 
  */
 public class GWTCAlert extends Composite {
-    public static final String StyleCAlert = "GWTCAlert";
-    public static final String StyleCAlertBox = "GWTCAlertBox";
-    public static final String StyleCAlertTable = "gwtc-alert-table";
-    public static final String StyleCAlertMsgCell = "gwtc-alert-cell-msg";
-    public static final String StyleCAlertBtnCell = "gwtc-alert-cell-btn";
-    public static final String StyleCAlertBtn = "gwtc-alert-button";
+    static final String MAIN_STYLE = "GWTCAlert";
+    static final String STYLE_BOX = "-box";
+    static final String STYLE_PANEL = "panel";
+    static final String STYLE_MSG = "msgCell";
+    static final String STYLE_BTN = "btnCell";
+    static final String STYLE_BUTTON = "button";
     
     static public int OPTION_DISABLE_OK_BUTTON = 1;
     static public int OPTION_ROUNDED_FLAT = 2;
@@ -73,11 +75,13 @@ public class GWTCAlert extends Composite {
 
     private boolean okButtonDisabled = false;
     
-    private PopupPanel alertDlg = new PopupPanel();
+    private PopupPanel dialog = new PopupPanel();
     FlexTable contentTable = new FlexTable();
     private HTML txt = new HTML();
     private GWTCButton okButton = new GWTCButton("OK");
-    private GWTCBackPanel pageBackground = null;
+    private GWTCBackPanel background = null;
+
+    private int zIndex = 999;
     
     /**
      * Constructor with default options
@@ -87,11 +91,11 @@ public class GWTCAlert extends Composite {
     }
 
     /**
-     * Base constructor. 
+     * Main constructor. 
      * Different options can be passed joining these constant using the or bit wise operator
      * <ul>
      * <li>OPTION_DISABLE_BACKGROUND    don't show the background layer</li>
-     * <li>OPTION_ROUNDED_GREY          put a flat GWTCBox arround the alert</li>
+     * <li>OPTION_ROUNDED_FLAT          put a flat GWTCBox arround the alert</li>
      * <li>OPTION_ROUNDED_GREY          put a grey GWTCBox arround the alert</li>
      * <li>OPTION_ROUNDED_BLUE          put a blue GWTCBox arround the alert</li>
      * <li>OPTION_DISABLE_OK_BUTTON     don't show the OK button</li>
@@ -102,35 +106,39 @@ public class GWTCAlert extends Composite {
      *      cofiguration options.
      */
     public GWTCAlert(int options) {
+        initWidget(new HTML());
         
         if ((options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
         
         if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-          alertDlg = new GWTCPopupBox(GWTCBox.StyleGrey);
-          alertDlg.addStyleName(GWTCAlert.StyleCAlertBox);
+          dialog = new GWTCPopupBox(GWTCBox.STYLE_GREY);
+          dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
         } else  if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-          alertDlg = new GWTCPopupBox(GWTCBox.StyleBlue);
-          alertDlg.addStyleName(GWTCAlert.StyleCAlertBox);
+          dialog = new GWTCPopupBox(GWTCBox.STYLE_BLUE);
+          dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
+        } else  if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
+            dialog = new GWTCPopupBox(GWTCBox.STYLE_FLAT);
+            dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
         } else {
-          alertDlg = new PopupPanel();
-          alertDlg.setStyleName(GWTCAlert.StyleCAlert);
+          dialog = new PopupPanel();
+          dialog.setStyleName(GWTCAlert.MAIN_STYLE);
         }
-        alertDlg.setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
+        dialog.setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
 
         if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
-            pageBackground = new GWTCBackPanel();
+            background = new GWTCBackPanel();
         }
         
-        contentTable.setStyleName(GWTCAlert.StyleCAlertTable);
-        contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.StyleCAlertMsgCell);
+        contentTable.setStyleName(GWTCAlert.STYLE_PANEL);
+        contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.STYLE_MSG);
         contentTable.setWidget(0, 0, txt);
 
-        contentTable.getCellFormatter().addStyleName(1, 0, GWTCAlert.StyleCAlertBtnCell);
+        contentTable.getCellFormatter().addStyleName(1, 0, GWTCAlert.STYLE_BTN);
         
         contentTable.setWidget(1, 0, okButton);
         
-        okButton.addStyleName(GWTCAlert.StyleCAlertBtn);
+        okButton.addStyleName(GWTCAlert.STYLE_BUTTON);
         okButton.addStyleName("gwtc-alert-rndbutton");
         this.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
@@ -143,10 +151,9 @@ public class GWTCAlert extends Composite {
         
         okButton.setVisible(! okButtonDisabled );
         
-        alertDlg.add(contentTable);
-        alertDlg.center();
-        hide();
-        initWidget(new SimplePanel());
+        dialog.add(contentTable);
+        
+        setZIndex(zIndex);
     }
     
     public void addClickListener(ClickListener listener) {
@@ -156,8 +163,22 @@ public class GWTCAlert extends Composite {
         okButton.removeClickListener(listener);
     }
 
+    @Override
+    public void setStyleName(String s) {
+        dialog.setStyleName(s);
+        
+    }
+    @Override
     public void addStyleName(String s) {
-        alertDlg.addStyleName(s);
+        dialog.addStyleName(s);
+    }
+    @Override
+    public void addStyleDependentName(String s) {
+        dialog.addStyleDependentName(s);
+    }
+    @Override
+    public String toString() {
+        return dialog.toString();
     }
 
     /**
@@ -221,10 +242,10 @@ public class GWTCAlert extends Composite {
      * Shows the alert dialog 
      */
     public void show() {
-        if (pageBackground != null) 
-            pageBackground.show();
-        contentTable.setVisible(true);
-        alertDlg.center();
+        dialog.center();
+        if (background != null) 
+            background.show();
+        okButton.setFocus(true);
     }   
     
     /**
@@ -250,10 +271,9 @@ public class GWTCAlert extends Composite {
      * Hides the dialog box
      */
     public void hide() {
-        alertDlg.hide();
-        contentTable.setVisible(false);
-        if (pageBackground != null)
-            pageBackground.hide();
+        dialog.hide();
+        if (background != null)
+            background.hide();
     }
 
     /**
@@ -264,5 +284,14 @@ public class GWTCAlert extends Composite {
     public void setOkButtonDisabled(boolean b) {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
+    }
+    /**
+     * Set the zIndex value
+     * 
+     * @param z
+     */
+    public void setZIndex(int z) {
+        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(zIndex));
+        background.setZIndex(z - 1);
     }
 }

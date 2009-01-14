@@ -1,3 +1,4 @@
+
 body {
 	font-family: Verdana, Arial;
 	font-size: 12px;
@@ -6,54 +7,25 @@ body {
 .sampleContainer {
 	margin-top: 15px;
 }
-
-table.GWTCSample {
-   margin-left: auto;
-   margin-right: auto;
-   width: 45em;
-   text-align: center;
-   font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
-   font-size: 10pt;
+table.intervalGrids, table.dpickersGrid {
+	padding: 40px;
+	border: 4px;
 }
 
-table.GWTCSample td.InfoCell{
-   margin-top: 10em;
-   background-color: #d0e6ff; 
-   text-align: left;
-   vertical-align: top;
-   
-   padding-top: 16px;
-   padding-bottom: 8px;
-   padding-right: 8px;
-   padding-left: 8px;
-   
-   border-top-width: 1px;
-   border-top-style: solid;
-   border-top-color: #777777; 
-   
-   border-bottom-width: 1px;
-   border-bottom-style: solid;
-   border-bottom-color: #777777; 
-}
-
-.GWTCSample .my-btn, .GWTCSample .x-btn {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/*
-.GWTCDatePicker, .GWTCDatePickerCheckout, .GWTCDatePickerCheckin {
-  border: 6px solid #d0e6ff;
-  background: white;
-}
-*/
-
-		
-.intervalTable {
-}
 
 .intervalTitles {
 	border: solid 1px black;
+}
+.sampleBox .panel td {
+  border:1px solid #BBBBBB;
+  padding:3px;
+}
+
+.pickerLabel {
+	font-size: 12px;
+	width: 300px;
+	padding-top: 5px;
+	padding-right: 10px;
 }
 
 .GWTCIntervalSelector table.GWTCIntervalGrid {
@@ -66,12 +38,36 @@ table.GWTCSample td.InfoCell{
 	margin-right: 4px;
 }
 
-.sampleBox .panel td {
-  border:1px solid #BBBBBB;
-  padding:3px;
+
+
+.GWTCIntervalLayout0 .checkinRow,
+.GWTCIntervalLayout0 .nightsValue, 
+.GWTCIntervalLayout0 .checkoutRow {
+	border: 2px ridge red;
+	min-height: 20px;
 }
 
+.GWTCIntervalLayout0 .checkinButton,
+.GWTCIntervalLayout0 .checkoutButton {
+	
+}
 
-
-
-
+.GWTCIntervalLayout0 .checkoutDateValue,
+.GWTCIntervalLayout0 .checkinDateValue,
+.GWTCIntervalLayout0 .nightsValue {
+	font-size: 14px;
+}
+.samplePickerPanel {
+  border: 3px groove pink;
+  padding: 10px;
+  width: 700px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right:auto;	
+}
+/*
+.my-btn-c {
+	width: 100px;
+	background: red;
+}
+*/

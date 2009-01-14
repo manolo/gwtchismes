@@ -1,32 +1,25 @@
-/*
- * Basic CSS for the GWTCAlert widget
- */
-
-.GWTCAlert, .GWTCAlertBox{
-   z-index: 99999;
+.GWTCAlert {
    font-family:  "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
    font-size: 12pt;
-}
-.GWTCAlert {
-   border : 5px solid #ff4a26 !important;
-   background : #fff; /* url(images/gwtc-alert-bg.jpg) repeat-x bottom;*/
+   border : 5px solid #ff4a26;
+   background : #fff;
    color : #000;
    padding :  4px 10px 10px 10px;
    text-align : center;
-   /* width : 230px; */
-		
 }
+
 .GWTCAlert .Caption {
   display: none;		
 }
-.GWTCAlert .gwtc-alert-cell-msg {
+
+.GWTCAlert .panel .msgCell {
    padding : 8px 0 40px 0;width : 230px;
 }
-.GWTCAlert td {
+.GWTCAlert .panel td {
    text-align : center;
 }
 
-.GWTCAlert table.gwtc-alert-rndbutton {
+.GWTCAlert .panel .btnCell .button {
    margin-left: auto;
    margin-right: auto;
    height: 16px;
