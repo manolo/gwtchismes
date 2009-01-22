@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class GWTCButton extends Button implements SourcesMouseEvents,
     SourcesClickEvents, SourcesKeyboardEvents {
   private static final String C_IMG = "my-btn-img";
-public static final int BUTTON_TYPE_0 = 0;
+  public static final int BUTTON_TYPE_0 = 0;
   public static final int BUTTON_TYPE_1 = 1;
   public static int DEFAULT_TYPE = 1;
 
@@ -96,13 +96,12 @@ public static final int BUTTON_TYPE_0 = 0;
       setUpGWTCButton();
     }
     addMouseListener(mouseOverListener);
-    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK | Event.KEYEVENTS );
     setHTML(text);
+    sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK | Event.KEYEVENTS );
   }
 
   private void setUpGWTCButton() {
     container = new FlexTable();
-    replaceElement(container.getElement());
     container.setStyleName("my-btn");
     container.addStyleName("my-no-selection");
     container.setCellSpacing(0);
@@ -110,6 +109,7 @@ public static final int BUTTON_TYPE_0 = 0;
     container.setHTML(0, 0, "&nbsp;");
     container.getCellFormatter().setStyleName(0, 0, "my-btn-" + "l");
     container.getCellFormatter().setStyleName(0, 1, "my-btn-" + "c");
+    
     textPanel = new FocusPanel();
     textPanel.addFocusListener(focusListener);
     textPanel.addKeyboardListener(keyboardListener);
@@ -118,6 +118,9 @@ public static final int BUTTON_TYPE_0 = 0;
     
     container.setHTML(0, 2, "&nbsp;");
     container.getCellFormatter().setStyleName(0, 2, "my-btn-" + "r");
+    
+    replaceElement(container.getElement());
+    DOM.sinkEvents(textPanel.getElement(), Event.FOCUSEVENTS | Event.KEYEVENTS |  Event.MOUSEEVENTS);
   }
   
 
@@ -234,15 +237,15 @@ public static final int BUTTON_TYPE_0 = 0;
         int mevent = DOM.eventGetType(event);
         mouseListeners.fireMouseEvent(this, event);
         if (enabled) {
-            if (container == null)
-                super.onBrowserEvent(event);
-            else
+            if (mevent == Event.ONCLICK) {
+                this.removeStyleDependentName(C_OVER);
+                clickListeners.fireClick(this);
+                this.removeStyleDependentName(C_DOWN);
+            } else if (container != null) { 
                 textPanel.onBrowserEvent(event);
-        }
-        if (enabled && (mevent == Event.ONCLICK)) {
-            this.removeStyleDependentName(C_OVER);
-            clickListeners.fireClick(this);
-            this.removeStyleDependentName(C_DOWN);
+            } else {
+                super.onBrowserEvent(event);
+            }
         }
   }
 
@@ -363,3 +366,4 @@ public static final int BUTTON_TYPE_0 = 0;
           textPanel.setTabIndex(index); 
   }
 }
+
