@@ -112,8 +112,10 @@
 		<delete file="${project}-${version}.zip" />
 		<delete dir ="build"/>
 		<delete dir =".gwt-cache"/>
+		<delete dir =".gwt"/>
 		<delete dir ="tomcat"/>
 		<delete dir ="www"/>
+                <delete><fileset dir="." includes="*log"/></delete>
 	</target>
 
 	<target name="all" depends="clean, jar, javadoc" />

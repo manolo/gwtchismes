@@ -157,6 +157,7 @@ public class GWTCWait extends Composite {
      * @param timeout seconds to wait before hide the dialog (timeout=0 wait for ever)
      */
     public void show(int timeout) {
+        setVisible(true);
         if (timeout > 0) {
             Timer t = new Timer() {
                 public void run() {
@@ -174,6 +175,7 @@ public class GWTCWait extends Composite {
      * Hide the wait dialog
      */
     public void hide() {
+        setVisible(false);
         dialog.hide();
         background.hide();
     }

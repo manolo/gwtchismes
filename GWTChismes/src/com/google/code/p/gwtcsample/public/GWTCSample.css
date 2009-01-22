@@ -4,9 +4,6 @@ body {
 	font-size: 12px;
 }
 
-.sampleContainer {
-	margin-top: 15px;
-}
 table.intervalGrids, table.dpickersGrid {
 	padding: 40px;
 	border: 4px;
@@ -21,11 +18,25 @@ table.intervalGrids, table.dpickersGrid {
   padding:3px;
 }
 
-.pickerLabel {
+.descrPanel {
+  border: 3px groove pink;
+  padding: 10px;
+  width: 800px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right:auto;	
+}
+.descrLabel {
 	font-size: 12px;
 	width: 300px;
 	padding-top: 5px;
 	padding-right: 10px;
+}
+.descrWidget {
+	margin-left: 15px;
+}
+.GWTCBox {
+	font-size: 8px;
 }
 
 .GWTCIntervalSelector table.GWTCIntervalGrid {
@@ -57,17 +68,7 @@ table.intervalGrids, table.dpickersGrid {
 .GWTCIntervalLayout0 .nightsValue {
 	font-size: 14px;
 }
-.samplePickerPanel {
-  border: 3px groove pink;
-  padding: 10px;
-  width: 700px;
-  margin-top: 5px;
-  margin-left: auto;
-  margin-right:auto;	
+
+.GWTCProgress .prg-numbers {
+   width:100px;
 }
-/*
-.my-btn-c {
-	width: 100px;
-	background: red;
-}
-*/

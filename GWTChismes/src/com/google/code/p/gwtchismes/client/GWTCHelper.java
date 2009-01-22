@@ -17,6 +17,9 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import java.util.List;
+import java.util.Vector;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -278,6 +281,26 @@ public class GWTCHelper {
         }
         return null;
     }
+    
+    
+    public static List findElementsWithClass(Element element, String className, List result) {
+        if (result == null) {
+            result = new Vector();
+        }
+
+        String cls = DOM.getElementProperty(element, "className");
+        if (cls != null && cls.indexOf(className) >= 0) {
+            result.add(element);
+        }
+
+        int childCount = DOM.getChildCount(element);
+        for (int i = 0; i < childCount; i++) {
+            findElementsWithClass(DOM.getChild(element, i), className, result);
+        }
+
+        return result;
+    }
+
 //  public static void insertCrossScript(String url, Class c, String method) {
 //  url = url + "?call=" + "@" + c.getName() + "::" + method + "()";
 //  insertJS(null, url);
