@@ -102,7 +102,7 @@ public class GWTCAlert extends Composite {
      * <li>CONFIG_ANIMATION      animate the dialog box when it is showed/hidden</li>    
      * </ul>
      *  
-     * @param config
+     * @param options
      *      cofiguration options.
      */
     public GWTCAlert(int options) {
