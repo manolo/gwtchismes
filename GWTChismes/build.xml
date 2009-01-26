@@ -37,7 +37,9 @@
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
 	<property name="package.name" value="com.google.code.p.gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
+    <property name="newsample.dir" value="com/google/code/p/newsample" />
 	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
+    <property name="newsample.module" value="com.google.code.p.newsample.newsample" />
 
 	<path id="compile.lib.classpath">
 		<pathelement location="${gwt.user.jar}" />
@@ -53,12 +55,12 @@
 		<delete dir="${project}-${version}" />
 		<delete file="${project}-${version}.jar" />
 		<mkdir dir="${class.dir}" />
-		<javac srcdir="${src.dir}" excludes="${sample.dir}/**" destdir="${class.dir}" target="1.5"
+		<javac srcdir="${src.dir}" excludes="${sample.dir}/**, ${newsample.dir}/**" destdir="${class.dir}" target="1.5"
 		       deprecation="off" debug="on" fork="true" encoding="UTF-8">
 			<classpath refid="compile.lib.classpath" />
 		</javac>
 		<copy todir="${class.dir}">
-			<fileset dir="${src.dir}" excludes="${sample.dir}/**" />
+			<fileset dir="${src.dir}" excludes="${sample.dir}/**, ${newsample.dir}/**" />
 		</copy>
 		<copy todir="${class.dir}" file="LICENSE" />
 		<jar jarfile="${project}-${version}.jar" basedir="${class.dir}" />
@@ -67,7 +69,7 @@
 
 	<target name="javadoc" description="Generates de Java documentation files for the project">
 		<delete dir="${doc.dir}" />
-		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" excludepackagenames="${sample.module}.*" destdir="${doc.dir}" encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
+		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" excludepackagenames="${sample.module}.*, ${newsample.module}.*" destdir="${doc.dir}" encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
 			nohelp="true" nonavbar="true" nodeprecatedlist="true"
 			>
 			<classpath refid="compile.lib.classpath" />
