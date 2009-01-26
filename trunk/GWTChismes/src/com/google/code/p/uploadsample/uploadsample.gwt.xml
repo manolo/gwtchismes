@@ -1,5 +1,0 @@
-<module>
-  <inherits name="com.google.gwt.user.User"/>
-  <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
-  <entry-point class="com.google.code.p.uploadsample.client.uploadsample"/>
-</module>
