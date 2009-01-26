@@ -1,176 +1,284 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" " http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>NEW Sample</title>
-<meta name='gwt:module' content='com.google.code.p.newsample.newsample' />
-<style type="text/css">
-@import url(GWTC.css);
-</style>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Untitled</title>
+  <style type="text/css">
+    /*<![CDATA[*/
+    html, body {
+      background-color:#ddd;
+    }
+    #centrar {
+      margin:0 auto;
+      padding:0;
+      width:500px;
+    }
+    .submenu li {
+      background-color: #fff;
+    }
+    ul.current, li.current {
+      background-color: #f66;
+    }
+    /*]]>*/
+  </style>
+
 </head>
+
 <body>
-<script language="javascript" src="gwt.js"></script>
-<!-- 
-<div class="my-shadow"
-	style="position: absolute; left: 577px; top: 94px; width: 320px; height: 170px;">
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-n.png"
-	style="position: absolute; left: 20px; top: 0pt; width: 280px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-ne.png"
-	style="position: absolute; left: 300px; top: 0pt; width: 20px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-e.png"
-	style="position: absolute; left: 300px; top: 20px; width: 20px; height: 132px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-se.png"
-	style="position: absolute; left: 300px; top: 152px; width: 20px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-s.png"
-	style="position: absolute; left: 20px; top: 152px; width: 280px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-sw.png"
-	style="position: absolute; left: 0pt; top: 152px; width: 20px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-w.png"
-	style="position: absolute; left: 0pt; top: 20px; width: 20px; height: 132px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow10-nw.png"
-	style="position: absolute; left: 0pt; top: 0pt; width: 20px; height: 20px;" />
-<img class="my-shadow-corner" width="1" height="1"
-	src="images/shadow/shadow-c.png"
-	style="position: absolute; left: 20px; top: 20px; width: 280px; height: 132px;" />
-</div>
-<div class="my-shell"
-	style="position: absolute; width: 300px; height: 150px; left: 587px; top: 104px; z-index: 302; opacity: 1;">
-<table class="my-shell-hdr my-no-selection my-shell-hdr-down"
-	cellspacing="0" cellpadding="0">
-	<tbody>
-		<tr>
-			<td class="my-shell-hdr-l">
-			<div />
-			</td>
-			<td class="my-shell-hdr-ml" />
-			<td class="my-shell-hdr-c"><span class="my-shell-hdr-text">Question</span>
-			</td>
-			<td class="my-shell-hdr-mr">
-			<table cellspacing="0" cellpadding="0">
-				<tbody>
-					<tr />
-				</tbody>
-			</table>
-			</td>
-			<td class="my-shell-hdr-r">
-			<div />
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table class="my-shell-body" cellspacing="0" cellpadding="0"
-	style="height: 88px;">
-	<tbody>
-		<tr>
-			<td class="my-shell-body-ml">
-			<div />
-			</td>
-			<td class="my-shell-body-mc">
-			<div class="my-container"
-				style="overflow: hidden; position: relative; height: 88px;">
-			<table width="100%" height="100%">
-				<tbody>
-					<tr>
-						<td class="my-mbox-icon"><img
-							src="images/dialog/question-bg.gif" /></td>
-						<td class="my-mbox-text" width="100%">Are you sure you want
-						to set your hair on fire?</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-			<table class="my-btn-bar" cellspacing="6" cellpadding="0"
-				style="width: 100%;">
-				<tbody>
-					<tr>
-						<td align="right" style="vertical-align: bottom;">
-						<table cellspacing="0" cellpadding="0" style="height: 100%;">
-							<colgroup>
-								<col />
-							</colgroup>
-							<tbody>
-								<tr style="vertical-align: middle;">
-									<td class="my-btn-bar-right">
-									<table class="my-btn my-no-selection" cellspacing="0"
-										cellpadding="0" style="width: 75px;">
-										<tbody>
-											<tr>
-												<td class="my-btn-l">
-												<div />
-												</td>
-												<td class="my-btn-ml" />
-												<td class="my-btn-c"><span class="my-btn-text">Yes</span>
-												</td>
-												<td class="my-btn-mr">
-												<table cellspacing="0" cellpadding="0">
-													<tbody>
-														<tr />
-													</tbody>
-												</table>
-												</td>
-												<td class="my-btn-r">
-												<div />
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									</td>
-									<td class="my-btn-bar-right">
-									<table class="my-btn my-no-selection" cellspacing="0"
-										cellpadding="0" style="width: 75px;">
-										<tbody>
-											<tr>
-												<td class="my-btn-l">
-												<div />
-												</td>
-												<td class="my-btn-ml" />
-												<td class="my-btn-c"><span class="my-btn-text">No</span>
-												</td>
-												<td class="my-btn-mr">
-												<table cellspacing="0" cellpadding="0">
-													<tbody>
-														<tr />
-													</tbody>
-												</table>
-												</td>
-												<td class="my-btn-r">
-												<div />
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			</td>
-			<td class="my-shell-body-mr">
-			<div />
-			</td>
-		</tr>
-		<tr>
-			<td class="my-shell-body-bl">
-			<div />
-			</td>
-			<td class="my-shell-body-bc" />
-			<td class="my-shell-body-br">
-			<div />
-			</td>
-		</tr>
-	</tbody>
-</table>
-</div>
--->
+  <div id="centrar">
+<a href="./index.es.html">test</a>
+
+        <a href="#id9-1">Ofertas solo web</a><br />
+
+    <ul class="menuContainer">
+      <li><a class="menuAction" id="menu_id1" href="#id1"><strong>Inicio</strong></a></li>
+      <li><a id="menu_id2" href="#id2"><strong>Lo que nos distingue</strong></a></li>
+
+      <li>
+        <a id="menu_1" href="#"><strong>Localización</strong></a>
+        <ul class="submenu">
+          <li><a id="menu_id3-1" href="#id3-1">Google Map</a></li>
+
+          <li><a id="menu_id3-2" href="#id3-2">Street View</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a id="menu_2" href="#"><strong>Habitaciones</strong></a>
+        <ul class="submenu">
+          <li><a id="menu_id4-1" href="#id4-1">Habitaciones</a></li>
+
+          <li><a id="menu_id4-2" href="#id4-2">Suites</a></li>
+          <li><a id="menu_id4-3" href="#id4-3">Triple</a></li>
+
+        </ul>
+      </li>
+      <li><a id="menu_id5" href="#id5"><strong>Servicios</strong></a></li>
+      <li><a  href="#"><strong>55</strong></a>
+       <ul class="submenu">
+          <li><a href="#id55-1">Habitaciones</a></li>
+          <li><a  href="#id5-2">Suites</a></li>
+
+       </ul>
+      </li>
+      <li><a id="menu_id6" href="#id6"><strong>Fotografías</strong></a></li>
+      <li><a id="menu_id7" href="#id7"><strong>Faq</strong></a></li>
+
+      <li><a id="menu_id8" href="#id8"><strong>Opiniones de clientes</strong></a></li>
+      <li>
+        <a id="menu_3" href="#"><strong>Precios y reservas</strong></a>
+
+        <ul class="submenu">
+          <li><a id="no_id_menu_id9-1" href="#id9-1">Ofertas solo web</a></li>
+          <li><a id="menu_id9-2" href="#id9-2">Lo que incluye el precio</a></li>
+          <li><a id="menu_id9-3" href="#id9-3">Consejos para encontrar un buen precio</a></li>
+
+        </ul>
+      </li>
+    </ul><!-- id="menu" -->
+
+    <div id="content">
+      <div id="id1">
+        id1<br />
+        id1<br />
+        id1<br />
+
+        id1<br />
+
+        id1<br />
+        id1<br />
+        id1<br />
+        id1<br />
+      </div><!-- id="id1" -->
+
+      <div id="id2">
+
+        <a href="#id5">Servicios</a><br />
+        id2<br />
+        id2<br />
+        id2<br />
+        id2<br />
+
+        id2<br />
+
+        id2<br />
+        id2<br />
+        id2<br />
+      </div><!-- id="id2" -->
+      <div id="id3-1">
+        <a id="prb1" href="#id9-1">Ofertas solo web</a><br />
+
+        id3-1<br />
+        id3-1<br />
+        id3-1<br />
+      </div><!-- id="id3-1" -->
+      <div id="id3-2">
+        <a href="http://www.google.com/#">External link with #</a><br />
+        id3-2<br />
+
+        id3-2<br />
+        id3-2<br />
+      </div><!-- id="id3-2" -->
+      <div id="id4-1">
+        id4-1<br />
+        id4-1<br />
+
+        id4-1<br />
+
+      </div><!-- id="id4-1" -->
+      <div id="id55-1">
+        id55-1<br />
+        id55-1<br />
+
+        id55-1<br />
+
+      </div><!-- id="id55" -->
+      <div id="id4-2">
+        id4-2<br />
+        id4-2<br />
+        id4-2<br />
+      </div><!-- id="id4-2" -->
+      <div id="id4-3">
+
+        id4-3<br />
+        id4-3<br />
+        id4-3<br />
+      </div><!-- id="id4-3" -->
+      <div id="id5">
+        id5<br />
+
+        id5<br />
+
+        id5<br />
+      </div><!-- id="id5" -->
+      <div id="id6">
+        id6<br />
+        id6<br />
+
+        id6<br />
+      </div><!-- id="id6" -->
+
+      <div id="id7">
+        id7<br />
+        id7<br />
+        id7<br />
+
+      </div><!-- id="id7" -->
+      <div id="id8">
+        id8<br />
+
+        id8<br />
+        id8<br />
+      </div><!-- id="id8" -->
+      <div id="id9-1">
+
+        id9-1<br />
+        id9-1<br />
+        id9-1<br />
+
+      </div><!-- id="id9-1" -->
+      <div id="id9-2">
+          <a id="prb3" href="#id9-3-abajo">id9-3 abajo</a><br/>
+
+          id9-2<br />
+          id9-2<br />
+          id9-2<br />
+      </div><!-- id="id9-2" -->
+      <div id="id9-3" class="menuAction">
+
+        <a id="prb2" href="#id9-3-abajo">id9-3 abajo</a><br/>
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+        id9-3<br />
+
+        <div id="content_abajo" style="background: pink">
+          <p id="id9-3-abajo">id9-3 abajo</p>
+        </div>
+
+        <a id="ppp" href="javascripts/prueba.html#aaa">link en el mismo host</a>
+        <a id="ppppp" href="#aaa">link en el mismo host</a>
+
+      </div><!-- id="id9-3" -->
+
+    </div><!-- id="contents" -->
+  </div><!-- id="center" -->
+  <script language="javascript" src="com.google.code.p.newsample.newsample.nocache.js"></script>
+  
 </body>
 </html>
+

@@ -35,8 +35,18 @@ table.intervalGrids, table.dpickersGrid {
 .descrWidget {
 	margin-left: 15px;
 }
-.GWTCBox {
+
+td .GWTCBox {
 	font-size: 8px;
+}
+
+td .GWTCBox {
+   margin-left: 8px;
+}
+
+td .GWTCBox .panel {
+   margin-left: 8px;
+  font-size: 14px;
 }
 
 .GWTCIntervalSelector table.GWTCIntervalGrid {
@@ -58,15 +68,13 @@ table.intervalGrids, table.dpickersGrid {
 	min-height: 20px;
 }
 
-.GWTCIntervalLayout0 .checkinButton,
-.GWTCIntervalLayout0 .checkoutButton {
-	
-}
-
 .GWTCIntervalLayout0 .checkoutDateValue,
 .GWTCIntervalLayout0 .checkinDateValue,
 .GWTCIntervalLayout0 .nightsValue {
 	font-size: 14px;
+}
+.GWTCIntervalLayout0 .nightsValue {
+  text-align: center;
 }
 
 .GWTCProgress .prg-numbers {

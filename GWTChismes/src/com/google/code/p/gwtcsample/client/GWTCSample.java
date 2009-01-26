@@ -18,12 +18,14 @@
 package com.google.code.p.gwtcsample.client;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.code.p.gwtchismes.client.GWTCBackPanel;
 import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
+import com.google.code.p.gwtchismes.client.GWTCHelper;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
@@ -31,6 +33,7 @@ import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
@@ -131,6 +134,11 @@ public class GWTCSample implements EntryPoint {
 
         tp.selectTab(0);
         RootPanel.get().add(tp);
+        
+        List<Element> l = GWTCHelper.findElementsWithClass(tp.getElement(), "GWTCBox", null);
+        for (Element e : l) {
+            System.out.println(e.getInnerHTML());
+        }
     }
 
     public void testButtons(Panel box) {
