@@ -1,5 +1,7 @@
 <module>
   <inherits name="com.google.gwt.user.User"/>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+  <inherits name='gwtquery.GwtQuery'/>
   <entry-point class="com.google.code.p.newsample.client.newsample"/>
+     
 </module>
