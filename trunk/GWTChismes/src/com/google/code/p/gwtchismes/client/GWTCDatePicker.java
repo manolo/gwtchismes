@@ -718,14 +718,18 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      *            Date
      */
     public void setSelectedDate(Date d) {
-        if (d != null && (selectedDate == null || GWTCDatePicker.compareDate(d, selectedDate) != 0)) {
+        if (d == null)
+            return;
+        if (getMonthNumber(selectedDate) != getMonthNumber(d)) {
+            setCursorDate(d);
             needsRedraw = true;
-            if (d!=null){
-                selectedDate = setHourToZero(d);
-                setCursorDate(d);
-            }
             drawCalendar();
         }
+        selectedDate = setHourToZero(d);
+    }
+    
+    public long getMonthNumber(Date d) {
+       return d.getYear() * 12 + d.getMonth();
     }
 
     /**
@@ -938,9 +942,12 @@ public class GWTCDatePicker extends Composite implements ClickListener, SourcesC
      * @return the difference in days between b and a (b - a)
      */
     public static int compareDate(Date a, Date b) {
-        long d1 = setHourToZero(a).getTime();
-        long d2 = setHourToZero(b).getTime();
-        return (int) ((d2 - d1) / 1000 / 60 / 60 / 24);
+        long diff = setHourToZero(b).getTime() - setHourToZero(a).getTime();
+        double hours = Math.ceil( diff/(1000*60*60) );
+        int days = (int)(hours/24);
+        if (hours%24 > 0)
+            days += 1;
+        return days;
     }
 
     /**
