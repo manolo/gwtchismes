@@ -291,7 +291,8 @@ public class GWTCAlert extends Composite {
      * @param z
      */
     public void setZIndex(int z) {
-        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(zIndex));
-        background.setZIndex(z - 1);
+        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(z));
+        if (background != null)
+            background.setZIndex(z - 1);
     }
 }
