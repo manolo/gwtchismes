@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.9" />
+	<property name="version" value="0.9.0" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -69,10 +69,21 @@
 
 	<target name="javadoc" description="Generates de Java documentation files for the project">
 		<delete dir="${doc.dir}" />
-		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" excludepackagenames="${sample.module}.*, ${newsample.module}.*" destdir="${doc.dir}" encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
-			nohelp="true" nonavbar="true" nodeprecatedlist="true"
+		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" 
+                         excludepackagenames="${sample.module}.*, ${newsample.module}.*" 
+                         destdir="${doc.dir}" 
+                         encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
+			 nohelp="true" nonavbar="true" nodeprecatedlist="true"
 			>
-			<classpath refid="compile.lib.classpath" />
+			<classpath refid="compile.sample.classpath" />
+		</javadoc>
+		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" 
+                         excludepackagenames="${sample.module}.*, ${newsample.module}.*" 
+                         destdir="javadoc" 
+                         encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
+			 nohelp="true" nonavbar="true" nodeprecatedlist="true"
+			>
+			<classpath refid="compile.sample.classpath" />
 		</javadoc>
 	</target>
 
