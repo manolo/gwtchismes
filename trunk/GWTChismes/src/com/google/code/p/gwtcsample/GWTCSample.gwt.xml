@@ -7,17 +7,16 @@
   <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
   -->
   
-  <servlet path="/XMAS/utils"   class="com.miraiespana.xmas.client.gwt.utils.server.UtilsServerImpl"/>
-  <servlet path="/XMAS/upload"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>
-  <servlet path="/XMAS/upload.fu"   class="com.miraiespana.xmas.client.gwt.utils.server.XFileUploadServlet"/>
-  
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
   
-  <extend-property name="locale" values="es"/>
   <!-- 
+  <extend-property name="locale" values="es"/>
   <extend-property name="locale" values="fr"/>
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
    -->
+   
+   <add-linker name="xs"/>
+   
   
 </module>

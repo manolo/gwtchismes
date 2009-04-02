@@ -4,23 +4,24 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.*;
 
 /**
- * <p><b>A panel that covers the document area in order to avoid user interaction.</b></p>
+ * <p><b>A panel that covers the document area with a semitransparent 
+ * layer in order to avoid user interaction.</b></p>
  * 
  * @author Manuel Carrasco Moñino
  * 
  * <h3>CSS Style Rules</h3> 
  * <ul> 
- *  <li>.GWTCBackPanel { Panel }</li> 
+ *  <li>.GWTCGlassPanel { Panel }</li> 
  *  <li>size and z-index are setted by code</li> 
  * </ul>
  * 
  */
-public class GWTCBackPanel extends FocusPanel {
+public class GWTCGlassPanel extends FocusPanel {
 
-    private String style = "GWTCBackPanel";
+    private String style = "GWTCGlassPanel";
     private int zIndex = 998;
 
-    public GWTCBackPanel() {
+    public GWTCGlassPanel() {
         super();
         addStyleName(style);
         setZIndex(zIndex);

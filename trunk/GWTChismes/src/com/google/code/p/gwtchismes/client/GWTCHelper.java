@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>
- *   Utility class of the gwtchismes library
+ * <b>Just a bunch of utility methods used in the gwtchismes library</b>
  * </p>
  * @author Manuel Carrasco Moñino 
  */
@@ -41,8 +41,8 @@ public class GWTCHelper {
      * @return true if the browser is ie6
      */
     public static native boolean isIE6() /*-{
-              return (window.XMLHttpRequest)? false: true;
-            }-*/;
+        return (window.XMLHttpRequest)? false: true;
+    }-*/;
 
 
     /**
@@ -52,18 +52,30 @@ public class GWTCHelper {
     public static void maximizeWidget(Widget widget) {
         if (widget == null)
             return;
-        int w = Math.max(getVisibleWidth(), Window.getClientWidth());
-        int h = Math.max(getVisibleHeight(), Window.getClientHeight());
+        int w = Math.max(getClientWidth(), Math.max(getWindowScrollWidth(), RootPanel.get().getOffsetWidth()));
+        int h = Math.max(getClientHeight(), Math.max(getWindowScrollHeight(), RootPanel.get().getOffsetHeight()));
+        // h = Math.max(h, Window.getClientHeight());
+        // h += Window.getScrollTop();
         widget.setSize(w + "px", h + "px");
     }
 
-    private static native int getVisibleWidth() /*-{
-               return $wnd.document.documentElement.clientWidth;
-            }-*/;
+    private static native int getClientWidth() /*-{
+      return $doc.documentElement.clientWidth || $doc.body.clientWidth;
+    }-*/;
 
-    private static native int getVisibleHeight() /*-{
-               return $wnd.document.documentElement.clientHeight;
-            }-*/;
+    private static native int getClientHeight() /*-{
+      return $doc.documentElement.clientHeight || $doc.body.clientHeight;
+    }-*/;
+
+    private static native int getWindowScrollHeight() /*-{
+      return $doc.compatMode == 'CSS1Compat' ?
+          $doc.documentElement.scrollHeight : $doc.body.scrollHeight;
+    }-*/;
+
+    private static native int getWindowScrollWidth() /*-{
+      return $doc.compatMode == 'CSS1Compat' ?
+          $doc.documentElement.scrollWidth : $doc.body.scrollWidth;
+    }-*/;
 
     /**
      * Changes curly bracket paramters with the correct values

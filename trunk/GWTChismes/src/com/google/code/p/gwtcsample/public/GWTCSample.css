@@ -36,16 +36,16 @@ table.intervalGrids, table.dpickersGrid {
 	margin-left: 15px;
 }
 
-td .GWTCBox {
+td .sampleContainer {
 	font-size: 8px;
 }
 
-td .GWTCBox {
+td .sampleContainer {
    margin-left: 8px;
 }
 
-td .GWTCBox .panel {
-   margin-left: 8px;
+td .sampleContainer .panel {
+  margin-left: 8px;
   font-size: 14px;
 }
 

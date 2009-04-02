@@ -17,16 +17,21 @@
 
 package com.google.code.p.gwtcsample.client;
 
+
 import java.util.HashMap;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
-import com.google.code.p.gwtchismes.client.GWTCBackPanel;
 import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
+import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
+import com.google.code.p.gwtchismes.client.GWTCGlassPanel;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
+import com.google.code.p.gwtchismes.client.GWTCModalBox;
+import com.google.code.p.gwtchismes.client.GWTCPopupBox;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
+import com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
@@ -64,6 +69,15 @@ public class GWTCSample implements EntryPoint {
     private final GWTCAlert alert = new GWTCAlert();
     private final GWTCAlert decorAlert = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
     private final GWTCWait wait = new GWTCWait();
+    
+    boolean testCode() {
+        //GWTCPopupBox p = new GWTCPopupBox();
+        //p.center();
+        //p.add(new Label("Hello world"));
+//        wait.show(5000);
+        // alert.alert("Hola pepe");
+        return false;
+    }
 
     GWTCSample() {
         intervalStrs.put("key.checkin", i18n.key_checkin());
@@ -100,6 +114,8 @@ public class GWTCSample implements EntryPoint {
     }
 
     public void onModuleLoad() {
+        if (testCode()) 
+            return;
         
         GWTCBox p1;
         GWTCTabPanel tp = new GWTCTabPanel();
@@ -107,6 +123,10 @@ public class GWTCSample implements EntryPoint {
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testButtons(p1);
         tp.add(p1, "Buttons");
+
+        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+        testRoundedBox(p1);
+        tp.add(p1, "Rounded Box");
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testChismes(p1);
@@ -125,81 +145,14 @@ public class GWTCSample implements EntryPoint {
         testProgressBar(p1);
         tp.add(p1, "Progress Bar");
 
-        p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
-        testRoundedBox(p1);
-        tp.add(p1, "Rounded Box");
-
         tp.selectTab(0);
-        RootPanel.get().add(tp);
-    }
-
-    public void testButtons(Panel box) {
-        box.setTitle("GWTCButton");
-
-        ClickListener buttonClick = new ClickListener() {
-            public void onClick(Widget sender) {
-                alert.alert(i18n.alert_message());
-            }
-        };
-        GWTCButton button = new GWTCButton(GWTCButton.BUTTON_TYPE_0, i18n.click_button(), buttonClick);
-        box.add(createPanelWithDescription(button, i18n.descr_button_0()));
-
-        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), buttonClick);
-        box.add(createPanelWithDescription(button, i18n.descr_button_1()));
-
-        button = new GWTCButton(i18n.click_button(), buttonClick) {
-            {
-                setEnabled(false);
-                setImageSrc("images/button/dialog-cancel.gif");
-            }
-        };
-        box.add(createPanelWithDescription(button, i18n.descr_button_d()));
-
-        button = new GWTCPrint(i18n.click_button());
-        box.add(createPanelWithDescription(button, i18n.descr_button_p()));
-    }
-
-    public void testChismes(Panel box) {
-        box.setTitle("GWTCBackPanel, GWTCWait & GWTCAlert");
-
-        final GWTCBackPanel back = new GWTCBackPanel();
-        back.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                back.hide();
-            }
-        });
-        GWTCButton button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), new ClickListener() {
-            public void onClick(Widget sender) {
-                back.show();
-            }
-        });
-        box.add(createPanelWithDescription(button, i18n.descr_back()));
-
-        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), new ClickListener() {
-            public void onClick(Widget sender) {
-                wait.show(5);
-            }
-        });
-        box.add(createPanelWithDescription(button, i18n.descr_wait()));
-
-        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button());
-        button.setImageSrc("images/button/warning.gif");
-        button.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                alert.alert(i18n.alert_message());
-            }
-        });
-        box.add(createPanelWithDescription(button, i18n.descr_alert_1()));
-
-        button = new GWTCButton(i18n.click_button());
-        button.setImageSrc("images/button/warning.gif");
-        button.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                decorAlert.alert(i18n.alert_message());
-            }
-        });
-        box.add(createPanelWithDescription(button, i18n.descr_alert_2()));
-
+        
+        RootPanel p = RootPanel.get("gwtchismes-sample");
+        if (p==null)
+            p=RootPanel.get();
+        
+        p.add(tp);
+        
     }
 
     private Panel createPanelWithDescription(Widget widget, String description) {
@@ -217,20 +170,103 @@ public class GWTCSample implements EntryPoint {
         return panel;
     }
 
-    private Widget createPickerExample(HashMap strs, String caption, String style, int options) {
-        final GWTCDatePicker picker = new GWTCDatePicker(options);
-        picker.setText(caption);
-        picker.setI18nMessages(strs);
-        if (style != null)
-            picker.addStyleName(style);
+    public void testButtons(Panel box) {
+        box.setTitle("GWTCButton");
 
+        ClickListener buttonClick = new ClickListener() {
+            public void onClick(Widget sender) {
+                alert.alert(i18n.alert_message());
+            }
+        };
+
+        // Button type 0
+        GWTCButton button = new GWTCButton(GWTCButton.BUTTON_TYPE_0, i18n.click_button(), buttonClick);
+        box.add(createPanelWithDescription(button, i18n.descr_button_0()));
+
+        // Button type 1
+        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), buttonClick);
+        box.add(createPanelWithDescription(button, i18n.descr_button_1()));
+
+        // Button with image
+        button = new GWTCButton(i18n.click_button(), buttonClick) {{
+                setEnabled(false);
+                setImageSrc("images/button/dialog-cancel.gif");
+        }};
+        box.add(createPanelWithDescription(button, i18n.descr_button_d()));
+
+        // Print button
+        button = new GWTCPrint(i18n.click_button());
+        box.add(createPanelWithDescription(button, i18n.descr_button_p()));
+    }
+
+    public void testChismes(Panel box) {
+        box.setTitle("GWTCGlassPanel, GWTCModalBox, GWTCWait & GWTCAlert");
+
+        // GWTCGlassPanel
+        final GWTCGlassPanel back = new GWTCGlassPanel();
+        back.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                back.hide();
+            }
+        });
+        GWTCButton button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), new ClickListener() {
+            public void onClick(Widget sender) {
+                back.show();
+            }
+        });
+        box.add(createPanelWithDescription(button, i18n.descr_glass()));
+        
+        // GWTCModalBox
+        final GWTCModalBox modal = new GWTCModalBox(GWTCModalBox.OPTION_ROUNDED_FLAT);
+        modal.add(new Label(i18n.alert_message()));
+        modal.setAnimationEnabled(true);
+        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), new ClickListener() {
+            public void onClick(Widget sender) {
+                modal.center();
+            }
+        });
+        box.add(createPanelWithDescription(button, i18n.descr_modal()));
+
+        // GWTCWait
+        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button(), new ClickListener() {
+            public void onClick(Widget sender) {
+                wait.show(5);
+            }
+        });
+        box.add(createPanelWithDescription(button, i18n.descr_wait()));
+
+        // GWTCAlert
+        button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button());
+        button.setImageSrc("images/button/warning.gif");
+        button.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                alert.alert(i18n.alert_message());
+            }
+        });
+        box.add(createPanelWithDescription(button, i18n.descr_alert_1()));
+
+        // GWTCAlert in a rounded box
+        button = new GWTCButton(i18n.click_button());
+        button.setImageSrc("images/button/warning.gif");
+        button.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                decorAlert.alert(i18n.alert_message());
+            }
+        });
+        box.add(createPanelWithDescription(button, i18n.descr_alert_2()));
+
+    }
+
+
+    private Widget createPickerWidget(final GWTCSimpleDatePicker picker, boolean asDialog) {
         picker.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
-                alert.alert(((GWTCDatePicker) sender).getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+                alert.alert(((GWTCSimpleDatePicker) sender).getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+                picker.hide();
             }
         });
 
-        if ((options & GWTCDatePicker.CONFIG_DIALOG) == GWTCDatePicker.CONFIG_DIALOG) {
+        if (asDialog) {
             final GWTCButton button = new GWTCButton(i18n.click_button());
             button.setImageSrc("images/gwtc-calendar.gif");
             button.addClickListener(new ClickListener() {
@@ -246,32 +282,66 @@ public class GWTCSample implements EntryPoint {
 
     public void testDatePicker(GWTCBox box) {
         box.setTitle("GWTCDatePicker");
-        int options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX | GWTCDatePicker.CONFIG_BACKGROUND;
-        Widget widget = createPickerExample(pickTitStrs, null, null, options);
+        
+        int options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX 
+          | GWTCDatePicker.CONFIG_BACKGROUND;
+        GWTCDatePickerAbstract picker = new GWTCDatePicker(options); 
+        picker.setI18nMessages(pickTitStrs);
+        Widget widget = createPickerWidget(picker, true);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_1()));
 
-        options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_CLOSE_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_BACKGROUND
-                | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_FLAT_BUTTONS;
-        widget = createPickerExample(pickTitStrs, "Please, select a date", null, options);
+        options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_CLOSE_BUTTON 
+          | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_BACKGROUND
+          | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_FLAT_BUTTONS;
+        picker = new GWTCDatePicker(options); 
+        picker.setText("Please, select a date");
+        picker.setI18nMessages(pickTitStrs);
+        widget = createPickerWidget(picker, true);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_2()));
-
-        options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3 | GWTCDatePicker.CONFIG_DIALOG
-                | GWTCDatePicker.CONFIG_BACKGROUND;
-        widget = createPickerExample(pickStrs, null, "GWTCDatePicker-custom", options);
+        
+        options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON 
+          | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3 | GWTCDatePicker.CONFIG_DIALOG
+          | GWTCDatePicker.CONFIG_BACKGROUND;
+        picker = new GWTCDatePicker(options); 
+        picker.setI18nMessages(pickStrs);
+        picker.addStyleName("GWTCDatePicker-custom");
+        widget = createPickerWidget(picker, true);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_3()));
-
-        options = GWTCDatePicker.CONFIG_DEFAULT;
-        widget = createPickerExample(pickTitStrs, null, null, options);
+        
+        picker = new GWTCDatePicker(options, 2, "? x;p<->n");
+        picker.setI18nMessages(pickStrs);
+        picker.addStyleName("GWTCDatePicker-custom");
+        widget = createPickerWidget(picker, true);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_4()));
 
-        options = GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_STANDARD_BUTTONS;
-        widget = createPickerExample(pickTitStrs, null, null, options);
+        picker = new GWTCDatePickerCustom();
+        widget = createPickerWidget(picker, true);
+        picker.setI18nMessages(pickStrs);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_5()));
 
-        options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3;
-        widget = createPickerExample(pickStrs, null, "GWTCDatePicker-custom", options);
+        options = GWTCDatePicker.CONFIG_DEFAULT;
+        picker = new GWTCDatePicker(options); 
+        picker.setI18nMessages(pickTitStrs);
+        widget = createPickerWidget(picker, false);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_6()));
+
+        options = GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON 
+          | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_STANDARD_BUTTONS;
+        picker = new GWTCDatePicker(options); 
+        picker.setI18nMessages(pickTitStrs);
+        widget = createPickerWidget(picker, false);
+        box.add(createPanelWithDescription(widget, i18n.descr_picker_7()));
+
+        options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON 
+          | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3;
+        picker = new GWTCDatePicker(options); 
+        picker.setI18nMessages(pickTitStrs);
+        picker.addStyleName("GWTCDatePicker-custom");
+        widget = createPickerWidget(picker, false);
+        box.add(createPanelWithDescription(widget, i18n.descr_picker_8()));
+        
     }
+
 
     public void testIntervalSelector(GWTCBox box) {
         box.setTitle("GWTCIntervalSelector");
@@ -293,8 +363,8 @@ public class GWTCSample implements EntryPoint {
         intervalCustomized.setI18nMessages(strs);
         final Button customizedButton = new GWTCButton(i18n.click_button(), new ClickListener() {
             public void onClick(Widget sender) {
-                String ci = GWTCDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getInitDate());
-                String co = GWTCDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getEndDate());
+                String ci = GWTCSimpleDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getInitDate());
+                String co = GWTCSimpleDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getEndDate());
                 alert.alert(ci + "\n" + co + "\n" + intervalCustomized.getNights());
             }
 

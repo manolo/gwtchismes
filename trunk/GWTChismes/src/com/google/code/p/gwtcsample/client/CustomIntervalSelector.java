@@ -2,13 +2,10 @@ package com.google.code.p.gwtcsample.client;
 
 import java.util.Map;
 
-import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
+import com.google.code.p.gwtchismes.client.GWTCHelper;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -21,9 +18,12 @@ public class CustomIntervalSelector extends GWTCIntervalSelector {
     
     @Override
     public void drawIntervalWidget() {
-        int calendarOptions = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_BACKGROUND | GWTCDatePicker.CONFIG_LAYOUT_3 |GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON;
-        setDatePickerOptions(calendarOptions);
+        int calendarOptions = GWTCDatePicker.CONFIG_DIALOG |  GWTCDatePicker.CONFIG_BACKGROUND | GWTCDatePicker.CONFIG_LAYOUT_3 |GWTCDatePicker.CONFIG_FLAT_BUTTONS ;
+        
+        configureDatePickers(calendarOptions, "<->", 2, 2, 1, 24);
+        
         checkinCalendar.addStyleName(checkinCalendar.getStylePrimaryName() + "-custom");
+
         checkoutCalendar.addStyleName(checkinCalendar.getStylePrimaryName() + "-custom");
 
         addChangeListener(new ChangeListener() {
@@ -55,7 +55,7 @@ public class CustomIntervalSelector extends GWTCIntervalSelector {
         getGrid().setWidget(idx, 1, checkoutInfo);
         getGrid().setWidget(idx, 2, nightsValue);
         
-        super.setCalendarPosition(BY_DATEVALUES);
+        super.setDatePickerPosition(PICKER_POSITION_NEAR_DATEVALUES);
 
         nightsLabel.setVisible(false);
         nightsValue.setVisible(false);

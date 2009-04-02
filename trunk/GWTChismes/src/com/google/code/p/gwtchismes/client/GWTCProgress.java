@@ -1,5 +1,7 @@
 /*
- * Copyright 2006 Robert Hanson <iamroberthanson AT gmail.com>
+ * Copyright 2007 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * Most part of this code has been borrowed to Bjarne Matzen, Bjarne[dot]Matzen[at]gmail[dot]com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,105 +22,69 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
- * <P>
- * A progress bar that uses table elements to show progress and with a
- * basic time remaining calculation built in.
+ * <p>
+ * <b>A progress bar with time remaining calculation.</b>
+ * <p>
+ * @author Bjarne Matzen  & Manuel Carrasco Moñino
  * 
- * <P>
- * You can optionally:
- *  - show it as a modal dialog
- *  - display some text above or at the left of the progress bar
- *  - time remaining, percent, done/total pair, and velocity
- * To control the display of those features, set the options 
- * in the constructor as shown in the following usage
+ * <h3>Features</h3>
+ * <ul>
+ *  <li>show it as a modal dialog</li>
+ *  <li>display some text above or at the left of the progress bar</li>
+ *  <li>time remaining, percent, done/total, and velocity</li>
+ *  <li>internationalizable elements</li>
+ * </ul>
+ *  
+ * <h3>Example</h3>
+  <pre>
+    final GWTCProgress progressBar = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING | GWTCProgress.SHOW_TEXT);
+    progressBar.setText("Doing something..."); 
+    RootPanel.get().add(progressBar);
+    
+    Timer t = new Timer() { 
+      public void run() { 
+         int progress = progressBar.getProgress() + 4; 
+         if (progress>100)  cancel();
+         progressBar.setProgress(progress);
+      }
+    };
+    t.scheduleRepeating(500);
+  </pre>  
  * 
- * example:
+ * <h3>Configuration options</h3>
+ * <ul>
+ *  <li>SHOW_TIME_REMAINING  show the calculated time remaining. It is recalculated each time the progress bar is updated</li>
+ *  <li>SHOW_TEXT            show element with text description</li>
+ *  <li>SHOW_LEFT_TEXT       show text at left position</li>
+ *  <li>SHOW_NUMBERS         show element with numerical data</li>
+ *  <li>SHOW_AS_DIALOG       shos as a dialog</li>
+ * </ul> 
  * 
- * <PRE>
+ * <h3>CSS Style Rules</h3>
+ * <ul>
+ * <li>.GWTCProgress { GWTCDatePicket container }</li>
+ * <li>.GWTCProgress-dialog { dependent style when the progress bar is shown as dialog }</li>
+ * <li>.GWTCProgress .prg-numbers { element with numeric data }</li>
+ * <li>.GWTCProgress .prg-time { element with time remaining data }</li>
+ * <li>.GWTCProgress .prg-title { element with title }</li>
+ * <li>.GWTCProgress .prg-bar-outer { outer part of the progress bar}
+ * <li>.GWTCProgress .prg-bar-inner { inner part of the progress bar }
+ * <li>.GWTCProgress .prg-bar-inner .prg-bar-element { each element in the progress bar}
+ * <li>.GWTCProgress .prg-bar-inner .prg-bar-done { elements that represents done precent in the progress bar }
+ * <li>.GWTCProgress .prg-bar-inner .prg-bar-blank { remainder elements }
+ * <ul>
  * 
- * final ProgressBar progressBar = new ProgressBar(20
- * ,ProgressBar.SHOW_TIME_REMAINING +ProgressBar.SHOW_TEXT);
- * progressBar.setText("Doing something..."); RootPanel.get().add(progressBar);
- * Timer t = new Timer() { public void run() { int progress =
- * progressBar.getProgress()+4; if (progress>100) cancel();
- * progressBar.setProgress(progress); } }; t.scheduleRepeating(1000);
- * 
- * </PRE>
- * 
- * <P>
- * How the time remaining is displayed can be controlled by setting the relevant
- * messages using the language of your choice.
- * 
- * <P>
- * The default setting for the messages are as follows:
- * 
- * <PRE>
- * 
- * setSecondsMessage("Time remaining: {0} Seconds"); setMinutesMessage("Time
- * remaining: {0} Minutes"); setHoursMessage("Time remaining: {0} Hours");
- * 
- * </PRE>
- * 
- * <P>
- * To reset the time remaining/set the start time, simply set the progress to
- * zero.
- * 
- * <P>
- * Some basic CSS styling is available to control the text, border around the
- * progress bar itself and the colour of the progress bar elements.
- * 
- * <PRE>
- * 
- * .progressbar-text { font-weight: bold; }
- * 
- * .progressbar-remaining { font-size: 12px; font-style: italic; }
- * 
- * .progressbar-outer { border: 1px solid black; }
- * 
- * .progressbar-inner { border: 1px solid black; margin: 1px; }
- * 
- * .progressbar-bar { width: 5px; height: 15px; margin: 1px; }
- * 
- * .progressbar-fullbar { background: blue; }
- * 
- * .progressbar-blankbar { background: #eee; }
- * 
- * </PRE>
- * 
- * <P>
- * You can take advantage of the default style by adding the following to the
- * head of your HTML page.
- * 
- * <P>
- * &lt;link rel="stylesheet" type="text/css" href="style/gwl-progressBar.css">
- * 
- * <P>
- * This style sheet also has two additional styles which you can use by adding
- * the stye name to the widget. You can use either one of these, or use both
- * combined.
- * 
- * <PRE>
- * 
- * ProgressBar progressBar = new ProgressBar(20);
- * progressBar.addStyleName("progressbar-solid");
- * progressBar.addStyleName("progressbar-noborder");
- * 
- * </PRE>
- * 
- * @author Bjarne Matzen - Bjarne[dot]Matzen[at]gmail[dot]com
  */
 
 public class GWTCProgress extends Composite {
 
     public static final String StyleCProgress = "GWTCProgress";
-    public static final String StyleCProgressDlg = "prg-dialog";
+    public static final String StyleCProgressDlg = "dialog";
     public static final String StyleCPrgNumbers = "prg-numbers";
     public static final String StyleCPrgTime = "prg-time";
     public static final String StyleCPrgText = "prg-title";
@@ -137,7 +103,7 @@ public class GWTCProgress extends Composite {
     public static final int SHOW_AS_DIALOG = 8;
     public static final int SHOW_DEFAULT = SHOW_AS_DIALOG | SHOW_NUMBERS | SHOW_TEXT | SHOW_TIME_REMAINING;
 
-    private GWTCBackPanel background = null;
+    private GWTCGlassPanel background = null;
     private DialogBox progressDlg = null;
     private FlexTable contentTable = new FlexTable();
     private Grid elementGrid = null;
@@ -228,12 +194,12 @@ public class GWTCProgress extends Composite {
         setProgress(0);
         if (showAsDialog) {
             // Create the background
-            background = new GWTCBackPanel();
+            background = new GWTCGlassPanel();
             // put the container into a dialog
             progressDlg = new DialogBox();
             progressDlg.setWidget(contentTable);
             progressDlg.setStyleName(StyleCProgress);
-            progressDlg.addStyleName(StyleCProgressDlg);
+            progressDlg.addStyleDependentName(StyleCProgressDlg);
             progressDlg.center();
             hide();
             // Initialize this composite with an empty element
@@ -441,6 +407,15 @@ public class GWTCProgress extends Composite {
         return percentMessage;
     }
 
+    /**
+     * Set the message used to format the progress in percent units.
+     * 
+     * The message must contain a placeholder for the value. The placeholder
+     * must be {0}. 
+     * 
+     * @param percentMessage
+     *            the percent message to set
+     */
     public void setPercentMessage(String percentMessage) {
         this.percentMessage = percentMessage;
     }
@@ -448,7 +423,12 @@ public class GWTCProgress extends Composite {
     public String getTotalMessage() {
         return totalMessage;
     }
-
+    
+    /**
+     * Set the message to show when the process has finished
+     * 
+     * @param totalMessage
+     */
     public void setTotalMessage(String totalMessage) {
         this.totalMessage = totalMessage;
     }

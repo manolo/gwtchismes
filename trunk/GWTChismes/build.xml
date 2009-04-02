@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.9.0" />
+	<property name="version" value="0.9.1" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -64,39 +64,40 @@
 		</copy>
 		<copy todir="${class.dir}" file="LICENSE" />
 		<jar jarfile="${project}-${version}.jar" basedir="${class.dir}" />
-		<delete dir="${class.dir}" />
+		<!-- <delete dir="${class.dir}" /> -->
 	</target>
 
+			 <!-- use="false" nohelp="true" nonavbar="true"
+                         nodeprecatedlist="true" -->
 	<target name="javadoc" description="Generates de Java documentation files for the project">
 		<delete dir="${doc.dir}" />
 		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" 
                          excludepackagenames="${sample.module}.*, ${newsample.module}.*" 
                          destdir="${doc.dir}" 
-                         encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
-			 nohelp="true" nonavbar="true" nodeprecatedlist="true"
-			>
-			<classpath refid="compile.sample.classpath" />
-		</javadoc>
-		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" 
-                         excludepackagenames="${sample.module}.*, ${newsample.module}.*" 
-                         destdir="javadoc" 
-                         encoding="UTF-8" charset="UTF-8" author="true" version="true" use="false" windowtitle="GWTChismes"
-			 nohelp="true" nonavbar="true" nodeprecatedlist="true"
+                         encoding="UTF-8" charset="UTF-8" author="true" version="true" windowtitle="GWTChismes"
 			>
 			<classpath refid="compile.sample.classpath" />
 		</javadoc>
 	</target>
 
-	<target name="sample" description="Generates the static javascript files needed for deploy the provided example">
+	<target name="sample" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
 		<echo message="Compiling sample code from java to javascript" />
 		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
-			<arg value="PRETTY"/>
+			<arg value="OBFUSCATED"/>
 			<arg value="-out" />
-			<arg value="-Xmx128M" />
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
+		</java>
+	</target>
+
+	<target name="i18n" description="Synchronizes gwt-i18n properties files with class">
+		<echo message="Synchronizing properties files" />
+		<java classname="com.google.gwt.i18n.tools.I18NSync" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
+			<arg value="-out" />
+			<arg value="src" />
+			<arg value="com.google.code.p.gwtcsample.client.GWTCSampleI18n" />
 		</java>
 	</target>
 
@@ -114,7 +115,7 @@
 		<exec dir="." executable="zip">
 			<arg line="-q -r ${project}-${version}.zip ${project}-${version}" />
 		</exec>
-		<delete dir="${project}-${version}" />
+		<!-- <delete dir="${project}-${version}" /> -->
 	</target>
 
 	<target name="clean">
@@ -124,6 +125,8 @@
 		<delete file="${project}-${version}.jar" />
 		<delete file="${project}-${version}.zip" />
 		<delete dir ="build"/>
+		<delete dir ="sample"/>
+		<delete dir ="javadoc"/>
 		<delete dir =".gwt-cache"/>
 		<delete dir =".gwt"/>
 		<delete dir ="tomcat"/>
@@ -133,4 +136,17 @@
 
 	<target name="all" depends="clean, jar, javadoc" />
 	<target name="distribution" depends="clean, zip, clean" />
+         <target name="install">
+             <exec dir="." executable="mvn">
+                <arg line="deploy:deploy-file" />
+                <arg line="-DgroupId=gwtchismes
+                           -DartifactId=${project}
+                           -DrepositoryId=mirai
+                           -Durl=http://draco:8080/archiva/repository/internal/
+                           -Dfile=${project}-${version}.jar
+                           -Dversion=${version} -Dpackaging=jar
+                           -DgeneratePom=true"
+                           />
+             </exec>
+         </target>
 </project>

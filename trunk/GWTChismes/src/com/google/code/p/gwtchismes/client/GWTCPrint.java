@@ -19,11 +19,10 @@ package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * <b>This widget is simple button that send to the print the current page.</b>
+ * <b>A simple button that send to the print the current page.</b>
  * 
  * @author Manuel Carrasco Moñino
  * <p>

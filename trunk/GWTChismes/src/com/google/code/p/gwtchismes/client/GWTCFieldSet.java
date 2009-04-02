@@ -29,9 +29,8 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
  * <p>
- * <b>A widget that groups a set of fields in a form.</b>
+ * <b>A widget that groups a set of form fields in squared box.</b>
  * </p>
- * It draws a box with a legend around them.<
  *  
  * @author Manuel Carrasco Moñino
  *
@@ -41,6 +40,7 @@ public class GWTCFieldSet extends Panel {
     String idFieldSet;
     String idLegend;
     DockPanel dockpanel = new DockPanel();
+    
     public void add(Widget w) {
         dockpanel.add(w, DockPanel.NORTH);
     }
@@ -68,7 +68,8 @@ public class GWTCFieldSet extends Panel {
         setLegend("");
         setStyleName(MAIN_STYLE);
 	}
-    /**
+
+	/**
      * Sets the text for the leyend
      * @param txt
      */
