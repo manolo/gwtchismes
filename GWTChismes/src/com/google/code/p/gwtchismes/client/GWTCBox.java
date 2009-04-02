@@ -28,11 +28,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
- * <b>A panel decorated with rounded borders.</b>
+ * <p><b>Panel decorated with rounded borders.</b></p>
+ * <p>It uses a DockPanel inside a DecoratorPanel</p> 
  * 
  * @author Manuel Carrasco Moñino
- * 
- * It uses a DockPanel inside a DecoratorPanel 
  * 
    <h3>Example</h3>
     <pre>
@@ -128,7 +127,7 @@ public class GWTCBox extends DecoratorPanel {
     /**
      * Adds elements to the panel in the position specified
      * Valid options are
-     * DockPanel.NORTH DockPanel.SOUTN DockPanel.EAST DockPanel.WEST
+     * DockPanel.NORTH DockPanel.SOUTH DockPanel.EAST DockPanel.WEST
      *  
      * @param widget
      * @param direction
@@ -158,13 +157,13 @@ public class GWTCBox extends DecoratorPanel {
      */
     @Override
     public void setTitle(String title) {
-        this.title.setHTML("<h3" + " class=\"" + STYLE_TITLE + "\">"+ title + "</h3>");
+        this.title.setHTML(title == null ? "" : "<h3" + " class=\"" + STYLE_TITLE + "\">"+ title + "</h3>");
     }
 
     /**
      * writes a text in the north position of the panel and under the title inside a p tag 
      */
     public void setText(String text) {
-        this.text.setHTML("<p" + " class=\"" + STYLE_TEXT + "\">" + text + "</p>");
+        this.text.setHTML(text == null ? "" :"<p" + " class=\"" + STYLE_TEXT + "\">" + text + "</p>");
     }
 }

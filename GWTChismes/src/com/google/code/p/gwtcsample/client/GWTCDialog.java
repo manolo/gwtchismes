@@ -1,4 +1,4 @@
-package com.google.code.p.gwtchismes.client;
+package com.google.code.p.gwtcsample.client;
 
 /*
  * Copyright 2007 Google Inc.
@@ -16,6 +16,7 @@ package com.google.code.p.gwtchismes.client;
  * the License.
  */
 
+import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ClickListener;

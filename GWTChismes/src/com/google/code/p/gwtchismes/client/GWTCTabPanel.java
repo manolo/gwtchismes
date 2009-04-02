@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>
- * A TabPanel that wraps each tab text in a decorated label
+ * <b>A TabPanel that wraps each tab text in a decorated label</b>
  * </p>
  * 
  * <b>TODO:</b> Use the new DecoratedTabPanel from GWT 

@@ -15,7 +15,6 @@ echo $DD $PD
 I=$DD/resources/inherit.gif
 
 
-
 rm -rf  $D
 mkdir -p $D
 

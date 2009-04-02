@@ -8,39 +8,39 @@ package com.google.code.p.gwtcsample.client;
 public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   
   /**
-   * Translated "Layout-2 date-picker with standard buttons,  and years and help disabled".
+   * Translated "Customized date-picker displaying 6 months in 3 columns.".
    * 
-   * @return translated "Layout-2 date-picker with standard buttons,  and years and help disabled"
+   * @return translated "Customized date-picker displaying 6 months in 3 columns."
   
    */
-  @DefaultStringValue("Layout-2 date-picker with standard buttons,  and years and help disabled")
+  @DefaultStringValue("Customized date-picker displaying 6 months in 3 columns.")
   String descr_picker_5();
 
   /**
-   * Translated "Layout-3 date-picker with link buttons, help and year buttons disabled, and a customized style".
+   * Translated "Default embeded date-picker with rounded buttons and all options enabled".
    * 
-   * @return translated "Layout-3 date-picker with link buttons, help and year buttons disabled, and a customized style"
+   * @return translated "Default embeded date-picker with rounded buttons and all options enabled"
   
    */
-  @DefaultStringValue("Layout-3 date-picker with link buttons, help and year buttons disabled, and a customized style")
+  @DefaultStringValue("Default embeded date-picker with rounded buttons and all options enabled")
   String descr_picker_6();
 
   /**
-   * Translated "Modal customized layout-3 date-picker, with internationalized buttons, background and with years and help buttons disabled.".
+   * Translated "Customized layout-3 date-picker, with internationalized buttons, glass background and disabled years and help buttons.".
    * 
-   * @return translated "Modal customized layout-3 date-picker, with internationalized buttons, background and with years and help buttons disabled."
+   * @return translated "Customized layout-3 date-picker, with internationalized buttons, glass background and disabled years and help buttons."
   
    */
-  @DefaultStringValue("Modal customized layout-3 date-picker, with internationalized buttons, background and with years and help buttons disabled.")
+  @DefaultStringValue("Customized layout-3 date-picker, with internationalized buttons, glass background and disabled years and help buttons.")
   String descr_picker_3();
 
   /**
-   * Translated "Default date-picker with rounded buttons and all options enabled".
+   * Translated "Customized date-picker displaying 2 months.".
    * 
-   * @return translated "Default date-picker with rounded buttons and all options enabled"
+   * @return translated "Customized date-picker displaying 2 months."
   
    */
-  @DefaultStringValue("Default date-picker with rounded buttons and all options enabled")
+  @DefaultStringValue("Customized date-picker displaying 2 months.")
   String descr_picker_4();
 
   /**
@@ -62,6 +62,24 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String alert_message();
 
   /**
+   * Translated "Layout-2 embeded date-picker with standard buttons, and disabled years and help buttons".
+   * 
+   * @return translated "Layout-2 embeded date-picker with standard buttons, and disabled years and help buttons"
+  
+   */
+  @DefaultStringValue("Layout-2 embeded date-picker with standard buttons, and disabled years and help buttons")
+  String descr_picker_7();
+
+  /**
+   * Translated "Layout-3 date-picker with link buttons, disabled help and year buttons, and customized style".
+   * 
+   * @return translated "Layout-3 date-picker with link buttons, disabled help and year buttons, and customized style"
+  
+   */
+  @DefaultStringValue("Layout-3 date-picker with link buttons, disabled help and year buttons, and customized style")
+  String descr_picker_8();
+
+  /**
    * Translated "Next month".
    * 
    * @return translated "Next month"
@@ -78,6 +96,15 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
    */
   @DefaultStringValue("Time remaining: {0} Minutes")
   String progress_minutes();
+
+  /**
+   * Translated "GWTCModalBox is a modal box with a background panel that can be decorated with rounded corners. ".
+   * 
+   * @return translated "GWTCModalBox is a modal box with a background panel that can be decorated with rounded corners. "
+  
+   */
+  @DefaultStringValue("GWTCModalBox is a modal box with a background panel that can be decorated with rounded corners. ")
+  String descr_modal();
 
   /**
    * Translated "Close dialog".
@@ -242,15 +269,6 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String key_next_year();
 
   /**
-   * Translated "GWTCBackPanel is a semitransparent panel (even in explorer) whith supports click actions and is placed over all other page elements. ".
-   * 
-   * @return translated "GWTCBackPanel is a semitransparent panel (even in explorer) whith supports click actions and is placed over all other page elements. "
-  
-   */
-  @DefaultStringValue("GWTCBackPanel is a semitransparent panel (even in explorer) whith supports click actions and is placed over all other page elements. ")
-  String descr_back();
-
-  /**
    * Translated "Next".
    * 
    * @return translated "Next"
@@ -269,13 +287,22 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String key_prev_month_title();
 
   /**
-   * Translated "GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the programmer whants the user to wait for a while (useful in asyncronous calls).".
+   * Translated "GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the developer wants the user to wait for a while (useful in asyncronous calls).".
    * 
-   * @return translated "GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the programmer whants the user to wait for a while (useful in asyncronous calls)."
+   * @return translated "GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the developer wants the user to wait for a while (useful in asyncronous calls)."
   
    */
-  @DefaultStringValue("GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the programmer whants the user to wait for a while (useful in asyncronous calls).")
+  @DefaultStringValue("GWTCWait renders a modal dialog decorated with an image and with a background which prevents user actions when the developer wants the user to wait for a while (useful in asyncronous calls).")
   String descr_wait();
+
+  /**
+   * Translated "GWTCGlassPanel is a semitransparent panel (even in explorer) whith supports click actions and covers all the page. ".
+   * 
+   * @return translated "GWTCGlassPanel is a semitransparent panel (even in explorer) whith supports click actions and covers all the page. "
+  
+   */
+  @DefaultStringValue("GWTCGlassPanel is a semitransparent panel (even in explorer) whith supports click actions and covers all the page. ")
+  String descr_glass();
 
   /**
    * Translated "Nothing so needs reforming as other people's habits.".
@@ -323,12 +350,12 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String key_interval();
 
   /**
-   * Translated "Box panels have three preconfigured styles, click the button for changing between those. ".
+   * Translated "Box panels have three preconfigured styles, click the button for switching between them. ".
    * 
-   * @return translated "Box panels have three preconfigured styles, click the button for changing between those. "
+   * @return translated "Box panels have three preconfigured styles, click the button for switching between them. "
   
    */
-  @DefaultStringValue("Box panels have three preconfigured styles, click the button for changing between those. ")
+  @DefaultStringValue("Box panels have three preconfigured styles, click the button for switching between them. ")
   String descr_box_1();
 
   /**
@@ -339,6 +366,15 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
    */
   @DefaultStringValue("Help dialog")
   String key_help_title();
+
+  /**
+   * Translated "Time remaining: {0} Seconds".
+   * 
+   * @return translated "Time remaining: {0} Seconds"
+  
+   */
+  @DefaultStringValue("Time remaining: {0} Seconds")
+  String progress_seconds();
 
   /**
    * Translated "Select your checkin date".
@@ -357,15 +393,6 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
    */
   @DefaultStringValue("Push the button to see a modal progress-bar that covers all the page and avoid user interaction.")
   String descr_progress_2();
-
-  /**
-   * Translated "Time remaining: {0} Seconds".
-   * 
-   * @return translated "Time remaining: {0} Seconds"
-  
-   */
-  @DefaultStringValue("Time remaining: {0} Seconds")
-  String progress_seconds();
 
   /**
    * Translated "Help".
@@ -458,21 +485,21 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String key_nights();
 
   /**
-   * Translated "Modal layout-2 date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons".
+   * Translated "Layout-2 modal date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons".
    * 
-   * @return translated "Modal layout-2 date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons"
+   * @return translated "Layout-2 modal date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons"
   
    */
-  @DefaultStringValue("Modal layout-2 date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons")
+  @DefaultStringValue("Layout-2 modal date-picker in a squared box, with flat buttons, background, caption, and disabled years and help buttons")
   String descr_picker_2();
 
   /**
-   * Translated "Default date-picker in a rounded box, with rounded buttons, background, and all options enabled.".
+   * Translated "Default modal date-picker in a rounded box, with rounded buttons, glass background, and all options enabled.".
    * 
-   * @return translated "Default date-picker in a rounded box, with rounded buttons, background, and all options enabled."
+   * @return translated "Default modal date-picker in a rounded box, with rounded buttons, glass background, and all options enabled."
   
    */
-  @DefaultStringValue("Default date-picker in a rounded box, with rounded buttons, background, and all options enabled.")
+  @DefaultStringValue("Default modal date-picker in a rounded box, with rounded buttons, glass background, and all options enabled.")
   String descr_picker_1();
 
   /**

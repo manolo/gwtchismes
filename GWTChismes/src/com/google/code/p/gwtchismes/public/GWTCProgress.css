@@ -1,4 +1,10 @@
 
+div.GWTCProgress-dialog {
+  border: solid 3px pink;
+  z-index: 999;
+  font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
+  background-color:  white;
+}
 
 .GWTCProgress .prg-title {
       font-weight: bold;
@@ -33,12 +39,6 @@
       background: #eee;
 }
 
-div.GWTCProgress.prg-dialog{
-  border: solid 3px pink;
-  z-index: 999;
-  font-family:  "Trebuchet MS", Helvetica, Arial, sans-serif;
-  background-color:  white;
-}
 
 .GWTCProgress .prg-numbers {
 	width: 200px;

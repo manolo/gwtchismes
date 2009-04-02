@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
@@ -72,7 +73,7 @@ import com.google.gwt.user.client.ui.Label;
  * </ul>
  * 
  */
-public class GWTCWait extends Composite {
+public class GWTCWait extends GWTCPopupBox {
 
     private static final String MAIN_STYLE = "GWTCWait";
 
@@ -84,52 +85,35 @@ public class GWTCWait extends Composite {
 
     private static final String STYLE_IMAGE = "image";
 
-    private DialogBox dialog = new DialogBox();
-
     private Label txt = new Label("");
 
     private Image img = new Image("images/gwtc-wait-loading.gif");
 
     private FlexTable mainPanel = new FlexTable();
     
-    private static GWTCBackPanel background = new GWTCBackPanel();
-
-    private int zIndex = 999;
-
-    /**
-     *  Default constructor 
-     */
     public GWTCWait() {
-        initWidget(new HTML());
-
-        dialog.setStyleName(GWTCWait.MAIN_STYLE);
-        mainPanel.setStyleName(GWTCWait.STYLE_PANEL);
-        mainPanel.getCellFormatter().addStyleName(0, 0, GWTCWait.STYLE_MSG);
-        mainPanel.setWidget(0, 0, txt);
-        mainPanel.getCellFormatter().addStyleName(1, 0, GWTCWait.STYLE_IMG);
-        mainPanel.setWidget(1, 0, img);
-        img.addStyleName(GWTCWait.STYLE_IMAGE);
-        dialog.setWidget(mainPanel);
+        super(GWTCPopupBox.OPTION_DISABLE_AUTOHIDE);
         
-        setZIndex(zIndex);
+        if (RootPanel.get(MAIN_STYLE)!=null)
+            RootPanel.get(MAIN_STYLE).setVisible(false);
+
+        setStyleName(MAIN_STYLE);
+        mainPanel.setStyleName(STYLE_PANEL);
+        mainPanel.getCellFormatter().addStyleName(0, 0, STYLE_MSG);
+        mainPanel.setWidget(0, 0, txt);
+        mainPanel.getCellFormatter().addStyleName(1, 0, STYLE_IMG);
+        mainPanel.setWidget(1, 0, img);
+        img.addStyleName(STYLE_IMAGE);
+        setWidget(mainPanel);
     }
 
-    @Override
-    public void setStyleName(String s) {
-        dialog.setStyleName(s);
-    }
-
-    @Override
-    public void addStyleName(String s) {
-        dialog.setStyleName(s);
-    }
 
     /**
      * Set the caption text
      * @param s the internationalizated string
      */
     public void setCaption(String s) {
-        dialog.setText(s);
+        //dialog.setText(s);
     }
 
     /**
@@ -157,7 +141,6 @@ public class GWTCWait extends Composite {
      * @param timeout seconds to wait before hide the dialog (timeout=0 wait for ever)
      */
     public void show(int timeout) {
-        setVisible(true);
         if (timeout > 0) {
             Timer t = new Timer() {
                 public void run() {
@@ -166,8 +149,8 @@ public class GWTCWait extends Composite {
             };
             t.schedule(timeout * 1000);
         }
-        background.show();
-        dialog.center();
+        setVisible(true);
+        center();
     }
     
 
@@ -175,19 +158,8 @@ public class GWTCWait extends Composite {
      * Hide the wait dialog
      */
     public void hide() {
+        super.hide();
         setVisible(false);
-        dialog.hide();
-        background.hide();
     }
 
-    /**
-     * Set the zIndex value
-     * 
-     * @param z
-     */
-    public void setZIndex(int z) {
-        zIndex = z;
-        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(zIndex));
-        background.setZIndex(zIndex - 1);
-    }
 }

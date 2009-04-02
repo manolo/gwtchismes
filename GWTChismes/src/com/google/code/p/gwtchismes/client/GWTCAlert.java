@@ -19,9 +19,12 @@
 package com.google.code.p.gwtchismes.client;
 
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>
@@ -56,7 +59,7 @@ import com.google.gwt.user.client.ui.*;
  * </ul>
  * 
  */
-public class GWTCAlert extends Composite {
+public class GWTCAlert extends GWTCPopupBox {
     static final String MAIN_STYLE = "GWTCAlert";
     static final String STYLE_BOX = "-box";
     static final String STYLE_PANEL = "panel";
@@ -65,29 +68,21 @@ public class GWTCAlert extends Composite {
     static final String STYLE_BUTTON = "okButton";
     
     static public int OPTION_DISABLE_OK_BUTTON = 1;
-    static public int OPTION_ROUNDED_FLAT = 2;
-    static public int OPTION_ROUNDED_GREY = 4;
-    static public int OPTION_ROUNDED_BLUE = 8;
-    static public int OPTION_DISABLE_BACKGROUND = 16;
-    static public int OPTION_ANIMATION = 32;
     
     FocusWidget focusWidget = null;
 
     private boolean okButtonDisabled = false;
     
-    private PopupPanel dialog = new PopupPanel();
     FlexTable contentTable = new FlexTable();
     private HTML txt = new HTML();
     private GWTCButton okButton = new GWTCButton("OK");
-    private GWTCBackPanel background = null;
 
-    private int zIndex = 999;
     
     /**
      * Constructor with default options
      */
     public GWTCAlert() {
-        this(0);
+        this(OPTION_DISABLE_AUTOHIDE);
     }
 
     /**
@@ -106,30 +101,14 @@ public class GWTCAlert extends Composite {
      *      cofiguration options.
      */
     public GWTCAlert(int options) {
-        initWidget(new HTML());
+        super(options);
+        
+        okButton.setImageSrc("images/button/dialog-ok.gif");
         
         if ((options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
             okButtonDisabled = true;
         
-        if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-          dialog = new GWTCPopupBox(GWTCBox.STYLE_GREY);
-          dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
-        } else  if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-          dialog = new GWTCPopupBox(GWTCBox.STYLE_BLUE);
-          dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
-        } else  if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
-            dialog = new GWTCPopupBox(GWTCBox.STYLE_FLAT);
-            dialog.addStyleName(GWTCAlert.MAIN_STYLE + STYLE_BOX);
-        } else {
-          dialog = new PopupPanel();
-          dialog.setStyleName(GWTCAlert.MAIN_STYLE);
-        }
-        dialog.setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
 
-        if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
-            background = new GWTCBackPanel();
-        }
-        
         contentTable.setStyleName(GWTCAlert.STYLE_PANEL);
         contentTable.getCellFormatter().addStyleName(0, 0, GWTCAlert.STYLE_MSG);
         contentTable.setWidget(0, 0, txt);
@@ -143,17 +122,14 @@ public class GWTCAlert extends Composite {
         this.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 hide();
-                if (focusWidget != null)
-                    focusWidget.setFocus(true);
-                focusWidget = null;
             }
         });
         
         okButton.setVisible(! okButtonDisabled );
         
-        dialog.add(contentTable);
+        setStyleName(MAIN_STYLE);
         
-        setZIndex(zIndex);
+        super.add(contentTable);
     }
     
     public void addClickListener(ClickListener listener) {
@@ -161,24 +137,6 @@ public class GWTCAlert extends Composite {
     }
     public void removeClickListener(ClickListener listener) {
         okButton.removeClickListener(listener);
-    }
-
-    @Override
-    public void setStyleName(String s) {
-        dialog.setStyleName(s);
-        
-    }
-    @Override
-    public void addStyleName(String s) {
-        dialog.addStyleName(s);
-    }
-    @Override
-    public void addStyleDependentName(String s) {
-        dialog.addStyleDependentName(s);
-    }
-    @Override
-    public String toString() {
-        return dialog.toString();
     }
 
     /**
@@ -209,7 +167,7 @@ public class GWTCAlert extends Composite {
      */
     public void alert(String s) {
         setText(s);
-        show();
+        center();
     }
 
     /**
@@ -235,16 +193,14 @@ public class GWTCAlert extends Composite {
     public void alert(String s, FocusWidget focus) {
         setText(s.replaceAll("\\n", "<br/>").replaceAll(" ", "&nbsp;"));
         focusWidget = focus;
-        show();
+        center();
     }
 
     /**
      * Shows the alert dialog 
      */
     public void show() {
-        dialog.center();
-        if (background != null) 
-            background.show();
+        super.show();
         okButton.setFocus(true);
     }   
     
@@ -263,17 +219,19 @@ public class GWTCAlert extends Composite {
             };
             t.schedule(timeout * 1000);
         }
-        show();
+        center();
     }
 
     
     /**
      * Hides the dialog box
      */
+    @Override
     public void hide() {
-        dialog.hide();
-        if (background != null)
-            background.hide();
+        super.hide();
+        if (focusWidget != null)
+            focusWidget.setFocus(true);
+        focusWidget = null;
     }
 
     /**
@@ -284,15 +242,5 @@ public class GWTCAlert extends Composite {
     public void setOkButtonDisabled(boolean b) {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
-    }
-    /**
-     * Set the zIndex value
-     * 
-     * @param z
-     */
-    public void setZIndex(int z) {
-        DOM.setStyleAttribute(dialog.getElement(), "zIndex", String.valueOf(z));
-        if (background != null)
-            background.setZIndex(z - 1);
     }
 }

@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
@@ -195,7 +194,7 @@ public class GWTCIntervalSelector extends Composite {
         nightsListBox.addStyleName(NIGHTS_LIST_BOX);
 
         layoutType = layout;
-        setDatePickerOptions(GWTCDatePicker.CONFIG_DIALOG);
+        setDatePickerOptions(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON);
         drawIntervalWidget();
     }
 
@@ -384,6 +383,18 @@ public class GWTCIntervalSelector extends Composite {
         mainGrid.setWidget(idx, 1, checkoutDateValue);
     }
     
+    public void configureDatePickers(int options, String buttonsLayout, int months, int monthsPerRow, int increment, int monthsInSelector) {
+        options |= GWTCDatePicker.CONFIG_DIALOG;
+        checkinCalendar = new GWTCDatePicker(options);
+        checkoutCalendar = new GWTCDatePicker(options);
+        checkinCalendar.addStyleName(PICKER_CHECKIN);
+        checkoutCalendar.addStyleName(PICKER_CHECKOUT);
+        checkinCalendar.configure(buttonsLayout, months, monthsPerRow, increment, monthsInSelector);
+        checkoutCalendar.configure(buttonsLayout, months, monthsPerRow, increment, monthsInSelector);
+        initListeners();
+        setMaxdays(maxdays);
+    }
+    
     public void setDatePickerOptions(int options) {
         options |= GWTCDatePicker.CONFIG_DIALOG;
         checkinCalendar = new GWTCDatePicker(options);
@@ -399,10 +410,9 @@ public class GWTCIntervalSelector extends Composite {
     }
 
     private void updateInputsFromNights() {
-        checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
+        checkoutCalendar.setSelectedDate(GWTCSimpleDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
         checkoutDateValue.setText(checkoutCalendar.getSelectedDateStr(dateFormat));
         checkoutWeekValue.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
-        checkoutCalendar.drawCalendar();
         nightsValue.setText("" + getNights());
         updateInputs();
     }
@@ -416,11 +426,11 @@ public class GWTCIntervalSelector extends Composite {
 
     private void updateInputsFromCheckin() {
         checkoutCalendar.setMinimalDate(getInitDate());
-        checkoutCalendar.setMaximalDate(GWTCDatePicker.increaseDate(getInitDate(), maxdays));
+        checkoutCalendar.setMaximalDate(GWTCSimpleDatePicker.increaseDate(getInitDate(), maxdays));
 
         int nightsFromBox = nightsListBox.getSelectedIndex();
         if (nightsFromBox == 0 || layoutType != LAYOUT_2)
-            checkoutCalendar.setSelectedDate(GWTCDatePicker.increaseDate(getInitDate(), nightsFromBox));
+            checkoutCalendar.setSelectedDate(GWTCSimpleDatePicker.increaseDate(getInitDate(), nightsFromBox));
 
         int nights = getNights();
         if (nights >= 0)
@@ -505,7 +515,7 @@ public class GWTCIntervalSelector extends Composite {
      * @return int
      */
     public int getNights() {
-        return GWTCDatePicker.compareDate(getInitDate(), getEndDate());
+        return GWTCSimpleDatePicker.compareDate(getInitDate(), getEndDate());
     }
 
     /**
@@ -561,29 +571,32 @@ public class GWTCIntervalSelector extends Composite {
     }
     
     int calendarPosition = 0;
-    public static final int BY_DATEVALUES  = 1;
-    public static final int CENTERED  = 2;
-    public void setCalendarPosition(int position){
+    public static final int PICKER_POSITION_NEAR_SENDER  = 0;
+    public static final int PICKER_POSITION_NEAR_DATEVALUES  = 1;
+    public static final int PICKER_POSITION_CENTERED  = 2;
+
+    public void setDatePickerPosition(int position){
         calendarPosition = position;
     }
 
     /**
-     * a clicklistener preconfigured to launch DatePicker when the user clicks the buttons
+     * a clicklistener preconfigured to launch an appropiate DatePicker 
+     * when the user push buttons o labels
      */
     protected ClickListener clickListener = new ClickListener() {
         public void onClick(Widget sender) {
             if (sender == checkinButton || sender == checkinDateValue || sender == checkinWeekValue || sender == changeCheckinLink) {
-                if ((calendarPosition & BY_DATEVALUES) == BY_DATEVALUES)
+                if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
                     checkinCalendar.show(checkinDateValue);
-                else if ((calendarPosition &  CENTERED) == CENTERED)
+                else if ((calendarPosition &  PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
                     checkinCalendar.show(null);
                 else
                     checkinCalendar.show(sender);
                 checkoutCalendar.hide();
             } else if (sender == checkoutButton || sender == checkoutDateValue || sender == checkoutWeekValue) {
-                if ((calendarPosition & BY_DATEVALUES) == BY_DATEVALUES)
+                if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
                     checkoutCalendar.show(checkoutDateValue);
-                else if ((calendarPosition &  CENTERED) == CENTERED)
+                else if ((calendarPosition &  PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
                     checkoutCalendar.show(null);
                 else
                     checkoutCalendar.show(sender);
@@ -599,30 +612,10 @@ public class GWTCIntervalSelector extends Composite {
      */
     private Map<String, String> strs = new HashMap<String, String>();
 
-    /**
-     * Gets internaitonalized string for the Map str
-     * 
-     * @param m
-     *            key string to internationalize
-     * @return String the internationalized string
-     */
-    private String getMsg(String m) {
-        String ret = null;
-        if (strs != null)
-            ret = strs.get(m);
-        return (ret != null ? ret : m);
-    }
-
-    /**
-     * @deprecated
-     */
-    public void setLocale(Map keys, String[] wdays, String[] months, int wStart) {
-        setI18nMessages(keys);
-    }
 
     /**
      * <p>
-     * Method for internationalize the components of this interval selector
+     * Internationalize the components of this interval selector
      * </p>
      * <p>
      * You have to provide a Map(String, String) with ant least these keys
@@ -680,11 +673,6 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setMinimalDate(Date d) {
         checkinCalendar.setMinimalDate(d);
-    }
-
-    public void disableYearButtons() {
-        checkinCalendar.disableYearButtons();
-        checkoutCalendar.disableYearButtons();
     }
 
     public void setDateFormat(String dateFormat) {
