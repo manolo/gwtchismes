@@ -9,14 +9,9 @@
   
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
   
-  <!-- 
   <extend-property name="locale" values="es"/>
-  <extend-property name="locale" values="fr"/>
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
-   -->
    
    <add-linker name="xs"/>
-   
-  
 </module>

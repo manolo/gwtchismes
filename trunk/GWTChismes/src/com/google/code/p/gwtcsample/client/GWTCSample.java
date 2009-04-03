@@ -28,7 +28,6 @@ import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
 import com.google.code.p.gwtchismes.client.GWTCGlassPanel;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.code.p.gwtchismes.client.GWTCModalBox;
-import com.google.code.p.gwtchismes.client.GWTCPopupBox;
 import com.google.code.p.gwtchismes.client.GWTCPrint;
 import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker;
@@ -37,7 +36,9 @@ import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -45,6 +46,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -71,11 +73,6 @@ public class GWTCSample implements EntryPoint {
     private final GWTCWait wait = new GWTCWait();
     
     boolean testCode() {
-        //GWTCPopupBox p = new GWTCPopupBox();
-        //p.center();
-        //p.add(new Label("Hello world"));
-//        wait.show(5000);
-        // alert.alert("Hola pepe");
         return false;
     }
 
@@ -112,38 +109,70 @@ public class GWTCSample implements EntryPoint {
         alert.setText(i18n.alert_message());
         wait.setMessage(i18n.wait_message());
     }
+    
+    Label english = new Label("English");
+    Label spanish = new Label("Spanish");
+    Label japanese = new Label("Japanese");
+    public ClickListener changeLocale = new ClickListener(){
+        public void onClick(Widget sender) {
+            if (sender == english) {
+                Window.Location.assign("?locale=en");
+            } else if (sender == spanish) {
+                Window.Location.assign("?locale=es");
+            } else if (sender == japanese) {
+                alert.addClickListener(new ClickListener(){
+                    public void onClick(Widget sender) {
+                        Window.Location.assign("?locale=ja");
+                    }
+                });
+                alert.alert("This application has not been translated into Japanese.\n" +
+                		"DatePicker uses GWT i18n resources, so you can see how DatePickers are correctly translated");
+            }
+        }
+    };
+    HorizontalPanel langPanel = new HorizontalPanel() {{
+        setStyleName("langPanel");
+        add(english);
+        add(spanish);
+        add(japanese);
+        english.addClickListener(changeLocale);
+        spanish.addClickListener(changeLocale);
+        japanese.addClickListener(changeLocale);
+    }};
 
     public void onModuleLoad() {
         if (testCode()) 
             return;
         
+        RootPanel.get().add(langPanel);
+        
         GWTCBox p1;
         GWTCTabPanel tp = new GWTCTabPanel();
-
+        
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testButtons(p1);
-        tp.add(p1, "Buttons");
+        tp.add(p1, i18n.tab_buttons());
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testRoundedBox(p1);
-        tp.add(p1, "Rounded Box");
+        tp.add(p1, i18n.tab_boxes());
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testChismes(p1);
-        tp.add(p1, "Modals");
+        tp.add(p1, i18n.tab_modals());
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testDatePicker(p1);
         RootPanel.get().add(p1);
-        tp.add(p1, "Date Picker");
+        tp.add(p1, i18n.tab_date());
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testIntervalSelector(p1);
-        tp.add(p1, "Interval Selector");
+        tp.add(p1, i18n.tab_interval());
 
         p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
         testProgressBar(p1);
-        tp.add(p1, "Progress Bar");
+        tp.add(p1, i18n.tab_progress());
 
         tp.selectTab(0);
         
