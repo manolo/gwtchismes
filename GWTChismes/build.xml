@@ -51,7 +51,7 @@
 		<pathelement location="${gwt.dev.jar}" />
 	</path>
 
-	<target name="jar" description="Generates the jar distribution file">
+	<target name="jar" depends="compress" description="Generates the jar distribution file">
 		<delete dir="${project}-${version}" />
 		<delete file="${project}-${version}.jar" />
 		<mkdir dir="${class.dir}" />
@@ -100,8 +100,13 @@
 			<arg value="com.google.code.p.gwtcsample.client.GWTCSampleI18n" />
 		</java>
 	</target>
+        <target name="compress" description="Compresses css main file">
+		<exec dir="." executable="perl">
+			<arg line="css_compress.pl -compressed src/com/google/code/p/gwtchismes/public/GWTC.css"/>
+		</exec>
+        </target>
 
-	<target name="zip" depends=" jar, javadoc, sample" description="Generates the distibution file that includes the source, license, docs, and jar">
+	<target name="zip" depends="jar, javadoc, sample" description="Generates the distibution file that includes the source, license, docs, and jar">
 		<delete file="${project}-${version}.zip" />
 		<copy todir="${project}-${version}/${src.dir}">
 			<fileset dir="${src.dir}" />

@@ -21,6 +21,7 @@ package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
@@ -61,7 +62,6 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GWTCAlert extends GWTCPopupBox {
     static final String MAIN_STYLE = "GWTCAlert";
-    static final String STYLE_BOX = "-box";
     static final String STYLE_PANEL = "panel";
     static final String STYLE_MSG = "msgCell";
     static final String STYLE_BTN = "btnCell";
@@ -128,7 +128,11 @@ public class GWTCAlert extends GWTCPopupBox {
         okButton.setVisible(! okButtonDisabled );
         
         setStyleName(MAIN_STYLE);
-        
+        if ( (options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY 
+                || (options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE 
+                || (options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
+            addStyleDependentName(STYLE_BOX);
+        }
         super.add(contentTable);
     }
     
