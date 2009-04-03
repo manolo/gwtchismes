@@ -42,6 +42,8 @@ do
      a=`expr $a + 1`
 done
 
+exit
+
 ## Adds google analytics code to index file
 # analitics="UA-645641-4"
 analitics="UA-645641-6"
