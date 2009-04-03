@@ -36,7 +36,6 @@ import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -46,7 +45,6 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -120,24 +118,26 @@ public class GWTCSample implements EntryPoint {
             } else if (sender == spanish) {
                 Window.Location.assign("?locale=es");
             } else if (sender == japanese) {
-                alert.addClickListener(new ClickListener(){
-                    public void onClick(Widget sender) {
-                        Window.Location.assign("?locale=ja");
-                    }
-                });
-                alert.alert("This application has not been translated into Japanese.\n" +
-                		"DatePicker uses GWT i18n resources, so you can see how DatePickers are correctly translated");
+                Window.Location.assign("?locale=ja");
             }
         }
     };
     HorizontalPanel langPanel = new HorizontalPanel() {{
         setStyleName("langPanel");
-        add(english);
-        add(spanish);
-        add(japanese);
+        String loc = Window.Location.getParameter("locale");
+        if (loc != null && ! "en".equals(loc))
+            add(english);
+        if (! "es".equals(loc))
+            add(spanish);
+        if (! "ja".equals(loc))
+            add(japanese);
         english.addClickListener(changeLocale);
         spanish.addClickListener(changeLocale);
         japanese.addClickListener(changeLocale);
+        
+        if ("ja".equals(loc))
+            alert.alert("This application has not been translated into Japanese yet.\n" +
+            "Only dates and calendar selectors will be shown in japanese because they use GWT DateTimeFormat");
     }};
 
     public void onModuleLoad() {

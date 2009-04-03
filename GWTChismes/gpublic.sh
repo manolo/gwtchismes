@@ -10,7 +10,7 @@ V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$
 [ -z "$V" ] && echo "Unable to get version from buld.xml" && exit
 
 
-ant clean jar javadoc sample || exit
+ant clean zip || exit
 
 sh gdoc.sh
 sh gsample.sh
