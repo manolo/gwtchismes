@@ -116,6 +116,8 @@
 		<copy todir="${project}-${version}/" file="build.xml" />
 		<copy todir="${project}-${version}/" file=".classpath" />
 		<copy todir="${project}-${version}/" file=".project" />
+                <delete dir="${project}-${version}/gsample" />
+                <delete dir="${project}-${version}/gdoc" />
 		<echo message="Creating distribution file: ${project}-${version}.zip" />
 		<exec dir="." executable="zip">
 			<arg line="-q -r ${project}-${version}.zip ${project}-${version}" />
