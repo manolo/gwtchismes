@@ -29,17 +29,35 @@ D=gwtchismes-$V/gsample
 rm -rf  $D
 cp -r $PD $D
 
-## Look for hash-named files
-a=1
-for f in $D/????????????????????????????????.cache.*
-do
-     n=`echo "$f" | sed -e 's/^.*\///g' -e 's/\.cache.*$//'`
-     new=`echo "$f" | sed -e "s/$n/file_$a/"`
+renameFile() {
+     f=$1; n=$2
+     h=`echo "$f" | sed -e 's/^.*\///g' -e 's/\.cache.*$//'`
+     new=`echo "$f" | sed -e "s/$h/file_$n/"`
      ## Rename file
+     echo "$f $new"
      mv $f $new
      ## Change files which reference this hash
-     perl -pi -e "s#$n#file_$a#g" $D/*cache*
-     a=`expr $a + 1`
+     perl -pi -e "s#$h#file_$n#g" $D/*cache*
+}
+
+
+## Look for hash-named files
+renameFiles() {
+   ext=$1
+   a=1
+   for f in $D/????????????????????????????????.cache.$ext
+   do
+     if [ -f "$f" ]
+     then
+        renameFile $f $a
+        a=`expr $a + 1`
+     fi
+   done
+}
+
+for e in js html png
+do
+  renameFiles $e
 done
 
 exit
