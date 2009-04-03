@@ -43,13 +43,14 @@ do
 done
 
 ## Adds google analytics code to index file
+# analitics="UA-645641-4"
+analitics="UA-645641-6"
+
 cat <<EOF >> $D/GWTCSample.html
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
-_uacct = "UA-645641-4";
+_uacct = "$analitics";
 urchinTracker();
 </script>
 EOF
-
-

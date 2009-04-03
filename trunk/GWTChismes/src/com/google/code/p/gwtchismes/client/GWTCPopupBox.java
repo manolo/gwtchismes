@@ -56,7 +56,7 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 public class GWTCPopupBox extends PopupPanel {
 
     private static final String MAIN_STYLE = "GWTCPopupBox";
-
+    static final String STYLE_BOX = "box";
 
     static public int OPTION_ROUNDED_FLAT = 2;
     static public int OPTION_ROUNDED_GREY = 4;
@@ -100,6 +100,8 @@ public class GWTCPopupBox extends PopupPanel {
         setZIndex(zIndex);
         setWidth("auto");
         setStyleName(MAIN_STYLE);
+        if (panelbox != null)
+            addStyleDependentName(STYLE_BOX);
     }
 
     public void setZIndex(int z) {
