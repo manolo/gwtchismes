@@ -10,6 +10,16 @@ table.intervalGrids, table.dpickersGrid {
 }
 
 
+.langPanel {
+	cursor: pointer;
+	margin-left: auto;
+	margin-right: 0px;
+}
+.langPanel div {
+	padding: 10px;
+	color: blue;
+	font-size: 12px;
+}
 .intervalTitles {
 	border: solid 1px black;
 }
