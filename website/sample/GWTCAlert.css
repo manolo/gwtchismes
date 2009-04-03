@@ -8,6 +8,11 @@
    text-align : center;
 }
 
+.GWTCAlert-box {
+	border: none;
+    background : transparent;
+}
+
 .GWTCAlert .Caption {
   display: none;		
 }
