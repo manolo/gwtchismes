@@ -1,0 +1,19 @@
+#Usage of GWTChismes library.
+
+ * Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
+ * Configure your module file: 
+{{{
+<module>
+
+  <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+
+  <entry-point class="[...]"/>
+
+  <!-- Optional: Include the locales you want in your application -->  
+  <extend-property name="locale" values="es"/>
+  <extend-property name="locale" values="en"/>
+  <extend-property name="locale" values="ja"/>
+   
+</module>
+}}}
+  * Use the widget in your application
