@@ -5,15 +5,18 @@
 {{{
 <module>
 
+  <!-- Include GWTChismes library -->
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
-
-  <entry-point class="[...]"/>
-
-  <!-- Optional: Include the locales you want in your application -->  
+  <!-- Load dinamically GWTC Style sheets when the application starts -->
+  <stylesheet src="GWTC-compressed.css"/>
+  <!-- Include the locales you want in your application -->  
   <extend-property name="locale" values="es"/>
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
    
+  <!-- Put your project's entry-point -->
+  <entry-point class="[...]"/>
+
 </module>
 }}}
 
