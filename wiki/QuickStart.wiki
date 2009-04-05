@@ -40,11 +40,12 @@
         picker.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 Window.alert(((GWTCSimpleDatePicker) sender)
-                         .getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+                      .getSelectedDateStr("MMMM dd, yyyy (dddd)"));
                 picker.hide();
             }
         });
 
+        // Button
         Button button = new GWTCButton("Clickme", new ClickListener() {
             public void onClick(Widget sender) {
                 picker.show();
