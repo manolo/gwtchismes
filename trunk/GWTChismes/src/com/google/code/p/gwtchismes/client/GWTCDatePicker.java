@@ -144,17 +144,21 @@ package com.google.code.p.gwtchismes.client;
  */
 public class GWTCDatePicker extends GWTCDatePickerAbstract {
     
-    public static final int CONFIG_NO_CLOSE_BUTTON = (int)Math.pow(2,c++);
-    public static final int CONFIG_NO_YEAR_BUTTON = (int)Math.pow(2,c++);
-    public static final int CONFIG_NO_HELP_BUTTON = (int)Math.pow(2,c++);
-    
-    public static final int CONFIG_LAYOUT_1 = 0;
-    public static final int CONFIG_LAYOUT_2 = (int)Math.pow(2,c++);
-    public static final int CONFIG_LAYOUT_3 = (int)Math.pow(2,c++);
-    public static final int CONFIG_LAYOUT_4 = (int)Math.pow(2,c++);
-    public static final int CONFIG_LAYOUT_5 = (int)Math.pow(2,c++);
+    public static final int CONFIG_NO_CLOSE_BUTTON = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_NO_YEAR_BUTTON = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_NO_HELP_BUTTON = (int) Math.pow(2, constant_cont++);
+
+    public static final int CONFIG_LAYOUT_1 = CONFIG_DEFAULT;
+    public static final int CONFIG_LAYOUT_2 = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_LAYOUT_3 = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_LAYOUT_4 = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_LAYOUT_5 = (int) Math.pow(2, constant_cont++);
     
     protected static final String StyleLayout = "layout";
+
+    public GWTCDatePicker() {
+        this(0);
+    }
 
     /**
      * Creates the calendar instance based in the configuration provided. 
@@ -222,7 +226,7 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
      * number of months to display and the buttons layout representacion.  
      */
     public GWTCDatePicker(int config, int months, String layout) {
-        layoutButtons = layout;
+        layoutButtons = layout != null ? layout : layouts[0];
         numberOfMonths = months;
         monthColumns = 3;
         

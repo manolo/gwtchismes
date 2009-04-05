@@ -108,8 +108,8 @@ import com.google.gwt.user.client.ui.Widget;
  * <li>.GWTCDatePicker .panelButtonsBottom .buttonsRow_3 { 3th row in bottom buttons panel }</li>
  * 
  * <li>.GWTCDatePicker .panelMonths { container for the displayed months }</li>
- * 
  * <li>.GWTCDatePicker .panelMonths .monthLabels { labels with the header of each displayed month }</li>
+ * <li>.GWTCDatePicker .panelMonths .monthSeparator { cell between two months }</li>
  * 
  * <li>.GWTCDatePicker-MenuBar { horizontal and vertical menu selector items }</li>
  * <li>.GWTCDatePicker-MenuBar-horizontal { horizontal item of menu selector  }</li>
@@ -150,16 +150,21 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
 
     protected static final String StyleMonthGrid = "panelMonths";
     protected static final String StyleMonthLabels = "monthLabels";
+    protected static final String StyleMonthLabel = "monthLabel";
+    protected static final String StyleMonthSeparator = "monthSeparator";
+    protected static final String StyleMonthCell = "monthCells";
     
-    static int c = 0;
-    public static final int CONFIG_DEFAULT = c;
-    public static final int CONFIG_DIALOG = (int)Math.pow(2,c++);
-    public static final int CONFIG_ROUNDED_BOX = (int)Math.pow(2,c++);
-    public static final int CONFIG_NO_AUTOHIDE = (int)Math.pow(2,c++);
-    public static final int CONFIG_NO_ANIMATION = (int)Math.pow(2,c++);
-    public static final int CONFIG_BACKGROUND = (int)Math.pow(2,c++);
-    public static final int CONFIG_FLAT_BUTTONS = (int)Math.pow(2,c++);
-    public static final int CONFIG_STANDARD_BUTTONS = (int)Math.pow(2,c++);
+    static int constant_cont = 0;
+    public static final int CONFIG_DEFAULT = constant_cont;
+    public static final int CONFIG_DIALOG = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_ROUNDED_BOX = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_NO_AUTOHIDE = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_NO_ANIMATION = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_BACKGROUND = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_FLAT_BUTTONS = (int) Math.pow(2, constant_cont++);
+    public static final int CONFIG_STANDARD_BUTTONS = (int) Math.pow(2, constant_cont++);
+    
+    public static String MONTH_FORMAT = "MMMM, yyyy";
     
     protected GWTCAlert helpDlg = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
 
@@ -232,6 +237,15 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
      * </ul>
      */
     public void createInstance(int config) {
+
+        int buttonsType = config & CONFIG_FLAT_BUTTONS | config & CONFIG_STANDARD_BUTTONS;
+        helpBtn = createButton(buttonsType, "?", this);
+        closeBtn = createButton(buttonsType, "x", this);
+        todayBtn = createButton(buttonsType, "-", this);
+        prevMBtn = createButton(buttonsType, "\u003c", this);
+        prevYBtn = createButton(buttonsType, "\u00AB", this);
+        nextMBtn = createButton(buttonsType, "\u003e", this);
+        nextYBtn = createButton(buttonsType, "\u00BB", this);
         
         if ((config & CONFIG_DIALOG) == CONFIG_DIALOG) {
             int opt = 0;
@@ -248,8 +262,8 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
             calendarDlg.setAnimationEnabled((config & CONFIG_NO_ANIMATION) != CONFIG_NO_ANIMATION);
             
             outer = calendarDlg;
-
             initWidget(new DockPanel());
+            
             setStyleName(styleName);
             addStyleDependentName(StyleDialog);
             setZIndex(999);
@@ -262,33 +276,20 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
             addStyleDependentName(StyleEmbeded);
         }
 
-        DOM.sinkEvents(outer.getElement(), Event.MOUSEEVENTS | Event.KEYEVENTS);
-        
-        int buttonsType = config & CONFIG_FLAT_BUTTONS | config & CONFIG_STANDARD_BUTTONS;
-        helpBtn = createButton(buttonsType, "?", this);
-        closeBtn = createButton(buttonsType, "x", this);
-        todayBtn = createButton(buttonsType, "-", this);
-        prevMBtn = createButton(buttonsType, "\u003c", this);
-        prevYBtn = createButton(buttonsType, "\u00AB", this);
-        nextMBtn = createButton(buttonsType, "\u003e", this);
-        nextYBtn = createButton(buttonsType, "\u00BB", this);
-        
-        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG )
-            closeBtn.setVisible(false);
-
-        monthSelectorHeader.setAnimationEnabled(true);
-        DOM.setStyleAttribute(getElement(), "cursor", "default");
+        helpDlg.addStyleName(StyleHelp);
+        navButtonsTop.setStyleName(StyleCButtonsTop);
+        navButtonsBottom.setStyleName(StyleCButtonsBottom);
+        calendarGrid.setStyleName(StyleMonthGrid);
         
         if ((config & CONFIG_ROUNDED_BOX) == CONFIG_ROUNDED_BOX)
             addStyleDependentName(StyleBox);
         else
             addStyleDependentName(StyleNoBox);
         
-        helpDlg.addStyleName(StyleHelp);
-        
-        navButtonsTop.setStyleName(StyleCButtonsTop);
-        calendarGrid.setStyleName(StyleMonthGrid);
-        navButtonsBottom.setStyleName(StyleCButtonsBottom);
+        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG )
+            closeBtn.setVisible(false);
+
+        monthSelectorHeader.setAnimationEnabled(true);
         
         outer.add(navButtonsTop);
         outer.add(calendarGrid);
@@ -297,6 +298,9 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         drawDatePickerWidget();
         refresh();
         adjustDimensions();
+        
+        DOM.sinkEvents(outer.getElement(), Event.MOUSEEVENTS | Event.KEYEVENTS);
+        DOM.setStyleAttribute(outer.getElement(), "cursor", "default");
     }
 
     /**
@@ -405,11 +409,18 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
             if ((i % monthColumns) == 0) {
                 col = 0;
                 row += 2;
+            } else if (i > 0) {
+                calendarGrid.setHTML(row, col, "&nbsp;");
+                calendarGrid.setHTML(row + 1, col, "&nbsp;");
+                calendarGrid.getCellFormatter().addStyleName(row, col, StyleMonthSeparator);
+                calendarGrid.getCellFormatter().addStyleName(row + 1, col, StyleMonthSeparator);
+                col +=1;
             }
 
             if (monthSelectorHeader.getParent() == null || simpleDatePickers.size() > 1) {
                 if (i == 0 || (i % monthColumns) == 0) {
                     calendarGrid.getRowFormatter().addStyleName(row, StyleMonthLabels);
+                    calendarGrid.getRowFormatter().addStyleName(row + 1, StyleMonthCell);
                 }
                 if (i == 0 && monthSelectorHeader.getElement().getParentElement() == null)
                     calendarGrid.setWidget(row, col, monthSelectorHeader);
@@ -439,14 +450,14 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         for (int i=0; i<simpleDatePickers.size(); i++){
             simpleDatePickers.get(i).setCursorDate(GWTCSimpleDatePicker.increaseMonth(simpleDatePickers.get(0).getCursorDate(), i));
             simpleDatePickers.get(i).refresh();
-            monthHeaders.get(i).setText(GWTCSimpleDatePicker.formatDate("MMMM, yyyy", simpleDatePickers.get(i).getCursorDate()));
+            monthHeaders.get(i).setText(GWTCSimpleDatePicker.formatDate(MONTH_FORMAT, simpleDatePickers.get(i).getCursorDate()));
         }
     }
 
     private void fillMenuItems() {
         monthSelectorHeader.clearItems();
         monthMenu.clearItems();
-        monthSelectorHeader.addItem(GWTCSimpleDatePicker.formatDate("MMMM, yyyy", simpleDatePickers.get(0).getCursorDate()), monthMenu);
+        monthSelectorHeader.addItem(GWTCSimpleDatePicker.formatDate(MONTH_FORMAT, simpleDatePickers.get(0).getCursorDate()), monthMenu);
 
         int n = -1 * (monthSelector / 2);
         Date d = new Date(GWTCSimpleDatePicker.getFirstDayOfMonth(getCursorDate()).getTime());
@@ -465,7 +476,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         n -= monthSelector;
         d = GWTCSimpleDatePicker.increaseMonth(getCursorDate(), n);
         for(int i = n; i<monthSelector; i++) {
-            String t = GWTCSimpleDatePicker.formatDate("MMMM, yyyy", d);
+            String t = GWTCSimpleDatePicker.formatDate(MONTH_FORMAT, d);
             MenuCommand c = new MenuCommand(d);
             d = GWTCSimpleDatePicker.increaseMonth(d, 1);
             if (  GWTCSimpleDatePicker.compareDate(d, simpleDatePickers.get(0).getMaximalDate()) >= 0 
@@ -520,18 +531,16 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
             outer.setStyleName(s);
 
         monthSelectorHeader.setStyleName(s + "-MenuBar");
-        monthSelectorHeader.addStyleName(s + "-MenuBar-horizontal");
-        for (int i=0; i < monthHeaders.size(); i++) {
-            monthHeaders.get(i).setStyleName(s + "-MenuBar");
-        }
         monthMenu.setStyleName(s + "-MenuBar");
+        monthSelectorHeader.addStyleName(s + "-MenuBar-horizontal");
         monthMenu.addStyleName(s + "-MenuBar-vertical");
+        for (int i=0; i < monthHeaders.size(); i++) {
+            monthHeaders.get(i).setStyleName(StyleMonthLabel);
+            monthHeaders.get(i).addStyleName(s + "-MenuBar");
+            monthSelectorHeader.addStyleName(s + "-MenuBar-horizontal");
+        }
         if (! s.equals(styleName)) {
             addStyleName(styleName);
-            monthSelectorHeader.addStyleName(styleName + "-MenuBar");
-            monthSelectorHeader.addStyleName(styleName + "-MenuBar-horizontal");
-            monthMenu.addStyleName(styleName + "-MenuBar");
-            monthMenu.addStyleName(styleName + "-MenuBar-vertical");
         }
     }
     
@@ -650,6 +659,14 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         }
         adjustDimensions();
         todayBtn.setFocus(true);
+    }
+    
+    /* (non-Javadoc)
+     * @see com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker#show()
+     */
+    @Override
+    public void show() {
+        show(null);
     }
 
     /**

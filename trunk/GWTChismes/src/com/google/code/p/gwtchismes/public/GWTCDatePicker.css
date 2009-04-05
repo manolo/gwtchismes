@@ -5,6 +5,7 @@
 }
 .GWTCDatePicker *, .GWTCDatePicker-help * {
   font-size: 8pt;
+  
 }
 
 .GWTCDatePicker-dialog {
@@ -52,6 +53,12 @@
 .GWTCDatePicker .panelDays {
   font: 10pt sans-serif;
   text-align: center;
+}
+
+.GWTCDatePicker .monthSeparator {
+  background: #d0e6ff;
+  font-size: 6px;
+  padding: 0px;
 }
 
 .GWTCDatePicker .panelDays .weekHeader {
@@ -125,6 +132,7 @@
 
 .GWTCDatePicker .panelButtons .gwt-Button {
 	font-size: 12px;
+	text-align: center;
 }
 .GWTCDatePicker .panelButtons .gwt-Button-flat {
 	color: blue;
@@ -136,9 +144,17 @@
 	min-width: 30px;
 }
 
+
 .GWTCDatePicker .panelMonths .monthLabels {
 	text-align: center;
 	font-weight: bold;
+}
+
+.GWTCDatePicker .panelMonths .monthLabels .monthLabel {
+	min-height: 15px;
+	padding-top: 4px;
+    text-align: center;
+	background: red;
 }
 
 .GWTCDatePicker-MenuBar {

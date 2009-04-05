@@ -71,6 +71,9 @@ public class GWTCSample implements EntryPoint {
     private final GWTCWait wait = new GWTCWait();
     
     boolean testCode() {
+//        GWTCDatePicker.WEEK_DAYS = GWTCDatePicker.dateTimeConstants.narrowWeekdays();
+//        GWTCDatePicker d = new GWTCDatePicker(GWTCDatePicker.CONFIG_DEFAULT, 2, "< - >");
+//        RootPanel.get().add(d);
         return false;
     }
 
@@ -104,47 +107,51 @@ public class GWTCSample implements EntryPoint {
 
         pickStrs.putAll(pickTitStrs);
 
-        alert.setText(i18n.alert_message());
         wait.setMessage(i18n.wait_message());
     }
     
-    Label english = new Label("English");
-    Label spanish = new Label("Spanish");
-    Label japanese = new Label("Japanese");
-    public ClickListener changeLocale = new ClickListener(){
-        public void onClick(Widget sender) {
-            if (sender == english) {
-                Window.Location.assign("?locale=en");
-            } else if (sender == spanish) {
-                Window.Location.assign("?locale=es");
-            } else if (sender == japanese) {
-                Window.Location.assign("?locale=ja");
+    void setupLanguageLinks() {
+        final Label english = new Label("English");
+        final Label spanish = new Label("Spanish");
+        final Label japanese = new Label("Japanese");
+        final ClickListener changeLocale = new ClickListener(){
+            public void onClick(Widget sender) {
+                if (sender == english) {
+                    Window.Location.assign("?locale=en");
+                } else if (sender == spanish) {
+                    Window.Location.assign("?locale=es");
+                } else if (sender == japanese) {
+                    Window.Location.assign("?locale=ja");
+                }
             }
-        }
-    };
-    HorizontalPanel langPanel = new HorizontalPanel() {{
-        setStyleName("langPanel");
-        String loc = Window.Location.getParameter("locale");
-        if (loc != null && ! "en".equals(loc))
-            add(english);
-        if (! "es".equals(loc))
-            add(spanish);
-        if (! "ja".equals(loc))
-            add(japanese);
-        english.addClickListener(changeLocale);
-        spanish.addClickListener(changeLocale);
-        japanese.addClickListener(changeLocale);
+        };
         
-        if ("ja".equals(loc))
-            alert.alert("This application has not been translated into Japanese yet.\n" +
-            "Only dates and calendar selectors will be shown in japanese because they use GWT DateTimeFormat");
-    }};
+        HorizontalPanel langPanel = new HorizontalPanel() {{
+            setStyleName("langPanel");
+            String loc = Window.Location.getParameter("locale");
+            if (loc != null && ! "en".equals(loc))
+                add(english);
+            if (! "es".equals(loc))
+                add(spanish);
+            if (! "ja".equals(loc))
+                add(japanese);
+            english.addClickListener(changeLocale);
+            spanish.addClickListener(changeLocale);
+            japanese.addClickListener(changeLocale);
+            
+            if ("ja".equals(loc))
+                alert.alert("This application has not been translated into Japanese yet.\n" +
+                "Only dates and calendar selectors will be shown in japanese because they use GWT DateTimeFormat");
+        }};
+        RootPanel.get().add(langPanel);
+    }
+    
 
     public void onModuleLoad() {
         if (testCode()) 
             return;
         
-        RootPanel.get().add(langPanel);
+        setupLanguageLinks();
         
         GWTCBox p1;
         GWTCTabPanel tp = new GWTCTabPanel();
