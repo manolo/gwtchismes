@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.MouseListener;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesChangeEvents;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -108,8 +109,9 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     private boolean initialized = false;
 
     // Internationalizable elements
-    private static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
+    public static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
     private static final int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
+    public static String[] WEEK_DAYS = dateTimeConstants.shortWeekdays();
     
     // Dates panel
     private final FlexTable calendarGrid = new FlexTable();
@@ -141,11 +143,11 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
             int l = 0;
             for (int i = weekStart; i < 7; i++) {
                 calendarGrid.getCellFormatter().setStyleName(0, l, StyleCCellDayNames);
-                calendarGrid.setText(0, l++, dateTimeConstants.shortWeekdays()[i]);
+                calendarGrid.setText(0, l++, WEEK_DAYS[i]);
             }
             while (l < 7) {
                 calendarGrid.getCellFormatter().setStyleName(0, l, StyleCCellDayNames);
-                calendarGrid.setText(0, l++, dateTimeConstants.shortWeekdays()[0]);
+                calendarGrid.setText(0, l++, WEEK_DAYS[0]);
             }
             for (int i = 1; i < 7; i++) { 
                 for (int k = 0; k < 7; k++) { 
@@ -634,9 +636,14 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
    }
 
     public void hide(){
+        setVisible(false);
     }
     
     public void show(){
+        setVisible(true);
+        if (! isAttached()) {
+            RootPanel.get().add(this);
+        }
     }
     
     public void show(Widget w){
