@@ -21,7 +21,6 @@
 }}}
 
  * Use the widgets in your application
-
 {{{
         // Alert
         GWTCAlert alert = new GWTCAlert(); 
@@ -52,5 +51,4 @@
             }
         });
         RootPanel.get().add(button);
-
 }}}
