@@ -27,7 +27,7 @@ cp -r gwtchismes-$V/gsample/* $C/sample/
 
 mkdir -p $C/mavenrepo/gwtchismes/gwtchismes/$V
 cp gwtchismes-$V.jar $C/mavenrepo/gwtchismes/gwtchismes/$V
-md5sum gwtchismes-$V.jar | awk '{print $1}' > $C/mavenrepo/gwtchismes/gwtchismes/0.9.0/gwtchismes-$V.jar.md5
+md5sum gwtchismes-$V.jar | awk '{print $1}' > $C/mavenrepo/gwtchismes/gwtchismes/$V/gwtchismes-$V.jar.md5
 
 cat <<EOF > $C/mavenrepo/gwtchismes/gwtchismes/$V/gwtchismes-$V.pom
 <?xml version="1.0" encoding="UTF-8"?><project>
