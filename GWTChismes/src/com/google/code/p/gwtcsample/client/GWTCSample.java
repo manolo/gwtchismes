@@ -71,10 +71,7 @@ public class GWTCSample implements EntryPoint {
     private final GWTCWait wait = new GWTCWait();
     
     boolean testCode() {
-//        GWTCDatePicker.WEEK_DAYS = GWTCDatePicker.dateTimeConstants.narrowWeekdays();
-//        GWTCDatePicker d = new GWTCDatePicker(GWTCDatePicker.CONFIG_DEFAULT, 2, "< - >");
-//        RootPanel.get().add(d);
-        return false;
+        return true;
     }
 
     GWTCSample() {
