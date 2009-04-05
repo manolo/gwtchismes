@@ -8,7 +8,7 @@
 GWTCDatePickerAbstract (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-03">
+<META NAME="date" CONTENT="2009-04-05">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -185,8 +185,8 @@ java.lang.Object
  <li>.GWTCDatePicker .panelButtonsBottom .buttonsRow_3 { 3th row in bottom buttons panel }</li>
  
  <li>.GWTCDatePicker .panelMonths { container for the displayed months }</li>
- 
  <li>.GWTCDatePicker .panelMonths .monthLabels { labels with the header of each displayed month }</li>
+ <li>.GWTCDatePicker .panelMonths .monthSeparator { cell between two months }</li>
  
  <li>.GWTCDatePicker-MenuBar { horizontal and vertical menu selector items }</li>
  <li>.GWTCDatePicker-MenuBar-horizontal { horizontal item of menu selector  }</li>
@@ -379,6 +379,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#MONTH_FORMAT">MONTH_FORMAT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#monthColumns">monthColumns</A></B></CODE>
 
@@ -524,6 +532,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#StyleMonthCell">StyleMonthCell</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#StyleMonthGrid">StyleMonthGrid</A></B></CODE>
 
 <BR>
@@ -532,7 +548,23 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#StyleMonthLabel">StyleMonthLabel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#StyleMonthLabels">StyleMonthLabels</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#StyleMonthSeparator">StyleMonthSeparator</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -592,7 +624,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Fields inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCSimpleDatePicker.html#needsRedraw">needsRedraw</A></CODE></TD>
+<TD><CODE><A HREF="GWTCSimpleDatePicker.html#dateTimeConstants">dateTimeConstants</A>, <A HREF="GWTCSimpleDatePicker.html#needsRedraw">needsRedraw</A>, <A HREF="GWTCSimpleDatePicker.html#WEEK_DAYS">WEEK_DAYS</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -844,6 +876,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#show()">show</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#show(int, int)">show</A></B>(int&nbsp;left,
      int&nbsp;top)</CODE>
 
@@ -865,7 +905,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#show()">show</A></CODE></TD>
+<TD><CODE><A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -1027,6 +1067,36 @@ protected static final java.lang.String <B>StyleMonthLabels</B></PRE>
 </DL>
 <HR>
 
+<A NAME="StyleMonthLabel"><!-- --></A><H3>
+StyleMonthLabel</H3>
+<PRE>
+protected static final java.lang.String <B>StyleMonthLabel</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract.StyleMonthLabel">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="StyleMonthSeparator"><!-- --></A><H3>
+StyleMonthSeparator</H3>
+<PRE>
+protected static final java.lang.String <B>StyleMonthSeparator</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract.StyleMonthSeparator">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="StyleMonthCell"><!-- --></A><H3>
+StyleMonthCell</H3>
+<PRE>
+protected static final java.lang.String <B>StyleMonthCell</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract.StyleMonthCell">Constant Field Values</A></DL>
+</DL>
+<HR>
+
 <A NAME="CONFIG_DEFAULT"><!-- --></A><H3>
 CONFIG_DEFAULT</H3>
 <PRE>
@@ -1101,6 +1171,16 @@ public static final int <B>CONFIG_FLAT_BUTTONS</B></PRE>
 CONFIG_STANDARD_BUTTONS</H3>
 <PRE>
 public static final int <B>CONFIG_STANDARD_BUTTONS</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="MONTH_FORMAT"><!-- --></A><H3>
+MONTH_FORMAT</H3>
+<PRE>
+public static java.lang.String <B>MONTH_FORMAT</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1638,6 +1718,20 @@ public void <B>show</B>(int&nbsp;left,
 <DL>
 <DD>Show the calendar container, and positione it in the provided coordinates.
 <P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="show()"><!-- --></A><H3>
+show</H3>
+<PRE>
+public void <B>show</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="GWTCSimpleDatePicker.html#show()">show</A></CODE> in class <CODE><A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></CODE></DL>
+</DD>
 <DD><DL>
 </DL>
 </DD>
