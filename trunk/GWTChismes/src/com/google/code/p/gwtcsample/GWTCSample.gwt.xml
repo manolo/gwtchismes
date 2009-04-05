@@ -1,11 +1,6 @@
 <module>
-  <inherits name="com.google.gwt.user.User"/>
+
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
-  <!-- 
-  <inherits name="com.google.gwt.user.theme.standard.Standard"/>
-  <inherits name="com.google.gwt.user.theme.dark.Dark"/>
-  <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
-  -->
   
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
   
@@ -13,5 +8,9 @@
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
    
-   <add-linker name="xs"/>
+  <add-linker name="xs"/>
+  
+  <stylesheet src="GWTC-compressed.css"/>
+  <stylesheet src="GWTCSample.css"/>
+  
 </module>
