@@ -1,7 +1,7 @@
 # Usage of GWTChismes library.
 
  * Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
- * Configure your module file: 
+ * Configure your module file: Module.gwt.xml
 {{{
 <module>
 
