@@ -1,4 +1,4 @@
-#Usage of GWTChismes library.
+# Usage of GWTChismes library.
 
  * Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
  * Configure your module file: 
@@ -16,4 +16,5 @@
    
 </module>
 }}}
-  * Use the widget in your application
+
+ * Use the widget in your application
