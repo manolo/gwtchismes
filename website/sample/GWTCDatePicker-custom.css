@@ -45,6 +45,14 @@
 .GWTCDatePicker-custom .panelMonths {
     background: #eee;
 }
+
+.GWTCDatePicker-custom .monthLabels .monthSeparator {
+  background: #eee;
+}
+.GWTCDatePicker-custom .monthCells .monthSeparator {
+  background: #444;
+}
+
 .GWTCDatePicker-custom .buttonsRow_2,
 .GWTCDatePicker-custom .panelMonths .monthLabels {
 	padding: 0.2em 0 0.3em;
