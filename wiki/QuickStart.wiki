@@ -1,7 +1,7 @@
 == Usage of GWTChismes library. ==
 
  * Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
- * Configure your module file: Module.gwt.xml
+ * Configure your module file: Xxx.gwt.xml
 {{{
 <module>
 
@@ -15,9 +15,41 @@
   <extend-property name="locale" values="ja"/>
    
   <!-- Put your project's entry-point -->
-  <entry-point class="[...]"/>
+  <entry-point class="package.Xxx"/>
 
 </module>
 }}}
 
- * Use the widget in your application
+ * Use the widgets in your application
+
+{{{
+        // Alert
+        GWTCAlert alert = new GWTCAlert(); 
+        alert.alert("Hello, you can put here any message");
+
+        // Rounded Box
+        GWTCBox box = new GWTCBox(GWTCBox.STYLE_BLUE);
+        box.setTitle("A Title");
+        box.setText("Sample text");
+        RootPanel.get().add(box);
+
+        // DatePicker
+        int options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX 
+                    | GWTCDatePicker.CONFIG_BACKGROUND;
+        final GWTCDatePicker picker = new GWTCDatePicker(options);
+        picker.addChangeListener(new ChangeListener() {
+            public void onChange(Widget sender) {
+                Window.alert(((GWTCSimpleDatePicker) sender)
+                         .getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+                picker.hide();
+            }
+        });
+
+        Button button = new GWTCButton("Clickme", new ClickListener() {
+            public void onClick(Widget sender) {
+                picker.show();
+            }
+        });
+        RootPanel.get().add(button);
+
+}}}
