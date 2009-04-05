@@ -141,7 +141,7 @@ public class GWTCSample implements EntryPoint {
             
             if ("ja".equals(loc))
                 alert.alert("This application has not been translated into Japanese yet.\n" +
-                "But you can see how dates are displayed in japanese because DatePicker uses GWT DateTimeFormat");
+                "Nevertheless you can see how dates are displayed in japanese because DatePicker uses GWT DateTimeFormat");
         }};
         RootPanel.get().add(langPanel);
     }
