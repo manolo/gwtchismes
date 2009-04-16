@@ -8,7 +8,7 @@
 GWTCBox (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -245,21 +245,20 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
+<TD><CODE><B><A HREF="GWTCBox.html#add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A></B>(java.lang.Object&nbsp;object,
+    com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds elements to the main panel in the NORTH position</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds elements to the panel in the position specified, these elements can be
+ Widgets, Elements and html Strings.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCBox.html#add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
-    com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</CODE>
+<TD><CODE><B><A HREF="GWTCBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds elements to the panel in the position specified
- Valid options are
- DockPanel.NORTH DockPanel.SOUTH DockPanel.EAST DockPanel.WEST</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds elements to the main panel in the NORTH position</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -271,11 +270,19 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;com.google.gwt.user.client.ui.Widget</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCBox.html#objectToWidget(java.lang.Object)">objectToWidget</A></B>(java.lang.Object&nbsp;object)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCBox.html#remove(com.google.gwt.user.client.ui.Widget)">remove</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a child widget.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -502,23 +509,36 @@ public void <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DT><B>Specified by:</B><DD><CODE>add</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE><DT><B>Overrides:</B><DD><CODE>add</CODE> in class <CODE>com.google.gwt.user.client.ui.SimplePanel</CODE></DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>w</CODE> - the widget to be added<DT><B>See Also:</B><DD><CODE>HasWidgets.add(Widget)</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><!-- --></A><H3>
+<A NAME="add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><!-- --></A><H3>
 add</H3>
 <PRE>
-public void <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
+public void <B>add</B>(java.lang.Object&nbsp;object,
                 com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</PRE>
 <DL>
-<DD>Adds elements to the panel in the position specified
+<DD>Adds elements to the panel in the position specified, these elements can be
+ Widgets, Elements and html Strings.
+ 
  Valid options are
  DockPanel.NORTH DockPanel.SOUTH DockPanel.EAST DockPanel.WEST
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>widget</CODE> - <DD><CODE>direction</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>object,</CODE> - <DD><CODE>direction</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="objectToWidget(java.lang.Object)"><!-- --></A><H3>
+objectToWidget</H3>
+<PRE>
+public static com.google.gwt.user.client.ui.Widget <B>objectToWidget</B>(java.lang.Object&nbsp;object)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -528,11 +548,36 @@ remove</H3>
 <PRE>
 public boolean <B>remove</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DL>
+<DD><B>Description copied from class: <CODE>com.google.gwt.user.client.ui.Panel</CODE></B></DD>
+<DD>Removes a child widget.
+ 
+ <p>
+ <b>How to Override this Method</b>
+ </p>
+ <p>
+ There are several important things that must take place in the correct
+ order to properly remove a Widget from a Panel. Not all of these steps will
+ be relevant to every Panel, but all of the steps must be considered.
+ <ol>
+ <li><b>Validate:</b> Make sure this Panel is actually the parent of the
+ child Widget; return <code>false</code> if it is not.</li>
+ <li><b>Orphan:</b> Call <CODE>Panel.orphan(Widget)</CODE> first while the child
+ Widget is still attached.</li>
+ <li><b>Physical Detach:</b> Adjust the DOM to account for the removal of
+ the child Widget. The Widget's Element must be physically removed from the
+ DOM.</li>
+ <li><b>Logical Detach:</b> Update the Panel's state variables to reflect
+ the removal of the child Widget. Example: the Widget is removed from the
+ Panel's <CODE>WidgetCollection</CODE>.</li>
+ </ol>
+ </p>
+<P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE>remove</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE><DT><B>Overrides:</B><DD><CODE>remove</CODE> in class <CODE>com.google.gwt.user.client.ui.SimplePanel</CODE></DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>w</CODE> - the widget to be removed
+<DT><B>Returns:</B><DD><code>true</code> if the child was present</DL>
 </DD>
 </DL>
 <HR>

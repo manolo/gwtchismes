@@ -8,7 +8,7 @@
 GWTCIntervalSelector (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -469,6 +469,12 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector()">GWTCIntervalSelector</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector(int)">GWTCIntervalSelector</A></B>(int&nbsp;layout)</CODE>
 
 <BR>
@@ -540,10 +546,42 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#getMaxDays()">getMaxDays</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.Date</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#getMaximalDate()">getMaximalDate</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.Date</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#getMinimalDate()">getMinimalDate</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCIntervalSelector.html#getNights()">getNights</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the number of nights selected by the user</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#initialize(int)">initialize</A></B>(int&nbsp;layout)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -617,6 +655,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure the maximal days allowed</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#setMaximalDate(java.util.Date)">setMaximalDate</A></B>(java.util.Date&nbsp;d)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1022,6 +1068,14 @@ protected com.google.gwt.user.client.ui.ClickListener <B>clickListener</B></PRE>
 </TR>
 </TABLE>
 
+<A NAME="GWTCIntervalSelector()"><!-- --></A><H3>
+GWTCIntervalSelector</H3>
+<PRE>
+public <B>GWTCIntervalSelector</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
 <A NAME="GWTCIntervalSelector(int)"><!-- --></A><H3>
 GWTCIntervalSelector</H3>
 <PRE>
@@ -1042,6 +1096,17 @@ public <B>GWTCIntervalSelector</B>(int&nbsp;layout)</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="initialize(int)"><!-- --></A><H3>
+initialize</H3>
+<PRE>
+protected void <B>initialize</B>(int&nbsp;layout)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="drawIntervalWidget()"><!-- --></A><H3>
 drawIntervalWidget</H3>
@@ -1290,6 +1355,50 @@ public void <B>setMinimalDate</B>(java.util.Date&nbsp;d)</PRE>
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>d</CODE> - Date</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMaximalDate(java.util.Date)"><!-- --></A><H3>
+setMaximalDate</H3>
+<PRE>
+public void <B>setMaximalDate</B>(java.util.Date&nbsp;d)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMinimalDate()"><!-- --></A><H3>
+getMinimalDate</H3>
+<PRE>
+public java.util.Date <B>getMinimalDate</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMaximalDate()"><!-- --></A><H3>
+getMaximalDate</H3>
+<PRE>
+public java.util.Date <B>getMaximalDate</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMaxDays()"><!-- --></A><H3>
+getMaxDays</H3>
+<PRE>
+public int <B>getMaxDays</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
