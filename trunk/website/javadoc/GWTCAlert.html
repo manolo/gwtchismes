@@ -8,7 +8,7 @@
 GWTCAlert (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -287,6 +287,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCAlert.html#initialize(int)">initialize</A></B>(int&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCAlert.html#removeClickListener(com.google.gwt.user.client.ui.ClickListener)">removeClickListener</A></B>(com.google.gwt.user.client.ui.ClickListener&nbsp;listener)</CODE>
 
@@ -325,14 +333,6 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shows the alert dialog</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCAlert.html#show(int)">show</A></B>(int&nbsp;timeout)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shows the alert dialog, and hides it after a period</TD>
-</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.code.p.gwtchismes.client.GWTCPopupBox"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -340,7 +340,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A>, <A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A>, <A HREF="GWTCPopupBox.html#center()">center</A>, <A HREF="GWTCPopupBox.html#setZIndex(int)">setZIndex</A></CODE></TD>
+<TD><CODE><A HREF="GWTCPopupBox.html#add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A>, <A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A>, <A HREF="GWTCPopupBox.html#center()">center</A>, <A HREF="GWTCPopupBox.html#setZIndex(int)">setZIndex</A>, <A HREF="GWTCPopupBox.html#show(int)">show</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.PopupPanel"><!-- --></A>
@@ -452,7 +452,7 @@ public <B>GWTCAlert</B>(int&nbsp;options)</PRE>
  <li>OPTION_ROUNDED_GREY          put a grey GWTCBox arround the alert</li>
  <li>OPTION_ROUNDED_BLUE          put a blue GWTCBox arround the alert</li>
  <li>OPTION_DISABLE_OK_BUTTON     don't show the OK button</li>
- <li>CONFIG_ANIMATION      animate the dialog box when it is showed/hidden</li>    
+ <li>OPTION_ANIMATION      animate the dialog box when it is showed/hidden</li>    
  </ul>
 <P>
 <DL>
@@ -468,6 +468,20 @@ public <B>GWTCAlert</B>(int&nbsp;options)</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="initialize(int)"><!-- --></A><H3>
+initialize</H3>
+<PRE>
+protected void <B>initialize</B>(int&nbsp;options)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="GWTCPopupBox.html#initialize(int)">initialize</A></CODE> in class <CODE><A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="addClickListener(com.google.gwt.user.client.ui.ClickListener)"><!-- --></A><H3>
 addClickListener</H3>
@@ -571,19 +585,6 @@ public void <B>show</B>()</PRE>
 </DD>
 <DD><DL>
 </DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="show(int)"><!-- --></A><H3>
-show</H3>
-<PRE>
-public void <B>show</B>(int&nbsp;timeout)</PRE>
-<DL>
-<DD>Shows the alert dialog, and hides it after a period
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>timeout</CODE> - timeout in seconds for autohide</DL>
 </DD>
 </DL>
 <HR>

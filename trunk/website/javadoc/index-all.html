@@ -8,7 +8,7 @@
 Index (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -84,11 +84,10 @@ function windowTitle()
 <DT><A HREF="GWTCBox.html#add(com.google.gwt.user.client.ui.Widget)"><B>add(Widget)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCBox</A>
 <DD>Adds elements to the main panel in the NORTH position
-<DT><A HREF="GWTCBox.html#add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><B>add(Widget, DockPanel.DockLayoutConstant)</B></A> - 
+<DT><A HREF="GWTCBox.html#add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><B>add(Object, DockPanel.DockLayoutConstant)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCBox</A>
-<DD>Adds elements to the panel in the position specified
- Valid options are
- DockPanel.NORTH DockPanel.SOUTH DockPanel.EAST DockPanel.WEST
+<DD>Adds elements to the panel in the position specified, these elements can be
+ Widgets, Elements and html Strings.
 <DT><A HREF="GWTCFieldSet.html#add(com.google.gwt.user.client.ui.Widget)"><B>add(Widget)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCFieldSet.html" title="class in com.google.code.p.gwtchismes.client">GWTCFieldSet</A>
 <DD>&nbsp;
@@ -104,9 +103,12 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCModalBox.html" 
 <DT><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget)"><B>add(Widget)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
 <DD>&nbsp;
-<DT><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><B>add(Widget, DockPanel.DockLayoutConstant)</B></A> - 
+<DT><A HREF="GWTCPopupBox.html#add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><B>add(Object, DockPanel.DockLayoutConstant)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
 <DD>&nbsp;
+<DT><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)"><B>add(Date, String)</B></A> - 
+Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
+<DD>Increase/decrease a date based in a string which defines the interval
 <DT><A HREF="GWTCTabPanel.html#add(com.google.gwt.user.client.ui.Widget, java.lang.String)"><B>add(Widget, String)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCTabPanel.html" title="class in com.google.code.p.gwtchismes.client">GWTCTabPanel</A>
 <DD>&nbsp;
@@ -184,11 +186,17 @@ Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbs
 <DT><A HREF="GWTCDatePickerAbstract.html#calendarGrid"><B>calendarGrid</B></A> - 
 Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
+<DT><A HREF="GWTCDatePickerAbstract.html#center()"><B>center()</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCModalBox.html#center()"><B>center()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCModalBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCModalBox</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCPopupBox.html#center()"><B>center()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCDatePickerAbstract.html#cfg(java.lang.String)"><B>cfg(String)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCIntervalSelector.html#changeCheckinLink"><B>changeCheckinLink</B></A> - 
 Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
@@ -299,9 +307,6 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstr
 <DT><A HREF="GWTCIntervalSelector.html#configureDatePickers(int, java.lang.String, int, int, int, int)"><B>configureDatePickers(int, String, int, int, int, int)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
 <DD>&nbsp;
-<DT><A HREF="GWTCDatePickerAbstract.html#createInstance(int)"><B>createInstance(int)</B></A> - 
-Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
-<DD>Creates the calendar instance based in the configuration provided.
 </DL>
 <HR>
 <A NAME="_D_"><!-- --></A><H2>
@@ -392,9 +397,18 @@ Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDa
 <DT><A HREF="GWTCHelper.html#getLocationUrl()"><B>getLocationUrl()</B></A> - 
 Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCHelper.html" title="class in com.google.code.p.gwtchismes.client">GWTCHelper</A>
 <DD>Returns the location url of the window
+<DT><A HREF="GWTCIntervalSelector.html#getMaxDays()"><B>getMaxDays()</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCIntervalSelector.html#getMaximalDate()"><B>getMaximalDate()</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCSimpleDatePicker.html#getMaximalDate()"><B>getMaximalDate()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Get the maximal selectable date
+<DT><A HREF="GWTCIntervalSelector.html#getMinimalDate()"><B>getMinimalDate()</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCSimpleDatePicker.html#getMinimalDate()"><B>getMinimalDate()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Get the minimal selectable date
@@ -494,16 +508,19 @@ Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCButton.ht
  <b>Implementation of a customizable DatePicker.</b><DT><A HREF="GWTCDatePicker.html#GWTCDatePicker()"><B>GWTCDatePicker()</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
 <DD>&nbsp;
-<DT><A HREF="GWTCDatePicker.html#GWTCDatePicker(int)"><B>GWTCDatePicker(int)</B></A> - 
-Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
-<DD>Creates the calendar instance based in the configuration provided.
 <DT><A HREF="GWTCDatePicker.html#GWTCDatePicker(int, int)"><B>GWTCDatePicker(int, int)</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
 <DD>Creates the calendar instance based in the configuration provided, and the numerical layout index.
+<DT><A HREF="GWTCDatePicker.html#GWTCDatePicker(int, java.lang.String, int, int, int, int)"><B>GWTCDatePicker(int, String, int, int, int, int)</B></A> - 
+Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCDatePicker.html#GWTCDatePicker(int, int, java.lang.String)"><B>GWTCDatePicker(int, int, String)</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
 <DD>Creates the calendar instance based in the configuration provided, 
  number of months to display and the buttons layout representacion.
+<DT><A HREF="GWTCDatePicker.html#GWTCDatePicker(int)"><B>GWTCDatePicker(int)</B></A> - 
+Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
+<DD>Creates the calendar instance based in the configuration provided.
 <DT><A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCDatePickerAbstract</B></A> - Class in <A HREF="package-summary.html">com.google.code.p.gwtchismes.client</A><DD>
  <b>Abstract class used for creating complex and customized DatePickers.</b><DT><A HREF="GWTCDatePickerAbstract.html#GWTCDatePickerAbstract()"><B>GWTCDatePickerAbstract()</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
@@ -521,7 +538,10 @@ Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCGlassPane
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCHelper.html" title="class in com.google.code.p.gwtchismes.client">GWTCHelper</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCIntervalSelector</B></A> - Class in <A HREF="package-summary.html">com.google.code.p.gwtchismes.client</A><DD>
-<b>A widget to select an interval betwen two dates.</b><DT><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector(int)"><B>GWTCIntervalSelector(int)</B></A> - 
+<b>A widget to select an interval betwen two dates.</b><DT><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector()"><B>GWTCIntervalSelector()</B></A> - 
+Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector(int)"><B>GWTCIntervalSelector(int)</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
 <DD>Constructor
 <DT><A HREF="GWTCModalBox.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCModalBox</B></A> - Class in <A HREF="package-summary.html">com.google.code.p.gwtchismes.client</A><DD>
@@ -538,7 +558,10 @@ Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCPrint.htm
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCPrint.html" title="class in com.google.code.p.gwtchismes.client">GWTCPrint</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCProgress</B></A> - Class in <A HREF="package-summary.html">com.google.code.p.gwtchismes.client</A><DD>
- <b>A progress bar with time remaining calculation.</b><DT><A HREF="GWTCProgress.html#GWTCProgress(int, int)"><B>GWTCProgress(int, int)</B></A> - 
+ <b>A progress bar with time remaining calculation.</b><DT><A HREF="GWTCProgress.html#GWTCProgress()"><B>GWTCProgress()</B></A> - 
+Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client">GWTCProgress</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCProgress.html#GWTCProgress(int, int)"><B>GWTCProgress(int, int)</B></A> - 
 Constructor for class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client">GWTCProgress</A>
 <DD>Base constructor for this widget
 <DT><A HREF="GWTCProgress.html#GWTCProgress(int)"><B>GWTCProgress(int)</B></A> - 
@@ -609,9 +632,30 @@ Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDa
 <DT><A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)"><B>increaseMonth(Date, int)</B></A> - 
 Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Add months to a reference Date.
+<DT><A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)"><B>increaseWeek(Date, int)</B></A> - 
+Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
+<DD>Add weeks to a reference Date
 <DT><A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)"><B>increaseYear(Date, int)</B></A> - 
 Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Add years to a reference Date
+<DT><A HREF="GWTCAlert.html#initialize(int)"><B>initialize(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCAlert.html" title="class in com.google.code.p.gwtchismes.client">GWTCAlert</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCDatePicker.html#initialize(int)"><B>initialize(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCDatePickerAbstract.html#initialize(int)"><B>initialize(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
+<DD>Creates the calendar instance based in the configuration provided.
+<DT><A HREF="GWTCIntervalSelector.html#initialize(int)"><B>initialize(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCPopupBox.html#initialize(int)"><B>initialize(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCProgress.html#initialize(int, int)"><B>initialize(int, int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client">GWTCProgress</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCIntervalSelector.html#initListeners()"><B>initListeners()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
 <DD>Configure the default listeners for the elements of this interval selector
@@ -703,6 +747,9 @@ Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbs
 <DT><A HREF="GWTCDatePickerAbstract.html#monthSelector"><B>monthSelector</B></A> - 
 Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
+<DT><A HREF="GWTCDatePickerAbstract.html#monthStep"><B>monthStep</B></A> - 
+Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
+<DD>&nbsp;
 </DL>
 <HR>
 <A NAME="_N_"><!-- --></A><H2>
@@ -721,9 +768,6 @@ Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePic
 Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Create a new Date
 <DT><A HREF="GWTCDatePickerAbstract.html#nextMBtn"><B>nextMBtn</B></A> - 
-Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
-<DD>&nbsp;
-<DT><A HREF="GWTCDatePickerAbstract.html#nextMincrement"><B>nextMincrement</B></A> - 
 Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCDatePickerAbstract.html#nextYBtn"><B>nextYBtn</B></A> - 
@@ -746,6 +790,9 @@ Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelec
 <A NAME="_O_"><!-- --></A><H2>
 <B>O</B></H2>
 <DL>
+<DT><A HREF="GWTCBox.html#objectToWidget(java.lang.Object)"><B>objectToWidget(Object)</B></A> - 
+Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCBox</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCDatePickerAbstract.html#onAttach()"><B>onAttach()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
@@ -808,6 +855,9 @@ Variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbs
 <A NAME="_P_"><!-- --></A><H2>
 <B>P</B></H2>
 <DL>
+<DT><A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)"><B>parseDate(String, String)</B></A> - 
+Static method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCIntervalSelector.html#PICKER_POSITION_CENTERED"><B>PICKER_POSITION_CENTERED</B></A> - 
 Static variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
 <DD>&nbsp;
@@ -946,6 +996,9 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelecto
 <DT><A HREF="GWTCDatePickerAbstract.html#setMaximalDate(java.util.Date)"><B>setMaximalDate(Date)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
+<DT><A HREF="GWTCIntervalSelector.html#setMaximalDate(java.util.Date)"><B>setMaximalDate(Date)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCSimpleDatePicker.html#setMaximalDate(java.util.Date)"><B>setMaximalDate(Date)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Set the maximal selectable date
@@ -968,6 +1021,9 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" 
 <DT><A HREF="GWTCIntervalSelector.html#setNights(int)"><B>setNights(int)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>
 <DD>Set the number of days in the interval
+<DT><A HREF="GWTCDatePickerAbstract.html#setNumberOfMonths(int)"><B>setNumberOfMonths(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCAlert.html#setOkButtonDisabled(boolean)"><B>setOkButtonDisabled(boolean)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCAlert.html" title="class in com.google.code.p.gwtchismes.client">GWTCAlert</A>
 <DD>Disable the OK button.
@@ -1002,6 +1058,9 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstr
 <DT><A HREF="GWTCSimpleDatePicker.html#setSelectedDate(java.util.Date)"><B>setSelectedDate(Date)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
 <DD>Set the date selected by the user
+<DT><A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)"><B>setSelectedDateStr(String, String)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>
+<DD>&nbsp;
 <DT><A HREF="GWTCBox.html#setSize(java.lang.String, java.lang.String)"><B>setSize(String, String)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCBox</A>
 <DD>&nbsp;
@@ -1068,9 +1127,6 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" 
 <DT><A HREF="GWTCAlert.html#show()"><B>show()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCAlert.html" title="class in com.google.code.p.gwtchismes.client">GWTCAlert</A>
 <DD>Shows the alert dialog
-<DT><A HREF="GWTCAlert.html#show(int)"><B>show(int)</B></A> - 
-Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCAlert.html" title="class in com.google.code.p.gwtchismes.client">GWTCAlert</A>
-<DD>Shows the alert dialog, and hides it after a period
 <DT><A HREF="GWTCDatePickerAbstract.html#show(com.google.gwt.user.client.ui.Widget)"><B>show(Widget)</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>Show the calendar container.
@@ -1086,6 +1142,9 @@ Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCGlassPanel.html
 <DT><A HREF="GWTCModalBox.html#show()"><B>show()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCModalBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCModalBox</A>
 <DD>&nbsp;
+<DT><A HREF="GWTCPopupBox.html#show(int)"><B>show(int)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
+<DD>Shows the alert dialog, and hides it after a period
 <DT><A HREF="GWTCPopupBox.html#show()"><B>show()</B></A> - 
 Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCPopupBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCPopupBox</A>
 <DD>&nbsp;
@@ -1118,6 +1177,9 @@ Static variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgre
 <DD>&nbsp;
 <DT><A HREF="GWTCProgress.html#SHOW_TIME_REMAINING"><B>SHOW_TIME_REMAINING</B></A> - 
 Static variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client">GWTCProgress</A>
+<DD>&nbsp;
+<DT><A HREF="GWTCDatePickerAbstract.html#showByElement(com.google.gwt.user.client.Element)"><B>showByElement(Element)</B></A> - 
+Method in class com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePickerAbstract</A>
 <DD>&nbsp;
 <DT><A HREF="GWTCBox.html#STYLE_BLUE"><B>STYLE_BLUE</B></A> - 
 Static variable in class com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client">GWTCBox</A>

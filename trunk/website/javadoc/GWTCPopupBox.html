@@ -8,7 +8,7 @@
 GWTCPopupBox (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -267,7 +267,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
+<TD><CODE><B><A HREF="GWTCPopupBox.html#add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A></B>(java.lang.Object&nbsp;object,
+    com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -275,11 +276,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
-    com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</CODE>
+<TD><CODE><B><A HREF="GWTCPopupBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a child widget.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -299,6 +299,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCPopupBox.html#initialize(int)">initialize</A></B>(int&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCPopupBox.html#setZIndex(int)">setZIndex</A></B>(int&nbsp;z)</CODE>
 
@@ -312,6 +320,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCPopupBox.html#show(int)">show</A></B>(int&nbsp;timeout)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shows the alert dialog, and hides it after a period</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.PopupPanel"><!-- --></A>
@@ -467,6 +483,17 @@ public <B>GWTCPopupBox</B>(int&nbsp;options)</PRE>
 </TR>
 </TABLE>
 
+<A NAME="initialize(int)"><!-- --></A><H3>
+initialize</H3>
+<PRE>
+protected void <B>initialize</B>(int&nbsp;options)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="setZIndex(int)"><!-- --></A><H3>
 setZIndex</H3>
 <PRE>
@@ -483,19 +510,50 @@ add</H3>
 <PRE>
 public void <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DL>
+<DD><B>Description copied from class: <CODE>com.google.gwt.user.client.ui.Panel</CODE></B></DD>
+<DD>Adds a child widget.
+ 
+ <p>
+ <b>How to Override this Method</b>
+ </p>
+ <p>
+ There are several important things that must take place in the correct
+ order to properly add or insert a Widget to a Panel. Not all of these steps
+ will be relevant to every Panel, but all of the steps must be considered.
+ <ol>
+ <li><b>Validate:</b> Perform any sanity checks to ensure the Panel can
+ accept a new Widget. Examples: checking for a valid index on insertion;
+ checking that the Panel is not full if there is a max capacity.</li>
+ <li><b>Adjust for Reinsertion:</b> Some Panels need to handle the case
+ where the Widget is already a child of this Panel. Example: when performing
+ a reinsert, the index might need to be adjusted to account for the Widget's
+ removal. See <CODE>ComplexPanel.adjustIndex(Widget, int)</CODE>.</li>
+ <li><b>Detach Child:</b> Remove the Widget from its existing parent, if
+ any. Most Panels will simply call <CODE>Widget.removeFromParent()</CODE> on the
+ Widget.</li>
+ <li><b>Logical Attach:</b> Any state variables of the Panel should be
+ updated to reflect the addition of the new Widget. Example: the Widget is
+ added to the Panel's <CODE>WidgetCollection</CODE> at the appropriate index.</li>
+ <li><b>Physical Attach:</b> The Widget's Element must be physically
+ attached to the Panel's Element, either directly or indirectly.</li>
+ <li><b>Adopt:</b> Call <CODE>Panel.adopt(Widget)</CODE> to finalize the add as the
+ very last step.</li>
+ </ol>
+ </p>
+<P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE>add</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE><DT><B>Overrides:</B><DD><CODE>add</CODE> in class <CODE>com.google.gwt.user.client.ui.SimplePanel</CODE></DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>w</CODE> - the widget to be added<DT><B>See Also:</B><DD><CODE>HasWidgets.add(Widget)</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="add(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><!-- --></A><H3>
+<A NAME="add(java.lang.Object, com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant)"><!-- --></A><H3>
 add</H3>
 <PRE>
-public void <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
+public void <B>add</B>(java.lang.Object&nbsp;object,
                 com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant&nbsp;direction)</PRE>
 <DL>
 <DD><DL>
@@ -514,6 +572,19 @@ public void <B>center</B>()</PRE>
 </DD>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="show(int)"><!-- --></A><H3>
+show</H3>
+<PRE>
+public void <B>show</B>(int&nbsp;timeout)</PRE>
+<DL>
+<DD>Shows the alert dialog, and hides it after a period
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>timeout</CODE> - timeout in seconds for autohide</DL>
 </DD>
 </DL>
 <HR>

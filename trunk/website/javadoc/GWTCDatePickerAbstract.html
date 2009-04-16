@@ -8,7 +8,7 @@
 GWTCDatePickerAbstract (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-05">
+<META NAME="date" CONTENT="2009-04-16">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -411,6 +411,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#monthStep">monthStep</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;com.google.gwt.user.client.ui.DockPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#navButtonsBottom">navButtonsBottom</A></B></CODE>
 
@@ -429,14 +437,6 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;com.google.gwt.user.client.ui.Button</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#nextMBtn">nextMBtn</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#nextMincrement">nextMincrement</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -688,22 +688,30 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#configure(java.lang.String, int, int, int, int)">configure</A></B>(java.lang.String&nbsp;buttonsLayout,
-          int&nbsp;months,
-          int&nbsp;monthsPerRow,
-          int&nbsp;increment,
-          int&nbsp;monthsInSelector)</CODE>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#center()">center</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure this calendarPicker.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#createInstance(int)">createInstance</A></B>(int&nbsp;config)</CODE>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#cfg(java.lang.String)">cfg</A></B>(java.lang.String&nbsp;buttonsLayout)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the calendar instance based in the configuration provided.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#configure(java.lang.String, int, int, int, int)">configure</A></B>(java.lang.String&nbsp;buttonsLayout,
+          int&nbsp;months,
+          int&nbsp;monthsPerRow,
+          int&nbsp;monthsStep,
+          int&nbsp;monthsInSelector)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure this calendarPicker.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -760,6 +768,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide the calendar container.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#initialize(int)">initialize</A></B>(int&nbsp;config)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the calendar instance based in the configuration provided.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -843,6 +859,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#setNumberOfMonths(int)">setNumberOfMonths</A></B>(int&nbsp;months)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#setSelectedDate(java.util.Date)">setSelectedDate</A></B>(java.util.Date&nbsp;d)</CODE>
 
@@ -893,10 +917,18 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#show(com.google.gwt.user.client.ui.Widget)">show</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;sender)</CODE>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#show(com.google.gwt.user.client.ui.Widget)">show</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show the calendar container.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#showByElement(com.google.gwt.user.client.Element)">showByElement</A></B>(com.google.gwt.user.client.Element&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker"><!-- --></A>
@@ -905,7 +937,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A></CODE></TD>
+<TD><CODE><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)">add</A>, <A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)">increaseWeek</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)">parseDate</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)">setSelectedDateStr</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -1417,10 +1449,10 @@ protected int <B>monthSelector</B></PRE>
 </DL>
 <HR>
 
-<A NAME="nextMincrement"><!-- --></A><H3>
-nextMincrement</H3>
+<A NAME="monthStep"><!-- --></A><H3>
+monthStep</H3>
 <PRE>
-protected int <B>nextMincrement</B></PRE>
+protected int <B>monthStep</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1466,10 +1498,10 @@ public abstract void <B>drawDatePickerWidget</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="createInstance(int)"><!-- --></A><H3>
-createInstance</H3>
+<A NAME="initialize(int)"><!-- --></A><H3>
+initialize</H3>
 <PRE>
-public void <B>createInstance</B>(int&nbsp;config)</PRE>
+public void <B>initialize</B>(int&nbsp;config)</PRE>
 <DL>
 <DD>Creates the calendar instance based in the configuration provided. 
  
@@ -1497,7 +1529,7 @@ configure</H3>
 public void <B>configure</B>(java.lang.String&nbsp;buttonsLayout,
                       int&nbsp;months,
                       int&nbsp;monthsPerRow,
-                      int&nbsp;increment,
+                      int&nbsp;monthsStep,
                       int&nbsp;monthsInSelector)</PRE>
 <DL>
 <DD>Configure this calendarPicker.
@@ -1508,7 +1540,29 @@ public void <B>configure</B>(java.lang.String&nbsp;buttonsLayout,
       Each row has to be separated by the ';' character.<br/>
       Available buttons are:<br/>
        help(?), close(x), nextMonth(>), previowusMonsh(<), nextYear(n), prevYear(p)<br/>
-       monthMenu(m), today(-), empty(space)<br/><DD><CODE>months</CODE> - number of months to display<DD><CODE>monthsPerRow</CODE> - number of month columns<DD><CODE>increment</CODE> - number of months to jump when the buttons > or < are pushed<DD><CODE>monthsInSelector</CODE> - number of items (months) in the months selector menu.</DL>
+       monthMenu(m), today(-), empty(space)<br/><DD><CODE>months</CODE> - number of months to display<DD><CODE>monthsPerRow</CODE> - number of month columns<DD><CODE>monthsStep</CODE> - number of months to jump when the buttons > or < are pushed<DD><CODE>monthsInSelector</CODE> - number of items (months) in the months selector menu.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="cfg(java.lang.String)"><!-- --></A><H3>
+cfg</H3>
+<PRE>
+public void <B>cfg</B>(java.lang.String&nbsp;buttonsLayout)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setNumberOfMonths(int)"><!-- --></A><H3>
+setNumberOfMonths</H3>
+<PRE>
+protected void <B>setNumberOfMonths</B>(int&nbsp;months)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1694,18 +1748,40 @@ protected void <B>onAttach</B>()</PRE>
 <A NAME="show(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
 show</H3>
 <PRE>
-public void <B>show</B>(com.google.gwt.user.client.ui.Widget&nbsp;sender)</PRE>
+public void <B>show</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DL>
 <DD>Show the calendar container.
   
- When the calendar picker is a dialog box and param sender is not null 
- the dialog is positioned near of it, else it is centered on the viewport
+ If element is not null the dialog is positioned near of it, 
+ otherwise it is centered on the viewport
 <P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE><A HREF="GWTCSimpleDatePicker.html#show(com.google.gwt.user.client.ui.Widget)">show</A></CODE> in class <CODE><A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>sender</CODE> - the widget that the user has clicked</DL>
+<DT><B>Parameters:</B><DD><CODE>elem</CODE> - the reference element.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showByElement(com.google.gwt.user.client.Element)"><!-- --></A><H3>
+showByElement</H3>
+<PRE>
+public void <B>showByElement</B>(com.google.gwt.user.client.Element&nbsp;e)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="center()"><!-- --></A><H3>
+center</H3>
+<PRE>
+public void <B>center</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
