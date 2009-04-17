@@ -193,9 +193,9 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
     public GWTCDatePicker(int config, int months, String layout) {
         layoutButtons = layout != null ? layout : layouts[0];
         if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || (config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON)
-            layoutButtons = layoutButtons.replaceAll("x", "");
+            layoutButtons = layoutButtons.replaceAll("x", " ");
         if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON)
-            layoutButtons = layoutButtons.replaceAll("\\?", "");
+            layoutButtons = layoutButtons.replaceAll("\\?", " ");
         if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON) 
             layoutButtons = layoutButtons.replaceAll("[pn]", "");
         layoutButtons = layoutButtons.replaceAll("(^ +;)|(; +;)", ";");

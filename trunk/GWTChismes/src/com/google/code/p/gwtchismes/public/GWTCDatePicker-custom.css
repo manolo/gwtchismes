@@ -9,17 +9,17 @@
 }
 
 .GWTCDatePicker-custom .panelButtons {
-    border-top: 4px ridge #ddd;
+    border-top: 2px ridge #ddd;
 }
 .GWTCDatePicker-custom .panelButtons,
 .GWTCDatePicker-custom .panelMonths, 
 .GWTCDatePicker-custom .panelButtonsBottom
 {
-	border-left: 4px ridge #ddd;
-	border-right: 4px ridge #ddd;
+	border-left: 2px ridge #ddd;
+	border-right: 2px ridge #ddd;
 }
-.GWTCDatePicker-custom .panelButtonsBottom{
-    border-bottom: 4px ridge #ddd;
+.GWTCDatePicker-custom {
+    border-bottom: 2px ridge #ddd;
 }
 
 .GWTCDatePicker-custom .GWTCBtn {
