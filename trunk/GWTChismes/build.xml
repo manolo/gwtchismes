@@ -37,34 +37,36 @@
 	<property name="package.dir" value="com/google/code/p/gwtchismes" />
 	<property name="package.name" value="com.google.code.p.gwtchismes" />
 	<property name="sample.dir" value="com/google/code/p/gwtcsample" />
-    <property name="newsample.dir" value="com/google/code/p/newsample" />
 	<property name="sample.module" value="com.google.code.p.gwtcsample.GWTCSample" />
-    <property name="newsample.module" value="com.google.code.p.newsample.newsample" />
+        <property name="jsc.dir" value="jschismes" />
+        <property name="jsc.module" value="jschismes.JsChismes" />
 
 	<path id="compile.lib.classpath">
 		<pathelement location="${gwt.user.jar}" />
+                <pathelement location="lib/gwtexporter-2.04.jar" />
 	</path>
 	<path id="compile.sample.classpath">
 		<pathelement location="${src.dir}" />
 		<pathelement location="${gwt.user.jar}" />
 		<pathelement location="${gwt.servlet.jar}" />
 		<pathelement location="${gwt.dev.jar}" />
+                <pathelement location="lib/gwtexporter-2.04.jar" />
 	</path>
 
 	<target name="jar" depends="compress" description="Generates the jar distribution file">
 		<delete dir="${project}-${version}" />
 		<delete file="${project}-${version}.jar" />
 		<mkdir dir="${class.dir}" />
-		<javac srcdir="${src.dir}" excludes="${sample.dir}/**, ${newsample.dir}/**" destdir="${class.dir}" target="1.5"
+		<javac srcdir="${src.dir}" excludes="${sample.dir}/**, ${jsc.dir}/**" destdir="${class.dir}" target="1.5"
 		       deprecation="off" debug="on" fork="true" encoding="UTF-8">
 			<classpath refid="compile.lib.classpath" />
 		</javac>
 		<copy todir="${class.dir}">
-			<fileset dir="${src.dir}" excludes="${sample.dir}/**, ${newsample.dir}/**" />
+			<fileset dir="${src.dir}" excludes="${sample.dir}/**, ${jsc.dir}/**" />
 		</copy>
 		<copy todir="${class.dir}" file="LICENSE" />
 		<jar jarfile="${project}-${version}.jar" basedir="${class.dir}" />
-		<!-- <delete dir="${class.dir}" /> -->
+		<delete dir="${class.dir}" />
 	</target>
 
 			 <!-- use="false" nohelp="true" nonavbar="true"
@@ -72,12 +74,25 @@
 	<target name="javadoc" description="Generates de Java documentation files for the project">
 		<delete dir="${doc.dir}" />
 		<javadoc sourcepath="${src.dir}" packagenames="${package.name}.*" 
-                         excludepackagenames="${sample.module}.*, ${newsample.module}.*" 
+                         excludepackagenames="${sample.module}.*, ${jsc.module}.*" 
                          destdir="${doc.dir}" 
                          encoding="UTF-8" charset="UTF-8" author="true" version="true" windowtitle="GWTChismes"
 			>
 			<classpath refid="compile.sample.classpath" />
 		</javadoc>
+	</target>
+
+	<target name="js" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
+		<echo message="Compiling sample code from java to javascript" />
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
+			<sysproperty key="ENCODING" value="UTF-8"/>
+			<arg value="-style"/>
+			<arg value="OBFUSCATED"/>
+			<arg value="-out" />
+			<arg file="${www.dir}" />
+			<arg value="${jsc.module}" />
+		</java>
+                <delete dir="${www.dir}/.gwt-tmp"/>
 	</target>
 
 	<target name="sample" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
@@ -90,6 +105,7 @@
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
 		</java>
+                <delete dir="${www.dir}/.gwt-tmp"/>
 	</target>
 
 	<target name="i18n" description="Synchronizes gwt-i18n properties files with class">
