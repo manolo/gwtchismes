@@ -1,0 +1,18 @@
+<module>
+  <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+  <inherits name="org.timepedia.exporter.Exporter"/>
+  
+  <entry-point class="jschismes.client.JsChismes"/>
+  
+  <stylesheet src="GWTC-compressed.css"/>
+  
+  <set-property name="export" value="yes"/>
+  
+  <add-linker name="xs"/>
+  
+  <extend-property name="locale" values="en"/>
+  <extend-property name="locale" values="es"/>
+  <extend-property name="locale" values="fr"/>
+  <extend-property name="locale" values="ja"/>
+    
+</module>
