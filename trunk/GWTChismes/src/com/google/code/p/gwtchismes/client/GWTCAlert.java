@@ -73,9 +73,9 @@ public class GWTCAlert extends GWTCPopupBox {
 
     private boolean okButtonDisabled = false;
     
-    FlexTable contentTable = new FlexTable();
-    private HTML txt = new HTML();
-    private GWTCButton okButton = new GWTCButton("OK");
+    FlexTable contentTable;
+    private HTML txt;
+    private GWTCButton okButton;
 
     
     /**
@@ -94,14 +94,23 @@ public class GWTCAlert extends GWTCPopupBox {
      * <li>OPTION_ROUNDED_GREY          put a grey GWTCBox arround the alert</li>
      * <li>OPTION_ROUNDED_BLUE          put a blue GWTCBox arround the alert</li>
      * <li>OPTION_DISABLE_OK_BUTTON     don't show the OK button</li>
-     * <li>CONFIG_ANIMATION      animate the dialog box when it is showed/hidden</li>    
+     * <li>OPTION_ANIMATION      animate the dialog box when it is showed/hidden</li>    
      * </ul>
      *  
      * @param options
      *      cofiguration options.
      */
     public GWTCAlert(int options) {
-        super(options);
+        super(OPTION_DISABLE_AUTOHIDE);
+        initialize(options);
+    }     
+    
+    protected void initialize(int options) {
+        super.initialize(options);
+        
+        contentTable = new FlexTable();
+        txt = new HTML();
+        okButton = new GWTCButton("OK");
         
         okButton.setImageSrc("images/button/dialog-ok.gif");
         
@@ -203,29 +212,11 @@ public class GWTCAlert extends GWTCPopupBox {
     /**
      * Shows the alert dialog 
      */
+    @Override
     public void show() {
         super.show();
         okButton.setFocus(true);
     }   
-    
-    /**
-     * Shows the alert dialog, and hides it after a period
-     *  
-     * @param timeout
-     *            timeout in seconds for autohide           
-     */
-    public void show(int timeout) {
-        if (timeout > 0) {
-            Timer t = new Timer() {
-                public void run() {
-                    hide();
-                }
-            };
-            t.schedule(timeout * 1000);
-        }
-        center();
-    }
-
     
     /**
      * Hides the dialog box

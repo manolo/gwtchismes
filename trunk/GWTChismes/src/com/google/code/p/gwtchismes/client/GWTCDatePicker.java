@@ -156,9 +156,55 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
     
     protected static final String StyleLayout = "layout";
 
+    private static String[] layouts = {
+        "?mx;p<->n", //layout 1 
+        "? x;p<m>n", //layout 2
+        "? x;p< >n; m ", //layout 3
+        "? x;p< >n", //layout 4
+        }; 
+    private String layoutButtons = layouts[0];
+    private int numberOfMonths = 1;
+ 
     public GWTCDatePicker() {
         this(0);
     }
+
+    /**
+     * Creates the calendar instance based in the configuration provided, and the numerical layout index. 
+     */
+    public GWTCDatePicker(int config, int layout) {
+        this(config, 1, getButtonLayout(layout));
+        addStyleDependentName(StyleLayout + layout);
+    }
+    
+    public GWTCDatePicker(int config, String buttonsLayout, int months, int monthsPerRow, int monthsStep, int monthsInSelector) {
+        this.layoutButtons = buttonsLayout != null ? buttonsLayout : layouts[0];
+        this.numberOfMonths = months;
+        this.monthColumns = monthsPerRow;
+        this.monthSelector = monthsInSelector;
+        this.monthStep = monthsStep;
+        initialize(config);
+    }
+    
+    /**
+     * Creates the calendar instance based in the configuration provided, 
+     * number of months to display and the buttons layout representacion.  
+     */
+    public GWTCDatePicker(int config, int months, String layout) {
+        layoutButtons = layout != null ? layout : layouts[0];
+        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || (config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON)
+            layoutButtons = layoutButtons.replaceAll("x", "");
+        if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON)
+            layoutButtons = layoutButtons.replaceAll("\\?", "");
+        if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON) 
+            layoutButtons = layoutButtons.replaceAll("[pn]", "");
+        layoutButtons = layoutButtons.replaceAll("(^ +;)|(; +;)", ";");
+        
+        numberOfMonths = months;
+        monthColumns = 3;
+        initialize(config);
+    }
+    
 
     /**
      * Creates the calendar instance based in the configuration provided. 
@@ -184,15 +230,6 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
         this(config, getLayoutIndex(config));
     }
     
-    private static String[] layouts = {
-        "?mx;p<->n", //layout 1 
-        "? x;p<m>n", //layout 2
-        "? x;p< >n; m ", //layout 3
-        "? x;p< >n", //layout 4
-        }; 
-    private String layoutButtons = layouts[0];
-    private int numberOfMonths = 1;
-    
     private static int getLayoutIndex(int config) {
         if ((config & CONFIG_LAYOUT_2) == CONFIG_LAYOUT_2)
             return 1;
@@ -212,35 +249,6 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
         return ret;
     }
 
-
-    /**
-     * Creates the calendar instance based in the configuration provided, and the numerical layout index. 
-     */
-    public GWTCDatePicker(int config, int layout) {
-        this(config, 1, getButtonLayout(layout));
-        addStyleDependentName(StyleLayout + layout);
-    }
-    
-    /**
-     * Creates the calendar instance based in the configuration provided, 
-     * number of months to display and the buttons layout representacion.  
-     */
-    public GWTCDatePicker(int config, int months, String layout) {
-        layoutButtons = layout != null ? layout : layouts[0];
-        numberOfMonths = months;
-        monthColumns = 3;
-        
-        super.createInstance(config);
-        
-        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || (config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON)
-            closeBtn.setVisible(false);
-        if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON) 
-            helpBtn.setVisible(false);
-        if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON) {
-            nextYBtn.setVisible(false);
-            prevYBtn.setVisible(false);
-        }
-    }
 
     @Override
     public void drawDatePickerWidget() {

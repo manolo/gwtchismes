@@ -156,6 +156,8 @@ public class GWTCIntervalSelector extends Composite {
     protected final Label nightsValue = new Label();
     protected ListBox nightsListBox = new ListBox();
 
+    public GWTCIntervalSelector() {
+    }
 
     /**
      * Constructor
@@ -164,6 +166,10 @@ public class GWTCIntervalSelector extends Composite {
      *            layout for the interval selector
      */
     public GWTCIntervalSelector(int layout) {
+      initialize(layout);   
+    }
+    
+    protected void initialize(int layout) {
         outer.setStyleName(styleName);
         outer.add(mainGrid);
         initWidget(outer);
@@ -553,6 +559,7 @@ public class GWTCIntervalSelector extends Composite {
                 changeListeners.fireChange(sender);
             }
         });
+        
         checkoutCalendar.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 checkoutCalendar.hide();
@@ -560,6 +567,14 @@ public class GWTCIntervalSelector extends Composite {
                 changeListeners.fireChange(sender);
             }
         });
+
+        nightsListBox.addChangeListener(new ChangeListener(){
+            public void onChange(Widget sender) {
+                changeListeners.fireChange(sender);
+            }
+            
+        });
+
         checkinButton.addClickListener(clickListener);
         checkinDateValue.addClickListener(clickListener);
         checkinWeekValue.addClickListener(clickListener);
@@ -589,7 +604,7 @@ public class GWTCIntervalSelector extends Composite {
                 if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
                     checkinCalendar.show(checkinDateValue);
                 else if ((calendarPosition &  PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
-                    checkinCalendar.show(null);
+                    checkinCalendar.center();
                 else
                     checkinCalendar.show(sender);
                 checkoutCalendar.hide();
@@ -597,7 +612,7 @@ public class GWTCIntervalSelector extends Composite {
                 if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
                     checkoutCalendar.show(checkoutDateValue);
                 else if ((calendarPosition &  PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
-                    checkoutCalendar.show(null);
+                    checkoutCalendar.center();
                 else
                     checkoutCalendar.show(sender);
                 checkinCalendar.hide();
@@ -673,6 +688,32 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setMinimalDate(Date d) {
         checkinCalendar.setMinimalDate(d);
+        if ( getInitDate() != null && GWTCDatePicker.compareDate(d, getInitDate()) < 0 ) {
+            checkinCalendar.setSelectedDate(d);
+        }
+        updateInputsFromCheckin();
+    }
+
+    public void setMaximalDate(Date d) {
+        checkinCalendar.setMaximalDate(d);
+        if ( getInitDate() != null && GWTCDatePicker.compareDate(d, getInitDate()) > 0 ) {
+            checkinCalendar.setSelectedDate(d);
+        }
+        updateInputsFromCheckin();
+    }
+    
+    
+    
+    public Date getMinimalDate() {
+        return checkinCalendar.getMinimalDate();
+    }
+
+    public Date getMaximalDate() {
+        return checkinCalendar.getMaximalDate();
+    }
+
+    public int getMaxDays() {
+        return maxdays;
     }
 
     public void setDateFormat(String dateFormat) {

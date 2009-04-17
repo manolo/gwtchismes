@@ -127,6 +127,9 @@ public class GWTCProgress extends Composite {
     private boolean showNumbers = false;
     private boolean showAsDialog = false;
     
+    protected GWTCProgress() {
+    }
+    
     
     /**
      * Base constructor for this widget
@@ -137,6 +140,20 @@ public class GWTCProgress extends Composite {
      *            The display options for the progress bar
      */
     public  GWTCProgress(int elements, int options) {
+        initialize(options, elements);
+    }
+    
+    /**
+     * Constructor without options
+     * 
+     * @param elements
+     *            The number of elements (bars) to show on the progress bar
+     */
+    public GWTCProgress(int elements) {
+        this(elements, 0);
+    }
+
+    public void initialize (int options, int elements) {
         // Read the options and set variables
         if ((options & SHOW_TIME_REMAINING) == SHOW_TIME_REMAINING)
             showRemaining = true;
@@ -227,15 +244,6 @@ public class GWTCProgress extends Composite {
         progressDlg.center();
     }
     
-    /**
-     * Constructor without options
-     * 
-     * @param elements
-     *            The number of elements (bars) to show on the progress bar
-     */
-    public GWTCProgress(int elements) {
-        this(elements, 0);
-    }
 
     public void setProgress(int percent) {
         setProgress(percent, 0, 0);

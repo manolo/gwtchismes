@@ -71,7 +71,7 @@ public class GWTCSample implements EntryPoint {
     private final GWTCWait wait = new GWTCWait();
     
     boolean testCode() {
-        return true;
+        return false;
     }
 
     GWTCSample() {
@@ -291,11 +291,12 @@ public class GWTCSample implements EntryPoint {
     }
 
 
-    private Widget createPickerWidget(final GWTCSimpleDatePicker picker, boolean asDialog) {
+    private Widget createPickerWidget(final GWTCSimpleDatePicker picker, final boolean asDialog) {
         picker.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 alert.alert(((GWTCSimpleDatePicker) sender).getSelectedDateStr("MMMM dd, yyyy (dddd)"));
-                picker.hide();
+                if (asDialog)
+                    picker.hide();
             }
         });
 
@@ -370,6 +371,7 @@ public class GWTCSample implements EntryPoint {
         picker = new GWTCDatePicker(options); 
         picker.setI18nMessages(pickTitStrs);
         picker.addStyleName("GWTCDatePicker-custom");
+        picker.addStyleName("ppp");
         widget = createPickerWidget(picker, false);
         box.add(createPanelWithDescription(widget, i18n.descr_picker_8()));
         
