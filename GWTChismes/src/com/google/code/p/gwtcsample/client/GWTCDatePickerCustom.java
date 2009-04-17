@@ -24,7 +24,7 @@ import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
 
 public class GWTCDatePickerCustom extends GWTCDatePickerAbstract {
     public GWTCDatePickerCustom() {
-        createInstance(CONFIG_DIALOG | CONFIG_BACKGROUND | CONFIG_FLAT_BUTTONS);
+        initialize(CONFIG_DIALOG | CONFIG_BACKGROUND | CONFIG_FLAT_BUTTONS);
     }
     
     @Override

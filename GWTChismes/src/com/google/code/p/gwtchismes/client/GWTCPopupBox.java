@@ -18,6 +18,7 @@
 package com.google.code.p.gwtchismes.client;
 
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -71,21 +72,25 @@ public class GWTCPopupBox extends PopupPanel {
     private GWTCGlassPanel background;
 
     public GWTCPopupBox(int options) {
-
         super((options & OPTION_DISABLE_AUTOHIDE) == OPTION_DISABLE_AUTOHIDE ? false : true);
+        initialize(options);
+    }
 
+    protected void initialize(int options) {
+        super.clear();
         if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
             panelbox = new GWTCBox(GWTCBox.STYLE_GREY);
         } else if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
             panelbox = new GWTCBox(GWTCBox.STYLE_BLUE);
+            super.add(panelbox);
         } else if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
             panelbox = new GWTCBox(GWTCBox.STYLE_FLAT);
+            super.add(panelbox);
         } else {
             panel = new DockPanel();
+            super.add(panel);
         }
         
-        super.add(panel != null ? panel : panelbox);
-
         setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
         if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
             background = new GWTCGlassPanel();
@@ -114,7 +119,8 @@ public class GWTCPopupBox extends PopupPanel {
         add(w, DockPanel.NORTH);
     }
 
-    public void add(Widget widget, DockLayoutConstant direction) {
+    public void add(Object object, DockLayoutConstant direction) {
+        Widget widget = GWTCBox.objectToWidget(object);
         if (panelbox != null)
             panelbox.add(widget, direction);
         else
@@ -127,12 +133,32 @@ public class GWTCPopupBox extends PopupPanel {
         super.center();
     }
 
+    /**
+     * Shows the alert dialog, and hides it after a period
+     *  
+     * @param timeout
+     *            timeout in seconds for autohide           
+     */
+    public void show(int timeout) {
+        if (timeout > 0) {
+            Timer t = new Timer() {
+                public void run() {
+                    hide();
+                }
+            };
+            t.schedule(timeout * 1000);
+        }
+        center();
+    }
+
     @Override
     public void show() {
         if (background != null) 
             background.show();
         super.show();
     }
+    
+    
     
     @Override
     public void hide() {

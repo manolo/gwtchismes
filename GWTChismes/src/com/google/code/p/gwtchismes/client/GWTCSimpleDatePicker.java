@@ -22,6 +22,7 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -359,6 +360,16 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     public String getSelectedDateStr(String format) {
         return formatDate(format, selectedDate);
     }
+    
+    public boolean setSelectedDateStr(String format, String dateStr) {
+        Date d = parseDate(format, dateStr);
+        if (d != null) {
+          setSelectedDate(d);
+          return true;
+        } 
+        return false;
+    }
+    
 
     /* (non-Javadoc)
      * @see com.google.gwt.user.client.ui.ClickListener#onClick(com.google.gwt.user.client.ui.Widget)
@@ -391,7 +402,8 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
 
     private static final int CONST_YEARS = 1;
     private static final int CONST_MONTHS = 2;
-    private static final int CONST_DAYS = 3;
+    private static final int CONST_WEEKS = 3;
+    private static final int CONST_DAYS = 4;
 
     /**
      * Add days to a reference Date
@@ -449,6 +461,19 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     }
 
     /**
+     * Add weeks to a reference Date
+     * 
+     * @param d
+     *            Date of reference
+     * @param n
+     *            number of weeks to increase (for decreasing use negative values)
+     * @return the new Date
+     */
+    public static Date increaseWeek(Date d, int n) {
+        return add(d, n, CONST_WEEKS);
+    }
+
+    /**
      * Calculate the number of days in a month
      * 
      * @param d
@@ -481,7 +506,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
         long diff = setHourToZero(b).getTime() - setHourToZero(a).getTime();
         double hours = Math.ceil( diff/(1000*60*60) );
         int days = (int)(hours/24);
-        if (hours%24 > 0)
+        if (hours%24 > 12)
             days += 1;
         return days;
     }
@@ -489,13 +514,13 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     /**
      * Increase/decrease a date based in a type parameter which specifies the type of operation
      * 
-     * @param time
-     *            in milliseconds since 1-1-1970
+     * @param date
+     *            date
      * @param value
      *            interval to add (use negative values to decrease)
      * @param type
-     *            type of addition (1=days, 2=months, 3=years, 4=hours
-     * @return number of milliseconds from 1-1-1970
+     *            type of operation 
+     * @return new date
      */
     private static Date add(Date date, int value, int type) {
         Date d = setHourToZero(new Date(date.getTime()));
@@ -503,10 +528,44 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
             d.setYear(d.getYear() + value);
         if (type == CONST_MONTHS)
             d.setMonth(d.getMonth() + value);
+        if (type == CONST_WEEKS)
+            d.setDate(d.getDate() + 7 * value);
         if (type == CONST_DAYS)
             d.setDate(d.getDate() + value);
         return d;
     }
+    
+    /**
+     * Increase/decrease a date based in a string which defines the interval
+     * 
+     * @param d
+     *            reference day
+     * @param s
+     *            interval to add. Example: 1d, -3d, 4w, -3m, 4y
+     *            
+     * @return new date
+     */
+    public static Date add(Date d, String s) {
+        if (s == null || s.length() == 0)
+            return d;
+        
+        char c = s.toLowerCase().charAt(s.length() - 1);
+        int n = Integer.valueOf(s.replaceAll("[^\\d\\-]", ""));
+        
+        switch (c) {
+        case 'd':
+            return add(d, n, CONST_DAYS);
+        case 'w':
+            return add(d, n, CONST_WEEKS);
+        case 'm':
+            return add(d, n, CONST_MONTHS);
+        case 'y':
+            return add(d, n, CONST_YEARS);
+        default:
+            return d;
+        }
+    }
+    
 
     /**
      * Method for formating dates using DateTimeFormat
@@ -526,7 +585,14 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
             return format;
         return DateTimeFormat.getFormat(format).format(date);
     }
-
+    
+    static public Date parseDate(String format, String dateStr) {
+        try {
+            return DateTimeFormat.getFormat(format).parse(dateStr);
+        } catch (Exception e) {
+            return null;
+        }
+    }
     /**
      * Set hour, minutes, second and milliseconds to zero.
      * 
@@ -536,7 +602,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
      */
     public static Date setHourToZero(Date date) {
         Date d = new Date(date.getTime());
-        d.setHours(12);
+        d.setHours(0);
         d.setMinutes(0);
         d.setSeconds(0);
         
@@ -645,8 +711,9 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
             RootPanel.get().add(this);
         }
     }
-    
     public void show(Widget w){
+        show();
     }
+    
 }
 

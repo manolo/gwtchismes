@@ -24,6 +24,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
@@ -121,20 +122,44 @@ public class GWTCBox extends DecoratorPanel {
      */
     @Override
     public void add(Widget w) {
-        panel.add(w, DockPanel.NORTH);
+        add(w, DockPanel.NORTH);
     }
 
     /**
-     * Adds elements to the panel in the position specified
-     * Valid options are
+     * Adds elements to the panel in the position specified, these elements can be
+     * Widgets, Elements and html Strings.
+     * 
+     * Valid directions are
      * DockPanel.NORTH DockPanel.SOUTH DockPanel.EAST DockPanel.WEST
      *  
-     * @param widget
-     * @param direction
      */
-    public void add(Widget widget, DockLayoutConstant direction) {
-        panel.add(widget, direction);
+    public void add(Object object, DockLayoutConstant direction) {
+        panel.add(objectToWidget(object), direction);
     }
+    
+    public static Widget objectToWidget(Object object) {
+        Widget html;
+        if (object == null) {
+            html = null;
+        } else if (object instanceof String) {
+            html = new HTML((String) object){
+                public void onDetach() {
+                    if (isAttached()) super.onDetach();
+                }
+            };
+        } else if (object instanceof Widget) {
+            html = (Widget) object;
+        } else {
+            Element element = (Element) object;
+            if (element.getTagName().equalsIgnoreCase("div") || element.getTagName().equalsIgnoreCase("span")) {
+                html = HTML.wrap(element);
+            } else {
+                html = new SimplePanel(element){};
+            }
+        }
+        return html;
+    }
+    
 
     /* (non-Javadoc)
      * @see com.google.gwt.user.client.ui.SimplePanel#remove(com.google.gwt.user.client.ui.Widget)
