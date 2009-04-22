@@ -8,7 +8,7 @@
 GWTCDatePickerAbstract (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-17">
+<META NAME="date" CONTENT="2009-04-22">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -779,6 +779,16 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#internationalize(com.google.gwt.user.client.ui.Widget, java.util.Map, java.lang.String)">internationalize</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;b,
+                 java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;strs,
+                 java.lang.String&nbsp;ktext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#layoutButtons(java.lang.String)">layoutButtons</A></B>(java.lang.String&nbsp;distribution)</CODE>
 
@@ -824,6 +834,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#setCaptionText(java.lang.String)">setCaptionText</A></B>(java.lang.String&nbsp;t)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the text for the caption of the dialog box.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -887,7 +905,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#setText(java.lang.String)">setText</A></B>(java.lang.String&nbsp;t)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the text for the caption of the dialog box.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;<I></I>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -937,7 +955,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)">add</A>, <A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)">increaseWeek</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)">parseDate</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)">setSelectedDateStr</A></CODE></TD>
+<TD><CODE><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)">add</A>, <A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)">increaseWeek</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)">parseDate</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#setNumberOfLettersInDayNames(int)">setNumberOfLettersInDayNames</A>, <A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)">setSelectedDateStr</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -1605,6 +1623,19 @@ public void <B>refresh</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="internationalize(com.google.gwt.user.client.ui.Widget, java.util.Map, java.lang.String)"><!-- --></A><H3>
+internationalize</H3>
+<PRE>
+protected static void <B>internationalize</B>(com.google.gwt.user.client.ui.Widget&nbsp;b,
+                                       java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;strs,
+                                       java.lang.String&nbsp;ktext)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="setI18nMessages(java.util.Map)"><!-- --></A><H3>
 setI18nMessages</H3>
 <PRE>
@@ -1616,15 +1647,28 @@ public void <B>setI18nMessages</B>(java.util.Map&lt;java.lang.String,java.lang.S
 </DL>
 <HR>
 
-<A NAME="setText(java.lang.String)"><!-- --></A><H3>
-setText</H3>
+<A NAME="setCaptionText(java.lang.String)"><!-- --></A><H3>
+setCaptionText</H3>
 <PRE>
-public void <B>setText</B>(java.lang.String&nbsp;t)</PRE>
+public void <B>setCaptionText</B>(java.lang.String&nbsp;t)</PRE>
 <DL>
 <DD>Set the text for the caption of the dialog box. It is only available if the calendar is shown as a dialog.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>t</CODE> - the message to display</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setText(java.lang.String)"><!-- --></A><H3>
+setText</H3>
+<PRE>
+public void <B>setText</B>(java.lang.String&nbsp;t)</PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;<I></I>
+<P>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>

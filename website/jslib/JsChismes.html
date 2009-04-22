@@ -7,48 +7,51 @@
       <script language='javascript'>
 
       function gwtcOnLoad() {
+        var embeded = new jsc.DatePicker({
+          containerId: "calendarContainer", 
+          className: "GWTCDatePicker-custom",
+          buttons: "flat",
+          onSelect: function(data) {
+            alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
+          }
+        });
         
-        var wait = new gwtc.Wait({
+        var wait = new jsc.Wait({
           text: "Espere por favor ..."
         });
 
-        var popup = new gwtc.Popup({
+        var popup = new jsc.Popup({
           animate: true,
-          box: "blue",
+          roundedBox: "blue",
           text: "Be cheerful while you are alive.",
         });
 
-        var alrt = new gwtc.Alert({
-           box: "flat",
+        var alrt = new jsc.Alert({
+        });
+        
+        var alrt2 = new jsc.Alert({
+          roundedBox: "flat",
            onClose: function(elem) {
              popup.show(2);
            }
         });
 
-        var box = new gwtc.Box({
+        var box = new jsc.Box({
           title: "Advice:",
           text: "<b>Your present plans will be successful.</b>",
           html: "<i>Your mode of life will be changed for the better because of new developments.</i>",
           containerId: "boxContainer", 
         });
 
-        var embeded = new gwtc.DatePicker({
-          containerId: "calendarContainer", 
-          style: "GWTCDatePicker-custom",
-          buttons: "flat",
-          onSelect: function(data) {
-            alrt.alert("Selected: " + gwtc.DatePicker.format(gwtc.DatePicker.LONG_FORMAT, data.selected) );
-          }
-        });
 
-        var calendar = new gwtc.DatePicker({
+        var calendar = new jsc.DatePicker({
           numberOfMonths: 3,
           buttonsLayout: "  x;p< - >n",
           dialog: true,
           glassPanel: true,
-          minimalDate: "-3m",
-          maximalDate: "+12m",
-          box: true,
+          minDate: "-3m",
+          maxDate: "+12m",
+          roundedBox: true,
           lettersInWeekDayHeaders: 2,
           regional: {
             helpText: "Help",
@@ -64,17 +67,17 @@
             captionText: "Click on the desired date"
           },
           onSelect: function(data) {
-            alrt.alert("Selected: " + gwtc.DatePicker.format(gwtc.DatePicker.LONG_FORMAT, data.selected) );
+            alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
             calendar.hide();
           }, 
         });
 
-        var interval= new gwtc.IntervalSelector({
+        var interval= new jsc.IntervalSelector({
           type: 4,
           numberOfMonths: 2,
           buttonsLayout: "< - >",
-          minimalDate: "-3d",
-          maximalDate: "3m",
+          minDate: "-3d",
+          maxDate: "3m",
           maxDays: 30,
           containerId: "intervalContainer",
           regional: {
@@ -90,47 +93,47 @@
               prevYearTitle: "Jump to the previos year",
               calendarCheckinCaption: "Select your checkin Date",
             },
-            onSelect: function(data){
-              alrt.alert( "\nFrom:" + gwtc.DatePicker.format(gwtc.DatePicker.SHORT_FORMAT, data.init) 
-                        + "\nTo:" + gwtc.DatePicker.format(gwtc.DatePicker.SHORT_FORMAT, data.end) 
-                        + "\nNights:" + data.nights);
-            },
+          onSelect: function(data){
+            alrt.alert( "\nFrom: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.init) 
+                      + "\nTo: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.end) 
+                      + "\nNights: " + data.nights);
+          },
         });
 
-        progress = new gwtc.Progress({
+        progress = new jsc.Progress({
           dialog: true
         });
 
-        new gwtc.Button({
+        new jsc.Button({
           text: "show a Wait widget (3 seconds)",
           containerId: "button1",
           onClick: function(elem){
             wait.show(3);
           }
         });
-        new gwtc.Button({
+        new jsc.Button({
           text: "Show an animated popup box (3 seconds)",
           containerId: "button2",
           onClick: function(elem){
             popup.show(3);
           }
         });
-        new gwtc.Button({
+        new jsc.Button({
           text: "Show an alert dialog",
           containerId: "button3",
           onClick: function(elem){
-            alrt.alert("You will pay for your sins.  If you have already paid, please disregard this message.");
+            alrt2.alert("You will pay for your sins.  If you have already paid, please disregard this message.");
           }
         });
-        new gwtc.Button({
+        new jsc.Button({
            text: "Show a progress bar  (6 seconds)",
            containerId: "button4",
            onClick: function(elem){
              progress.show(6);
            }
         });
-        new gwtc.Button({
-          text: "Show a two months date picker",
+        new jsc.Button({
+          text: "Show a tree months date picker",
           containerId: "button5",
           onClick: function(elem){
             calendar.show();

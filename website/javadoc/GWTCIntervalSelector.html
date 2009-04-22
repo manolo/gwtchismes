@@ -8,7 +8,7 @@
 GWTCIntervalSelector (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-17">
+<META NAME="date" CONTENT="2009-04-22">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -691,7 +691,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCIntervalSelector.html#updateInputs()">updateInputs</A></B>()</CODE>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#updateTextElements()">updateTextElements</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1159,10 +1159,10 @@ public com.google.gwt.user.client.ui.FlexTable <B>getGrid</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="updateInputs()"><!-- --></A><H3>
-updateInputs</H3>
+<A NAME="updateTextElements()"><!-- --></A><H3>
+updateTextElements</H3>
 <PRE>
-protected void <B>updateInputs</B>()</PRE>
+protected void <B>updateTextElements</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1310,11 +1310,9 @@ public void <B>setI18nMessages</B>(java.util.Map&lt;java.lang.String,java.lang.S
  Internationalize the components of this interval selector
  </p>
  <p>
- You have to provide a Map(String, String) with ant least these keys
+ You have to provide a Map(String, String) with at least these keys
  </p>
  <ul >
- <li>format.date {format for date representation, default 'dd MMMM, yyyy'}</li>
- <li>format.day {format for weekday representaion default '(ddd)'</li>
  <li>key.checkin</li>
  <li>key.checkout</li>
  <li>key.nights</li>
@@ -1322,8 +1320,8 @@ public void <B>setI18nMessages</B>(java.util.Map&lt;java.lang.String,java.lang.S
  <li>key.change</li>
  <li>key.checkin.button</li>
  <li>key.checkout.button</li>
- <li>key.calendar.checkin.title</li>
- <li>key.calendar.checkout.title</li>
+ <li>key.calendar.checkin.caption</li>
+ <li>key.calendar.checkout.caption</li>
  <li>key.calendar.help</li>
  </ul>
 <P>
