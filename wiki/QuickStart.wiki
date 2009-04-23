@@ -51,4 +51,13 @@
      }
   });
   RootPanel.get().add(button);
+
+  // ProgressBar
+  GWTCProgress prgBar = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING |
+                                             GWTCProgress.SHOW_LEFT_TEXT |
+                                             GWTCProgress.SHOW_NUMBERS);
+  RootPanel.get().add(prgBar);
+  prgBar.setText("gwt-file.jar");
+  prgBar.setProgress(50); // percent
+
 }}}
