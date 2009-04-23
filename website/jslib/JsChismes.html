@@ -23,7 +23,7 @@
         var popup = new jsc.Popup({
           animate: true,
           roundedBox: "blue",
-          text: "Be cheerful while you are alive.",
+          text: "Be cheerful while you are alive."
         });
 
         var alrt = new jsc.Alert({
@@ -40,7 +40,7 @@
           title: "Advice:",
           text: "<b>Your present plans will be successful.</b>",
           html: "<i>Your mode of life will be changed for the better because of new developments.</i>",
-          containerId: "boxContainer", 
+          containerId: "boxContainer"
         });
 
 
@@ -69,7 +69,7 @@
           onSelect: function(data) {
             alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
             calendar.hide();
-          }, 
+          }
         });
 
         var interval= new jsc.IntervalSelector({
@@ -97,7 +97,7 @@
             alrt.alert( "\nFrom: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.init) 
                       + "\nTo: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.end) 
                       + "\nNights: " + data.nights);
-          },
+          }
         });
 
         progress = new jsc.Progress({
