@@ -1,8 +1,14 @@
-JsChismes is the exportable version of the GWTChismes collection. 
-The main goal of it is that the collection can be used directly in html pages without the need of knowing anything about gwt.
+JsChismes is the exported version of the GWTChismes collection. 
 
-The library has been developed using java, and and eventually it's been exported using gwt-compiler and gwt-exporter library.
-= Library usage =
+The library has been developed using java, and and eventually it's been exported using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library.
+
+<wiki:toc max_depth="3" />
+
+= Goal =
+
+The set of widgets can be used directly in html pages without the need of knowing anything about gwt and java.
+
+= Setup instructions =
 
  # Download last version of the library: jschismes-x.x.x.jar and umcompress it in a folder.
  # Include either the obfuscated or the pretty version of the library in your html file.  You can use relative paths of full qualified ones because the library has been compiled using cross-site linker. The library takes care loading the needed css and images.
@@ -33,7 +39,8 @@ The library has been developed using java, and and eventually it's been exported
 
 = Library API =
 
-=== Utils ===
+
+== Utils ==
 __
    * Instance methods
 {{{
@@ -55,7 +62,8 @@ var string = jsc.Utils.formatDate(format, date);
 /* Parses a string representation of a date and returns a date object */
 var javascriptobject = jsc.Utils.parseDate(format, dateStr);
 }}}
-=== DatePicker ===
+
+== DatePicker ==
 _JavaScript Implementation of a customizable DatePicker.
     _
    * Constructor
@@ -112,7 +120,8 @@ datepicker.show(elem);
 /* Hide the modal dialog containing the data-picker. */
 datepicker.hide();
 }}}
-=== IntervalSelector ===
+
+== IntervalSelector ==
 _JavaScript Implementation of an Interval selector.
     _
    * Constructor
@@ -160,7 +169,8 @@ var javascriptobject = intervalselector.getInit();
 /* Returns the number of nights in the interval */
 var int = intervalselector.getNights();
 }}}
-=== Progress ===
+
+== Progress ==
 _JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
     _
    * Constructor
@@ -206,7 +216,8 @@ progress.run();
 /* Show the modal dialog containing the progress bar, and configures a timer to automatically update the progress. */
 progress.show(seconds);
 }}}
-=== Wait ===
+
+== Wait ==
 _JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the page.
     _
    * Constructor
@@ -229,7 +240,8 @@ A value of 0 means show it untill hide() method is called
 */
 wait.show(seconds);
 }}}
-=== Alert ===
+
+== Alert ==
 _JavaScript Implementation of a modal Dialog
     _
    * Constructor
@@ -267,7 +279,8 @@ The function have to define a parameter with the element clicked
 */
 alert.addListener(c);
 }}}
-=== Box ===
+
+== Box ==
 _JavaScript Implementation of a decorated with rounded corners panel
     _
    * Constructor
@@ -293,7 +306,8 @@ box.clear();
 /* Add a new element to the panel, in the specified direction (NORTH, SOUTH, EAST, WEST) */
 box.add(object, direction);
 }}}
-=== Button ===
+
+== Button ==
 _JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
     _
    * Constructor
@@ -319,7 +333,8 @@ The function have to define a parameter with the element clicked
 */
 button.addListener(c);
 }}}
-=== Popup ===
+
+== Popup ==
 _JavaScript Implementation of popup dialog that can use rounded corners.
     _
    * Constructor
