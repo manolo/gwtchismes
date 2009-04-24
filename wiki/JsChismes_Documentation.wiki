@@ -49,9 +49,8 @@ var string = jsc.Utils.formatDate(format, date);
 var javascriptobject = jsc.Utils.parseDate(format, dateStr);
 }}}
  * *DatePicker*
-JavaScript Implementation of a customizable DatePicker.
-
-It takes a properties block as argument with optional parameters that which are preconfigured with default values.
+   JavaScript Implementation of a customizable DatePicker.
+   It takes a properties block as argument with optional parameters that which are preconfigured with default values.
 
    * Instance methods
 {{{
