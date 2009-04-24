@@ -1,4 +1,4 @@
-JsChismes is the exported version of the GWTChismes collection. 
+_JsChismes is the exported version of the GWTChismes collection._
 
 The library has been developed using java, and and eventually it's been exported using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library.
 
