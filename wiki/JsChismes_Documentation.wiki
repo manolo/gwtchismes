@@ -370,7 +370,7 @@ A value of 0 means show it untill hide() method is called
 popup.show(seconds);
 }}}
 = Sample Code =
-You can view this example running [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html here]
+You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html here]
 {{{
 
       function jscOnLoad() {
