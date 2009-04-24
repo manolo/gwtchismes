@@ -1,7 +1,7 @@
 == Usage of GWTChismes library. ==
 
- * Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
- * Configure your module file: Xxx.gwt.xml
+ # Download last version of the library: gwtchimes-x.x.x.jar and include it in your classpath.
+ # Configure your module file: Xxx.gwt.xml
 {{{
 <module>
 
@@ -19,8 +19,7 @@
 
 </module>
 }}}
-
- * Use the widgets in your application
+ # Use the widgets in your application
 {{{
   // Alert
   GWTCAlert alert = new GWTCAlert(); 
