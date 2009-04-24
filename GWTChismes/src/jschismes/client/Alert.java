@@ -6,14 +6,11 @@ import org.timepedia.exporter.client.Exportable;
 
 import com.google.code.p.gwtchismes.client.GWTCAlert;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * JavaScript Implementation of a modal Dialog
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")

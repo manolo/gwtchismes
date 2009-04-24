@@ -26,8 +26,6 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
     
     /**
      * JavaScript Implementation of a customizable DatePicker.
-     * 
-     * It takes a properties block as argument with optional parameters that which are preconfigured with default values.
      */
     public DatePicker(JavaScriptObject prop) {
 
@@ -69,22 +67,22 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
             }
         });
 
-        super.setI18nMessages(regionalToHash(jsProp));
+        super.setI18nMessages(regionalToHash(Const.REGIONAL, jsProp));
     
-        attachToDocument(this, jsProp);
+        attachToDocument(this, Const.CONT_ID, jsProp);
         
     }
     
-    protected static void attachToDocument(Widget w, JsProperties prop) {
-        Panel p = RootPanel.get(prop.get(Const.CONT_ID, "__NO_ID__"));
+    protected static void attachToDocument(Widget w, String id, JsProperties prop) {
+        Panel p = RootPanel.get(prop.get(id, "__NO_ID__"));
         if (p != null)
             p.add(w);
     }
 
-    protected static HashMap regionalToHash(JsProperties prop) {
+    protected static HashMap regionalToHash(String regionalKey, JsProperties prop) {
         HashMap strs = new HashMap();
-        if (prop.defined("regional")) {
-            JsProperties reg = prop.getJsProperties("regional");
+        if (prop.defined(regionalKey)) {
+            JsProperties reg = prop.getJsProperties(regionalKey);
             for (String key : reg.keys()) {
                 String v = reg.get(key);
                 String k = "key." + key.replaceFirst("Text$","").replaceAll("([A-Z])", ".$1").toLowerCase();

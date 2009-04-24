@@ -16,8 +16,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * JavaScript Implementation of an Interval selector.
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")
@@ -70,9 +68,9 @@ public class IntervalSelector extends GWTCIntervalSelector implements Exportable
             }
         });
 
-        super.setI18nMessages(DatePicker.regionalToHash(jsProp));
+        super.setI18nMessages(DatePicker.regionalToHash(Const.REGIONAL, jsProp));
 
-        DatePicker.attachToDocument(this, jsProp);
+        DatePicker.attachToDocument(this, Const.CONT_ID, jsProp);
     }
     
     /**

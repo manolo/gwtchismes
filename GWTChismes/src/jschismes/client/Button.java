@@ -12,8 +12,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")
@@ -42,7 +40,7 @@ public class Button extends GWTCButton implements Exportable {
             }
         });
  
-        DatePicker.attachToDocument(this, jsProp);
+        DatePicker.attachToDocument(this, Const.CONT_ID, jsProp);
     }
     
     /**

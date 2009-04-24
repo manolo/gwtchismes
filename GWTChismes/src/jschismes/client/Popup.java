@@ -11,8 +11,6 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
  * JavaScript Implementation of popup dialog that can use rounded corners.
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")

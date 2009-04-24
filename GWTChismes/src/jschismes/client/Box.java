@@ -10,8 +10,6 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
  * JavaScript Implementation of a decorated with rounded corners panel
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")
@@ -24,10 +22,10 @@ public class Box extends GWTCBox implements Exportable {
         
         this.jsProp = new JsProperties(prop);
 
-        String box = jsProp.get(Const.RND_BOX);
+        String box = jsProp.get(Const.RND_BOX_TYPE);
         if ("flat".equals(box)) setStyleName(STYLE_FLAT);
-        if ("grey".equals(box)) setStyleName(STYLE_GREY);
-        if ("blue".equals(box)) setStyleName(STYLE_BLUE);
+        else if ("grey".equals(box)) setStyleName(STYLE_GREY);
+        else if ("blue".equals(box)) setStyleName(STYLE_BLUE);
         
         if (jsProp.defined(Const.CLASS_NAME))
             super.addStyleName(jsProp.get(Const.CLASS_NAME));
@@ -38,7 +36,7 @@ public class Box extends GWTCBox implements Exportable {
         
         this.add(jsProp.get(Const.HTML));
         
-        DatePicker.attachToDocument(this, jsProp);
+        DatePicker.attachToDocument(this, Const.CONT_ID, jsProp);
     }
     
     /**

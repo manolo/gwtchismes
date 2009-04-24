@@ -72,6 +72,15 @@ do
   renameFiles $DJ $e
 done
 
+set -x
+cd $DD/$M/ 
+rm -rf jschismes
+cp -r jschismes.JsChismes jschismes
+rm -rf jschismes/*.css jschismes/*Pretty* jschismes/images/shell jschismes/images/basic-dialog
+cp jschismes.JsChismes/GWTC-compressed.css jschismes
+rm -f ../../jschismes-$V.zip
+zip -q -r ../../jschismes-$V.zip jschismes
+
 exit
 
 ## Adds google analytics code to index file
