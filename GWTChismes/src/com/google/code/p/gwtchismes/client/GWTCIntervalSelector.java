@@ -17,7 +17,6 @@
 package com.google.code.p.gwtchismes.client;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -420,17 +419,17 @@ public class GWTCIntervalSelector extends Composite {
         checkoutDateValue.setText(checkoutCalendar.getSelectedDateStr(dateFormat));
         checkoutWeekValue.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
         nightsValue.setText("" + getNights());
-        updateInputs();
+        updateTextElements();
     }
 
-    private void updateInputsFromCheckout() {
+    private void updateTextElementsFromCheckout() {
         int nights = getNights();
         if (nights >= 0)
             nightsListBox.setItemSelected(nights, true);
-        updateInputs();
+        updateTextElements();
     }
 
-    private void updateInputsFromCheckin() {
+    private void updateTextElementsFromCheckin() {
         checkoutCalendar.setMinimalDate(getInitDate());
         checkoutCalendar.setMaximalDate(GWTCSimpleDatePicker.increaseDate(getInitDate(), maxdays));
 
@@ -442,10 +441,10 @@ public class GWTCIntervalSelector extends Composite {
         if (nights >= 0)
             nightsListBox.setItemSelected(nights, true);
 
-        updateInputs();
+        updateTextElements();
     }
 
-    protected void updateInputs() {
+    protected void updateTextElements() {
         checkinDateValue.setText(checkinCalendar.getSelectedDateStr(dateFormat));
         checkinWeekValue.setText(checkinCalendar.getSelectedDateStr(weekDayFormat));
 
@@ -463,7 +462,7 @@ public class GWTCIntervalSelector extends Composite {
      */
     public void setInitDate(Date d) {
         checkinCalendar.setSelectedDate(d);
-        updateInputsFromCheckin();
+        updateTextElementsFromCheckin();
     }
 
     /**
@@ -494,7 +493,7 @@ public class GWTCIntervalSelector extends Composite {
 
         for (int i = 0; i <= maxdays; i++)
             nightsListBox.addItem("" + i);
-        updateInputs();
+        updateTextElements();
     }
 
     /**
@@ -555,7 +554,7 @@ public class GWTCIntervalSelector extends Composite {
         checkinCalendar.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 checkinCalendar.hide();
-                updateInputsFromCheckin();
+                updateTextElementsFromCheckin();
                 changeListeners.fireChange(sender);
             }
         });
@@ -563,7 +562,7 @@ public class GWTCIntervalSelector extends Composite {
         checkoutCalendar.addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
                 checkoutCalendar.hide();
-                updateInputsFromCheckout();
+                updateTextElementsFromCheckout();
                 changeListeners.fireChange(sender);
             }
         });
@@ -623,21 +622,13 @@ public class GWTCIntervalSelector extends Composite {
     };
 
     /**
-     * The internationalized hash map.
-     */
-    private Map<String, String> strs = new HashMap<String, String>();
-
-
-    /**
      * <p>
      * Internationalize the components of this interval selector
      * </p>
      * <p>
-     * You have to provide a Map(String, String) with ant least these keys
+     * You have to provide a Map(String, String) with at least these keys
      * </p>
      * <ul >
-     * <li>format.date {format for date representation, default 'dd MMMM, yyyy'}</li>
-     * <li>format.day {format for weekday representaion default '(ddd)'</li>
      * <li>key.checkin</li>
      * <li>key.checkout</li>
      * <li>key.nights</li>
@@ -645,30 +636,31 @@ public class GWTCIntervalSelector extends Composite {
      * <li>key.change</li>
      * <li>key.checkin.button</li>
      * <li>key.checkout.button</li>
-     * <li>key.calendar.checkin.title</li>
-     * <li>key.calendar.checkout.title</li>
+     * <li>key.calendar.checkin.caption</li>
+     * <li>key.calendar.checkout.caption</li>
      * <li>key.calendar.help</li>
      * </ul>
      * 
      * @param keys
      */
     public void setI18nMessages(Map<String, String> keys) {
-        strs = keys;
-        checkinLabel.setText(strs.get("key.checkin"));
-        checkoutLabel.setText(strs.get("key.checkout"));
-        nightsLabel.setText(strs.get("key.nights"));
-        intervalLabel.setText(strs.get("key.interval"));
-
-        changeCheckinLink.setText(strs.get("key.change"));
-        checkinButton.setText(strs.get("key.checkin.button"));
-        checkoutButton.setText(strs.get("key.checkout.button"));
-
-        checkinCalendar.setText(strs.get("key.calendar.checkin.title"));
+        GWTCDatePicker.internationalize(checkinLabel, keys, "key.checkin");
+        GWTCDatePicker.internationalize(checkoutLabel, keys, "key.checkout");
+        GWTCDatePicker.internationalize(nightsLabel, keys, "key.nights");
+        GWTCDatePicker.internationalize(intervalLabel, keys, "key.interval");
+        GWTCDatePicker.internationalize(changeCheckinLink, keys, "key.change");
+        GWTCDatePicker.internationalize(checkinButton, keys, "key.checkin.button");
+        GWTCDatePicker.internationalize(checkoutButton, keys, "key.checkout.button");
+  
         checkinCalendar.setI18nMessages(keys);
-        checkoutCalendar.setText(strs.get("key.calendar.checkout.title"));
         checkoutCalendar.setI18nMessages(keys);
 
-        updateInputs();
+        GWTCDatePicker.internationalize(checkinCalendar, keys, "key.calendar.checkin.caption");
+        GWTCDatePicker.internationalize(checkoutCalendar, keys, "key.calendar.checkout.caption");
+        GWTCDatePicker.internationalize(checkinCalendar, keys, "key.calendar.checkin.title");
+        GWTCDatePicker.internationalize(checkoutCalendar, keys, "key.calendar.checkout.title");
+
+        updateTextElements();
     }
     
     /**
@@ -691,7 +683,7 @@ public class GWTCIntervalSelector extends Composite {
         if ( getInitDate() != null && GWTCDatePicker.compareDate(d, getInitDate()) < 0 ) {
             checkinCalendar.setSelectedDate(d);
         }
-        updateInputsFromCheckin();
+        updateTextElementsFromCheckin();
     }
 
     public void setMaximalDate(Date d) {
@@ -699,7 +691,7 @@ public class GWTCIntervalSelector extends Composite {
         if ( getInitDate() != null && GWTCDatePicker.compareDate(d, getInitDate()) > 0 ) {
             checkinCalendar.setSelectedDate(d);
         }
-        updateInputsFromCheckin();
+        updateTextElementsFromCheckin();
     }
     
     
@@ -718,12 +710,12 @@ public class GWTCIntervalSelector extends Composite {
 
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
-        updateInputs();
+        updateTextElements();
     }
 
     public void setWeekDayFormat(String weekDayFormat) {
         this.weekDayFormat = weekDayFormat;
-        updateInputs();
+        updateTextElements();
     }
     
 }

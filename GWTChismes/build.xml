@@ -83,8 +83,18 @@
 	</target>
 
 	<target name="js" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
-		<echo message="Compiling sample code from java to javascript" />
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
+		<echo message="Compiling jschismes library into javascript" />
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+                      classpathref="compile.sample.classpath">
+			<sysproperty key="ENCODING" value="UTF-8"/>
+			<arg value="-style"/>
+			<arg value="PRETTY"/>
+			<arg value="-out" />
+			<arg file="${www.dir}" />
+			<arg value="${jsc.module}Pretty" />
+		</java>
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+                      classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
 			<arg value="OBFUSCATED"/>
@@ -97,7 +107,8 @@
 
 	<target name="sample" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
 		<echo message="Compiling sample code from java to javascript" />
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" classpathref="compile.sample.classpath">
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+                      classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
 			<arg value="OBFUSCATED"/>
@@ -122,7 +133,7 @@
 		</exec>
         </target>
 
-	<target name="zip" depends="jar, javadoc, sample" description="Generates the distibution file that includes the source, license, docs, and jar">
+	<target name="zip" depends="jar, javadoc, sample, js" description="Generates the distibution file that includes the source, license, docs, and jar">
 		<delete file="${project}-${version}.zip" />
 		<copy todir="${project}-${version}/${src.dir}">
 			<fileset dir="${src.dir}" />

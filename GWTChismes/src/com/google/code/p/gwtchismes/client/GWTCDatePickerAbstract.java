@@ -25,13 +25,13 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.Panel;
@@ -220,7 +220,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     /**
      * Classes implementing this abstract class, have to implement this method
      */
-    public abstract void drawDatePickerWidget();
+    protected abstract void drawDatePickerWidget();
     
     /**
      * Creates the calendar instance based in the configuration provided. 
@@ -312,6 +312,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         
         DOM.sinkEvents(outer.getElement(), Event.MOUSEEVENTS | Event.KEYEVENTS);
         DOM.setStyleAttribute(outer.getElement(), "cursor", "default");
+        DOM.setElementAttribute(monthMenu.getElement(), "align", "center");
     }
 
     /**
@@ -367,7 +368,9 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
 
         for (int i=0; i < Math.max(1, months); i++) {
             simpleDatePickers.add(new GWTCSimpleDatePicker(true));
-            monthHeaders.add(new Label());
+            Label l = new Label();
+            DOM.setElementAttribute(l.getElement(), "align", "center");
+            monthHeaders.add(l);
         }
         setMinimalDate(super.getMinimalDate());
         setMaximalDate(super.getMaximalDate());
@@ -514,12 +517,17 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         }
     }
     
-    private void internationalize(Button b, Map<String, String> strs, String ktext)  {
+    
+    protected static void internationalize(Widget b, Map<String, String> strs, String ktext)  {
         if (strs==null) return;
         String text = strs.get(ktext);
         String title = strs.get(ktext + ".title");
-        if (text != null && text.length()>0)
-            b.setText(text);
+        if (text != null && text.length()>0) {
+            if (b instanceof HasHTML )
+                ((HasHTML)b).setText(text);
+            else if (b instanceof GWTCDatePickerAbstract)
+                ((GWTCDatePickerAbstract)b).setCaptionText(text);
+        }
         if (title != null && title.length()>0)
             b.setTitle(title);
     }
@@ -532,9 +540,14 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         internationalize(todayBtn, strs, "key.today");
         internationalize(helpBtn, strs, "key.help");
         internationalize(closeBtn, strs, "key.close");
+        
         String help = strs.get("key.calendar.help");
         if (help != null && help.length() > 0)
             helpStr = help; 
+        
+        String caption = strs.get("key.caption");
+        if (caption != null)
+            setText(caption);
     }
    
     /**
@@ -543,9 +556,16 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
      * @param t
      *            the message to display
      */
-    public void setText(String t) {
+    public void setCaptionText(String t) {
         if (calendarDlg != null)
             calendarDlg.setText(t);
+    }
+
+    /**
+     * @deprecated
+     */
+    public void setText(String t) {
+        setCaptionText(t);
     }
 
     /* (non-Javadoc)

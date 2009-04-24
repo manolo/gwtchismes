@@ -8,11 +8,15 @@ import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
+ * 
+ * It takes a javascript properties block as argument.
+ */
 @Export
-@ExportPackage("gwtc")
+@ExportPackage("jsc")
 public class Button extends GWTCButton implements Exportable {
 
     private JsChangeClosure jsClosure;
@@ -22,14 +26,14 @@ public class Button extends GWTCButton implements Exportable {
 
         this.jsProp = new JsProperties(prop);
         
-        int type = jsProp.defined("type") ? jsProp.getInt("type") : 1;
+        int type = jsProp.defined(Const.TYPE) ? jsProp.getInt(Const.TYPE) : 1;
         super.setType(type);
         
-        String text = jsProp.get("text");
+        String text = jsProp.get(Const.TEXT);
         super.setHTML(text);
         
-        if (jsProp.defined("onClick"))
-            addListener(jsProp.getClosure("onClick"));
+        if (jsProp.defined(Const.ON_CLICK))
+            addListener(jsProp.getClosure(Const.ON_CLICK));
         
         addClickListener(new ClickListener() {
             public void onClick(Widget w) {
@@ -37,15 +41,21 @@ public class Button extends GWTCButton implements Exportable {
                     jsClosure.onChange(w);
             }
         });
-        
-        if (jsProp.defined("containerId") && RootPanel.get(jsProp.get("containerId")) != null) 
-            RootPanel.get(jsProp.get("containerId")).add(this);
+ 
+        DatePicker.attachToDocument(this, jsProp);
     }
     
+    /**
+     *  Specify the JavaScript function that will be called when the user clicks on the button
+     *  The function have to define a parameter with the element clicked 
+     */
     public void addListener(JsChangeClosure c) {
         this.jsClosure = c;
     }
     
+    /**
+     * Return the container element, useful for moving it in the DOM
+     */
     public Element getElement() {
         return super.getElement();
     }

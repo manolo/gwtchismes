@@ -1,6 +1,7 @@
 package jschismes.client;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
@@ -8,57 +9,58 @@ import org.timepedia.exporter.client.Exportable;
 
 import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 @Export
-@ExportPackage("gwtc")
+@ExportPackage("jsc")
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+
 
     private JsChangeClosure jsClosure;
     private JsProperties jsProp;
     
-    public static final String SHORT_FORMAT = DateTimeFormat.getShortDateFormat().getPattern();
-    public static final String LONG_FORMAT = DateTimeFormat.getLongDateFormat().getPattern();
-  
+    
+    /**
+     * JavaScript Implementation of a customizable DatePicker.
+     * 
+     * It takes a properties block as argument with optional parameters that which are preconfigured with default values.
+     */
     public DatePicker(JavaScriptObject prop) {
 
         this.jsProp = new JsProperties(prop);
         
-        this.monthColumns = jsProp.getInt("numberOfColums") > 0 ? jsProp.getInt("numberOfColumns") : 3;
-        this.monthSelector = jsProp.getInt("monthsInSelector") > 0 ? jsProp.getInt("monthsInSelector") : 12;;
-        this.monthStep = jsProp.getInt("monthStep") > 0 ? jsProp.getInt("monthStep") : 1;
+        super.monthColumns = jsProp.getInt(Const.NUM_COLUMS, 3);
+        super.monthSelector = jsProp.getInt(Const.MONTH_RANGE, 12);
+        super.monthStep = jsProp.getInt(Const.STEP_MONTHS, 1);
         
+        super.setNumberOfLettersInDayNames(jsProp.getInt(Const.DAYNAME_LETTERS, 0));
+               
         int cfg = 0;
-        if (!jsProp.defined("containerId") && jsProp.getBoolean("dialog", true)) cfg |= CONFIG_DIALOG;
-        if (jsProp.getBoolean("box")) cfg |= CONFIG_ROUNDED_BOX;
-        if (!jsProp.getBoolean("autohide", true)) cfg |= CONFIG_NO_AUTOHIDE;
-        if (!jsProp.getBoolean("animation", true)) cfg |= CONFIG_NO_ANIMATION;
-        if (jsProp.getBoolean("glassPanel")) cfg |= CONFIG_BACKGROUND;
-        if ("flat".equals(jsProp.get("buttons"))) cfg |= CONFIG_FLAT_BUTTONS;
-        if ("standard".equals(jsProp.get("buttons"))) cfg |= CONFIG_STANDARD_BUTTONS;
+        if (!jsProp.defined(Const.CONT_ID) && jsProp.getBoolean(Const.DIALOG, true)) cfg |= CONFIG_DIALOG;
+        if (jsProp.getBoolean(Const.RND_BOX, false)) cfg |= CONFIG_ROUNDED_BOX;
+        if (!jsProp.getBoolean(Const.AUTOHIDE, true)) cfg |= CONFIG_NO_AUTOHIDE;
+        if (!jsProp.getBoolean(Const.ANIMATE, true)) cfg |= CONFIG_NO_ANIMATION;
+        if (jsProp.getBoolean(Const.GLASS, true)) cfg |= CONFIG_BACKGROUND;
+        if ("flat".equals(jsProp.get(Const.BUTTONS))) cfg |= CONFIG_FLAT_BUTTONS;
+        if ("standard".equals(jsProp.get(Const.BUTTONS))) cfg |= CONFIG_STANDARD_BUTTONS;
         super.initialize(cfg);
         
-        if (jsProp.defined("containerId") && RootPanel.get(jsProp.get("containerId")) != null)
-            RootPanel.get(jsProp.get("containerId")).add(this);
+        if (jsProp.defined(Const.MINIMAL))
+            setMinimalDate(add(new Date(), jsProp.get(Const.MINIMAL)));
+        if (jsProp.defined(Const.MAXIMAL))
+            setMaximalDate(add(new Date(), jsProp.get(Const.MAXIMAL)));
+        if (jsProp.defined(Const.CURRENT))
+            setSelectedDate(add(new Date(), jsProp.get(Const.CURRENT)));
 
+        if (jsProp.defined(Const.ON_SELECT))
+            addSelectListener(jsProp.getClosure(Const.ON_SELECT));
         
-        if (jsProp.defined("minimalDate"))
-            setMinimalDate(add(new Date(), jsProp.get("minimalDate")));
-        if (jsProp.defined("maximalDate"))
-            setMaximalDate(add(new Date(), jsProp.get("maximalDate")));
-        if (jsProp.defined("cursorDate"))
-            setCursorDate(add(new Date(), jsProp.get("cursorDate")));
-
-        if (jsProp.defined("onSelect"))
-            addSelectListener(jsProp.getClosure("onSelect"));
-        
-        if (jsProp.defined("style"))
-            super.setStyleName(jsProp.get("style"));
+        if (jsProp.defined(Const.CLASS_NAME))
+            super.setStyleName(jsProp.get(Const.CLASS_NAME));
         
         addChangeListener(new ChangeListener() {
             public void onChange(Widget sender) {
@@ -66,89 +68,102 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
                     jsClosure.onChange(data());
             }
         });
-        
-        if (jsProp.defined("containerId") && jsProp.get("containerId") != null) 
-            RootPanel.get(jsProp.get("containerId")).add(this);
+
+        super.setI18nMessages(regionalToHash(jsProp));
+    
+        attachToDocument(this, jsProp);
         
     }
     
+    protected static void attachToDocument(Widget w, JsProperties prop) {
+        Panel p = RootPanel.get(prop.get(Const.CONT_ID, "__NO_ID__"));
+        if (p != null)
+            p.add(w);
+    }
+
+    protected static HashMap regionalToHash(JsProperties prop) {
+        HashMap strs = new HashMap();
+        if (prop.defined("regional")) {
+            JsProperties reg = prop.getJsProperties("regional");
+            for (String key : reg.keys()) {
+                String v = reg.get(key);
+                String k = "key." + key.replaceFirst("Text$","").replaceAll("([A-Z])", ".$1").toLowerCase();
+                strs.put(k, v);
+            }
+        }
+        return strs;
+    }
+    
     @Override
-    public void drawDatePickerWidget() {
-        String layoutButtons = jsProp.defined("buttonsLayout") ? jsProp.get("buttonsLayout") : "?mx;p<->n";
-        int numberOfMonths = jsProp.getInt("numberOfMonths") > 0 ? jsProp.getInt("numberOfMonths") : 1;
+    protected void drawDatePickerWidget() {
+        String layoutButtons = jsProp.defined(Const.BUTTONS_LAYOUT) ? jsProp.get(Const.BUTTONS_LAYOUT) : "?mx;p<->n";
+        int numberOfMonths = jsProp.getInt(Const.NUM_MONTHS) > 0 ? jsProp.getInt(Const.NUM_MONTHS) : 1;
         super.setNumberOfMonths(numberOfMonths);
         super.layoutButtons(layoutButtons);
         super.layoutCalendar();
     }
 
+    /**
+     * Show the modal dialog containing the data-picker centered in the page
+     */
     @Override
     public void show() {
         super.show();
     }
 
+    /**
+     * Show the modal dialog containing the data-picker beside the  especified element.
+     */
     public void show(Element elem) {
         super.showByElement(elem);
     }
     
+    /**
+     * Hide the modal dialog containing the data-picker.
+     */
     @Override
     public void hide() {
         super.hide();
     }
 
+    /**
+     *  Specify the JavaScript function which will be called when the user selects a date
+     *  The function have to define the parameter data used to return the datepicker information 
+     */
     public void addSelectListener(JsChangeClosure c) {
         this.jsClosure = c;
     }
     
+    /**
+     *  Returns the selected date
+     */
     public JavaScriptObject getSelected() {
-        return dateToJsObject(getSelectedDate());
+        return Utils.dateToJsObject(getSelectedDate());
     }
 
-    public String getSelectedStr(String format) {
-        return formatDate(format, getSelectedDate());
-    }
-
-    public boolean setSelectedStr(String format, String dateStr) {
-        return super.setSelectedDateStr(format, dateStr);
-    }
-
+    /**
+     * Specify the selected date  
+     */
     public void setSelected(JavaScriptObject date) {
-        super.setSelectedDate(doubleToDate(jsObjectToTime(date)));
+        super.setSelectedDate(Utils.doubleToDate(Utils.jsObjectToTime(date)));
     }
     
+    /**
+     * Returns a JavaScript hash structure with this information:
+     * data.selected // The user selected date
+     * data.minimal  // The minimal date allowed to select
+     * data.maximal  // The maximal date allowed to select  
+     */
     public JavaScriptObject data() {
         return getDataImpl(getSelectedDate().getTime(), getMinimalDate().getTime(), getMaximalDate().getTime());
     }
     
-    public static final JavaScriptObject parse(String format, String dateStr){
-        return dateToJsObject(parseDate(format, dateStr));
-    }
-
-    public static final String format(String format, JavaScriptObject date){
-        return formatDate(format, doubleToDate(jsObjectToTime(date)));
-    }
-    
-    public native JavaScriptObject getDataImpl(double selected, double minimal, double maximal) /*-{
+    private native JavaScriptObject getDataImpl(double selected, double minimal, double maximal) /*-{
        return {
           selected: new Date(selected),
           minimal: new Date(minimal),
           maximal: new Date(maximal)
        };
-    }-*/;
-    
-    private static JavaScriptObject dateToJsObject(Date d) {
-       return timeToJsObject(d.getTime());
-    }
-    
-    private static native JavaScriptObject timeToJsObject(double time) /*-{
-       return new Date(time);
-    }-*/;
-
-    private static Date doubleToDate(double time) {
-       return new Date((long)time);
-    }
-    
-    private static native double jsObjectToTime(JavaScriptObject d) /*-{
-       return (d && d.getTime) ? d.getTime(): 0;
     }-*/;
     
 }

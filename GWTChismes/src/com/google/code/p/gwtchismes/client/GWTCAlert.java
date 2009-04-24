@@ -55,7 +55,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <li>.GWTCAlert-box { class for the rounded panel, if it exists }</li>
  * <li>.GWTCAlert .panel .msgCell { message cell }</li>
  * <li>.GWTCAlert .panel .btnCell { button cell }</li>
- * <li>.GWTCAlert .panel .button { Button }</li>
+ * <li>.GWTCAlert .panel .okButton { Button }</li>
  *  <li>z-index is setted by code</li> 
  * </ul>
  * 

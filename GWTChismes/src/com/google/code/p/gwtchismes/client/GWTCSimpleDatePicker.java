@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.ChangeListenerCollection;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -126,7 +127,6 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
         if (create)
             initWidget(calendarGrid);
     }
-    
     
     public void refresh() {
 
@@ -548,9 +548,12 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     public static Date add(Date d, String s) {
         if (s == null || s.length() == 0)
             return d;
+
+        int n = Integer.valueOf(s.replaceAll("[^\\d\\-]", ""));
+        if (n < 1)
+            return d;
         
         char c = s.toLowerCase().charAt(s.length() - 1);
-        int n = Integer.valueOf(s.replaceAll("[^\\d\\-]", ""));
         
         switch (c) {
         case 'd':
@@ -713,6 +716,15 @@ public class GWTCSimpleDatePicker extends Composite implements ClickListener, So
     }
     public void show(Widget w){
         show();
+    }
+    
+    public void setNumberOfLettersInDayNames(int n) {
+        WEEK_DAYS = new String[7];
+        for (int i = 0; i < 7; i++) {
+            WEEK_DAYS[i] = dateTimeConstants.shortWeekdays()[i];
+            if (n > 0 && n < WEEK_DAYS[i].length())
+                WEEK_DAYS[i] = WEEK_DAYS[i].substring(0, n);
+        }
     }
     
 }

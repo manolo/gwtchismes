@@ -20,14 +20,6 @@ V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$
 DD=gwtchismes-$V/www
 [ ! -d "$DD" ] && echo "Folder $DD doesn't exists" && exit 1
 
-## Folder with the compiled files (ie. gwtchismes-0.4/www/com.google.code.p.gwtcsample.GWTCSample)
-PD=$DD/$M/com.google.code.p.gwtcsample.GWTCSample
-[ ! -d "$PD" ] && echo "Folder $PD doesn't exists" && exit 1
-
-## Copy Original content to final folder
-D=gwtchismes-$V/gsample
-rm -rf  $D
-cp -r $PD $D
 
 renameFile() {
      f=$1; n=$2
@@ -43,7 +35,8 @@ renameFile() {
 
 ## Look for hash-named files
 renameFiles() {
-   ext=$1
+   D=$1
+   ext=$2
    a=1
    for f in $D/????????????????????????????????.cache.$ext
    do
@@ -55,9 +48,28 @@ renameFiles() {
    done
 }
 
+
+## Folder with the compiled files (ie. gwtchismes-0.4/www/com.google.code.p.gwtcsample.GWTCSample)
+PS=$DD/$M/com.google.code.p.gwtcsample.GWTCSample
+[ ! -d "$PS" ] && echo "Folder $PS doesn't exists" && exit 1
+DS=gwtchismes-$V/gsample
+
+PJ=$DD/$M/jschismes.JsChismes
+[ ! -d "$PJ" ] && echo "Folder $PJ doesn't exists" && exit 1
+DJ=gwtchismes-$V/jslib
+
+## Copy Original content to final folder
+rm -rf  $DS $DJ
+mkdir -p $DS
+mkdir -p $DJ
+cp -r $PS/* $DS
+cp -r $PJ/* $DJ
+cp -r ${PJ}Pretty/* $DJ
+
 for e in js html png
 do
-  renameFiles $e
+  renameFiles $DS $e
+  renameFiles $DJ $e
 done
 
 exit

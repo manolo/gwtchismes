@@ -517,11 +517,4 @@ public class GWTCSample implements EntryPoint {
         box.add(createPanelWithDescription(distributionBox, i18n.descr_box_2()));
     }
 
-    public void testTabPanel() {
-        GWTCTabPanel tp = new GWTCTabPanel();
-        tp.add(new Label("aaa"), "Tab1");
-        tp.add(new Label("aaa"), "Tab2");
-        tp.selectTab(0);
-        RootPanel.get().add(tp);
-    }
 }

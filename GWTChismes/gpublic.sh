@@ -12,17 +12,21 @@ V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$
 
 ant clean zip || exit
 
+echo "Executing gdoc"
 sh gdoc.sh
+echo "Executing gsample"
 sh gsample.sh
 
 find $C/javadoc -name "*.html" -exec rm '{}' ';'
 find $C/sample -name "*.html" -exec rm '{}' ';'
-find $C/sample -name "*.js" -exec rm '{}' ';'
+find $C/jslib -name "*.js" -exec rm '{}' ';'
 
-cp -r gwtchismes-$V/gdocs/*   $C/javadoc/
-cp -r gwtchismes-$V/gsample/* $C/sample/
-
-
+cmd="cp -r gwtchismes-$V/gdocs/*   $C/javadoc/"
+echo "Executing: $cmd" && $cmd
+cmd="cp -r gwtchismes-$V/gsample/* $C/sample/"
+echo "Executing: $cmd" && $cmd
+cmd="cp -r gwtchismes-$V/jslib/* $C/jslib"
+echo "Executing: $cmd" && $cmd
 
 
 mkdir -p $C/mavenrepo/gwtchismes/gwtchismes/$V
