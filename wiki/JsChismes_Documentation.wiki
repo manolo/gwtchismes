@@ -1,6 +1,6 @@
 _JsChismes is the exported version of the GWTChismes collection._
 
-_The library has been developed using java, and and eventually it's been exported using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
+_The library has been developed using java and exported to javascript using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
 
 <wiki:toc max_depth="3" />
 
@@ -10,8 +10,8 @@ The set of widgets can be used directly in html pages without the need of knowin
 
 = Setup instructions =
 
- # Download last version of the library: jschismes-x.x.x.jar and umcompress it in a folder.
- # Include either the obfuscated or the pretty version of the library in your html file.  You can use relative paths of full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed css and images.
+ # Download last version of the library: jschismes-x.x.x.jar and uncompress it in a folder.
+ # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed css and images.
 {{{
 <head>
  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
