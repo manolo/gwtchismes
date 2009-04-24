@@ -27,7 +27,7 @@
 == JsChismes library API ==
 
  * *Utils*
-
+    
    * Instance methods
 {{{
 
@@ -49,7 +49,7 @@ var string = jsc.Utils.formatDate(format, date);
 var javascriptobject = jsc.Utils.parseDate(format, dateStr);
 }}}
  * *DatePicker*
-JavaScript Implementation of a customizable DatePicker.
+    JavaScript Implementation of a customizable DatePicker.
     
    * Constructor
 {{{
@@ -106,7 +106,7 @@ datepicker.show(elem);
 datepicker.hide();
 }}}
  * *IntervalSelector*
-JavaScript Implementation of an Interval selector.
+    JavaScript Implementation of an Interval selector.
     
    * Constructor
 {{{
@@ -154,7 +154,7 @@ var javascriptobject = intervalselector.getInit();
 var int = intervalselector.getNights();
 }}}
  * *Progress*
-JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
+    JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
     
    * Constructor
 {{{
@@ -200,7 +200,7 @@ progress.run();
 progress.show(seconds);
 }}}
  * *Wait*
-JavaScript Implementation of a modal box which informs the user that the application is working and avoids user interaction with the aplication.
+    JavaScript Implementation of a modal box which informs the user that the application is working and avoids user interaction with the aplication.
     
    * Constructor
 {{{
@@ -223,7 +223,7 @@ A value of 0 means show it untill hide() method is called
 wait.show(seconds);
 }}}
  * *Alert*
-JavaScript Implementation of a modal Dialog
+    JavaScript Implementation of a modal Dialog
     
    * Constructor
 {{{
@@ -261,7 +261,7 @@ The function have to define a parameter with the element clicked
 alert.addListener(c);
 }}}
  * *Box*
-JavaScript Implementation of a decorated with rounded corners panel
+    JavaScript Implementation of a decorated with rounded corners panel
     
    * Constructor
 {{{
@@ -287,7 +287,7 @@ box.clear();
 box.add(object, direction);
 }}}
  * *Button*
-JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
+    JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
     
    * Constructor
 {{{
@@ -313,7 +313,7 @@ The function have to define a parameter with the element clicked
 button.addListener(c);
 }}}
  * *Popup*
-JavaScript Implementation of popup dialog that can use rounded corners.
+    JavaScript Implementation of popup dialog that can use rounded corners.
     
    * Constructor
 {{{
