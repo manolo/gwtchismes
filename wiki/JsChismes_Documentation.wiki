@@ -1,21 +1,22 @@
 JsChismes is the exportable version of the GWTChismes collection. It can be used directly in html pages by developers/designers without the need of knowing anything about gwt.
 
 All the stuff has been developed using java and and eventually it is exported using gwt-compiler and gwt-exporter library.
-== Library usage ==
+= Library usage =
 
  # Download last version of the library: jschismes-x.x.x.jar and umcompress it in a folder.
- # Include either the obfuscated or the pretty version of the library in your html file
+ # Include either the obfuscated or the pretty version of the library in your html file.  You can use relative paths of full qualified ones because the library has been compiled using cross-site linker. The library takes care loading the needed css and images.
 {{{
 <head>
- <script language="javascript" src="http://yourwebsite.com/yourpath/jschismes.JsChismes.nocache.js"></script>
- <!-- <script language="javascript" src="http://yourwebsite.com/yourpath/jschismes.JsChismesPretty.nocache.js"></script> -->
+ <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
+ <!-- 
+ <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script> 
+ -->
 </head>
 }}}
-  You can use full qualified url path or relarive paths. The library takes care loading the needed css/icons assets. 
-
- # Use the widgets using javascript in your page:
+ # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page. 
 {{{
   <script>
+      function jsOnLoad() {
         var calendar = new jsc.DatePicker({
           dialog: true,
           className: "GWTCDatePicker-custom",
@@ -24,11 +25,12 @@ All the stuff has been developed using java and and eventually it is exported us
             alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
           }
         });
-        calendar.show();
+      }
   </script>
+  <button name="Show datepicker" onClick="calendar.show()"/>
 }}}
 
-== Library API ==
+= Library API =
 
  * *Utils*
     
