@@ -251,7 +251,7 @@ public class GWTCDatePicker extends GWTCDatePickerAbstract {
 
 
     @Override
-    public void drawDatePickerWidget() {
+    protected void drawDatePickerWidget() {
         super.setNumberOfMonths(numberOfMonths);
         super.layoutButtons(layoutButtons);
         super.layoutCalendar();

@@ -6,7 +6,7 @@ import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
 @Export
-@ExportPackage("gwtc")
+@ExportPackage("jsc")
 @ExportClosure
 public interface JsChangeClosure extends Exportable {
 

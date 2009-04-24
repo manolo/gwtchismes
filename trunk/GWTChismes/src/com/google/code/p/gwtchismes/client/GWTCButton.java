@@ -424,10 +424,14 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
 
     @Override
     public void setFocus(boolean focused) {
-        if (container == null)
-            super.setFocus(focused);
-        else
-            textPanel.setFocus(focused);
+        try {
+            if (container == null)
+                super.setFocus(focused);
+            else
+                textPanel.setFocus(focused);
+        } catch (Exception e) {
+            System.out.println("Error, (hosted mode & GWT 1.5.3 make this fail) " + e.getMessage());
+        }
     }
 
     @Override

@@ -8,10 +8,14 @@ import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.RootPanel;
 
+/**
+ * JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
+ * 
+ * It takes a javascript properties block as argument.
+ */
 @Export
-@ExportPackage("gwtc")
+@ExportPackage("jsc")
 public class Progress extends GWTCProgress implements Exportable {
 
     private JsProperties jsProp;
@@ -20,57 +24,76 @@ public class Progress extends GWTCProgress implements Exportable {
         this.jsProp = new JsProperties(prop);
 
         int cfg = DatePicker.CONFIG_DIALOG;
-        if (jsProp.getBoolean("timeRemaining", true)) cfg |= SHOW_TIME_REMAINING;
-        if (jsProp.getBoolean("text")) cfg |= SHOW_TEXT;
-        if ("left".equals(jsProp.get("text"))) cfg |= SHOW_LEFT_TEXT;
-        if (jsProp.getBoolean("numbers")) cfg |= SHOW_NUMBERS;
-        if (jsProp.getBoolean("dialog")) cfg |= SHOW_AS_DIALOG;
+        if (jsProp.getBoolean(Const.TIME_REMAINING, true)) cfg |= SHOW_TIME_REMAINING;
+        if (jsProp.getBoolean(Const.TEXT)) cfg |= SHOW_TEXT;
+        if ("left".equals(jsProp.get(Const.TEXT))) cfg |= SHOW_LEFT_TEXT;
+        if (jsProp.getBoolean(Const.NUMBERS)) cfg |= SHOW_NUMBERS;
+        if (jsProp.getBoolean(Const.DIALOG)) cfg |= SHOW_AS_DIALOG;
         
-        int elements = jsProp.getInt("elements", 30);
+        int elements = jsProp.getInt(Const.ELEMENTS, 30);
         
         initialize(cfg, elements);
         
-        if (!jsProp.getBoolean("dialog") && jsProp.defined("containerId")) 
-            RootPanel.get(jsProp.get("containerId")).add(this);
+        if (!jsProp.getBoolean(Const.DIALOG)) 
+            DatePicker.attachToDocument(this, jsProp);
         
-        if (jsProp.defined("containerId") && RootPanel.get(jsProp.get("containerId")) != null)
-            RootPanel.get(jsProp.get("containerId")).add(this);
+        if (jsProp.defined(Const.HOURS_MSG)) super.setHoursMessage(jsProp.get(Const.HOURS_MSG));
+        if (jsProp.defined(Const.MINUTES_MSG)) super.setHoursMessage(jsProp.get(Const.MINUTES_MSG));
+        if (jsProp.defined(Const.SECONDS_MSG)) super.setHoursMessage(jsProp.get(Const.SECONDS_MSG));
+        if (jsProp.defined(Const.PERCENT_MSG)) super.setPercentMessage(jsProp.get(Const.PERCENT_MSG));
+        if (jsProp.defined(Const.TOTAL_MSG)) super.setTotalMessage(jsProp.get(Const.TOTAL_MSG));
         
-        if (jsProp.defined("hoursMsg")) super.setHoursMessage(jsProp.get("hoursMsg"));
-        if (jsProp.defined("minutesMsg")) super.setHoursMessage(jsProp.get("minutesMsg"));
-        if (jsProp.defined("secondsMsg")) super.setHoursMessage(jsProp.get("secondsMsg"));
-        if (jsProp.defined("percentMsg")) super.setPercentMessage(jsProp.get("percentMsg"));
-        if (jsProp.defined("totalMsg")) super.setTotalMessage(jsProp.get("totalMsg"));
-        
-        if (jsProp.defined("style"))
-            super.setStyleName(jsProp.get("style"));
+        if (jsProp.defined(Const.CLASS_NAME))
+            super.setStyleName(jsProp.get(Const.CLASS_NAME));
 
     }
     
+    /**
+     * Set the description text.
+     */
     public void setText(String text) {
         super.setText(text);
     }
     
+    /**
+     * Show the modal dialog containing the progress when it is configured as a dialog
+     */
     public void show(){
         super.show();
     }
+
+    /**
+     * Show the modal dialog containing the progress bar, and configures a timer to automatically update the progress.
+     */
+    public void show(int seconds) {
+        if (seconds < 1)
+            return;
+        int periodMillis = seconds * 1000 / pTimer.steps;
+        Timer t = new pTimer(this);
+        t.scheduleRepeating(periodMillis);
+    }
     
+    
+    /**
+     * Hide the modal dialog
+     */
     public void hide(){
         super.hide();
     }
     
+    /**
+     * Set the progress. Remaining time and percent is calculated automatically 
+     * based in these values and the time period between calls to this method.
+     */
     public void setProgress(int done, int total) {
         super.setProgress(done, total);
     }
 
+    /**
+     * Return the container element, useful for moving it in the DOM
+     */
     public Element getElement() {
         return super.getElement();
-    }
-    
-    public void show(int seconds) {
-        int periodMillis = seconds * 1000 / pTimer.steps;
-        Timer t = new pTimer(this);
-        t.scheduleRepeating(periodMillis);
     }
     
     class pTimer extends Timer {

@@ -32,6 +32,8 @@ import com.google.gwt.core.client.GWT;
  */
 public class JsChismes implements EntryPoint {
     public void onModuleLoad() {
+        ((Exporter) GWT.create(Const.class)).export();
+        ((Exporter) GWT.create(Utils.class)).export();
         ((Exporter) GWT.create(DatePicker.class)).export();
         ((Exporter) GWT.create(IntervalSelector.class)).export();
         ((Exporter) GWT.create(Button.class)).export();
