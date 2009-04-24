@@ -3,16 +3,17 @@ JsChismes is the exportable version of the GWTChismes collection. It can be used
 All the stuff has been developed using java and and eventually it is exported using gwt-compiler and gwt-exporter library.
 == Library usage ==
 
- * Download last version of the library: jschismes-x.x.x.jar and umcompress it in a static folder served by yout http-server
- * Include either the obfuscated or the pretty version of the library in your html file
+ # Download last version of the library: jschismes-x.x.x.jar and umcompress it in a folder.
+ # Include either the obfuscated or the pretty version of the library in your html file
 {{{
 <head>
  <script language="javascript" src="http://yourwebsite.com/yourpath/jschismes.JsChismes.nocache.js"></script>
  <!-- <script language="javascript" src="http://yourwebsite.com/yourpath/jschismes.JsChismesPretty.nocache.js"></script> -->
 </head>
 }}}
+  You can use full qualified url path or relarive paths. The library takes care loading the needed css/icons assets. 
 
- * Use the widgets using javascript in your page:
+ # Use the widgets using javascript in your page:
 {{{
   <script>
         var calendar = new jsc.DatePicker({
