@@ -60,7 +60,7 @@ WeekDay E(M) EE(Mo) EEE(Mon) EEEE(Monday)
 var string = jsc.Utils.formatDate(format, date);
 
 /* Parses a string representation of a date and returns a date object */
-var javascriptobject = jsc.Utils.parseDate(format, dateStr);
+var date = jsc.Utils.parseDate(format, dateStr);
 }}}
 
 == DatePicker ==
@@ -112,7 +112,7 @@ The function have to define the parameter data used to return the datepicker inf
 datepicker.addSelectListener(c);
 
 /* Returns the selected date */
-var javascriptobject = datepicker.getSelected();
+var date = datepicker.getSelected();
 
 /* Show the modal dialog containing the data-picker beside the  especified element. */
 datepicker.show(elem);
@@ -143,7 +143,7 @@ var intervalselector = new jsc.IntervalSelector ({
 {{{
 
 /* Returns the final date of the selected interval */
-var javascriptobject = intervalselector.getEnd();
+var date = intervalselector.getEnd();
 
 /*
 Returns a JavaScript hash structure with this information:
@@ -164,7 +164,7 @@ The function have to define the parameter data used to return the datepicker inf
 intervalselector.addSelectListener(c);
 
 /* Returns the initial date of the selected interval */
-var javascriptobject = intervalselector.getInit();
+var date = intervalselector.getInit();
 
 /* Returns the number of nights in the interval */
 var int = intervalselector.getNights();
