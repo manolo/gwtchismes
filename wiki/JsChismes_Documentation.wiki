@@ -32,8 +32,8 @@ All the stuff has been developed using java and and eventually it is exported us
 
 = Library API =
 
- === Utils ===
-    
+=== Utils ===
+ 
    * Instance methods
 {{{
 
@@ -54,8 +54,8 @@ var string = jsc.Utils.formatDate(format, date);
 /* Parses a string representation of a date and returns a date object */
 var javascriptobject = jsc.Utils.parseDate(format, dateStr);
 }}}
- === DatePicker ===
-    JavaScript Implementation of a customizable DatePicker.
+=== DatePicker ===
+ JavaScript Implementation of a customizable DatePicker.
     
    * Constructor
 {{{
@@ -111,8 +111,8 @@ datepicker.show(elem);
 /* Hide the modal dialog containing the data-picker. */
 datepicker.hide();
 }}}
- === IntervalSelector ===
-    JavaScript Implementation of an Interval selector.
+=== IntervalSelector ===
+ JavaScript Implementation of an Interval selector.
     
    * Constructor
 {{{
@@ -159,8 +159,8 @@ var javascriptobject = intervalselector.getInit();
 /* Returns the number of nights in the interval */
 var int = intervalselector.getNights();
 }}}
- === Progress ===
-    JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
+=== Progress ===
+ JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
     
    * Constructor
 {{{
@@ -205,8 +205,8 @@ progress.run();
 /* Show the modal dialog containing the progress bar, and configures a timer to automatically update the progress. */
 progress.show(seconds);
 }}}
- === Wait ===
-    JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the application.
+=== Wait ===
+ JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the application.
     
    * Constructor
 {{{
@@ -228,8 +228,8 @@ A value of 0 means show it untill hide() method is called
 */
 wait.show(seconds);
 }}}
- === Alert ===
-    JavaScript Implementation of a modal Dialog
+=== Alert ===
+ JavaScript Implementation of a modal Dialog
     
    * Constructor
 {{{
@@ -266,8 +266,8 @@ The function have to define a parameter with the element clicked
 */
 alert.addListener(c);
 }}}
- === Box ===
-    JavaScript Implementation of a decorated with rounded corners panel
+=== Box ===
+ JavaScript Implementation of a decorated with rounded corners panel
     
    * Constructor
 {{{
@@ -292,8 +292,8 @@ box.clear();
 /* Add a new element to the panel, in the specified direction (NORTH, SOUTH, EAST, WEST) */
 box.add(object, direction);
 }}}
- === Button ===
-    JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
+=== Button ===
+ JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
     
    * Constructor
 {{{
@@ -318,8 +318,8 @@ The function have to define a parameter with the element clicked
 */
 button.addListener(c);
 }}}
- === Popup ===
-    JavaScript Implementation of popup dialog that can use rounded corners.
+=== Popup ===
+ JavaScript Implementation of popup dialog that can use rounded corners.
     
    * Constructor
 {{{
