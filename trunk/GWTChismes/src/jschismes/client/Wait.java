@@ -6,13 +6,10 @@ import org.timepedia.exporter.client.Exportable;
 
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Element;
 
 
 /**
- * JavaScript Implementation of a modal box which informs the user that the application is working and avoids user interaction with the aplication.
- * 
- * It takes a javascript properties block as argument.
+ * JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the page.
  */
 @Export
 @ExportPackage("jsc")

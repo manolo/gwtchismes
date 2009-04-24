@@ -11,8 +11,6 @@ import com.google.gwt.user.client.Timer;
 
 /**
  * JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
- * 
- * It takes a javascript properties block as argument.
  */
 @Export
 @ExportPackage("jsc")
@@ -35,7 +33,7 @@ public class Progress extends GWTCProgress implements Exportable {
         initialize(cfg, elements);
         
         if (!jsProp.getBoolean(Const.DIALOG)) 
-            DatePicker.attachToDocument(this, jsProp);
+            DatePicker.attachToDocument(this, Const.CONT_ID, jsProp);
         
         if (jsProp.defined(Const.HOURS_MSG)) super.setHoursMessage(jsProp.get(Const.HOURS_MSG));
         if (jsProp.defined(Const.MINUTES_MSG)) super.setHoursMessage(jsProp.get(Const.MINUTES_MSG));
