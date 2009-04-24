@@ -1,5 +1,6 @@
-JsChismes is a javascript widget library. It is the exportable version of the GWTChismes collection.
-I've developed all the stuff using gwt and eventually it is exported to be usable as a javascript native librery using gwt-exporter.
+JsChismes is the exportable version of the GWTChismes collection. It can be used directly in html pages by developers/designers without the need of knowing anything about gwt.
+
+All the stuff has been developed using java and and eventually it is exported using gwt-compiler and gwt-exporter library.
 == Library usage ==
 
  * Download last version of the library: jschismes-x.x.x.jar and umcompress it in a static folder served by yout http-server
