@@ -84,6 +84,7 @@ var datepicker = new jsc.DatePicker ({
    defaultDate: 0,  // actual date.
    onSelect: new function(data){},  // Define a callback function when a date is selected
    className: "",  // Add an optional classname to the container
+   regional: null,  // hash with the set of key/values to internationalize the widget
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in the datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
    numberOfMonths: 1,  // Number of months to show at a time
 });
@@ -137,6 +138,8 @@ var intervalselector = new jsc.IntervalSelector ({
    maxDays: 0,  // Limit for the number of days in an inteval. 
    className: "",  // Add an optional classname to the container
    onSelect: new function(data){},  // Define a callback function when a date is selected
+   regional: null,  // hash with the set of key/values to internationalize the widget
+   containerId: null,  // Id of the element where the widget will be inserted
 });
 }}}
    * Instance methods
@@ -181,6 +184,7 @@ var progress = new jsc.Progress ({
    numbers: true,  // show numeric information of the progress
    dialog: true,  // the picker is shown in a popup dialog
    elements: 20,  // number of bars to show in the progress bar
+   containerId: null,  // Id of the element where the widget will be inserted
    hoursMsg: "Time remaining: {0} Hours",  // Set the message used to format the time remaining text below the progres bar in hours
    minutesMsg: "Time remaining: {0} Minutes",  // Set the message used to format the time remaining text below the progres bar in minutes
    secondsMsg: "Time remaining: {0} Seconds",  // Set the message used to format the time remaining text below the progres bar in seconds.
@@ -291,6 +295,7 @@ var box = new jsc.Box ({
    title: null,  // title text in rounded boxes
    text: null,  // Text in html elements
    html: null,  // html content
+   containerId: null,  // Id of the element where the widget will be inserted
    : ,  // 
 });
 }}}
@@ -316,6 +321,7 @@ var button = new jsc.Button ({
    type: 1,  // type
    text: null,  // Text in html elements
    onClick: null,  // Define a callback function when the element is clicked
+   containerId: null,  // Id of the element where the widget will be inserted
 });
 }}}
    * Instance methods
