@@ -369,19 +369,8 @@ A value of 0 means show it untill hide() method is called
 */
 popup.show(seconds);
 }}}
- == Sample Code ==
+ = Sample Code ==
 {{{
-<html>
-    <head>
-		<title>Example using the JsChismes library</title>
-<style>
-body {
-  font-family: Arial;
-}
-</style>
-	</head>
-	<body>
-  	  <script language="javascript" src="jschismes.JsChismes.nocache.js"></script>
       <script language='javascript'>
 
       function jscOnLoad() {
