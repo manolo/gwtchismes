@@ -1,6 +1,6 @@
 _JsChismes is the exported version of the GWTChismes collection._
 
-The library has been developed using java, and and eventually it's been exported using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library.
+_The library has been developed using java, and and eventually it's been exported using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
 
 <wiki:toc max_depth="3" />
 
@@ -372,7 +372,6 @@ popup.show(seconds);
 = Sample Code =
 You can view this example running [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html here]
 {{{
-      <script language='javascript'>
 
       function jscOnLoad() {
         var embeded = new jsc.DatePicker({
@@ -507,25 +506,6 @@ You can view this example running [http://gwtchismes.googlecode.com/svn/trunk/we
           }
        });
      }
-   </script>
-   <table style="vertical-align: top">
-    <tr>
-     <td >
-       <div id="button1">jsc.Wait</div><br/>
-       <div id="button2">jsc.Popup</div><br/>
-       <div id="button3">jsc.Alert</div><br/>
-       <div id="button4">jsc.Progress</div><br/>
-       <div id="button5">jsc.Calendar</div>
-     </td>
-     <td><div id="boxContainer" >jsc.Box</div></td>
-    </tr><tr> 
-     <td>jsc.Interval<div id="intervalContainer" style="border: 3px groove pink"></div></td>
-     <td><div align="center" id="calendarContainer">jsc.Calendar</div></td>
-    </tr><tr> 
-    </tr><tr> 
-    </tr>
-   </table> 
-    </body>
-</html>
 
 }}}
+_Manolo Carrasco Moñino_
