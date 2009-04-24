@@ -50,9 +50,7 @@ var javascriptobject = jsc.Utils.parseDate(format, dateStr);
 }}}
  * *DatePicker*
 JavaScript Implementation of a customizable DatePicker.
-
-It takes a properties block as argument with optional parameters that which are preconfigured with default values.
-
+    
    * Constructor
 {{{
 var datepicker = new jsc.DatePicker ({
@@ -109,9 +107,7 @@ datepicker.hide();
 }}}
  * *IntervalSelector*
 JavaScript Implementation of an Interval selector.
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var intervalselector = new jsc.IntervalSelector ({
@@ -159,9 +155,7 @@ var int = intervalselector.getNights();
 }}}
  * *Progress*
 JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var progress = new jsc.Progress ({
@@ -207,9 +201,7 @@ progress.show(seconds);
 }}}
  * *Wait*
 JavaScript Implementation of a modal box which informs the user that the application is working and avoids user interaction with the aplication.
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var wait = new jsc.Wait ({
@@ -232,9 +224,7 @@ wait.show(seconds);
 }}}
  * *Alert*
 JavaScript Implementation of a modal Dialog
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var alert = new jsc.Alert ({
@@ -272,9 +262,7 @@ alert.addListener(c);
 }}}
  * *Box*
 JavaScript Implementation of a decorated with rounded corners panel
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var box = new jsc.Box ({
@@ -300,9 +288,7 @@ box.add(object, direction);
 }}}
  * *Button*
 JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var button = new jsc.Button ({
@@ -328,9 +314,7 @@ button.addListener(c);
 }}}
  * *Popup*
 JavaScript Implementation of popup dialog that can use rounded corners.
-
-It takes a javascript properties block as argument.
-
+    
    * Constructor
 {{{
 var popup = new jsc.Popup ({
