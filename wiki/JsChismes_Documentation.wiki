@@ -4,9 +4,10 @@ _The library has been developed using java and exported to javascript using gwt-
 
 <wiki:toc max_depth="3" />
 
-= Goal =
+= Goals =
 
 The set of widgets can be used directly in html pages without the need of knowing anything about gwt and java.
+The generated javascript code is minimized, optimized and obfuscated and works fine in Gwt supported browsers. 
 
 = Setup instructions =
 
@@ -239,7 +240,7 @@ var alert = new jsc.Alert ({
    animate: true,  // animate popup when is shown or hidden.
    buttonOk: true,  // show ok button in alert widget
    className: "",  // Add an optional classname to the container
-   onClose: null,  // Define a callback function when the datepicker is closed
+   onClose: null,  // callback function which will be executed when the element is closed
 });
 }}}
    * Instance methods
@@ -266,7 +267,7 @@ _JavaScript Implementation of a decorated with rounded corners panel
    * Constructor
 {{{
 var box = new jsc.Box ({
-   roundedBoxType: "flat",  // Style for the rounded corners, option are flat, blue, grey
+   roundedBoxType: "flat",  // Style for the rounded corners, options are flat, blue, grey
    className: "",  // Add an optional classname to the container
    title: null,  // title text in rounded boxes
    text: null,  // Text in html elements
@@ -296,7 +297,7 @@ _JavaScript Implementation of a Button which can be rendered enterelly using htm
 var button = new jsc.Button ({
    type: 1,  // type
    text: null,  // Text in html elements
-   onClick: null,  // Define a callback function when the element is clicked
+   onClick: null,  // callback function which will be executed when the element is clicked
    containerId: null,  // Id of the element where the widget will be inserted
 });
 }}}
