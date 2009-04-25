@@ -62,7 +62,7 @@ var string = jsc.Utils.formatDate(format, date);
 var date = jsc.Utils.parseDate(format, dateStr);
 }}}
 
-== DatePicker ==
+== Date Picker ==
 _JavaScript Implementation of a customizable DatePicker.
     _
    * Constructor
@@ -117,7 +117,7 @@ datepicker.show(elem);
 datepicker.hide();
 }}}
 
-== IntervalSelector ==
+== Interval Selector ==
 _JavaScript Implementation of an Interval selector.
     _
    * Constructor
