@@ -8,7 +8,7 @@
 GWTCDatePickerAbstract (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-22">
+<META NAME="date" CONTENT="2009-04-25">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -99,7 +99,7 @@ java.lang.Object
                   <IMG SRC="inherit.gif" ALT="extended by "><B>com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.ClickListener, com.google.gwt.user.client.ui.SourcesChangeEvents</DD>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.ClickListener, com.google.gwt.user.client.ui.SourcesChangeEvents</DD>
 </DL>
 <DL>
 <DT><B>Direct Known Subclasses:</B> <DD><A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCDatePicker</A></DD>
@@ -715,7 +715,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;void</CODE></FONT></TD>
+<CODE>protected abstract &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#drawDatePickerWidget()">drawDatePickerWidget</A></B>()</CODE>
 
 <BR>
@@ -973,7 +973,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>doAttachChildren, doDetachChildren, getParent, onLoad, onUnload, removeFromParent</CODE></TD>
+<TD><CODE>addDomHandler, addHandler, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getParent, isOrWasAttached, onLoad, onUnload, removeFromParent, sinkEvents</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -982,7 +982,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setHeight, setPixelSize, setSize, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkEvents, toString, unsinkEvents</CODE></TD>
+<TD><CODE>ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setHeight, setPixelSize, setSize, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, toString, unsinkEvents</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -1506,7 +1506,7 @@ public <B>GWTCDatePickerAbstract</B>()</PRE>
 <A NAME="drawDatePickerWidget()"><!-- --></A><H3>
 drawDatePickerWidget</H3>
 <PRE>
-public abstract void <B>drawDatePickerWidget</B>()</PRE>
+protected abstract void <B>drawDatePickerWidget</B>()</PRE>
 <DL>
 <DD>Classes implementing this abstract class, have to implement this method
 <P>

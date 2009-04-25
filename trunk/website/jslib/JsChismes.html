@@ -1,12 +1,17 @@
 <html>
     <head>
-		<title>GWTChismes Sample</title>
+		<title>Example using the JsChismes library</title>
+<style>
+body {
+  font-family: Arial;
+}
+</style>
 	</head>
 	<body>
   	  <script language="javascript" src="jschismes.JsChismes.nocache.js"></script>
       <script language='javascript'>
 
-      function gwtcOnLoad() {
+      function jscOnLoad() {
         var embeded = new jsc.DatePicker({
           containerId: "calendarContainer", 
           className: "GWTCDatePicker-custom",
@@ -51,7 +56,6 @@
           glassPanel: true,
           minDate: "-3m",
           maxDate: "+12m",
-          roundedBox: true,
           lettersInWeekDayHeaders: 2,
           regional: {
             helpText: "Help",
@@ -81,18 +85,18 @@
           maxDays: 30,
           containerId: "intervalContainer",
           regional: {
-              helpText: "Help",
-              helpTitle: "Show help dialog",
-              closeText: "Close",
-              closeTitle: "Close dialog",
-              todayText: "Today",
-              todayTitle: "Display the actual month",
-              nextMonthTitle: "Jump to the next month",
-              prevMonthTitle: "Jump to previous month",
-              nextYearTitle: "Jump to the next year",
-              prevYearTitle: "Jump to the previos year",
-              calendarCheckinCaption: "Select your checkin Date",
-            },
+            helpText: "Help",
+            helpTitle: "Show help dialog",
+            closeText: "Close",
+            closeTitle: "Close dialog",
+            todayText: "Today",
+            todayTitle: "Display the actual month",
+            nextMonthTitle: "Jump to the next month",
+            prevMonthTitle: "Jump to previous month",
+            nextYearTitle: "Jump to the next year",
+            prevYearTitle: "Jump to the previos year",
+            calendarCheckinCaption: "Select your checkin Date"
+          },
           onSelect: function(data){
             alrt.alert( "\nFrom: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.init) 
                       + "\nTo: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.end) 
@@ -144,19 +148,18 @@
    <table style="vertical-align: top">
     <tr>
      <td >
-       <div id="button1"></div><br/>
-       <div id="button2"></div><br/>
-       <div id="button3"></div><br/>
-       <div id="button4"></div><br/>
-       <div id="button5"></div>
+       <div id="button1">jsc.Wait</div><br/>
+       <div id="button2">jsc.Popup</div><br/>
+       <div id="button3">jsc.Alert</div><br/>
+       <div id="button4">jsc.Progress</div><br/>
+       <div id="button5">jsc.Calendar</div>
      </td>
-     <td><div id="boxContainer" ></div></td>
+     <td><div id="boxContainer" >jsc.Box</div></td>
     </tr><tr> 
-     <td><div id="intervalContainer" style="border: 3px groove pink"></div></td>
-     <td><div id="calendarContainer"></div></td>
+     <td>jsc.Interval<div id="intervalContainer" style="border: 3px groove pink"></div></td>
+     <td><div align="center" id="calendarContainer">jsc.Calendar</div></td>
     </tr><tr> 
     </tr><tr> 
-     <td><div id="progressContainer"></div></td>
     </tr>
    </table> 
     </body>

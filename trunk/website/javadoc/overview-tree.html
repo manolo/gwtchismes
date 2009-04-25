@@ -8,7 +8,7 @@
 Class Hierarchy (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-04-22">
+<META NAME="date" CONTENT="2009-04-25">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -91,7 +91,7 @@ Class Hierarchy
 <UL>
 <LI TYPE="circle">java.lang.Object<UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCHelper.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCHelper</B></A><LI TYPE="circle">com.google.gwt.user.client.ui.UIObject<UL>
-<LI TYPE="circle">com.google.gwt.user.client.ui.Widget (implements com.google.gwt.user.client.EventListener)
+<LI TYPE="circle">com.google.gwt.user.client.ui.Widget (implements com.google.gwt.user.client.EventListener, com.google.gwt.event.shared.HasHandlers)
 <UL>
 <LI TYPE="circle">com.google.gwt.user.client.ui.Composite<UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCIntervalSelector</B></A><LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCProgress.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCProgress</B></A><LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCSimpleDatePicker</B></A> (implements com.google.gwt.user.client.ui.ClickListener, com.google.gwt.user.client.ui.SourcesChangeEvents)
@@ -99,11 +99,11 @@ Class Hierarchy
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePickerAbstract.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCDatePickerAbstract</B></A><UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCDatePicker.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCDatePicker</B></A></UL>
 </UL>
-<LI TYPE="circle">com.google.gwt.user.client.ui.TabPanel (implements com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.IndexedPanel, com.google.gwt.user.client.ui.SourcesTabEvents, com.google.gwt.user.client.ui.TabListener)
+<LI TYPE="circle">com.google.gwt.user.client.ui.TabPanel (implements com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.event.logical.shared.HasBeforeSelectionHandlers&lt;I&gt;, com.google.gwt.event.logical.shared.HasSelectionHandlers&lt;I&gt;, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.IndexedPanel, com.google.gwt.user.client.ui.SourcesTabEvents, com.google.gwt.user.client.ui.TabListener)
 <UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCTabPanel.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCTabPanel</B></A></UL>
 </UL>
-<LI TYPE="circle">com.google.gwt.user.client.ui.FocusWidget (implements com.google.gwt.user.client.ui.HasFocus, com.google.gwt.user.client.ui.SourcesClickEvents, com.google.gwt.user.client.ui.SourcesFocusEvents, com.google.gwt.user.client.ui.SourcesKeyboardEvents)
+<LI TYPE="circle">com.google.gwt.user.client.ui.FocusWidget (implements com.google.gwt.event.dom.client.HasAllFocusHandlers, com.google.gwt.event.dom.client.HasAllKeyHandlers, com.google.gwt.event.dom.client.HasAllMouseHandlers, com.google.gwt.event.dom.client.HasClickHandlers, com.google.gwt.user.client.ui.HasFocus, com.google.gwt.user.client.ui.SourcesClickEvents, com.google.gwt.user.client.ui.SourcesMouseEvents)
 <UL>
 <LI TYPE="circle">com.google.gwt.user.client.ui.ButtonBase (implements com.google.gwt.user.client.ui.HasHTML)
 <UL>
@@ -119,10 +119,10 @@ Class Hierarchy
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCFieldSet.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCFieldSet</B></A><LI TYPE="circle">com.google.gwt.user.client.ui.SimplePanel<UL>
 <LI TYPE="circle">com.google.gwt.user.client.ui.DecoratorPanel<UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCBox.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCBox</B></A></UL>
-<LI TYPE="circle">com.google.gwt.user.client.ui.FocusPanel (implements com.google.gwt.user.client.ui.HasFocus, com.google.gwt.user.client.ui.SourcesClickEvents, com.google.gwt.user.client.ui.SourcesMouseEvents, com.google.gwt.user.client.ui.SourcesMouseWheelEvents)
+<LI TYPE="circle">com.google.gwt.user.client.ui.FocusPanel (implements com.google.gwt.event.dom.client.HasAllFocusHandlers, com.google.gwt.event.dom.client.HasAllKeyHandlers, com.google.gwt.event.dom.client.HasAllMouseHandlers, com.google.gwt.event.dom.client.HasClickHandlers, com.google.gwt.user.client.ui.HasFocus, com.google.gwt.user.client.ui.SourcesClickEvents, com.google.gwt.user.client.ui.SourcesMouseEvents, com.google.gwt.user.client.ui.SourcesMouseWheelEvents)
 <UL>
 <LI TYPE="circle">com.google.code.p.gwtchismes.client.<A HREF="GWTCGlassPanel.html" title="class in com.google.code.p.gwtchismes.client"><B>GWTCGlassPanel</B></A></UL>
-<LI TYPE="circle">com.google.gwt.user.client.ui.PopupPanel (implements com.google.gwt.user.client.EventPreview, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.SourcesPopupEvents)
+<LI TYPE="circle">com.google.gwt.user.client.ui.PopupPanel (implements com.google.gwt.user.client.EventPreview, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.event.logical.shared.HasCloseHandlers&lt;T&gt;, com.google.gwt.user.client.ui.SourcesPopupEvents)
 <UL>
 <LI TYPE="circle">com.google.gwt.user.client.ui.DecoratedPopupPanel<UL>
 <LI TYPE="circle">com.google.gwt.user.client.ui.DialogBox (implements com.google.gwt.user.client.ui.HasHTML, com.google.gwt.user.client.ui.HasText, com.google.gwt.user.client.ui.MouseListener)
