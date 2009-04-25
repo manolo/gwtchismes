@@ -202,9 +202,6 @@ var element = progress.getElement();
 /* Hide the modal dialog */
 progress.hide();
 
-/* @not */
-progress.run();
-
 /* Show the modal dialog containing the progress bar, and configures a timer to automatically update the progress. */
 progress.show(seconds);
 }}}
@@ -247,9 +244,6 @@ var alert = new jsc.Alert ({
 }}}
    * Instance methods
 {{{
-
-/*  */
-alert.onClick(sender);
 
 /* hide the alert box */
 alert.hide();
@@ -311,9 +305,6 @@ var button = new jsc.Button ({
 
 /* Return the container element, useful for moving it in the DOM */
 var element = button.getElement();
-
-/*  */
-button.onClick(w);
 
 /* Specify the JavaScript function that will be called when the user clicks on the button
 The function have to define a parameter with the element clicked  */
