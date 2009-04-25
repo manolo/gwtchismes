@@ -48,15 +48,13 @@ __
 /* Camelizes css names: margin-left -> marginLeft */
 var string = jsc.Utils.camelize(s);
 
-/*
-Returns a formated and internationalizated date representation.
+/* Returns a formated and internationalizated date representation.
 
 format parameter has these symbols:
 Year:   yy(09) yyyy(2009)
 Month:  MM(01) MMM(Jan) MMM(January)
 Day:    dd(01)
-WeekDay E(M) EE(Mo) EEE(Mon) EEEE(Monday)
-*/
+WeekDay E(M) EE(Mo) EEE(Mon) EEEE(Monday) */
 var string = jsc.Utils.formatDate(format, date);
 
 /* Parses a string representation of a date and returns a date object */
@@ -95,21 +93,17 @@ var datepicker = new jsc.DatePicker ({
 /* Show the modal dialog containing the data-picker centered in the page */
 datepicker.show();
 
-/*
-Returns a JavaScript hash structure with this information:
+/* Returns a JavaScript hash structure with this information:
 data.selected // The user selected date
 data.minimal  // The minimal date allowed to select
-data.maximal  // The maximal date allowed to select  
-*/
+data.maximal  // The maximal date allowed to select   */
 var javascriptobject = datepicker.data();
 
 /* Specify the selected date   */
 datepicker.setSelected(date);
 
-/*
-Specify the JavaScript function which will be called when the user selects a date
-The function have to define the parameter data used to return the datepicker information 
-*/
+/* Specify the JavaScript function which will be called when the user selects a date
+The function have to define the parameter data used to return the datepicker information  */
 datepicker.addSelectListener(c);
 
 /* Returns the selected date */
@@ -148,22 +142,18 @@ var intervalselector = new jsc.IntervalSelector ({
 /* Returns the final date of the selected interval */
 var date = intervalselector.getEnd();
 
-/*
-Returns a JavaScript hash structure with this information:
+/* Returns a JavaScript hash structure with this information:
 data.init     // The start date that has selected the userhj
 data.end      // The end date selected by the user
 data.nights   // Number of nights in the interval
 data.days     // Number of days in the interval (identical to nights)
 data.maximal  // The maximal date allowed to select  
 data.minimal  // The minimal date allowed to select
-data.maxdays  // The maximal of days(nights) allowed in the interval  
-*/
+data.maxdays  // The maximal of days(nights) allowed in the interval   */
 var javascriptobject = intervalselector.data();
 
-/*
-Specify the JavaScript function which will be called when the user selects a date o changes the number of days
-The function have to define the parameter data used to return the datepicker information 
-*/
+/* Specify the JavaScript function which will be called when the user selects a date o changes the number of days
+The function have to define the parameter data used to return the datepicker information  */
 intervalselector.addSelectListener(c);
 
 /* Returns the initial date of the selected interval */
@@ -182,7 +172,7 @@ var progress = new jsc.Progress ({
    timeRemaining: false,  // show time remaining
    text: null,  // Text in html elements
    numbers: true,  // show numeric information of the progress
-   dialog: true,  // the picker is shown in a popup dialog
+   dialog: true,  // the widget is shown in a popup dialog
    elements: 20,  // number of bars to show in the progress bar
    containerId: null,  // Id of the element where the widget will be inserted
    hoursMsg: "Time remaining: {0} Hours",  // Set the message used to format the time remaining text below the progres bar in hours
@@ -196,10 +186,8 @@ var progress = new jsc.Progress ({
    * Instance methods
 {{{
 
-/*
-Set the progress. Remaining time and percent is calculated automatically 
-based in these values and the time period between calls to this method.
-*/
+/* Set the progress. Remaining time and percent is calculated automatically 
+based in these values and the time period between calls to this method. */
 progress.setProgress(done, total);
 
 /* Set the description text. */
@@ -214,7 +202,7 @@ var element = progress.getElement();
 /* Hide the modal dialog */
 progress.hide();
 
-/*  */
+/* @not */
 progress.run();
 
 /* Show the modal dialog containing the progress bar, and configures a timer to automatically update the progress. */
@@ -238,10 +226,8 @@ var wait = new jsc.Wait ({
 /* hide the wait dialog */
 wait.hide();
 
-/*
-Show the modal dialog containing the wait dialog, and hide it when the number of seconds is reached.
-A value of 0 means show it untill hide() method is called
-*/
+/* Show the modal dialog containing the wait dialog, and hide it when the number of seconds is reached.
+A value of 0 means show it untill hide() method is called */
 wait.show(seconds);
 }}}
 
@@ -271,16 +257,12 @@ alert.hide();
 /* show the modal dialog containing the dialog, with the message provided. */
 alert.alert(msg);
 
-/*
-Show the modal dialog containing the alert dialog, and hide it when the number of seconds is reached.
-A value of 0 means show it untill hide() method is called
-*/
+/* Show the modal dialog containing the alert dialog, and hide it when the number of seconds is reached.
+A value of 0 means show it untill hide() method is called */
 alert.show(seconds);
 
-/*
-Specify the JavaScript function which will be called when the user clicks on the OK button
-The function have to define a parameter with the element clicked 
-*/
+/* Specify the JavaScript function which will be called when the user clicks on the OK button
+The function have to define a parameter with the element clicked  */
 alert.addListener(c);
 }}}
 
@@ -333,10 +315,8 @@ var element = button.getElement();
 /*  */
 button.onClick(w);
 
-/*
-Specify the JavaScript function that will be called when the user clicks on the button
-The function have to define a parameter with the element clicked 
-*/
+/* Specify the JavaScript function that will be called when the user clicks on the button
+The function have to define a parameter with the element clicked  */
 button.addListener(c);
 }}}
 
@@ -369,10 +349,8 @@ popup.add(object, direction);
 /* Hide the dialog */
 popup.hide();
 
-/*
-Show the modal dialog containing the dialog, and hide it when the number of seconds is reached.
-A value of 0 means show it untill hide() method is called
-*/
+/* Show the modal dialog containing the dialog, and hide it when the number of seconds is reached.
+A value of 0 means show it untill hide() method is called */
 popup.show(seconds);
 }}}
 = Sample Code =
