@@ -24,8 +24,9 @@ The generated javascript code is minimized, optimized and obfuscated and works f
  # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page. 
 {{{
   <script>
-      function jsOnLoad() {
-        var calendar = new jsc.DatePicker({
+      var calendar;
+      function jscOnLoad() {
+        calendar = new jsc.DatePicker({
           dialog: true,
           className: "GWTCDatePicker-custom",
           buttons: "flat",
@@ -35,7 +36,7 @@ The generated javascript code is minimized, optimized and obfuscated and works f
         });
       }
   </script>
-  <button name="Show datepicker" onClick="calendar.show()"/>
+  <button onClick="calendar.show()">Click Here</button>
 }}}
 
 = Library API =
