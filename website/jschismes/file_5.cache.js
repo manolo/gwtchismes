@@ -13679,6 +13679,7 @@ _.typeId$ = 0;
 _.jso = null;
 function $onLoadImpl(){
   if (!$wnd) $wnd = window;
+  if (!$doc) $doc = window.document;
   if ($wnd.jscOnLoad)
     $wnd.jscOnLoad();
 }
