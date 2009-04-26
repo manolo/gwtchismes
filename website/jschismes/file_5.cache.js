@@ -13678,6 +13678,7 @@ _.onChange_1 = onChange_6;
 _.typeId$ = 0;
 _.jso = null;
 function $onLoadImpl(){
+alert("onLoadImpl");
   if (!$wnd) $wnd = window;
   if (!$doc) $doc = window.document;
   if (!$wnd.jsc) alert("No jsc");
