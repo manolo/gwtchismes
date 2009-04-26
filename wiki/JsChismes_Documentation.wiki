@@ -13,16 +13,16 @@ The generated javascript code is minimized, optimized and obfuscated and works f
 
  # Download last version of the library: jschismes-x.x.x.jar and uncompress it in a folder.
  # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed images and css.
-{{{
-<head>
- <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
- <!-- 
- <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script> 
- -->
-</head>
-}}}
  # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page. 
 {{{
+<html>
+ <head>
+  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
+  <!-- 
+   <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script> 
+  -->
+ </head>
+ <body>
   <script>
       var calendar;
       function jscOnLoad() {
@@ -37,6 +37,8 @@ The generated javascript code is minimized, optimized and obfuscated and works f
       }
   </script>
   <button onClick="calendar.show()">Click Here</button>
+ </body>
+</html>
 }}}
 
 = Library API =
