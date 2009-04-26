@@ -13683,6 +13683,8 @@ function $onLoadImpl(){
   if (!$wnd.jsc) alert("No jsc");
   if ($wnd.jscOnLoad)
     $wnd.jscOnLoad();
+  else
+    alert("No $wnd.jscOnLoad");
 }
 
 function $JsProperties(this$static, p_0){
