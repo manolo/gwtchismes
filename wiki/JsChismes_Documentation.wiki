@@ -1,4 +1,4 @@
-_JSChismes is the exported version of the GWTChismes collection._
+_JsChismes is the exported version of the GWTChismes collection._
 
 _The library has been developed using java and exported to javascript using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
 
@@ -12,7 +12,7 @@ The generated javascript code is minimized, optimized and obfuscated and works f
 = Setup instructions =
 
  # Download last version of the library: jschismes-x.x.x.jar and uncompress it in a folder.
- # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed css and images.
+ # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed images and css.
 {{{
 <head>
  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
@@ -63,7 +63,7 @@ var date = jsc.Utils.parseDate(format, dateStr);
 }}}
 
 == Date Picker ==
-_JavaScript Implementation of a customizable DatePicker.
+_A customizable Date Picker.
     _
    * Constructor
 {{{
@@ -118,7 +118,7 @@ datepicker.hide();
 }}}
 
 == Interval Selector ==
-_JavaScript Implementation of an Interval selector.
+_An Interval selector.
     _
    * Constructor
 {{{
@@ -165,7 +165,7 @@ var int = intervalselector.getNights();
 }}}
 
 == Progress ==
-_JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
+_Progress bar that has a time calculation based on the data provided when is updated.
     _
    * Constructor
 {{{
@@ -208,7 +208,7 @@ progress.show(seconds);
 }}}
 
 == Wait ==
-_JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the page.
+_A modal box informing the user that the application is working and avoiding user interaction with the page.
     _
    * Constructor
 {{{
@@ -230,7 +230,7 @@ wait.show(seconds);
 }}}
 
 == Alert ==
-_JavaScript Implementation of a modal Dialog
+_A modal Dialog
     _
    * Constructor
 {{{
@@ -262,7 +262,7 @@ alert.addListener(c);
 }}}
 
 == Box ==
-_JavaScript Implementation of a decorated with rounded corners panel
+_A decorated with rounded corners panel
     _
    * Constructor
 {{{
@@ -290,7 +290,7 @@ box.add(object, direction);
 }}}
 
 == Button ==
-_JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
+_A Button which can be rendered enterelly using html elements or can use the native browser buttons.
     _
    * Constructor
 {{{
@@ -313,7 +313,7 @@ button.addListener(c);
 }}}
 
 == Popup ==
-_JavaScript Implementation of popup dialog that can use rounded corners.
+_Popup dialog that can use rounded corners.
     _
    * Constructor
 {{{
