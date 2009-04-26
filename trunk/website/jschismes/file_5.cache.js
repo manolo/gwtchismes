@@ -13680,6 +13680,7 @@ _.jso = null;
 function $onLoadImpl(){
   if (!$wnd) $wnd = window;
   if (!$doc) $doc = window.document;
+  if (!$wnd.jsc) alert("No jsc");
   if ($wnd.jscOnLoad)
     $wnd.jscOnLoad();
 }
