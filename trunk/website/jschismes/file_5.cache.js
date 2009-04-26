@@ -13678,13 +13678,7 @@ _.onChange_1 = onChange_6;
 _.typeId$ = 0;
 _.jso = null;
 function $onLoadImpl(){
-  alert("onld");
-  alert("window" + window);
-  alert("window" + window.jscOnLoad);
-  alert("wnd" + $wnd);
-  alert("wnd" + $wnd.jsOnLoad);
-  if (window.jscOnLoad)
-    window.jscOnLoad();
+  if (!$wnd) $wnd = window;
   if ($wnd.jscOnLoad)
     $wnd.jscOnLoad();
 }
