@@ -1,0 +1,166 @@
+<html>
+    <head>
+		<title>Example using the JsChismes library</title>
+<style>
+body {
+  font-family: Arial;
+}
+</style>
+	</head>
+	<body>
+  	  <script language="javascript" src="jschismes.JsChismes.nocache.js"></script>
+      <script language='javascript'>
+
+      function jscOnLoad() {
+        var embeded = new jsc.DatePicker({
+          containerId: "calendarContainer", 
+          className: "GWTCDatePicker-custom",
+          buttons: "flat",
+          onSelect: function(data) {
+            alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
+          }
+        });
+        
+        var wait = new jsc.Wait({
+          text: "Espere por favor ..."
+        });
+
+        var popup = new jsc.Popup({
+          animate: true,
+          roundedBox: "blue",
+          text: "Be cheerful while you are alive."
+        });
+
+        var alrt = new jsc.Alert({
+        });
+        
+        var alrt2 = new jsc.Alert({
+          roundedBox: "flat",
+           onClose: function(elem) {
+             popup.show(2);
+           }
+        });
+
+        var box = new jsc.Box({
+          title: "Advice:",
+          text: "<b>Your present plans will be successful.</b>",
+          html: "<i>Your mode of life will be changed for the better because of new developments.</i>",
+          containerId: "boxContainer"
+        });
+
+
+        var calendar = new jsc.DatePicker({
+          numberOfMonths: 3,
+          buttonsLayout: "  x;p< - >n",
+          dialog: true,
+          glassPanel: true,
+          minDate: "-3m",
+          maxDate: "+12m",
+          lettersInWeekDayHeaders: 2,
+          regional: {
+            helpText: "Help",
+            helpTitle: "Show help dialog",
+            closeText: "Close",
+            closeTitle: "Close dialog",
+            todayText: "Today",
+            todayTitle: "Display the actual month",
+            nextMonthTitle: "Jump to the next month",
+            prevMonthTitle: "Jump to previous month",
+            nextYearTitle: "Jump to the next year",
+            prevYearTitle: "Jump to the previos year",
+            captionText: "Click on the desired date"
+          },
+          onSelect: function(data) {
+            alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
+            calendar.hide();
+          }
+        });
+
+        var interval= new jsc.IntervalSelector({
+          type: 4,
+          numberOfMonths: 2,
+          buttonsLayout: "< - >",
+          minDate: "-3d",
+          maxDate: "3m",
+          maxDays: 30,
+          containerId: "intervalContainer",
+          regional: {
+            helpText: "Help",
+            helpTitle: "Show help dialog",
+            closeText: "Close",
+            closeTitle: "Close dialog",
+            todayText: "Today",
+            todayTitle: "Display the actual month",
+            nextMonthTitle: "Jump to the next month",
+            prevMonthTitle: "Jump to previous month",
+            nextYearTitle: "Jump to the next year",
+            prevYearTitle: "Jump to the previos year",
+            calendarCheckinCaption: "Select your checkin Date"
+          },
+          onSelect: function(data){
+            alrt.alert( "\nFrom: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.init) 
+                      + "\nTo: " + jsc.Utils.formatDate(jsc.Const.SHORT_FORMAT, data.end) 
+                      + "\nNights: " + data.nights);
+          }
+        });
+
+        progress = new jsc.Progress({
+          dialog: true
+        });
+
+        new jsc.Button({
+          text: "show a Wait widget (3 seconds)",
+          containerId: "button1",
+          onClick: function(elem){
+            wait.show(3);
+          }
+        });
+        new jsc.Button({
+          text: "Show an animated popup box (3 seconds)",
+          containerId: "button2",
+          onClick: function(elem){
+            popup.show(3);
+          }
+        });
+        new jsc.Button({
+          text: "Show an alert dialog",
+          containerId: "button3",
+          onClick: function(elem){
+            alrt2.alert("You will pay for your sins.  If you have already paid, please disregard this message.");
+          }
+        });
+        new jsc.Button({
+           text: "Show a progress bar  (6 seconds)",
+           containerId: "button4",
+           onClick: function(elem){
+             progress.show(6);
+           }
+        });
+        new jsc.Button({
+          text: "Show a tree months date picker",
+          containerId: "button5",
+          onClick: function(elem){
+            calendar.show();
+          }
+       });
+     }
+   </script>
+   <table style="vertical-align: top">
+    <tr>
+     <td >
+       <div id="button1">jsc.Wait</div><br/>
+       <div id="button2">jsc.Popup</div><br/>
+       <div id="button3">jsc.Alert</div><br/>
+       <div id="button4">jsc.Progress</div><br/>
+       <div id="button5">jsc.Calendar</div>
+     </td>
+     <td><div id="boxContainer" >jsc.Box</div></td>
+    </tr><tr> 
+     <td>jsc.Interval<div id="intervalContainer" style="border: 3px groove pink"></div></td>
+     <td><div align="center" id="calendarContainer">jsc.Calendar</div></td>
+    </tr><tr> 
+    </tr><tr> 
+    </tr>
+   </table> 
+    </body>
+</html>
