@@ -1,4 +1,5 @@
-_JsChismes is the exported version of the GWTChismes collection._
+  
+_JSChismes is the exported version of the GWTChismes collection._
 
 _The library has been developed using java and exported to javascript using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
 
@@ -395,11 +396,8 @@ popup.show(seconds);
 = Sample Code =
 You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html here]
 {{{
-
-
       
       function jscOnLoad() {
-        alert(jsc.Const.NUMERIC_FORMAT);
         var embeded = new jsc.DatePicker({
           containerId: "calendarContainer", 
           className: "GWTCDatePicker-custom",
@@ -534,4 +532,5 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
      }
 
 }}}
-_Manolo Carrasco Moñino_
+*Author:* _Manolo Carrasco Moñino_
+ 
