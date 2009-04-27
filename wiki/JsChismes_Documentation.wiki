@@ -46,6 +46,7 @@ The generated javascript code is minimized, optimized and obfuscated and works f
 
 == Const ==
 _Package constants_
+   * Public static constants
 {{{
 jsc.Const.SOUTH // put elements in panels at south possition
 jsc.Const.WEST // put elements in panels at west possition
@@ -57,7 +58,13 @@ jsc.Const.EAST // put elements in panels at east possition
 }}}
 
 == Utils ==
-__
+_Utility methods
+    _
+   * Constructor
+{{{
+var utils = new jsc.Utils ({
+});
+}}}
    * Static methods
 {{{
 
@@ -78,7 +85,32 @@ var date = jsc.Utils.parseDate(format, dateStr);
 }}}
 
 == Date Picker ==
-__
+_A customizable Date Picker.
+    _
+   * Constructor
+{{{
+var datepicker = new jsc.DatePicker ({
+   numberOfColums: 3,  // Number of months per row when displaying multiple months
+   monthRange: 12,  // Number of months to show in the months menu selector
+   stepMonths: 1,  // Number of months to step back/forward
+   lettersInWeekDayHeaders: 3,  // Set desired number of digits for day names in week headers, 0 means default for this language
+   containerId: null,  // Id of the element where the widget will be inserted
+   roundedBox: false,  // show the element inside a decorated rounded container
+   autoHide: true,  // hide the dialog if the user click outside
+   animate: true,  // animate popup when is shown or hidden.
+   glassPanel: true,  // show a semitransparent glasspanel that covers the rest of element
+   buttons: "rounded",  // Buttons style, available options are: rounded, flat, standard
+   minDate: "+0d",  // The earliest selectable date
+   maxDate: "+1y",  // The latest selectable date
+   defaultDate: 0,  // actual date.
+   onSelect: new function(data){},  // Define a callback function when a date is selected
+   className: "",  // Add an optional classname to the container
+   regional: {     // hash with the set of key/values to internationalize the widget
+   },
+   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
+   numberOfMonths: 1,  // Number of months to show at a time
+});
+}}}
    * Instance methods
 {{{
 
@@ -109,7 +141,26 @@ datepicker.hide();
 }}}
 
 == Interval Selector ==
-__
+_An Interval selector.
+    _
+   * Constructor
+{{{
+var intervalselector = new jsc.IntervalSelector ({
+   numberOfMonths: 1,  // Number of months to show at a time
+   numberOfColums: 3,  // Number of months per row when displaying multiple months
+   monthRange: 12,  // Number of months to show in the months menu selector
+   stepMonths: 1,  // Number of months to step back/forward
+   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
+   minDate: "+0d",  // The earliest selectable date
+   maxDate: "+1y",  // The latest selectable date
+   maxDays: 0,  // Limit for the number of days in an inteval. 
+   className: "",  // Add an optional classname to the container
+   onSelect: new function(data){},  // Define a callback function when a date is selected
+   regional: {     // hash with the set of key/values to internationalize the widget
+   },
+   containerId: null,  // Id of the element where the widget will be inserted
+});
+}}}
    * Instance methods
 {{{
 
@@ -138,7 +189,25 @@ var int = intervalselector.getNights();
 }}}
 
 == Progress ==
-__
+_Progress bar that has a time calculation based on the data provided when is updated.
+    _
+   * Constructor
+{{{
+var progress = new jsc.Progress ({
+   timeRemaining: false,  // show time remaining
+   text: ,  // Title for next year button when the mouse is over
+   numbers: true,  // show numeric information of the progress
+   dialog: true,  // the widget is shown in a popup dialog
+   elements: 20,  // number of bars to show in the progress bar
+   containerId: null,  // Id of the element where the widget will be inserted
+   hoursMsg: "Time remaining: {0} Hours",  // Set the message used to format the time remaining text below the progres bar in hours
+   minutesMsg: "Time remaining: {0} Minutes",  // Set the message used to format the time remaining text below the progres bar in minutes
+   secondsMsg: "Time remaining: {0} Seconds",  // Set the message used to format the time remaining text below the progres bar in seconds.
+   percentMsg: "{0}%",  // Set the message used to format the progress in percent units. 
+   totalMsg: "{0}% {1}/{2} ",  // Set the message to show when the process has finished
+   className: "",  // Add an optional classname to the container
+});
+}}}
    * Instance methods
 {{{
 
@@ -163,7 +232,16 @@ progress.show(seconds);
 }}}
 
 == Wait ==
-__
+_A modal box informing the user that the application is working and avoiding user interaction with the page.
+    _
+   * Constructor
+{{{
+var wait = new jsc.Wait ({
+   text: ,  // Title for next year button when the mouse is over
+   className: "",  // Add an optional classname to the container
+   image: null,  // image url in buttons
+});
+}}}
    * Instance methods
 {{{
 
@@ -176,7 +254,19 @@ wait.show(seconds);
 }}}
 
 == Alert ==
-__
+_A modal Dialog
+    _
+   * Constructor
+{{{
+var alert = new jsc.Alert ({
+   roundedBox: false,  // show the element inside a decorated rounded container
+   glassPanel: true,  // show a semitransparent glasspanel that covers the rest of element
+   animate: true,  // animate popup when is shown or hidden.
+   buttonOk: true,  // show ok button in alert widget
+   className: "",  // Add an optional classname to the container
+   onClose: null,  // callback function which will be executed when the element is closed
+});
+}}}
    * Instance methods
 {{{
 
@@ -196,7 +286,20 @@ alert.addListener(c);
 }}}
 
 == Box ==
-__
+_A decorated with rounded corners panel
+    _
+   * Constructor
+{{{
+var box = new jsc.Box ({
+   roundedBoxType: "flat",  // Style for the rounded corners, options are flat, blue, grey
+   className: "",  // Add an optional classname to the container
+   title: null,  // title text in rounded boxes
+   text: ,  // Title for next year button when the mouse is over
+   html: null,  // html content
+   containerId: null,  // Id of the element where the widget will be inserted
+   : ,  //  put elements in panels at north possition
+});
+}}}
    * Instance methods
 {{{
 
@@ -211,7 +314,17 @@ box.add(object, direction);
 }}}
 
 == Button ==
-__
+_A Button which can be rendered enterelly using html elements or can use the native browser buttons.
+    _
+   * Constructor
+{{{
+var button = new jsc.Button ({
+   type: 1,  // type
+   text: ,  // Title for next year button when the mouse is over
+   onClick: null,  // callback function which will be executed when the element is clicked
+   containerId: null,  // Id of the element where the widget will be inserted
+});
+}}}
    * Instance methods
 {{{
 
@@ -224,7 +337,19 @@ button.addListener(c);
 }}}
 
 == Popup ==
-__
+_Popup dialog that can use rounded corners.
+    _
+   * Constructor
+{{{
+var popup = new jsc.Popup ({
+   roundedBox: false,  // show the element inside a decorated rounded container
+   glassPanel: true,  // show a semitransparent glasspanel that covers the rest of element
+   animate: true,  // animate popup when is shown or hidden.
+   className: "",  // Add an optional classname to the container
+   text: ,  // Title for next year button when the mouse is over
+   : ,  //  put elements in panels at north possition
+});
+}}}
    * Instance methods
 {{{
 
