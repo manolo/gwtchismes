@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 
 /**
- * JavaScript Implementation of an Interval selector.
+ * An Interval selector.
  */
 @Export
 @ExportPackage("jsc")

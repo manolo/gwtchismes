@@ -9,7 +9,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
- * JavaScript Implementation of a decorated with rounded corners panel
+ * A decorated with rounded corners panel
  */
 @Export
 @ExportPackage("jsc")

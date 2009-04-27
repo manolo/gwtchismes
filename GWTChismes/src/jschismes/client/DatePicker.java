@@ -25,7 +25,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
     
     
     /**
-     * JavaScript Implementation of a customizable DatePicker.
+     * A customizable DatePicker.
      */
     public DatePicker(JavaScriptObject prop) {
 

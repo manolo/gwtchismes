@@ -9,13 +9,21 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 
+/**
+ * Package constants
+ */
 @Export
 @ExportPackage("jsc")
 public class Const implements Exportable {
     
-    public static final String SHORT_FORMAT = DateTimeFormat.getShortDateFormat().getPattern();
-    public static final String NUMERIC_FORMAT = DateTimeFormat.getShortDateFormat().getPattern().replaceFirst("yy", "yyyy");
-    public static final String LONG_FORMAT = DateTimeFormat.getLongDateFormat().getPattern();
+    public static final String SHORT_FORMAT = DateTimeFormat.getShortDateFormat().getPattern(); // Internationalized pattern for short format. Default with language=en -> M/d/yy
+    public static final String NUMERIC_FORMAT = DateTimeFormat.getShortDateFormat().getPattern().replaceFirst("yy", "yyyy"); // Internationalized pattern for numeric format. Default with language=en -> M/d/yyy
+    public static final String LONG_FORMAT = DateTimeFormat.getLongDateFormat().getPattern();  // Internationalized pattern for long format. Default with language=en -> MMMM d, yyyy 
+    
+    public static final DockLayoutConstant NORTH = DockPanel.NORTH; // put elements in panels at north possition
+    public static final DockLayoutConstant SOUTH = DockPanel.SOUTH; // put elements in panels at south possition
+    public static final DockLayoutConstant EAST = DockPanel.EAST; // put elements in panels at east possition
+    public static final DockLayoutConstant WEST = DockPanel.WEST; // put elements in panels at west possition
     
     protected static final String ANIMATE = "animate";  // [true] animate popup when is shown or hidden.
     protected static final String CURRENT = "defaultDate";  //[0] actual date.
@@ -23,8 +31,8 @@ public class Const implements Exportable {
     protected static final String MAXIMAL = "maxDate"; //["+1y"] The latest selectable date
     protected static final String MAX_DAYS = "maxDays"; //[0] Limit for the number of days in an inteval. 
     protected static final String ON_SELECT = "onSelect"; //[new function(data){}] Define a callback function when a date is selected
-    protected static final String ON_CLOSE = "onClose"; //[null] Define a callback function when the datepicker is closed
-    protected static final String ON_CLICK = "onClick"; //[null] Define a callback function when the element is clicked
+    protected static final String ON_CLOSE = "onClose"; //[null] callback function which will be executed when the element is closed
+    protected static final String ON_CLICK = "onClick"; //[null] callback function which will be executed when the element is clicked
     protected static final String NUM_MONTHS = "numberOfMonths"; //[1] Number of months to show at a time
     protected static final String NUM_COLUMS = "numberOfColums"; //[3] Number of months per row when displaying multiple months
     protected static final String STEP_MONTHS = "stepMonths";  //[1] Number of months to step back/forward
@@ -34,30 +42,36 @@ public class Const implements Exportable {
     protected static final String RND_BOX = "roundedBox"; //[false] show the element inside a decorated rounded container
     protected static final String AUTOHIDE = "autoHide"; //[true] hide the dialog if the user click outside
     protected static final String GLASS = "glassPanel"; //[true] show a semitransparent glasspanel that covers the rest of element
-    protected static final String RND_BOX_TYPE = "roundedBoxType"; //["flat"] Style for the rounded corners, option are flat, blue, grey
+    protected static final String RND_BOX_TYPE = "roundedBoxType"; //["flat"] Style for the rounded corners, options are flat, blue, grey
 
     protected static final String BUTTONS = "buttons"; //["rounded"] Buttons style, available options are: rounded, flat, standard
-    protected static final String BUTTONS_LAYOUT = "buttonsLayout"; //["?mx;p<->n"] define which buttons to use and where to place them in the datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
+    /**
+     * ["?mx;p<->n"] define which buttons to use and where to place them in datepickers. 
+     *               Each action is represented with a character:  
+     *               ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
+     *               '?' help, 'x' close, '_' separator, '-' today,
+     *               '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
+     */
+    protected static final String BUTTONS_LAYOUT = "buttonsLayout";  
 
     protected static final String CLASS_NAME = "className"; //[""] Add an optional classname to the container
     protected static final String DAYNAME_LETTERS = "lettersInWeekDayHeaders"; //[3] Set desired number of digits for day names in week headers, 0 means default for this language
     
-    
-    protected static final String TXT_HELP = "helpText";  //["?"] Display text for close button
-    protected static final String TXT_CLOSE = "closeText"; //["x"] Display text for close button
-    protected static final String TXT_CURR = "currentText";  //["-"] Display text for current month button
-    protected static final String TXT_PREV = "prevText"; //[">"] Display text for previous month button
-    protected static final String TXT_NEXT = "nextText"; //[">"] Display text for next month button
-    protected static final String TXT_PREV_Y = "prevYearText"; //[">"] Display text for previous year button
-    protected static final String TXT_NEXT_Y = "nextYearText"; //[">"] Display text for next year button
+    protected static final String TXT_HELP = "helpText";  //(DatePicker,IntervalSelector) ["?"] Display text for close button
+    protected static final String TXT_CLOSE = "closeText"; //(DatePicker,IntervalSelector)["x"] Display text for close button
+    protected static final String TXT_CURR = "currentText";  //(DatePicker,IntervalSelector)["-"] Display text for current month button
+    protected static final String TXT_PREV = "prevText"; //(DatePicker,IntervalSelector)["<"] Display text for previous month button
+    protected static final String TXT_NEXT = "nextText"; //(DatePicker,IntervalSelector)[">"] Display text for next month button
+    protected static final String TXT_PREV_Y = "prevYearText"; //(DatePicker,IntervalSelector)["<<"] Display text for previous year button
+    protected static final String TXT_NEXT_Y = "nextYearText"; //(DatePicker,IntervalSelector)[">>"] Display text for next year button
 
-    protected static final String TIT_HELP = "helpTitle";  //[null] Title for close button
-    protected static final String TIT_CLOSE = "closeTitle"; //[null] Title for close button
-    protected static final String TIT_CURR = "currentTitle";  //[null] Title for current month button
-    protected static final String TIT_PREV = "prevTitle"; //[null] Title for previous month button
-    protected static final String TIT_NEXT = "nextTitle"; //[null] Title for next month button
-    protected static final String TIT_PREV_Y = "prevYearTitle"; //[null] Title for previous year button
-    protected static final String TIT_NEXT_Y = "nextYearTitle"; //[null] Title for next year button
+    protected static final String TIT_HELP = "helpTitle";  //(DatePicker,IntervalSelector)[null] Title for help button when the mouse is over
+    protected static final String TIT_CLOSE = "closeTitle"; //(DatePicker,IntervalSelector)[null] Title for close button when the mouse is over
+    protected static final String TIT_CURR = "currentTitle";  //(DatePicker,IntervalSelector)[null] Title for current month button when the mouse is over
+    protected static final String TIT_PREV = "prevTitle"; //(DatePicker,IntervalSelector)[null] Title for previous month button when the mouse is over
+    protected static final String TIT_NEXT = "nextTitle"; //(DatePicker,IntervalSelector)[null] Title for next month button when the mouse is over
+    protected static final String TIT_PREV_Y = "prevYearTitle"; //(DatePicker,IntervalSelector)[null] Title for previous year button when the mouse is over
+    protected static final String TIT_NEXT_Y = "nextYearTitle"; //(DatePicker,IntervalSelector)[null] Title for next year button when the mouse is over
     
     protected static final String TEXT = "text"; //[null] Text in html elements
     protected static final String HTML = "html"; //[null] html content
@@ -75,9 +89,5 @@ public class Const implements Exportable {
     protected static final String NUMBERS = "numbers"; //[true] show numeric information of the progress
     protected static final String TIME_REMAINING = "timeRemaining"; //[false] show time remaining
     
-    public static final DockLayoutConstant NORTH = DockPanel.NORTH;
-    public static final DockLayoutConstant SOUTH = DockPanel.SOUTH;
-    public static final DockLayoutConstant EAST = DockPanel.EAST;
-    public static final DockLayoutConstant WEST = DockPanel.WEST;
     protected static final String REGIONAL = "regional";  //[null] hash with the set of key/values to internationalize the widget
 }
