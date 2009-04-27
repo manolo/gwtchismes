@@ -117,14 +117,14 @@ var datepicker = new jsc.DatePicker ({
         prevTitle = null, // Title for previous month button when the mouse is over
         nextTitle = null, // Title for next month button when the mouse is over
         prevYearTitle = null, // Title for previous year button when the mouse is over
-        nextYearTitle = null, // Title for next year button when the mouse is over
+        nextYearTitle = null // Title for next year button when the mouse is over
    },
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
                                 //  Each action is represented with a character:  
                                 //  ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
                                 //  '?' help, 'x' close, '_' separator, '-' today,
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
-   numberOfMonths: 1,  // Number of months to show at a time
+   numberOfMonths: 1  // Number of months to show at a time
 });
 }}}
    * Instance methods
@@ -190,9 +190,9 @@ var intervalselector = new jsc.IntervalSelector ({
         prevTitle = null, // Title for previous month button when the mouse is over
         nextTitle = null, // Title for next month button when the mouse is over
         prevYearTitle = null, // Title for previous year button when the mouse is over
-        nextYearTitle = null, // Title for next year button when the mouse is over
+        nextYearTitle = null // Title for next year button when the mouse is over
    },
-   containerId: null,  // Id of the element where the widget will be inserted
+   containerId: null  // Id of the element where the widget will be inserted
 });
 }}}
    * Instance methods
@@ -239,7 +239,7 @@ var progress = new jsc.Progress ({
    secondsMsg: "Time remaining: {0} Seconds",  // Set the message used to format the time remaining text below the progres bar in seconds.
    percentMsg: "{0}%",  // Set the message used to format the progress in percent units.
    totalMsg: "{0}% {1}/{2} ",  // Set the message to show when the process has finished
-   className: "",  // Add an optional classname to the container
+   className: ""  // Add an optional classname to the container
 });
 }}}
    * Instance methods
@@ -273,7 +273,7 @@ _A modal box informing the user that the application is working and avoiding use
 var wait = new jsc.Wait ({
    text: null,  // Text in html elements
    className: "",  // Add an optional classname to the container
-   image: null,  // image url in buttons
+   image: null  // image url in buttons
 });
 }}}
    * Instance methods
@@ -298,7 +298,7 @@ var alert = new jsc.Alert ({
    animate: true,  // animate popup when is shown or hidden.
    buttonOk: true,  // show ok button in alert widget
    className: "",  // Add an optional classname to the container
-   onClose: null,  // callback function which will be executed when the element is closed
+   onClose: null  // callback function which will be executed when the element is closed
 });
 }}}
    * Instance methods
@@ -331,7 +331,7 @@ var box = new jsc.Box ({
    text: null,  // Text in html elements
    html: null,  // html content
    containerId: null,  // Id of the element where the widget will be inserted
-   : ,  // put elements in panels at north possition
+   :   // put elements in panels at north possition
 });
 }}}
    * Instance methods
@@ -356,7 +356,7 @@ var button = new jsc.Button ({
    type: 1,  // type
    text: null,  // Text in html elements
    onClick: null,  // callback function which will be executed when the element is clicked
-   containerId: null,  // Id of the element where the widget will be inserted
+   containerId: null  // Id of the element where the widget will be inserted
 });
 }}}
    * Instance methods
@@ -381,7 +381,7 @@ var popup = new jsc.Popup ({
    animate: true,  // animate popup when is shown or hidden.
    className: "",  // Add an optional classname to the container
    text: null,  // Text in html elements
-   : ,  // put elements in panels at north possition
+   :   // put elements in panels at north possition
 });
 }}}
    * Instance methods
@@ -544,7 +544,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Mon Apr 27 17:21:55 CEST 2009_
+*Date:* _Mon Apr 27 17:27:18 CEST 2009_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
