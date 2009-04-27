@@ -121,7 +121,7 @@ var datepicker = new jsc.DatePicker ({
    },
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
                                 //  Each action is represented with a character:  
-                                //  ';' panel-delimiter, 
+                                //  ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
                                 //  '?' help, 'x' close, '_' separator, '-' today,
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    numberOfMonths: 1,  // Number of months to show at a time
@@ -168,7 +168,7 @@ var intervalselector = new jsc.IntervalSelector ({
    stepMonths: 1,  // Number of months to step back/forward
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
                                 //  Each action is represented with a character:  
-                                //  ';' panel-delimiter, 
+                                //  ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
                                 //  '?' help, 'x' close, '_' separator, '-' today,
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    minDate: "+0d",  // The earliest selectable date
