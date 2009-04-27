@@ -10,7 +10,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 
 /**
- * JavaScript Implementation of progress bar that has a time calculation based on the data provided when is updated.
+ * Progress bar that has a time calculation based on the data provided when is updated.
  */
 @Export
 @ExportPackage("jsc")
@@ -103,6 +103,9 @@ public class Progress extends GWTCProgress implements Exportable {
             prgBar = p;
             run();
         }
+        /**
+         * @not
+         */
         public void run() {
             if (done == 0) {
                 prgBar.show();

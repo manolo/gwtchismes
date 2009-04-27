@@ -9,7 +9,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 
 /**
- * JavaScript Implementation of a modal box informing the user that the application is working and avoiding user interaction with the page.
+ * A modal box informing the user that the application is working and avoiding user interaction with the page.
  */
 @Export
 @ExportPackage("jsc")

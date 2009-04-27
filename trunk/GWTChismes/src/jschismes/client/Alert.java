@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * JavaScript Implementation of a modal Dialog
+ * A modal Dialog
  */
 @Export
 @ExportPackage("jsc")

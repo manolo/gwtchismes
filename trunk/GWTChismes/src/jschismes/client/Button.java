@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * JavaScript Implementation of a Button which can be rendered enterelly using html elements or can use the native browser buttons.
+ * A Button which can be rendered enterelly using html elements or can use the native browser buttons.
  */
 @Export
 @ExportPackage("jsc")

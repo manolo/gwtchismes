@@ -9,6 +9,7 @@ C=../GWTChismes-public
 V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$##'`
 [ -z "$V" ] && echo "Unable to get version from buld.xml" && exit
 
+cat src/jschismes/public/JsChismes.html | sed -e 's/JsChismes.nocache/JsChismesPretty.nocache/g' > src/jschismes/public/JsChismesPretty.html
 
 ant clean zip || exit
 
