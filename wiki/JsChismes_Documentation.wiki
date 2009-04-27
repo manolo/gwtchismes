@@ -543,6 +543,8 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 
 }}}
 *Author:* _Manolo Carrasco Moñino_
-*Date:* _Mon Apr 27 17:19:51 CEST 2009_
-(This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it)
+
+*Date:* _Mon Apr 27 17:21:55 CEST 2009_
+
+This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
