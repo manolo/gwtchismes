@@ -60,11 +60,6 @@ jsc.Const.EAST // put elements in panels at east possition
 == Utils ==
 _Utility methods
     _
-   * Constructor
-{{{
-var utils = new jsc.Utils ({
-});
-}}}
    * Static methods
 {{{
 
