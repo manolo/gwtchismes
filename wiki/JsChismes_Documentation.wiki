@@ -46,16 +46,18 @@ The generated javascript code is minimized, optimized and obfuscated and works f
 
 
 == Const ==
-_Package constants_
+_
+Package constants
+_
    * Public static constants
 {{{
-jsc.Const.SOUTH // put elements in panels at south possition
-jsc.Const.WEST // put elements in panels at west possition
-jsc.Const.NUMERIC_FORMAT // Internationalized pattern for numeric format. Default with language=en -> M/d/yyy
-jsc.Const.NORTH // put elements in panels at north possition
-jsc.Const.SHORT_FORMAT // Internationalized pattern for short format. Default with language=en -> M/d/yy
-jsc.Const.LONG_FORMAT // Internationalized pattern for long format. Default with language=en -> MMMM d, yyyy 
-jsc.Const.EAST // put elements in panels at east possition
+jsc.Const.SOUTH //put elements in panels at south possition
+jsc.Const.WEST //put elements in panels at west possition
+jsc.Const.NUMERIC_FORMAT //Internationalized pattern for numeric format. Default with language=en -> M/d/yyy
+jsc.Const.NORTH //put elements in panels at north possition
+jsc.Const.SHORT_FORMAT //Internationalized pattern for short format. Default with language=en -> M/d/yy
+jsc.Const.LONG_FORMAT //Internationalized pattern for long format. Default with language=en -> MMMM d, yyyy
+jsc.Const.EAST //put elements in panels at east possition
 }}}
 
 == Utils ==
@@ -117,7 +119,11 @@ var datepicker = new jsc.DatePicker ({
         prevYearTitle = null, // Title for previous year button when the mouse is over
         nextYearTitle = null, // Title for next year button when the mouse is over
    },
-   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
+   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
+                                //  Each action is represented with a character:  
+                                //  ';' panel-delimiter, 
+                                //  '?' help, 'x' close, '_' separator, '-' today,
+                                //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    numberOfMonths: 1,  // Number of months to show at a time
 });
 }}}
@@ -160,10 +166,14 @@ var intervalselector = new jsc.IntervalSelector ({
    numberOfColums: 3,  // Number of months per row when displaying multiple months
    monthRange: 12,  // Number of months to show in the months menu selector
    stepMonths: 1,  // Number of months to step back/forward
-   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
+   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
+                                //  Each action is represented with a character:  
+                                //  ';' panel-delimiter, 
+                                //  '?' help, 'x' close, '_' separator, '-' today,
+                                //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    minDate: "+0d",  // The earliest selectable date
    maxDate: "+1y",  // The latest selectable date
-   maxDays: 0,  // Limit for the number of days in an inteval. 
+   maxDays: 0,  // Limit for the number of days in an inteval.
    className: "",  // Add an optional classname to the container
    onSelect: new function(data){},  // Define a callback function when a date is selected
    regional: {     // hash with the set of key/values to internationalize the widget
@@ -227,7 +237,7 @@ var progress = new jsc.Progress ({
    hoursMsg: "Time remaining: {0} Hours",  // Set the message used to format the time remaining text below the progres bar in hours
    minutesMsg: "Time remaining: {0} Minutes",  // Set the message used to format the time remaining text below the progres bar in minutes
    secondsMsg: "Time remaining: {0} Seconds",  // Set the message used to format the time remaining text below the progres bar in seconds.
-   percentMsg: "{0}%",  // Set the message used to format the progress in percent units. 
+   percentMsg: "{0}%",  // Set the message used to format the progress in percent units.
    totalMsg: "{0}% {1}/{2} ",  // Set the message to show when the process has finished
    className: "",  // Add an optional classname to the container
 });
@@ -321,7 +331,7 @@ var box = new jsc.Box ({
    text: ,  // Title for next year button when the mouse is over
    html: null,  // html content
    containerId: null,  // Id of the element where the widget will be inserted
-   : ,  //  put elements in panels at north possition
+   : ,  // put elements in panels at north possition
 });
 }}}
    * Instance methods
@@ -371,7 +381,7 @@ var popup = new jsc.Popup ({
    animate: true,  // animate popup when is shown or hidden.
    className: "",  // Add an optional classname to the container
    text: ,  // Title for next year button when the mouse is over
-   : ,  //  put elements in panels at north possition
+   : ,  // put elements in panels at north possition
 });
 }}}
    * Instance methods
