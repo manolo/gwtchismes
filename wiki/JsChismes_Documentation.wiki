@@ -101,6 +101,20 @@ var datepicker = new jsc.DatePicker ({
    onSelect: new function(data){},  // Define a callback function when a date is selected
    className: "",  // Add an optional classname to the container
    regional: {     // hash with the set of key/values to internationalize the widget
+        helpText = "?", // Display text for close button
+        closeText = "x", // Display text for close button
+        currentText = "-", // Display text for current month button
+        prevText = "<", // Display text for previous month button
+        nextText = ">", // Display text for next month button
+        prevYearText = "<<", // Display text for previous year button
+        nextYearText = ">>", // Display text for next year button
+        helpTitle = null, // Title for help button when the mouse is over
+        closeTitle = null, // Title for close button when the mouse is over
+        currentTitle = null, // Title for current month button when the mouse is over
+        prevTitle = null, // Title for previous month button when the mouse is over
+        nextTitle = null, // Title for next month button when the mouse is over
+        prevYearTitle = null, // Title for previous year button when the mouse is over
+        nextYearTitle = null, // Title for next year button when the mouse is over
    },
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. ( ; panel-delimiter, ? help, x close, > next-month, < prev-month, n next-year, p prev-year, - today, _ separator). 
    numberOfMonths: 1,  // Number of months to show at a time
@@ -152,6 +166,20 @@ var intervalselector = new jsc.IntervalSelector ({
    className: "",  // Add an optional classname to the container
    onSelect: new function(data){},  // Define a callback function when a date is selected
    regional: {     // hash with the set of key/values to internationalize the widget
+        helpText = "?", // Display text for close button
+        closeText = "x", // Display text for close button
+        currentText = "-", // Display text for current month button
+        prevText = "<", // Display text for previous month button
+        nextText = ">", // Display text for next month button
+        prevYearText = "<<", // Display text for previous year button
+        nextYearText = ">>", // Display text for next year button
+        helpTitle = null, // Title for help button when the mouse is over
+        closeTitle = null, // Title for close button when the mouse is over
+        currentTitle = null, // Title for current month button when the mouse is over
+        prevTitle = null, // Title for previous month button when the mouse is over
+        nextTitle = null, // Title for next month button when the mouse is over
+        prevYearTitle = null, // Title for previous year button when the mouse is over
+        nextYearTitle = null, // Title for next year button when the mouse is over
    },
    containerId: null,  // Id of the element where the widget will be inserted
 });
