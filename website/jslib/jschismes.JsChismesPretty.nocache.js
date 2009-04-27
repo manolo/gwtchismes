@@ -75,24 +75,24 @@ function jschismes_JsChismesPretty(){
   function processMetas(){
     var metas = document.getElementsByTagName('meta');
     for (var i = 0, n = metas.length; i < n; ++i) {
-      var meta = metas[i], name_0 = meta.getAttribute('name'), content;
-      if (name_0) {
-        if (name_0 == 'gwt:property') {
+      var meta = metas[i], name = meta.getAttribute('name'), content;
+      if (name) {
+        if (name == 'gwt:property') {
           content = meta.getAttribute('content');
           if (content) {
             var value, eq = content.indexOf('=');
             if (eq >= 0) {
-              name_0 = content.substring(0, eq);
+              name = content.substring(0, eq);
               value = content.substring(eq + 1);
             }
              else {
-              name_0 = content;
+              name = content;
               value = '';
             }
-            metaProps[name_0] = value;
+            metaProps[name] = value;
           }
         }
-         else if (name_0 == 'gwt:onPropertyErrorFn') {
+         else if (name == 'gwt:onPropertyErrorFn') {
           content = meta.getAttribute('content');
           if (content) {
             try {
@@ -103,7 +103,7 @@ function jschismes_JsChismesPretty(){
             }
           }
         }
-         else if (name_0 == 'gwt:onLoadErrorFn') {
+         else if (name == 'gwt:onLoadErrorFn') {
           content = meta.getAttribute('content');
           if (content) {
             try {
@@ -122,8 +122,8 @@ function jschismes_JsChismesPretty(){
     return propValue in values[propName];
   }
 
-  function __gwt_getMetaProperty(name_0){
-    var value = metaProps[name_0];
+  function __gwt_getMetaProperty(name){
+    var value = metaProps[name];
     return value == null?null:value;
   }
 
@@ -155,7 +155,7 @@ function jschismes_JsChismesPretty(){
       var locale;
       if (locale == null) {
         var args = location.search;
-        var startLang = args.indexOf('locale=');
+        var startLang = args.indexOf('locale');
         if (startLang >= 0) {
           var language = args.substring(startLang);
           var begin = language.indexOf('=') + 1;
@@ -168,9 +168,6 @@ function jschismes_JsChismesPretty(){
       }
       if (locale == null) {
         locale = __gwt_getMetaProperty('locale');
-      }
-      if (locale == null) {
-        locale = $wnd_0['__gwt_Locale'];
       }
       if (locale == null) {
         return 'default';
@@ -241,31 +238,31 @@ function jschismes_JsChismesPretty(){
   $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'bootstrap', millis:(new Date()).getTime(), type:'selectingPermutation'});
   var strongName;
   try {
-    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_13.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_40.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_7.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_29.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_35.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_6.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_30.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_37.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_33.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_46.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_5.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_27.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_45.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_38.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_18.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_44.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_15.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_9.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_36.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_25.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_11.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_32.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_21.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_17.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_26.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_50.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_34.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_18.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_48.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_29.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_3.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_24.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_20.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_40.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_37.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_36.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_12.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_26.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_32.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_9.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_31.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_47.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_6.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_8.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_30.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_4.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_41.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_5.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_27.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_16.cache.js');
     strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
   }
    catch (e) {
@@ -310,4 +307,45 @@ function jschismes_JsChismesPretty(){
   $doc_0.write('<script><!--\n' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", subSystem:"startup",' + 'evtGroup: "loadExternalRefs", millis:(new Date()).getTime(),' + 'type: "end"});' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", subSystem:"startup",' + 'evtGroup: "moduleStartup", millis:(new Date()).getTime(),' + 'type: "moduleRequested"});' + 'document.write(' + compiledScriptTag + ');' + '\n--><\/script>');
 }
 
+jschismes_JsChismesPretty.__gwt_initHandlers = function(resize, beforeunload, unload){
+  var $wnd_0 = window, oldOnResize = $wnd_0.onresize, oldOnBeforeUnload = $wnd_0.onbeforeunload, oldOnUnload = $wnd_0.onunload;
+  $wnd_0.onresize = function(evt){
+    try {
+      resize();
+    }
+     finally {
+      oldOnResize && oldOnResize(evt);
+    }
+  }
+  ;
+  $wnd_0.onbeforeunload = function(evt){
+    var ret, oldRet;
+    try {
+      ret = beforeunload();
+    }
+     finally {
+      oldRet = oldOnBeforeUnload && oldOnBeforeUnload(evt);
+    }
+    if (ret != null) {
+      return ret;
+    }
+    if (oldRet != null) {
+      return oldRet;
+    }
+  }
+  ;
+  $wnd_0.onunload = function(evt){
+    try {
+      unload();
+    }
+     finally {
+      oldOnUnload && oldOnUnload(evt);
+      $wnd_0.onresize = null;
+      $wnd_0.onbeforeunload = null;
+      $wnd_0.onunload = null;
+    }
+  }
+  ;
+}
+;
 jschismes_JsChismesPretty();
