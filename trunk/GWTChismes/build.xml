@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.9.2" />
+	<property name="version" value="0.9.3" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />

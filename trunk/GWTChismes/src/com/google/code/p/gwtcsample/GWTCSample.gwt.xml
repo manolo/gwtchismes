@@ -8,8 +8,6 @@
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
    
-  <add-linker name="xs"/>
-  
   <stylesheet src="GWTC-compressed.css"/>
   <stylesheet src="GWTCSample.css"/>
   
