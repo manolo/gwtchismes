@@ -68,13 +68,23 @@ public class GWTCHelper {
     }-*/;
 
     private static native int getWindowScrollHeight() /*-{
-      return $doc.compatMode == 'CSS1Compat' ?
-          $doc.documentElement.scrollHeight : $doc.body.scrollHeight;
+      try {
+        return $doc.compatMode == 'CSS1Compat' ?
+            $doc.documentElement.scrollHeight : $doc.body.scrollHeight;
+      } catch(e) {
+        alert ("getWindowScrollHeight " +  $doc.compatMode + " " + e);
+        return 100; 
+      }
     }-*/;
 
     private static native int getWindowScrollWidth() /*-{
-      return $doc.compatMode == 'CSS1Compat' ?
-          $doc.documentElement.scrollWidth : $doc.body.scrollWidth;
+      try {
+        return $doc.compatMode == 'CSS1Compat' ?
+            $doc.documentElement.scrollWidth : $doc.body.scrollWidth;
+      } catch(e) {
+        alert ("getWindowScrollWidth " +  $doc.compatMode + " " + e);
+        return 100; 
+      }
     }-*/;
 
     /**

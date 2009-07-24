@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.Panel;
@@ -525,8 +526,12 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         if (text != null && text.length()>0) {
             if (b instanceof HasHTML )
                 ((HasHTML)b).setText(text);
+            else if (b instanceof HasText)
+                ((HasText)b).setText(text);
             else if (b instanceof GWTCDatePickerAbstract)
                 ((GWTCDatePickerAbstract)b).setCaptionText(text);
+            else
+              System.out.println("GWTCDatePickerAbstract.internationalize: unknown element " + b + " " + ktext + " " + text);
         }
         if (title != null && title.length()>0)
             b.setTitle(title);
