@@ -17,6 +17,10 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -113,8 +117,12 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
     }
 
     public GWTCButton(String html, ClickListener listener) {
+      this(html);
+  }
+
+    public GWTCButton(String html, ClickHandler clickHandler) {
         this(html);
-        addClickListener(listener);
+        addClickHandler(clickHandler);
     }
 
     public GWTCButton(String html) {
@@ -132,6 +140,10 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         this(type, html);
         addClickListener(listener);
     }
+    public GWTCButton(int type, String html,  ClickHandler clickHandler) {
+      this(type, html);
+      addClickHandler(clickHandler);
+  }
 
     public void setType(int type) {
         String text = getHTML();
@@ -151,6 +163,28 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         setHTML(text);
         sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK | Event.KEYEVENTS);
     }
+
+    MouseListener mouseOverListener = new MouseListener() {
+      public void onMouseUp(Widget sender, int x, int y) {
+          removeStyleDependentName(S_DOWN);
+      }
+
+      public void onMouseMove(Widget sender, int x, int y) {
+      }
+
+      public void onMouseEnter(Widget sender) {
+          addStyleDependentName(S_OVER);
+      }
+
+      public void onMouseLeave(Widget sender) {
+          removeStyleDependentName(S_DOWN);
+          removeStyleDependentName(S_OVER);
+      }
+
+      public void onMouseDown(Widget sender, int x, int y) {
+          addStyleDependentName(S_DOWN);
+      }
+  };
 
     private void setUpGWTCButton() {
         container = new FlexTable();
@@ -284,7 +318,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
 
     @Override
     public void click() {
-        clickListeners.fireClick(this);
+    	super.fireEvent(new ClickEvent(){});
     }
 
     @Override
@@ -301,7 +335,8 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         if (enabled) {
             if (mevent == Event.ONCLICK) {
                 this.removeStyleDependentName(S_OVER);
-                clickListeners.fireClick(this);
+                click();
+                //clickListeners.fireClick(this);
                 this.removeStyleDependentName(S_DOWN);
             } else if (container != null) {
                 textPanel.onBrowserEvent(event);
@@ -331,39 +366,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         mouseListeners.remove(listener);
     }
 
-    private ClickListenerCollection clickListeners = new ClickListenerCollection();
-
-    @Override
-    public void addClickListener(ClickListener listener) {
-        clickListeners.add(listener);
-    }
-
-    @Override
-    public void removeClickListener(ClickListener listener) {
-        clickListeners.remove(listener);
-    }
-
-    MouseListener mouseOverListener = new MouseListener() {
-        public void onMouseUp(Widget sender, int x, int y) {
-            removeStyleDependentName(S_DOWN);
-        }
-
-        public void onMouseMove(Widget sender, int x, int y) {
-        }
-
-        public void onMouseEnter(Widget sender) {
-            addStyleDependentName(S_OVER);
-        }
-
-        public void onMouseLeave(Widget sender) {
-            removeStyleDependentName(S_DOWN);
-            removeStyleDependentName(S_OVER);
-        }
-
-        public void onMouseDown(Widget sender, int x, int y) {
-            addStyleDependentName(S_DOWN);
-        }
-    };
+    
 
     // This code is needed because in GWT 1.5 setElement can be only called once
     Element element = null;
