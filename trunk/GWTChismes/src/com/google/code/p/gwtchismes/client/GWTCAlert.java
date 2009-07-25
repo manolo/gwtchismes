@@ -19,9 +19,11 @@
 package com.google.code.p.gwtchismes.client;
 
 
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
@@ -60,7 +62,7 @@ import com.google.gwt.user.client.ui.Widget;
  * </ul>
  * 
  */
-public class GWTCAlert extends GWTCPopupBox {
+public class GWTCAlert extends GWTCPopupBox implements HasClickHandlers {
     static final String MAIN_STYLE = "GWTCAlert";
     static final String STYLE_PANEL = "panel";
     static final String STYLE_MSG = "msgCell";
@@ -128,9 +130,9 @@ public class GWTCAlert extends GWTCPopupBox {
         
         okButton.addStyleName(GWTCAlert.STYLE_BUTTON);
         okButton.addStyleName("gwtc-alert-rndbutton");
-        this.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                hide();
+        this.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+              hide();
             }
         });
         
@@ -145,12 +147,6 @@ public class GWTCAlert extends GWTCPopupBox {
         super.add(contentTable);
     }
     
-    public void addClickListener(ClickListener listener) {
-        okButton.addClickListener(listener);
-    }
-    public void removeClickListener(ClickListener listener) {
-        okButton.removeClickListener(listener);
-    }
 
     /**
      * Set the text for OK button
@@ -238,4 +234,9 @@ public class GWTCAlert extends GWTCPopupBox {
         okButtonDisabled = b;
         okButton.setVisible(! okButtonDisabled );
     }
+    
+	  public HandlerRegistration addClickHandler(ClickHandler handler) {
+			return okButton.addClickHandler(handler);
+	  }
+
 }

@@ -5,6 +5,8 @@ import java.util.Map;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCHelper;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,10 +28,10 @@ public class CustomIntervalSelector extends GWTCIntervalSelector {
 
         checkoutCalendar.addStyleName(checkinCalendar.getStylePrimaryName() + "-custom");
 
-        addChangeListener(new ChangeListener() {
-            public void onChange(Widget sender) {
-                nightsLabel.setVisible(true);
-                nightsValue.setVisible(true);
+        addValueChangeHandler(new ValueChangeHandler<GWTCIntervalSelector>() {
+            public void onValueChange(ValueChangeEvent<GWTCIntervalSelector> event) {
+              nightsLabel.setVisible(true);
+              nightsValue.setVisible(true);
             }
         });
         
@@ -50,7 +52,7 @@ public class CustomIntervalSelector extends GWTCIntervalSelector {
         checkoutInfo.addStyleName(CHECKOUT_ROW);
         checkoutInfo.add(checkoutDateValue);
         checkoutInfo.add(checkoutButton);
-        checkoutDateValue.addClickListener(clickListener);
+        checkoutDateValue.addClickHandler(clickListener);
 
         getGrid().setWidget(idx, 1, checkoutInfo);
         getGrid().setWidget(idx, 2, nightsValue);
@@ -64,8 +66,8 @@ public class CustomIntervalSelector extends GWTCIntervalSelector {
     @Override
     public void setI18nMessages(Map<String, String> keys) {
         super.setI18nMessages(keys);
-        checkinCalendar.setText("");
-        checkoutCalendar.setText("");
+        checkinCalendar.setCaptionText("");
+        checkoutCalendar.setCaptionText("");
         checkinButton.setText("");
         checkoutButton.setText("");
         checkoutDateValue.setText("- - -");

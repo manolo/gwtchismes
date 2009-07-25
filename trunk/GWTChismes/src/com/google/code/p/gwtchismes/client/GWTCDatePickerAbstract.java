@@ -21,14 +21,17 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Vector;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -305,13 +308,12 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         outer.add(calendarGrid);
         outer.add(navButtonsBottom);
         
-
         
         drawDatePickerWidget();
         refresh();
         adjustDimensions();
         
-        DOM.sinkEvents(outer.getElement(), Event.MOUSEEVENTS | Event.KEYEVENTS);
+        DOM.sinkEvents(outer.getElement(), Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK);
         DOM.setStyleAttribute(outer.getElement(), "cursor", "default");
         DOM.setElementAttribute(monthMenu.getElement(), "align", "center");
     }
@@ -433,10 +435,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     protected void layoutCalendar() {
         calendarGrid.clear();
         calendarGrid.setCellSpacing(0);
-        int i = 0;
-        int row = -2;
-        int col = 0;
-        for (; i < simpleDatePickers.size(); i++) {
+        for (int i=0, row=-2, col=0; i < simpleDatePickers.size(); i++) {
             if ((i % monthColumns) == 0) {
                 col = 0;
                 row += 2;
@@ -461,7 +460,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
 
             calendarGrid.setWidget(row + 1, col, simpleDatePickers.get(i));
             calendarGrid.getColumnFormatter().addStyleName(i, "Month-" + i);
-            simpleDatePickers.get(i).addChangeListener(onDaySelected);
+            simpleDatePickers.get(i).addValueChangeHandler(onDaySelected);
             col++;
         }
         adjustDimensions();
@@ -676,9 +675,9 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         */
     }
     
-    ChangeListener onDaySelected = new ChangeListener() {
-        public void onChange(Widget sender) {
-            setSelectedDate(((GWTCSimpleDatePicker)sender).getSelectedDate());
+    ValueChangeHandler<GWTCSimpleDatePicker> onDaySelected = new ValueChangeHandler<GWTCSimpleDatePicker>() {
+        public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {
+					setSelectedDate(event.getValue().getSelectedDate());
         }
     };
 
@@ -857,12 +856,9 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         return incr;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.google.gwt.user.client.ui.ClickListener#onClick(com.google.gwt.user.client.ui.Widget)
-     */
-    public void onClick(Widget sender) {
+    @Override
+  	public void onClick(ClickEvent event) {
+  		  Widget sender = (Widget)event.getSource();
         if (prevMBtn.equals(sender)) {
             setCursorDate(GWTCSimpleDatePicker.increaseMonth(getCursorDate(), isMonthInRange(-1 * monthStep)));
         } else if (nextMBtn.equals(sender)) {
@@ -878,30 +874,27 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         } else if (closeBtn.equals(sender)) {
             hide();
         } else {
-            // click on an unknown element
+        	super.onClick(event);
         }
         refresh();
     }
     
-    /* (non-Javadoc)
-     * @see com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker#addChangeListener(com.google.gwt.user.client.ui.ChangeListener)
-     */
-    public void addChangeListener(ChangeListener listener) {
-        for(int i=0; i<simpleDatePickers.size(); i++){
-            simpleDatePickers.get(i).addChangeListener(listener);
+    @Override
+    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<GWTCSimpleDatePicker> handler) {
+      for(int i=0; i<simpleDatePickers.size(); i++){
+          simpleDatePickers.get(i).addValueChangeHandler(handler);
+      }
+  		return new HandlerRegistration() {
+        public void removeHandler() {
+          for(int i=0; i<simpleDatePickers.size(); i++){
+            simpleDatePickers.get(i).removeValueChangeHandler(handler);
         }
-    }
-
-    /* (non-Javadoc)
-     * @see com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker#removeChangeListener(com.google.gwt.user.client.ui.ChangeListener)
-     */
-    public void removeChangeListener(ChangeListener listener) {
-        for(int i=0; i<simpleDatePickers.size(); i++){
-            simpleDatePickers.get(i).removeChangeListener(listener);
         }
+  		};
     }
+    
 
-    private Button createButton(int buttonsType, String text, ClickListener listener) {
+    private Button createButton(int buttonsType, String text, ClickHandler clickHandler) {
         Button b;
         if(buttonsType == CONFIG_DEFAULT)
             b = new GWTCButton();
@@ -911,8 +904,8 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         if (buttonsType == CONFIG_FLAT_BUTTONS) 
             b.addStyleDependentName("flat");
         
-        if (listener != null)
-            b.addClickListener(listener);
+        if (clickHandler != null)
+            b.addClickHandler(clickHandler);
         
         b.setText(text);
         return b;
