@@ -8,9 +8,11 @@ import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
 import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
+import com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -60,11 +62,11 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
         if (jsProp.defined(Const.CLASS_NAME))
             super.setStyleName(jsProp.get(Const.CLASS_NAME));
         
-        addChangeListener(new ChangeListener() {
-            public void onChange(Widget sender) {
-                if (jsClosure != null)
-                    jsClosure.onChange(data());
-            }
+        addValueChangeHandler(new ValueChangeHandler<GWTCSimpleDatePicker>(){
+          public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {
+            if (jsClosure != null)
+              jsClosure.onChange(data());
+          }
         });
 
         super.setI18nMessages(regionalToHash(Const.REGIONAL, jsProp));
@@ -79,8 +81,8 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
             p.add(w);
     }
 
-    protected static HashMap regionalToHash(String regionalKey, JsProperties prop) {
-        HashMap strs = new HashMap();
+    protected static HashMap<String,String> regionalToHash(String regionalKey, JsProperties prop) {
+        HashMap<String,String> strs = new HashMap<String,String>();
         if (prop.defined(regionalKey)) {
             JsProperties reg = prop.getJsProperties(regionalKey);
             for (String key : reg.keys()) {

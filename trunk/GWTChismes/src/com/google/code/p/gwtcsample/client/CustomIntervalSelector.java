@@ -3,13 +3,10 @@ package com.google.code.p.gwtcsample.client;
 import java.util.Map;
 
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
-import com.google.code.p.gwtchismes.client.GWTCHelper;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 
 public class CustomIntervalSelector extends GWTCIntervalSelector {

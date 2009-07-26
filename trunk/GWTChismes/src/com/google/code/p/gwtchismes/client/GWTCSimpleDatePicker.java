@@ -131,6 +131,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 			initWidget(calendarGrid);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void refresh() {
 
 		if (!needsRedraw)
@@ -403,6 +404,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 *            number of months to increase (for decreasing use negative values)
 	 * @return the new Date
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date increaseMonth(Date date, int n) {
 		if (date.getDate() > 28) {
 			Date currentMonthFirstDay = getFirstDayOfMonth(date);
@@ -414,6 +416,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 		return add(date, n, CONST_MONTHS);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static long getMonthNumber(Date d) {
 		return d.getYear() * 12 + d.getMonth();
 	}
@@ -451,6 +454,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 *            reference date
 	 * @return the number of days in this month [1...31]
 	 */
+	@SuppressWarnings("deprecation")
 	public static int daysInMonth(Date d) {
 		int m = d.getMonth();
 		switch (m) {
@@ -496,6 +500,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 *            type of operation 
 	 * @return new date
 	 */
+	@SuppressWarnings("deprecation")
 	private static Date add(Date date, int value, int type) {
 		Date d = setHourToZero(new Date(date.getTime()));
 		if (type == CONST_YEARS)
@@ -577,6 +582,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 *            Date
 	 * @return Modified date
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date setHourToZero(Date date) {
 		Date d = new Date(date.getTime());
 		d.setHours(0);
@@ -596,6 +602,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 * @param date
 	 *            Date
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date getFirstDayOfMonth(Date date) {
 		return setHourToZero(new Date(date.getYear(), date.getMonth(), 1));
 	}
@@ -621,6 +628,7 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 	 *            day of month (1...31)
 	 * @return new Date
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date newDateFromYMD(int y, int m, int d) {
 		Date dat = new Date();
 		dat.setDate(1);
@@ -704,7 +712,8 @@ public class GWTCSimpleDatePicker extends Composite implements  ClickHandler, Ha
 		}
 	}
 
-	public void onClick(ClickEvent event) {
+	@SuppressWarnings("deprecation")
+  public void onClick(ClickEvent event) {
 		if (event.getSource() instanceof CellHTML) {
 			CellHTML cell = (CellHTML) event.getSource();
 			if (cell.isEnabled()) {

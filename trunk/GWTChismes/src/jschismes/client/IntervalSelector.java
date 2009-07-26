@@ -9,8 +9,8 @@ import org.timepedia.exporter.client.Exportable;
 import com.google.code.p.gwtchismes.client.GWTCDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCIntervalSelector;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
 
 
@@ -61,11 +61,11 @@ public class IntervalSelector extends GWTCIntervalSelector implements Exportable
         if (jsProp.defined(Const.ON_SELECT))
             addSelectListener(jsProp.getClosure(Const.ON_SELECT));
 
-        addChangeListener(new ChangeListener() {
-            public void onChange(Widget sender) {
-                if (jsClosure != null)
-                    jsClosure.onChange(data());
-            }
+        addValueChangeHandler(new ValueChangeHandler<GWTCIntervalSelector>(){
+          public void onValueChange(ValueChangeEvent<GWTCIntervalSelector> event) {
+            if (jsClosure != null)
+              jsClosure.onChange(data());
+          }
         });
 
         super.setI18nMessages(DatePicker.regionalToHash(Const.REGIONAL, jsProp));

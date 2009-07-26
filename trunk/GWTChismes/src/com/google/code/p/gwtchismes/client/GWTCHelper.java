@@ -305,9 +305,9 @@ public class GWTCHelper {
     }
     
     
-    public static List findElementsWithClass(Element element, String className, List result) {
+    public static List<Element> findElementsWithClass(Element element, String className, List<Element> result) {
         if (result == null) {
-            result = new Vector();
+            result = new Vector<Element>();
         }
 
         String cls = DOM.getElementProperty(element, "className");
