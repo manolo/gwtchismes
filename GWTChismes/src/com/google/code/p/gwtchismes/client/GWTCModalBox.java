@@ -1,7 +1,8 @@
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -72,9 +73,9 @@ public class GWTCModalBox extends DialogBox {
         if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
             background = new GWTCGlassPanel();
             if ((options & OPTION_DISABLE_AUTOHIDE) != OPTION_DISABLE_AUTOHIDE) {
-                background.addClickListener(new ClickListener(){
-                    public void onClick(Widget sender) {
-                        hide();
+                background.addClickHandler(new ClickHandler(){
+                    public void onClick(ClickEvent event) {
+                      hide();
                     }
                 });
             }

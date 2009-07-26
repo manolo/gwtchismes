@@ -173,7 +173,7 @@ public class GWTCBox extends DecoratorPanel {
      * @see com.google.gwt.user.client.ui.SimplePanel#iterator()
      */
     @Override
-    public Iterator iterator() {
+    public Iterator<Widget> iterator() {
         return panel.iterator();
     }
 

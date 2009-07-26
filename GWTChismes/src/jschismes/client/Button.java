@@ -6,8 +6,9 @@ import org.timepedia.exporter.client.Exportable;
 
 import com.google.code.p.gwtchismes.client.GWTCButton;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -33,13 +34,14 @@ public class Button extends GWTCButton implements Exportable {
         if (jsProp.defined(Const.ON_CLICK))
             addListener(jsProp.getClosure(Const.ON_CLICK));
         
-        addClickListener(new ClickListener() {
-            public void onClick(Widget w) {
-                if (jsClosure != null)
-                    jsClosure.onChange(w);
-            }
+        
+        addClickHandler(new ClickHandler(){
+          public void onClick(ClickEvent event) {
+            if (jsClosure != null)
+              jsClosure.onChange(((Widget)event.getSource()));
+          }
         });
- 
+        
         DatePicker.attachToDocument(this, Const.CONT_ID, jsProp);
     }
     

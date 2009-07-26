@@ -17,28 +17,33 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.HasMouseOutHandlers;
+import com.google.gwt.event.dom.client.HasMouseOverHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.ClickListenerCollection;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.MouseListener;
-import com.google.gwt.user.client.ui.MouseListenerCollection;
-import com.google.gwt.user.client.ui.SourcesClickEvents;
-import com.google.gwt.user.client.ui.SourcesKeyboardEvents;
-import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -88,7 +93,7 @@ import com.google.gwt.user.client.ui.Widget;
  * </ul>
  * 
  */
-public class GWTCButton extends Button implements SourcesMouseEvents, SourcesClickEvents, SourcesKeyboardEvents {
+public class GWTCButton extends Button implements HasMouseOverHandlers, HasMouseOutHandlers {
     public static final int BUTTON_TYPE_0 = 0;
     public static final int BUTTON_TYPE_1 = 1;
     public static int DEFAULT_TYPE = 1;
@@ -116,9 +121,6 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         setType(DEFAULT_TYPE);
     }
 
-    public GWTCButton(String html, ClickListener listener) {
-      this(html);
-  }
 
     public GWTCButton(String html, ClickHandler clickHandler) {
         this(html);
@@ -136,10 +138,6 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         setHTML(html);
     }
 
-    public GWTCButton(int type, String html, ClickListener listener) {
-        this(type, html);
-        addClickListener(listener);
-    }
     public GWTCButton(int type, String html,  ClickHandler clickHandler) {
       this(type, html);
       addClickHandler(clickHandler);
@@ -159,33 +157,44 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         } else {
             setUpGWTCButton();
         }
-        addMouseListener(mouseOverListener);
+        addMouseDownHandler(mouseDownHandler);
+        addMouseOverHandler(mouseOverHandler);
+        addMouseOutHandler(mouseOutHandler);
         setHTML(text);
-        sinkEvents(Event.MOUSEEVENTS | Event.ONCLICK | Event.KEYEVENTS);
     }
 
-    MouseListener mouseOverListener = new MouseListener() {
-      public void onMouseUp(Widget sender, int x, int y) {
-          removeStyleDependentName(S_DOWN);
-      }
-
-      public void onMouseMove(Widget sender, int x, int y) {
-      }
-
-      public void onMouseEnter(Widget sender) {
-          addStyleDependentName(S_OVER);
-      }
-
-      public void onMouseLeave(Widget sender) {
-          removeStyleDependentName(S_DOWN);
-          removeStyleDependentName(S_OVER);
-      }
-
-      public void onMouseDown(Widget sender, int x, int y) {
-          addStyleDependentName(S_DOWN);
-      }
-  };
-
+   MouseOverHandler mouseOverHandler = new MouseOverHandler() {
+    public void onMouseOver(MouseOverEvent event) {
+      addStyleDependentName(S_OVER);
+    }
+   };
+   MouseOutHandler mouseOutHandler = new MouseOutHandler() {
+    public void onMouseOut(MouseOutEvent event) {
+      removeStyleDependentName(S_DOWN);
+      removeStyleDependentName(S_OVER);
+    }
+   };
+   MouseDownHandler mouseDownHandler = new MouseDownHandler(){
+    public void onMouseDown(MouseDownEvent event) {
+      addStyleDependentName(S_DOWN);
+    }
+   };
+   
+   public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+  	 return container != null ? textPanel.addMouseOverHandler(handler):  super.addMouseOverHandler(handler); 
+   }
+   public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+  	 return container != null ? textPanel.addMouseOutHandler(handler):  super.addMouseOutHandler(handler); 
+   }
+   public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+  	 return container != null ? textPanel.addMouseDownHandler(handler):  super.addMouseDownHandler(handler); 
+   }
+   public HandlerRegistration addClickHandler(ClickHandler handler) {
+  	 //return container != null ? textPanel.addClickHandler(handler):  super.addClickHandler(handler);
+  	 return super.addClickHandler(handler);
+   }
+   
+   
     private void setUpGWTCButton() {
         container = new FlexTable();
         container.setStyleName(S_BTN);
@@ -196,8 +205,12 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         container.getCellFormatter().setStyleName(0, 1, S_BTN + "-" + S_C);
 
         textPanel = new FocusPanel();
-        textPanel.addFocusListener(focusListener);
-        textPanel.addKeyboardListener(keyboardListener);
+        textPanel.addFocusHandler(focusHandler);
+        textPanel.addBlurHandler(blurHandler);
+        textPanel.addKeyPressHandler(keyPressHandler);
+        textPanel.addMouseDownHandler(mouseDownHandler);
+        textPanel.addMouseOverHandler(mouseOverHandler);
+        textPanel.addMouseOutHandler(mouseOutHandler);
         textPanel.setStyleName(S_BTN + "-focus");
         container.setWidget(0, 1, textPanel);
 
@@ -205,7 +218,7 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         container.getCellFormatter().setStyleName(0, 2, S_BTN + "-" + S_R);
 
         replaceElement(container.getElement());
-        DOM.sinkEvents(textPanel.getElement(), Event.FOCUSEVENTS | Event.KEYEVENTS | Event.MOUSEEVENTS);
+        DOM.sinkEvents(textPanel.getElement(), Event.ONCLICK | Event.FOCUSEVENTS | Event.ONMOUSEDOWN | Event.ONMOUSEOVER | Event.ONMOUSEOUT);
     }
 
     @Override
@@ -331,18 +344,18 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
     @Override
     public void onBrowserEvent(Event event) {
         int mevent = DOM.eventGetType(event);
-        mouseListeners.fireMouseEvent(this, event);
         if (enabled) {
             if (mevent == Event.ONCLICK) {
                 this.removeStyleDependentName(S_OVER);
                 click();
-                //clickListeners.fireClick(this);
                 this.removeStyleDependentName(S_DOWN);
             } else if (container != null) {
                 textPanel.onBrowserEvent(event);
             } else {
                 super.onBrowserEvent(event);
             }
+        } else {
+          super.onBrowserEvent(event);
         }
     }
 
@@ -355,18 +368,6 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
             this.addStyleDependentName(S_DISABLED);
         }
     }
-
-    private MouseListenerCollection mouseListeners = new MouseListenerCollection();
-
-    public void addMouseListener(MouseListener listener) {
-        mouseListeners.add(listener);
-    }
-
-    public void removeMouseListener(MouseListener listener) {
-        mouseListeners.remove(listener);
-    }
-
-    
 
     // This code is needed because in GWT 1.5 setElement can be only called once
     Element element = null;
@@ -388,28 +389,23 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
             this.element = super.getElement();
         return this.element;
     }
-
-    FocusListener focusListener = new FocusListener() {
-        public void onFocus(Widget sender) {
-            addStyleDependentName(S_FOCUS);
-        }
-
-        public void onLostFocus(Widget sender) {
-            removeStyleDependentName(S_FOCUS);
-        }
+    
+    FocusHandler focusHandler = new FocusHandler() {
+      public void onFocus(FocusEvent event) {
+        addStyleDependentName(S_FOCUS);
+      }
+    };
+    BlurHandler blurHandler = new BlurHandler() {
+      public void onBlur(BlurEvent event) {
+        removeStyleDependentName(S_FOCUS);
+      }
     };
 
-    KeyboardListener keyboardListener = new KeyboardListener() {
-        public void onKeyDown(Widget sender, char keyCode, int modifiers) {
-        }
-
-        public void onKeyPress(Widget sender, char keyCode, int modifiers) {
-            if (keyCode == KeyboardListener.KEY_ENTER)
-                click();
-        }
-
-        public void onKeyUp(Widget sender, char keyCode, int modifiers) {
-        }
+    KeyPressHandler keyPressHandler = new KeyPressHandler() {
+      public void onKeyPress(KeyPressEvent event) {
+      	if (event.getCharCode() == KeyCodes.KEY_ENTER)
+          click();
+      }
     };
 
     @Override
@@ -444,4 +440,5 @@ public class GWTCButton extends Button implements SourcesMouseEvents, SourcesCli
         else
             textPanel.setTabIndex(index);
     }
+    
 }

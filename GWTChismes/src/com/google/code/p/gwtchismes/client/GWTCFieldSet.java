@@ -50,7 +50,7 @@ public class GWTCFieldSet extends Panel {
     public boolean remove(Widget w) {
         return dockpanel.remove(w);
     }
-    public Iterator iterator() {
+    public Iterator<Widget> iterator() {
         return dockpanel.iterator();
     }
 
