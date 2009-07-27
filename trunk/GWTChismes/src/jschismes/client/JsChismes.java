@@ -17,12 +17,10 @@
 
 package jschismes.client;
 
-
 import org.timepedia.exporter.client.Exporter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-
 
 /**
  * @author Manuel Carrasco Moñino 
@@ -31,23 +29,21 @@ import com.google.gwt.core.client.GWT;
  * This class exports the gwtChismes collection into a native javascript library.
  */
 public class JsChismes implements EntryPoint {
-    public void onModuleLoad() {
-        ((Exporter) GWT.create(Const.class)).export();
-        ((Exporter) GWT.create(Utils.class)).export();
-        ((Exporter) GWT.create(DatePicker.class)).export();
-        ((Exporter) GWT.create(IntervalSelector.class)).export();
-        ((Exporter) GWT.create(Button.class)).export();
-        ((Exporter) GWT.create(Wait.class)).export();
-        ((Exporter) GWT.create(Alert.class)).export();
-        ((Exporter) GWT.create(Popup.class)).export();
-        ((Exporter) GWT.create(Box.class)).export();
-        ((Exporter) GWT.create(Progress.class)).export();
-        onLoadImpl();
-    }
-    
-    private native void onLoadImpl() /*-{
-     if ($wnd.jscOnLoad) $wnd.jscOnLoad();
-    }-*/;
+  public void onModuleLoad() {
+    ((Exporter) GWT.create(Const.class)).export();
+    ((Exporter) GWT.create(Utils.class)).export();
+    ((Exporter) GWT.create(DatePicker.class)).export();
+    ((Exporter) GWT.create(IntervalSelector.class)).export();
+    ((Exporter) GWT.create(Button.class)).export();
+    ((Exporter) GWT.create(Wait.class)).export();
+    ((Exporter) GWT.create(Alert.class)).export();
+    ((Exporter) GWT.create(Popup.class)).export();
+    ((Exporter) GWT.create(Box.class)).export();
+    ((Exporter) GWT.create(Progress.class)).export();
+    onLoadImpl();
+  }
+
+  private native void onLoadImpl() /*-{
+    if ($wnd.jscOnLoad) $wnd.jscOnLoad();
+  }-*/;
 }
-
-

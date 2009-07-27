@@ -21,27 +21,24 @@ import java.util.Date;
 
 import com.google.code.p.gwtchismes.client.GWTCDatePickerAbstract;
 
-
 public class GWTCDatePickerCustom extends GWTCDatePickerAbstract {
-    public GWTCDatePickerCustom() {
-        initialize(CONFIG_DIALOG | CONFIG_BACKGROUND | CONFIG_FLAT_BUTTONS);
-    }
-    
-    @Override
-    public void drawDatePickerWidget() {
-        //String buttonsLayout = "  x;;;;<->";
-        String buttonsLayout = "< >;;;-  x";
-        int monthsToDisplay = 6;
-        int monthsPerColumn = 3;
-        int monthsIncrement = 6;
-        int maxMonthsInMenu = 32;
-        
-        configure(buttonsLayout, monthsToDisplay, monthsPerColumn, monthsIncrement, maxMonthsInMenu);
-        
-        setMinimalDate(increaseMonth(new Date(), -24));
-        setMaximalDate(increaseMonth(new Date(), 24));
-        addStyleName("GWTCDatePicker-custom");
-    }
+  public GWTCDatePickerCustom() {
+    initialize(CONFIG_DIALOG | CONFIG_BACKGROUND | CONFIG_FLAT_BUTTONS);
+  }
+
+  @Override
+  public void drawDatePickerWidget() {
+    String buttonsLayout = "< >;;;-  x";
+    int monthsToDisplay = 6;
+    int monthsPerColumn = 3;
+    int monthsIncrement = 6;
+    int maxMonthsInMenu = 32;
+
+    configure(buttonsLayout, monthsToDisplay, monthsPerColumn, monthsIncrement, maxMonthsInMenu);
+
+    setMinimalDate(increaseMonth(new Date(), -24));
+    setMaximalDate(increaseMonth(new Date(), 24));
+    addStyleName("GWTCDatePicker-custom");
+  }
 
 }
-

@@ -17,7 +17,6 @@
 
 package com.google.code.p.gwtchismes.client;
 
-
 /**
  * <p>
  * <b>Implementation of a customizable DatePicker.</b> 
@@ -44,9 +43,9 @@ package com.google.code.p.gwtchismes.client;
  * 
  * <h3>Example</h3>
  * <pre>
-      ChangeListener listener = new ChangeListener() {
-            public void onChange(Widget sender) {
-                Window.alert(((GWTCSimpleDatePicker) sender).getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+      ChangeListener<GWTCSimpleDatePicker> listener = new ValueChangeHandler<GWTCSimpleDatePicker>() {
+			      public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {
+                Window.alert(event.getValue().getSelectedDateStr("MMMM dd, yyyy (dddd)"));
             }
         };
 
@@ -57,10 +56,10 @@ package com.google.code.p.gwtchismes.client;
 
         final GWTCDatePicker picker1 = new GWTCDatePicker(options1);
         picker1.setText("Select a valid date");
-        picker1.addChangeListener(listener);
-        RootPanel.get().add(new Button("picker 1", new ClickListener() {
-            public void onClick(Widget sender) {
-                picker1.show(sender);
+        picker1.addValueChangeHandler(listener);
+        RootPanel.get().add(new Button("picker 1", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                picker1.show();
             }
         }));
 
@@ -68,11 +67,11 @@ package com.google.code.p.gwtchismes.client;
         int options2 = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_BACKGROUND;
         final GWTCDatePicker picker2 = new GWTCDatePicker(options2, 2, "< >;;;;- x");
         picker2.setText("Select a valid date");
-        picker2.addChangeListener(listener);
+        picker2.addValueChangeHandler(listener);
         picker2.setMinimalDate(GWTCDatePicker.increaseMonth(new Date(), -12));
-        RootPanel.get().add(new Button("picker 2", new ClickListener() {
-            public void onClick(Widget sender) {
-                picker2.show(sender);
+        RootPanel.get().add(new Button("picker 2", new ClickHandler() {
+            public void onClick(ClickEnvent event) {
+                picker2.show((Widget)event.getSource);
             }
         }));
    
@@ -143,120 +142,116 @@ package com.google.code.p.gwtchismes.client;
  * </ul>
  */
 public class GWTCDatePicker extends GWTCDatePickerAbstract {
-    
-    public static final int CONFIG_NO_CLOSE_BUTTON = (int) Math.pow(2, constant_cont++);
-    public static final int CONFIG_NO_YEAR_BUTTON = (int) Math.pow(2, constant_cont++);
-    public static final int CONFIG_NO_HELP_BUTTON = (int) Math.pow(2, constant_cont++);
 
-    public static final int CONFIG_LAYOUT_1 = CONFIG_DEFAULT;
-    public static final int CONFIG_LAYOUT_2 = (int) Math.pow(2, constant_cont++);
-    public static final int CONFIG_LAYOUT_3 = (int) Math.pow(2, constant_cont++);
-    public static final int CONFIG_LAYOUT_4 = (int) Math.pow(2, constant_cont++);
-    public static final int CONFIG_LAYOUT_5 = (int) Math.pow(2, constant_cont++);
-    
-    protected static final String StyleLayout = "layout";
+  public static final int CONFIG_NO_CLOSE_BUTTON = (int) Math.pow(2, constant_cont++);
+  public static final int CONFIG_NO_YEAR_BUTTON = (int) Math.pow(2, constant_cont++);
+  public static final int CONFIG_NO_HELP_BUTTON = (int) Math.pow(2, constant_cont++);
 
-    private static String[] layouts = {
-        "?mx;p<->n", //layout 1 
-        "? x;p<m>n", //layout 2
-        "? x;p< >n; m ", //layout 3
-        "? x;p< >n", //layout 4
-        }; 
-    private String layoutButtons = layouts[0];
-    private int numberOfMonths = 1;
- 
-    public GWTCDatePicker() {
-        this(0);
-    }
+  public static final int CONFIG_LAYOUT_1 = CONFIG_DEFAULT;
+  public static final int CONFIG_LAYOUT_2 = (int) Math.pow(2, constant_cont++);
+  public static final int CONFIG_LAYOUT_3 = (int) Math.pow(2, constant_cont++);
+  public static final int CONFIG_LAYOUT_4 = (int) Math.pow(2, constant_cont++);
+  public static final int CONFIG_LAYOUT_5 = (int) Math.pow(2, constant_cont++);
 
-    /**
-     * Creates the calendar instance based in the configuration provided, and the numerical layout index. 
-     */
-    public GWTCDatePicker(int config, int layout) {
-        this(config, 1, getButtonLayout(layout));
-        addStyleDependentName(StyleLayout + layout);
-    }
-    
-    public GWTCDatePicker(int config, String buttonsLayout, int months, int monthsPerRow, int monthsStep, int monthsInSelector) {
-        this.layoutButtons = buttonsLayout != null ? buttonsLayout : layouts[0];
-        this.numberOfMonths = months;
-        this.monthColumns = monthsPerRow;
-        this.monthSelector = monthsInSelector;
-        this.monthStep = monthsStep;
-        initialize(config);
-    }
-    
-    /**
-     * Creates the calendar instance based in the configuration provided, 
-     * number of months to display and the buttons layout representacion.  
-     */
-    public GWTCDatePicker(int config, int months, String layout) {
-        layoutButtons = layout != null ? layout : layouts[0];
-        if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || (config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON)
-            layoutButtons = layoutButtons.replaceAll("x", " ");
-        if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON)
-            layoutButtons = layoutButtons.replaceAll("\\?", " ");
-        if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON) 
-            layoutButtons = layoutButtons.replaceAll("[pn]", "");
-        layoutButtons = layoutButtons.replaceAll("(^ +;)|(; +;)", ";");
-        
-        numberOfMonths = months;
-        monthColumns = 3;
-        initialize(config);
-    }
-    
+  protected static final String StyleLayout = "layout";
 
-    /**
-     * Creates the calendar instance based in the configuration provided. 
-     * 
-     * Options can be passed joining these using the or bit wise operator:
-     * <ul>
-     * <li>CONFIG_NO_CLOSE_BUTTON   hide close button</li>
-     * <li>CONFIG_NO_YEAR_BUTTON    hide year navigation buttons</li>
-     * <li>CONFIG_NO_YEAR_BUTTON    hide help button</li>
-     * <li>CONFIG_LAYOUT[1..5]      select a layout from 1 to 5</li>
-     * <li>CONFIG_DIALOG            show as modal dialog</li>
-     * <li>CONFIG_DIALOG            show as modal dialog</li>
-     * <li>CONFIG_ROUNDED_BOX       wrap with a rounded-corner box</li>
-     * <li>CONFIG_NO_AUTOHIDE       don't autohide dialog when the user click out of the picker</li>
-     * <li>CONFIG_NO_ANIMATION      don't animate the dialog box when it is showed/hidden</li>
-     * <li>CONFIG_NO_ANIMATION      don't animate the dialog box when it is showed/hidden</li>
-     * <li>CONFIG_BACKGROUND        show a semitransparent background covering all the document</li>
-     * <li>CONFIG_FLAT_BUTTONS      use native Buttons instead of GWTCButton also add the dependent class 'flat'</li>
-     * <li>CONFIG_STANDARD_BUTTONS  use native browser Buttons instead of GWTCButton</li>
-     * </ul>
-     */
-    public GWTCDatePicker(int config) {
-        this(config, getLayoutIndex(config));
-    }
-    
-    private static int getLayoutIndex(int config) {
-        if ((config & CONFIG_LAYOUT_2) == CONFIG_LAYOUT_2)
-            return 1;
-        else if ((config & CONFIG_LAYOUT_3) == CONFIG_LAYOUT_3)
-            return 2;
-        else if ((config & CONFIG_LAYOUT_4) == CONFIG_LAYOUT_4)
-            return 3;
-        else
-            return 0;
-    }
-    
-    /**
-     * Returns the button layout representation, for a numeric argument. 
-     */
-    protected static String getButtonLayout(int layout) {
-        String ret = (layout < 0 || layout > layouts.length) ? layouts[0]: layouts[layout];
-        return ret;
-    }
+  private static String[] layouts = { "?mx;p<->n", //layout 1 
+              "? x;p<m>n", //layout 2
+              "? x;p< >n; m ", //layout 3
+              "? x;p< >n", //layout 4
+  };
+  private String layoutButtons = layouts[0];
+  private int numberOfMonths = 1;
 
+  public GWTCDatePicker() {
+    this(0);
+  }
 
-    @Override
-    protected void drawDatePickerWidget() {
-        super.setNumberOfMonths(numberOfMonths);
-        super.layoutButtons(layoutButtons);
-        super.layoutCalendar();
-        
-    }
-    
+  /**
+   * Creates the calendar instance based in the configuration provided, and the numerical layout index. 
+   */
+  public GWTCDatePicker(int config, int layout) {
+    this(config, 1, getButtonLayout(layout));
+    addStyleDependentName(StyleLayout + layout);
+  }
+
+  public GWTCDatePicker(int config, String buttonsLayout, int months, int monthsPerRow, int monthsStep, int monthsInSelector) {
+    this.layoutButtons = buttonsLayout != null ? buttonsLayout : layouts[0];
+    this.numberOfMonths = months;
+    this.monthColumns = monthsPerRow;
+    this.monthSelector = monthsInSelector;
+    this.monthStep = monthsStep;
+    initialize(config);
+  }
+
+  /**
+   * Creates the calendar instance based in the configuration provided, 
+   * number of months to display and the buttons layout representacion.  
+   */
+  public GWTCDatePicker(int config, int months, String layout) {
+    layoutButtons = layout != null ? layout : layouts[0];
+    if ((config & CONFIG_DIALOG) != CONFIG_DIALOG || (config & CONFIG_NO_CLOSE_BUTTON) == CONFIG_NO_CLOSE_BUTTON)
+      layoutButtons = layoutButtons.replaceAll("x", " ");
+    if ((config & CONFIG_NO_HELP_BUTTON) == CONFIG_NO_HELP_BUTTON)
+      layoutButtons = layoutButtons.replaceAll("\\?", " ");
+    if ((config & CONFIG_NO_YEAR_BUTTON) == CONFIG_NO_YEAR_BUTTON)
+      layoutButtons = layoutButtons.replaceAll("[pn]", "");
+    layoutButtons = layoutButtons.replaceAll("(^ +;)|(; +;)", ";");
+
+    numberOfMonths = months;
+    monthColumns = 3;
+    initialize(config);
+  }
+
+  /**
+   * Creates the calendar instance based in the configuration provided. 
+   * 
+   * Options can be passed joining these using the or bit wise operator:
+   * <ul>
+   * <li>CONFIG_NO_CLOSE_BUTTON   hide close button</li>
+   * <li>CONFIG_NO_YEAR_BUTTON    hide year navigation buttons</li>
+   * <li>CONFIG_NO_YEAR_BUTTON    hide help button</li>
+   * <li>CONFIG_LAYOUT[1..5]      select a layout from 1 to 5</li>
+   * <li>CONFIG_DIALOG            show as modal dialog</li>
+   * <li>CONFIG_DIALOG            show as modal dialog</li>
+   * <li>CONFIG_ROUNDED_BOX       wrap with a rounded-corner box</li>
+   * <li>CONFIG_NO_AUTOHIDE       don't autohide dialog when the user click out of the picker</li>
+   * <li>CONFIG_NO_ANIMATION      don't animate the dialog box when it is showed/hidden</li>
+   * <li>CONFIG_NO_ANIMATION      don't animate the dialog box when it is showed/hidden</li>
+   * <li>CONFIG_BACKGROUND        show a semitransparent background covering all the document</li>
+   * <li>CONFIG_FLAT_BUTTONS      use native Buttons instead of GWTCButton also add the dependent class 'flat'</li>
+   * <li>CONFIG_STANDARD_BUTTONS  use native browser Buttons instead of GWTCButton</li>
+   * </ul>
+   */
+  public GWTCDatePicker(int config) {
+    this(config, getLayoutIndex(config));
+  }
+
+  private static int getLayoutIndex(int config) {
+    if ((config & CONFIG_LAYOUT_2) == CONFIG_LAYOUT_2)
+      return 1;
+    else if ((config & CONFIG_LAYOUT_3) == CONFIG_LAYOUT_3)
+      return 2;
+    else if ((config & CONFIG_LAYOUT_4) == CONFIG_LAYOUT_4)
+      return 3;
+    else
+      return 0;
+  }
+
+  /**
+   * Returns the button layout representation, for a numeric argument. 
+   */
+  protected static String getButtonLayout(int layout) {
+    String ret = (layout < 0 || layout > layouts.length) ? layouts[0] : layouts[layout];
+    return ret;
+  }
+
+  @Override
+  protected void drawDatePickerWidget() {
+    super.setNumberOfMonths(numberOfMonths);
+    super.layoutButtons(layoutButtons);
+    super.layoutCalendar();
+
+  }
+
 }
-

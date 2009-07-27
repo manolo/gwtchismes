@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-
 /**
  * <p>
  * <b>Widget designed to inform the user that the application is working</b>
@@ -71,91 +70,89 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class GWTCWait extends GWTCPopupBox {
 
-    private static final String MAIN_STYLE = "GWTCWait";
+  private static final String MAIN_STYLE = "GWTCWait";
 
-    private static final String STYLE_PANEL = "panel";
+  private static final String STYLE_PANEL = "panel";
 
-    private static final String STYLE_MSG = "msgCell";
+  private static final String STYLE_MSG = "msgCell";
 
-    private static final String STYLE_IMG = "imgCell";
+  private static final String STYLE_IMG = "imgCell";
 
-    private static final String STYLE_IMAGE = "image";
+  private static final String STYLE_IMAGE = "image";
 
-    private Label txt = new Label("");
+  private Label txt = new Label("");
 
-    private Image img = new Image("images/gwtc-wait-loading.gif");
+  private Image img = new Image("images/gwtc-wait-loading.gif");
 
-    private FlexTable mainPanel = new FlexTable();
-    
-    public GWTCWait() {
-        super(GWTCPopupBox.OPTION_DISABLE_AUTOHIDE);
-        
-        if (RootPanel.get(MAIN_STYLE)!=null)
-            RootPanel.get(MAIN_STYLE).setVisible(false);
+  private FlexTable mainPanel = new FlexTable();
 
-        setStyleName(MAIN_STYLE);
-        mainPanel.setStyleName(STYLE_PANEL);
-        mainPanel.getCellFormatter().addStyleName(0, 0, STYLE_MSG);
-        mainPanel.setWidget(0, 0, txt);
-        mainPanel.getCellFormatter().addStyleName(1, 0, STYLE_IMG);
-        mainPanel.setWidget(1, 0, img);
-        img.addStyleName(STYLE_IMAGE);
-        setWidget(mainPanel);
-    }
+  public GWTCWait() {
+    super(GWTCPopupBox.OPTION_DISABLE_AUTOHIDE);
 
+    if (RootPanel.get(MAIN_STYLE) != null)
+      RootPanel.get(MAIN_STYLE).setVisible(false);
 
-    /**
-     * Set the caption text
-     * @param s the internationalizated string
-     */
-    public void setCaption(String s) {
-        //dialog.setText(s);
-    }
+    setStyleName(MAIN_STYLE);
+    mainPanel.setStyleName(STYLE_PANEL);
+    mainPanel.getCellFormatter().addStyleName(0, 0, STYLE_MSG);
+    mainPanel.setWidget(0, 0, txt);
+    mainPanel.getCellFormatter().addStyleName(1, 0, STYLE_IMG);
+    mainPanel.setWidget(1, 0, img);
+    img.addStyleName(STYLE_IMAGE);
+    setWidget(mainPanel);
+  }
 
-    /**
-     * Set the message text
-     * @param s the internationalizated string
-     */
-    public void setMessage(String s) {
-        txt.setText(s);
-    }
+  /**
+   * Set the caption text
+   * @param s the internationalizated string
+   */
+  public void setCaption(String s) {
+    //dialog.setText(s);
+  }
 
-    /**
-     *  Set the url of the image
-     * @param i url where image resides
-     */
-    public void setImg(String i) {
-        if (i == null)
-            img.removeFromParent();
-        else 
-            img.setUrl(i);
-    }
+  /**
+   * Set the message text
+   * @param s the internationalizated string
+   */
+  public void setMessage(String s) {
+    txt.setText(s);
+  }
 
-    /**
-     *  Show the wait dialog for timeout seconds
-     *  
-     * @param timeout seconds to wait before hide the dialog (timeout=0 wait for ever)
-     */
-    public void show(int timeout) {
-        if (timeout > 0) {
-            Timer t = new Timer() {
-                public void run() {
-                    hide();
-                }
-            };
-            t.schedule(timeout * 1000);
+  /**
+   *  Set the url of the image
+   * @param i url where image resides
+   */
+  public void setImg(String i) {
+    if (i == null)
+      img.removeFromParent();
+    else
+      img.setUrl(i);
+  }
+
+  /**
+   *  Show the wait dialog for timeout seconds
+   *  
+   * @param timeout seconds to wait before hide the dialog (timeout=0 wait for ever)
+   */
+  public void show(int timeout) {
+    if (timeout > 0) {
+      Timer t = new Timer() {
+        public void run() {
+          hide();
         }
-        setVisible(true);
-        center();
+      };
+      t.schedule(timeout * 1000);
     }
-    
+    setVisible(true);
+    center();
+  }
 
-    /**
-     * Hide the wait dialog
-     */
-    public void hide() {
-        super.hide();
-        setVisible(false);
-    }
+  /**
+   * Hide the wait dialog
+   */
+  public void hide() {
+    super.hide();
+    setVisible(false);
+  }
 
 }

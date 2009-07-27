@@ -20,6 +20,7 @@ package com.google.code.p.gwtchismes.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 
 /**
  * <b>A simple button that send to the print the current page.</b>
@@ -40,38 +41,38 @@ import com.google.gwt.user.client.Timer;
  * 
  */
 public class GWTCPrint extends GWTCButton {
-    private static String MAIN_STYLE = "GWTCPrint";
-    public GWTCPrint() {
-        this(null);
-    }
-    public GWTCPrint(String t) {
-        super(t);
-        setup();
-    }
-    private void setup(){
-        addStyleName(MAIN_STYLE);
-        addClickHandler(new ClickHandler(){
-          public void onClick(ClickEvent event) {
-            print();
-          }
-        });
-        setImageSrc("images/button/print.gif");
-    }
-    /**
-     * Sends the page to the printer
-     */
-    public void print() {
-        setVisible(false);
-        printWindow();
-        Timer t = new Timer() {
-            public void run() {
-                setVisible(true);
-            }
-        };
-        t.schedule(5 * 1000);
-    }
-    
-    public static native void printWindow() /*-{
-     $wnd.print();
-    }-*/;
+  private static String MAIN_STYLE = "GWTCPrint";
+
+  public GWTCPrint() {
+    this(null);
+  }
+
+  public GWTCPrint(String t) {
+    super(t);
+    setup();
+  }
+
+  private void setup() {
+    addStyleName(MAIN_STYLE);
+    addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        print();
+      }
+    });
+    setImageSrc("images/button/print.gif");
+  }
+
+  /**
+   * Sends the page to the printer
+   */
+  public void print() {
+    setVisible(false);
+    Window.print();
+    Timer t = new Timer() {
+      public void run() {
+        setVisible(true);
+      }
+    };
+    t.schedule(5 * 1000);
+  }
 }
