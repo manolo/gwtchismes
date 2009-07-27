@@ -1,4 +1,4 @@
-Create a new application and use GWTChismes with maven 2.
+This document describes how to add gwtchismes to a maven project, or how to create a new project using maven.
 
 = Using gwtchismes in an existing maven project =
 
