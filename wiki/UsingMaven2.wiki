@@ -1,10 +1,12 @@
 Create a new application and use GWTChismes with maven 2.
 
-= Introduction =
+= Using gwtchismes in a maven project =
 
 GWTChismes library is published using a maven2-repo structure in svn.
 So it is easy to setup use gwtchismes in a maven project just adding the repository and the dependency to the pom.xml
 {{{
+ <project>
+   [...]
    <repositories>
       [...]
       <repository>
@@ -21,6 +23,7 @@ So it is easy to setup use gwtchismes in a maven project just adding the reposit
         <scope>provided</scope>
       </dependency>
    </dependencies>
+ </project>
 }}}
 
 
