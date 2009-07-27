@@ -9,6 +9,14 @@ So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as 
 = Details =
 
  # Create a new project using gwt-maven archetype and go to the generated folder
+{{{
+ mvn archetype:create -DarchetypeGroupId=com.totsp.gwt \
+    -DarchetypeArtifactId=maven-googlewebtoolkit2-archetype \
+    -DarchetypeVersion=1.0.4 \
+    -DremoteRepositories=http://gwt-maven.googlecode.com/svn/trunk/mavenrepo \
+    -DgroupId=com.foo \
+    -DartifactId=myApplication
+}}}
  # Modify the generated pom.xml in order to use the appropriate gwt version.
  # Add gwtchismes' repository
  # Add gwtchismes' dependency
