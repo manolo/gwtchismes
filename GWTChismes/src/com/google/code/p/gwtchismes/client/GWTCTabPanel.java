@@ -35,16 +35,16 @@ import com.google.gwt.user.client.ui.Widget;
  * </ul>
 */
 public class GWTCTabPanel extends TabPanel {
-  
+
   private String MAIN_STYLE = "GWTCTabPanel";
-  
+
   public GWTCTabPanel() {
     super();
     setStyleName(MAIN_STYLE);
   }
-  
+
   public void add(Widget w, String tabText) {
     super.add(w, new Label(tabText));
   }
-  
+
 }

@@ -8,7 +8,6 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
-
 /**
  * <p>
  * <b>A decorated and dragable modal box with a glass panel.</b>
@@ -40,117 +39,117 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
  */
 public class GWTCModalBox extends DialogBox {
 
-    static public String MAIN_STYLE = "GWTCModal";
-    static public int OPTION_ROUNDED_FLAT = 2;
-    static public int OPTION_ROUNDED_GREY = 4;
-    static public int OPTION_ROUNDED_BLUE = 8;
-    static public int OPTION_ANIMATION = 32;
-    static public int OPTION_DISABLE_BACKGROUND = 16;
-    static public int OPTION_DISABLE_AUTOHIDE = 64;
-    private int zIndex = 999;
-    
-    GWTCBox panelbox;
-    DockPanel panel;
-    private GWTCGlassPanel background;
+  static public String MAIN_STYLE = "GWTCModal";
+  static public int OPTION_ROUNDED_FLAT = 2;
+  static public int OPTION_ROUNDED_GREY = 4;
+  static public int OPTION_ROUNDED_BLUE = 8;
+  static public int OPTION_ANIMATION = 32;
+  static public int OPTION_DISABLE_BACKGROUND = 16;
+  static public int OPTION_DISABLE_AUTOHIDE = 64;
+  private int zIndex = 999;
 
-    public GWTCModalBox(int options) {
-        
-        super((options & OPTION_DISABLE_AUTOHIDE) == OPTION_DISABLE_AUTOHIDE ? false : true);
-        
-        if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_GREY);
-        } else if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_BLUE);
-        } else if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_FLAT);
-        } else {
-            panel = new DockPanel();
-        }
+  GWTCBox panelbox;
+  DockPanel panel;
+  private GWTCGlassPanel background;
 
-        super.add(panel != null ? panel : panelbox);
+  public GWTCModalBox(int options) {
 
-        setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
-        if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
-            background = new GWTCGlassPanel();
-            if ((options & OPTION_DISABLE_AUTOHIDE) != OPTION_DISABLE_AUTOHIDE) {
-                background.addClickHandler(new ClickHandler(){
-                    public void onClick(ClickEvent event) {
-                      hide();
-                    }
-                });
-            }
-        }
-        setZIndex(zIndex);
-        setWidth("auto");
-        addStyleName(MAIN_STYLE);
-    }
-    
-    public void setWait(boolean b) {
-        if (b)
-            background.setZIndex(zIndex + 1);
-        else
-            background.setZIndex(zIndex - 1);
+    super((options & OPTION_DISABLE_AUTOHIDE) == OPTION_DISABLE_AUTOHIDE ? false : true);
+
+    if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_GREY);
+    } else if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_BLUE);
+    } else if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_FLAT);
+    } else {
+      panel = new DockPanel();
     }
 
-    public void add(Widget widget, DockLayoutConstant direction) {
-        if (panelbox != null)
-            panelbox.add(widget, direction);
-        else
-            panel.add(widget, direction);
-    }
+    super.add(panel != null ? panel : panelbox);
 
-    @Override
-    protected void onDetach() {
-        super.onDetach();
-        if(background != null)
-            background.hide();
+    setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
+    if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
+      background = new GWTCGlassPanel();
+      if ((options & OPTION_DISABLE_AUTOHIDE) != OPTION_DISABLE_AUTOHIDE) {
+        background.addClickHandler(new ClickHandler() {
+          public void onClick(ClickEvent event) {
+            hide();
+          }
+        });
+      }
     }
+    setZIndex(zIndex);
+    setWidth("auto");
+    addStyleName(MAIN_STYLE);
+  }
 
-    @Override
-    public void add(Widget w) {
-        if (panelbox != null)
-            panelbox.add(w);
-        else
-            panel.add(w, DockPanel.NORTH);
-    }
-    
-    @Override
-    public void clear() {
-        if (panelbox != null)
-            panelbox.clear();
-        else
-            panel.clear();
-    }
+  public void setWait(boolean b) {
+    if (b)
+      background.setZIndex(zIndex + 1);
+    else
+      background.setZIndex(zIndex - 1);
+  }
 
-    @Override
-    public void center() {
-        setWidth("auto");
-        super.center();
-    }
+  public void add(Widget widget, DockLayoutConstant direction) {
+    if (panelbox != null)
+      panelbox.add(widget, direction);
+    else
+      panel.add(widget, direction);
+  }
 
-    @Override
-    public void show() {
-        if (background != null) 
-            background.show();
-        super.show();
-    }
-    
-    @Override
-    public void hide() {
-        super.hide();
-        if (background != null)
-            background.hide();
-    }
+  @Override
+  protected void onDetach() {
+    super.onDetach();
+    if (background != null)
+      background.hide();
+  }
 
-    public void setZIndex(int z) {
-        DOM.setStyleAttribute(getElement(), "zIndex", String.valueOf(z));
-        if (background != null)
-            background.setZIndex(z - 1);
-    }
-    
-    @Override
-    public void setText(String t) {
-        super.setText(t);
-    }
-    
+  @Override
+  public void add(Widget w) {
+    if (panelbox != null)
+      panelbox.add(w);
+    else
+      panel.add(w, DockPanel.NORTH);
+  }
+
+  @Override
+  public void clear() {
+    if (panelbox != null)
+      panelbox.clear();
+    else
+      panel.clear();
+  }
+
+  @Override
+  public void center() {
+    setWidth("auto");
+    super.center();
+  }
+
+  @Override
+  public void show() {
+    if (background != null)
+      background.show();
+    super.show();
+  }
+
+  @Override
+  public void hide() {
+    super.hide();
+    if (background != null)
+      background.hide();
+  }
+
+  public void setZIndex(int z) {
+    DOM.setStyleAttribute(getElement(), "zIndex", String.valueOf(z));
+    if (background != null)
+      background.setZIndex(z - 1);
+  }
+
+  @Override
+  public void setText(String t) {
+    super.setText(t);
+  }
+
 }

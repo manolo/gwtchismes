@@ -57,114 +57,112 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 public class GWTCPopupBox extends PopupPanel {
 
-    private static final String MAIN_STYLE = "GWTCPopupBox";
-    static final String STYLE_BOX = "box";
+  private static final String MAIN_STYLE = "GWTCPopupBox";
+  static final String STYLE_BOX = "box";
 
-    static public int OPTION_ROUNDED_FLAT = 2;
-    static public int OPTION_ROUNDED_GREY = 4;
-    static public int OPTION_ROUNDED_BLUE = 8;
-    static public int OPTION_ANIMATION = 32;
-    static public int OPTION_DISABLE_BACKGROUND = 16;
-    static public int OPTION_DISABLE_AUTOHIDE = 64;
+  static public int OPTION_ROUNDED_FLAT = 2;
+  static public int OPTION_ROUNDED_GREY = 4;
+  static public int OPTION_ROUNDED_BLUE = 8;
+  static public int OPTION_ANIMATION = 32;
+  static public int OPTION_DISABLE_BACKGROUND = 16;
+  static public int OPTION_DISABLE_AUTOHIDE = 64;
 
-    private int zIndex = 999;
-    private GWTCBox panelbox;
-    DockPanel panel;
-    private GWTCGlassPanel background;
+  private int zIndex = 999;
+  private GWTCBox panelbox;
+  DockPanel panel;
+  private GWTCGlassPanel background;
 
-    public GWTCPopupBox(int options) {
-        super((options & OPTION_DISABLE_AUTOHIDE) == OPTION_DISABLE_AUTOHIDE ? false : true);
-        initialize(options);
+  public GWTCPopupBox(int options) {
+    super((options & OPTION_DISABLE_AUTOHIDE) == OPTION_DISABLE_AUTOHIDE ? false : true);
+    initialize(options);
+  }
+
+  protected void initialize(int options) {
+    super.clear();
+    if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_GREY);
+    } else if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_BLUE);
+      super.add(panelbox);
+    } else if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
+      panelbox = new GWTCBox(GWTCBox.STYLE_FLAT);
+      super.add(panelbox);
+    } else {
+      panel = new DockPanel();
+      super.add(panel);
     }
 
-    protected void initialize(int options) {
-        super.clear();
-        if ((options & OPTION_ROUNDED_GREY) == OPTION_ROUNDED_GREY) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_GREY);
-        } else if ((options & OPTION_ROUNDED_BLUE) == OPTION_ROUNDED_BLUE) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_BLUE);
-            super.add(panelbox);
-        } else if ((options & OPTION_ROUNDED_FLAT) == OPTION_ROUNDED_FLAT) {
-            panelbox = new GWTCBox(GWTCBox.STYLE_FLAT);
-            super.add(panelbox);
-        } else {
-            panel = new DockPanel();
-            super.add(panel);
+    setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
+    if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
+      background = new GWTCGlassPanel();
+      if ((options & OPTION_DISABLE_AUTOHIDE) != OPTION_DISABLE_AUTOHIDE) {
+        background.addClickHandler(new ClickHandler() {
+          public void onClick(ClickEvent event) {
+            hide();
+          }
+        });
+      }
+    }
+    setZIndex(zIndex);
+    setWidth("auto");
+    setStyleName(MAIN_STYLE);
+    if (panelbox != null)
+      addStyleDependentName(STYLE_BOX);
+  }
+
+  public void setZIndex(int z) {
+    DOM.setStyleAttribute(getElement(), "zIndex", String.valueOf(z));
+    if (background != null)
+      background.setZIndex(z - 1);
+  }
+
+  public void add(Widget w) {
+    add(w, DockPanel.NORTH);
+  }
+
+  public void add(Object object, DockLayoutConstant direction) {
+    Widget widget = GWTCBox.objectToWidget(object);
+    if (panelbox != null)
+      panelbox.add(widget, direction);
+    else
+      panel.add(widget, direction);
+  }
+
+  @Override
+  public void center() {
+    setWidth("auto");
+    super.center();
+  }
+
+  /**
+   * Shows the alert dialog, and hides it after a period
+   *  
+   * @param timeout
+   *            timeout in seconds for autohide           
+   */
+  public void show(int timeout) {
+    if (timeout > 0) {
+      Timer t = new Timer() {
+        public void run() {
+          hide();
         }
-        
-        setAnimationEnabled((options & OPTION_ANIMATION) == OPTION_ANIMATION);
-        if ((options & OPTION_DISABLE_BACKGROUND) != OPTION_DISABLE_BACKGROUND) {
-            background = new GWTCGlassPanel();
-            if ((options & OPTION_DISABLE_AUTOHIDE) != OPTION_DISABLE_AUTOHIDE) {
-            	  background.addClickHandler(new ClickHandler(){
-                  public void onClick(ClickEvent event) {
-                    hide();
-                  }
-            	  });
-            }
-        }
-        setZIndex(zIndex);
-        setWidth("auto");
-        setStyleName(MAIN_STYLE);
-        if (panelbox != null)
-            addStyleDependentName(STYLE_BOX);
+      };
+      t.schedule(timeout * 1000);
     }
+    center();
+  }
 
-    public void setZIndex(int z) {
-        DOM.setStyleAttribute(getElement(), "zIndex", String.valueOf(z));
-        if (background != null)
-            background.setZIndex(z - 1);
-    }
+  @Override
+  public void show() {
+    if (background != null)
+      background.show();
+    super.show();
+  }
 
-    public void add(Widget w) {
-        add(w, DockPanel.NORTH);
-    }
-
-    public void add(Object object, DockLayoutConstant direction) {
-        Widget widget = GWTCBox.objectToWidget(object);
-        if (panelbox != null)
-            panelbox.add(widget, direction);
-        else
-            panel.add(widget, direction);
-    }
-
-    @Override
-    public void center() {
-        setWidth("auto");
-        super.center();
-    }
-
-    /**
-     * Shows the alert dialog, and hides it after a period
-     *  
-     * @param timeout
-     *            timeout in seconds for autohide           
-     */
-    public void show(int timeout) {
-        if (timeout > 0) {
-            Timer t = new Timer() {
-                public void run() {
-                    hide();
-                }
-            };
-            t.schedule(timeout * 1000);
-        }
-        center();
-    }
-
-    @Override
-    public void show() {
-        if (background != null) 
-            background.show();
-        super.show();
-    }
-    
-    
-    
-    @Override
-    public void hide() {
-        super.hide();
-        if (background != null)
-            background.hide();
-    }
- }
+  @Override
+  public void hide() {
+    super.hide();
+    if (background != null)
+      background.hide();
+  }
+}

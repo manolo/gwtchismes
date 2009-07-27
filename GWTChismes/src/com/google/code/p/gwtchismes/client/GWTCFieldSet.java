@@ -36,54 +36,57 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
  *
  */
 public class GWTCFieldSet extends Panel {
-    private static final String MAIN_STYLE = "GWTCFieldSet";
-    String idFieldSet;
-    String idLegend;
-    DockPanel dockpanel = new DockPanel();
-    
-    public void add(Widget w) {
-        dockpanel.add(w, DockPanel.NORTH);
-    }
-    public void add(Widget widget, DockLayoutConstant direction) {
-        dockpanel.add(widget, direction);
-    }
-    public boolean remove(Widget w) {
-        return dockpanel.remove(w);
-    }
-    public Iterator<Widget> iterator() {
-        return dockpanel.iterator();
-    }
+  private static final String MAIN_STYLE = "GWTCFieldSet";
+  String idFieldSet;
+  String idLegend;
+  DockPanel dockpanel = new DockPanel();
 
-    private static int idCounter = 1;
-    private Element fieldSet = DOM.createFieldSet();
-    private Element legend = DOM.createLegend();
-    private HTMLPanel container = new HTMLPanel("");
-    
-	/**
-	 * Main constructor
-	 */
-	public GWTCFieldSet() {
-        idLegend = "legend-" + idCounter;
-        idFieldSet = "fieldset-" + idCounter++;
-        setLegend("");
-        setStyleName(MAIN_STYLE);
-	}
+  public void add(Widget w) {
+    dockpanel.add(w, DockPanel.NORTH);
+  }
 
-	/**
-     * Sets the text for the leyend
-     * @param txt
-     */
-    public void setLegend(String txt) {
-        if (DOM.getElementById(idLegend) != null ) {
-            DOM.setInnerText(DOM.getElementById(idLegend), txt);
-        } else {
-            DOM.setInnerText(legend, txt);
-        }
-        DOM.setElementAttribute(legend, "id", idLegend);
-        DOM.setElementAttribute(fieldSet, "id", idFieldSet);
-        DOM.appendChild(fieldSet, legend);
-        container = new HTMLPanel(fieldSet.toString());
-        container.add(dockpanel, idFieldSet);
-        setElement(container.getElement());
+  public void add(Widget widget, DockLayoutConstant direction) {
+    dockpanel.add(widget, direction);
+  }
+
+  public boolean remove(Widget w) {
+    return dockpanel.remove(w);
+  }
+
+  public Iterator<Widget> iterator() {
+    return dockpanel.iterator();
+  }
+
+  private static int idCounter = 1;
+  private Element fieldSet = DOM.createFieldSet();
+  private Element legend = DOM.createLegend();
+  private HTMLPanel container = new HTMLPanel("");
+
+  /**
+   * Main constructor
+   */
+  public GWTCFieldSet() {
+    idLegend = "legend-" + idCounter;
+    idFieldSet = "fieldset-" + idCounter++;
+    setLegend("");
+    setStyleName(MAIN_STYLE);
+  }
+
+  /**
+   * Sets the text for the leyend
+   * @param txt
+   */
+  public void setLegend(String txt) {
+    if (DOM.getElementById(idLegend) != null) {
+      DOM.setInnerText(DOM.getElementById(idLegend), txt);
+    } else {
+      DOM.setInnerText(legend, txt);
     }
+    DOM.setElementAttribute(legend, "id", idLegend);
+    DOM.setElementAttribute(fieldSet, "id", idFieldSet);
+    DOM.appendChild(fieldSet, legend);
+    container = new HTMLPanel(fieldSet.toString());
+    container.add(dockpanel, idFieldSet);
+    setElement(container.getElement());
+  }
 }
