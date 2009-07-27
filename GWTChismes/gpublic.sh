@@ -1,7 +1,9 @@
 #!/bin/sh
 C=../GWTChismes-public
+M=../GWTChismes-maven
 
 [ ! -d "$C" ] && echo "GWTChismes-public project don't exist: $C" && exit
+[ ! -d "$M" ] && echo "GWTChismes-maven project don't exist: $C" && exit
 
 [ ! -f "build.xml" ] && echo "build.xml don't exist" && exit
 
@@ -30,11 +32,11 @@ cmd="cp -r gwtchismes-$V/jslib/* $C/jslib"
 echo "Executing: $cmd" && $cmd
 
 
-mkdir -p $C/mavenrepo/gwtchismes/gwtchismes/$V
-cp gwtchismes-$V.jar $C/mavenrepo/gwtchismes/gwtchismes/$V
-md5sum gwtchismes-$V.jar | awk '{print $1}' > $C/mavenrepo/gwtchismes/gwtchismes/$V/gwtchismes-$V.jar.md5
+mkdir -p $M/gwtchismes/gwtchismes/$V
+cp gwtchismes-$V.jar $M/gwtchismes/gwtchismes/$V
+md5sum gwtchismes-$V.jar | awk '{print $1}' > $M/gwtchismes/gwtchismes/$V/gwtchismes-$V.jar.md5
 
-cat <<EOF > $C/mavenrepo/gwtchismes/gwtchismes/$V/gwtchismes-$V.pom
+cat <<EOF > $M/gwtchismes/gwtchismes/$V/gwtchismes-$V.pom
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>gwtchismes</groupId>
