@@ -21,42 +21,40 @@
 }}}
  # Use the widgets in your application
 {{{
-  // Alert
-  GWTCAlert alert = new GWTCAlert(); 
-  alert.alert("Hello, you can put here any message");
+     // Alert
+     final GWTCAlert alert = new GWTCAlert(); 
+     alert.alert("Hello, you can put here any message");
 
-  // Rounded Box
-  GWTCBox box = new GWTCBox(GWTCBox.STYLE_BLUE);
-  box.setTitle("A Title");
-  box.setText("Sample text");
-  RootPanel.get().add(box);
+     // Rounded Box
+     GWTCBox box = new GWTCBox(GWTCBox.STYLE_BLUE);
+     box.setTitle("A Title");
+     box.setText("Sample text");
+     RootPanel.get().add(box);
 
-  // DatePicker
-  int options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX 
-              | GWTCDatePicker.CONFIG_BACKGROUND;
-  final GWTCDatePicker picker = new GWTCDatePicker(options);
-  picker.addChangeListener(new ChangeListener() {
-     public void onChange(Widget sender) {
-         Window.alert(((GWTCSimpleDatePicker) sender)
-               .getSelectedDateStr("MMMM dd, yyyy (dddd)"));
-         picker.hide();
-     }
-  });
+     // Modal DatePicker
+     int options = GWTCDatePicker.CONFIG_DIALOG 
+                 | GWTCDatePicker.CONFIG_ROUNDED_BOX 
+                 | GWTCDatePicker.CONFIG_BACKGROUND;
+     final GWTCDatePicker picker = new GWTCDatePicker(options);
+     picker.addValueChangeHandler(new ValueChangeHandler<GWTCSimpleDatePicker>() {
+       public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {
+         alert.alert(event.getValue().getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+       }
+     });
 
-  // Button
-  Button button = new GWTCButton("Clickme", new ClickListener() {
-     public void onClick(Widget sender) {
-        picker.show();
-     }
-  });
-  RootPanel.get().add(button);
+     // Button to show the datepicker
+     Button button = new GWTCButton("Clickme to show a modal datepicker", new ClickHandler() {
+        public void onClick(ClickEvent arg0) {
+          picker.show();
+        }
+     });
+     RootPanel.get().add(button);
 
-  // ProgressBar
-  GWTCProgress prgBar = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING |
-                                             GWTCProgress.SHOW_LEFT_TEXT |
-                                             GWTCProgress.SHOW_NUMBERS);
-  RootPanel.get().add(prgBar);
-  prgBar.setText("gwt-file.jar");
-  prgBar.setProgress(50); // percent
+     // ProgressBar
+     GWTCProgress prgBar = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING |
+                                                GWTCProgress.SHOW_NUMBERS);
+     RootPanel.get().add(prgBar);
+     prgBar.setText("gwt-file.jar");
+     prgBar.setProgress(50); // percent     
 
 }}}
