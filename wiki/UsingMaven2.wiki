@@ -18,14 +18,14 @@ So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as 
     -DartifactId=myApplication
  $ cd myApplication
 }}}
- # Modify the generated pom.xml in order 
+ # Modify the generated pom.xml in order to:
    * use the appropriate gwt version.
 {{{
   <properties>
       <gwtVersion>1.7.0</gwtVersion>
   </properties>
 }}}
-   * Include the gwtchismes repository
+   * include the gwtchismes repository
 {{{
    <repositories>
       <repository>
@@ -34,7 +34,7 @@ So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as 
       </repository>
     </repositories>
 }}}
-   * Add gwtchismes' dependency
+   * add gwtchismes' dependency
 {{{
     <dependencies>
      <dependency>
