@@ -2,13 +2,31 @@ Create a new application and use GWTChismes with maven 2.
 
 = Introduction =
 
-GWTChismes library is published in svn using a maven2 repository structure.
-So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as a depenency.
+GWTChismes library is published using a maven2-repo structure in svn.
+So it is easy to setup use gwtchismes in a maven project just adding the repository and the dependency to the pom.xml
+{{{
+   <repositories>
+      [...]
+      <repository>
+        <id>gwtchismes</id>
+        <url>http://gwtchismes.googlecode.com/svn/trunk/website/mavenrepo/</url>
+      </repository>
+    </repositories>
+    <dependencies>
+      [...]
+      <dependency>
+        <groupId>gwtchismes</groupId>
+        <artifactId>gwtchismes</artifactId>
+        <version>0.9.4</version>
+        <scope>provided</scope>
+      </dependency>
+   </dependencies>
+}}}
 
 
-= Details =
+= Creating a new gwtchismes project from scratch using maven =
 
- # Create a new project using gwt-maven archetype and go to the generated folder
+ # Create a new project using gwt-maven archetype and change to the generated folder
 {{{
  $ mvn archetype:create -DarchetypeGroupId=com.totsp.gwt \
     -DarchetypeArtifactId=maven-googlewebtoolkit2-archetype \
