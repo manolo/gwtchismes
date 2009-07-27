@@ -1,4 +1,4 @@
-#How to create a new application and use GWTChismes with maven 2.
+Create a new application and use GWTChismes with maven 2.
 
 = Introduction =
 
