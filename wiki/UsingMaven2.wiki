@@ -55,7 +55,7 @@ So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as 
       <stylesheet src='GWTC-compressed.css' />
 
 }}}
- # Code your application
+ # Code your application (./src/main/java/com/foo/client/Application.java)
 {{{
 public class Application implements EntryPoint {
 
