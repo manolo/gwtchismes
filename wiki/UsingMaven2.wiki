@@ -10,17 +10,98 @@ So it is easy to setup a project usin gwt-maven archetype and add gwtchismes as 
 
  # Create a new project using gwt-maven archetype and go to the generated folder
 {{{
- mvn archetype:create -DarchetypeGroupId=com.totsp.gwt \
+ $ mvn archetype:create -DarchetypeGroupId=com.totsp.gwt \
     -DarchetypeArtifactId=maven-googlewebtoolkit2-archetype \
     -DarchetypeVersion=1.0.4 \
     -DremoteRepositories=http://gwt-maven.googlecode.com/svn/trunk/mavenrepo \
     -DgroupId=com.foo \
     -DartifactId=myApplication
+ $ cd myApplication
 }}}
- # Modify the generated pom.xml in order to use the appropriate gwt version.
- # Add gwtchismes' repository
- # Add gwtchismes' dependency
+ # Modify the generated pom.xml in order 
+   * use the appropriate gwt version.
+{{{
+  <properties>
+      <gwtVersion>1.7.0</gwtVersion>
+  </properties>
+}}}
+   * Include the gwtchismes repository
+{{{
+   <repositories>
+      <repository>
+        <id>gwtchismes</id>
+        <url>http://gwtchismes.googlecode.com/svn/trunk/website/mavenrepo/</url>
+      </repository>
+    </repositories>
+}}}
+   * Add gwtchismes' dependency
+{{{
+    <dependencies>
+     <dependency>
+       <groupId>gwtchismes</groupId>
+       <artifactId>gwtchismes</artifactId>
+       <version>0.9.4</version>
+       <scope>provided</scope>
+     </dependency>
+   </dependencies>
+}}}
  # Configure your project as an eclipse project (Optional)
- # Include GWTChismes library in your gwt module
+{{{
+ $ mvn eclipse:eclipse
+}}}
+ # Edit gwt module file (/src/main/java/com/foo/Application.gwt.xml) and include GwtChismes dependency
+{{{
+      <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+      <stylesheet src='GWTC-compressed.css' />
+
+}}}
  # Code your application
- # Use maven to test, run, package etc. your application.
+{{{
+public class Application implements EntryPoint {
+
+  public void onModuleLoad() { 
+     
+     // Alert
+     final GWTCAlert alert = new GWTCAlert(); 
+     alert.alert("Hello, you can put here any message");
+
+     // Rounded Box
+     GWTCBox box = new GWTCBox(GWTCBox.STYLE_BLUE);
+     box.setTitle("A Title");
+     box.setText("Sample text");
+     RootPanel.get().add(box);
+
+     // Modal DatePicker
+     int options = GWTCDatePicker.CONFIG_DIALOG 
+                 | GWTCDatePicker.CONFIG_ROUNDED_BOX 
+                 | GWTCDatePicker.CONFIG_BACKGROUND;
+     final GWTCDatePicker picker = new GWTCDatePicker(options);
+     picker.addValueChangeHandler(new ValueChangeHandler<GWTCSimpleDatePicker>() {
+       public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {
+         alert.alert(event.getValue().getSelectedDateStr("MMMM dd, yyyy (dddd)"));
+       }
+     });
+
+     // Button to show the datepicker
+     Button button = new GWTCButton("Clickme to show a modal datepicker", new ClickHandler() {
+        public void onClick(ClickEvent arg0) {
+          picker.show();
+        }
+     });
+     RootPanel.get().add(button);
+
+     // ProgressBar
+     GWTCProgress prgBar = new GWTCProgress(20, GWTCProgress.SHOW_TIME_REMAINING |
+                                                GWTCProgress.SHOW_NUMBERS);
+     RootPanel.get().add(prgBar);
+     prgBar.setText("gwt-file.jar");
+     prgBar.setProgress(50); // percent     
+  }
+}
+}}}
+ # Use maven to test, run in hosted mode, package etc. your application.
+{{{
+ $ mvn test
+ $ mvn gwt-maven:gwt
+ $ mvn package
+}}}
