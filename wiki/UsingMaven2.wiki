@@ -103,5 +103,6 @@ public class Application implements EntryPoint {
 {{{
  $ mvn test
  $ mvn gwt-maven:gwt
+ $ mvn  -Dgoogle.webtoolkit.compileSkip=true gwt-maven:gwt
  $ mvn package
 }}}
