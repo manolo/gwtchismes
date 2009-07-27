@@ -47,7 +47,7 @@ The generated javascript code is minimized, optimized and obfuscated and works f
 
 == Const ==
 _
-Package constants
+These are the constants used in the package.
 _
    * Public static constants
 {{{
@@ -130,8 +130,18 @@ var datepicker = new jsc.DatePicker ({
    * Instance methods
 {{{
 
+/*  */
+datepicker.onValueChange();
+
+/* Specify the selected date   */
+datepicker.setSelected(date);
+
 /* Show the modal dialog containing the data-picker centered in the page */
 datepicker.show();
+
+/* Specify the JavaScript function which will be called when the user selects a date
+The function have to define the parameter data used to return the datepicker information  */
+datepicker.addSelectListener(c);
 
 /* Returns a JavaScript hash structure with this information:
 data.selected // The user selected date
@@ -139,18 +149,11 @@ data.minimal  // The minimal date allowed to select
 data.maximal  // The maximal date allowed to select   */
 var javascriptobject = datepicker.data();
 
-/* Specify the selected date   */
-datepicker.setSelected(date);
-
-/* Specify the JavaScript function which will be called when the user selects a date
-The function have to define the parameter data used to return the datepicker information  */
-datepicker.addSelectListener(c);
+/* Show the modal dialog containing the data-picker beside the  especified element. */
+datepicker.show(elem);
 
 /* Returns the selected date */
 var date = datepicker.getSelected();
-
-/* Show the modal dialog containing the data-picker beside the  especified element. */
-datepicker.show(elem);
 
 /* Hide the modal dialog containing the data-picker. */
 datepicker.hide();
@@ -197,6 +200,9 @@ var intervalselector = new jsc.IntervalSelector ({
 }}}
    * Instance methods
 {{{
+
+/*  */
+intervalselector.onValueChange();
 
 /* Returns the final date of the selected interval */
 var date = intervalselector.getEnd();
@@ -544,7 +550,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Mon Apr 27 17:27:18 CEST 2009_
+*Date:* _Mon Jul 27 18:18:35 CEST 2009_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
