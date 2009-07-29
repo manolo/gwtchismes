@@ -122,6 +122,36 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
+ # Para pasar funciones javascript como argumentos a nuestras funciones, hay que utilizar la anotacion @ExportClosure y crear un interface con los metodos publicos que queramos exportar. Estos metodos reciben los mismos argumentos y tipos que los que  recibe la funcion nativa de javascript.
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+@ExportClosure
+public interface JsClosure extends Exportable {
+  public void execute(String par1, String par2);
+}
+}}}
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+public class DatePicker implements Exportable {
+  public executeJsClosure(JsClosure closure){
+     closure.execute("Hello", "Friend");
+  }
+}}}
+{{{
+  <script language='javascript'>
+     var picker = new jsc.DatePicker();
+     picker.executeJsClosure(function(arg1, arg2) {
+        alert(arg1 + "," + arg2);
+     });
+  </script>
+}}}
+
  # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges' usando la clase JavaScriptObject. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque un comportamiento similar.
 {{{
 package jschismes.client;
@@ -149,7 +179,7 @@ public class DatePicker implements Exportable {
   <script language='javascript'>
      var picker = new jsc.DatePicker();
      picker.setCurrentDate(new Date());
-     window.alert(picker.getCurrentDate());
+     alert(picker.getCurrentDate());
   </script>
 }}}
  # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestros objetos exportados tengan un constructor que aceptando un objeto javascript sea capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
@@ -158,43 +188,42 @@ package jschismes.client;
 
 @Export
 @ExportPackage("jsc")
-public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
-  Date selectedDate = new Date();
+public class DatePicker implements Exportable {
+  String caption = "Select a day";
   int type = 0;
   public DatePicker(JavaScriptObject prop) {
-
     JsProperties jsProp = new JsProperties(prop);
-
     this.type = jsProp.getInt("type");
-    this.selectedDate = jsProp.getDate("selectedDate");
+    this.caption = jsProp.get("caption");
   });
-
 }
 }}}
- Un ejemplo más completo de esta clase la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
+{{{
+  <script language='javascript'>
+     var picker = new jsc.DatePicker({
+        type: 1,
+        caption: "Seleccione fecha"
+     });
+  </script>
+}}}
+}}}
+ Esta es un ejemplo basico de la clase puente, una implementación completa la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
 {{{
 package jschismes.client;
 public class JsProperties {
-
-  JavaScriptObject p = null;
-
-  JsProperties(JavaScriptObject p) {
-    this.p = p;
+  JavaScriptObject prop = null;
+  JsProperties(JavaScriptObject properties) {
+    this.prop = properties;
   }
-
   public String get(String name) {
-    return getImpl(p, name, "");
+    return getImpl(this.prop, name, "");
   }
-
-  private static native String getImpl(JavaScriptObject p, String name) /*-{
-    return p[name] ? p[name].toString() : p[name] === false ? "false" : null;
-  }-*/;
-
   public int getInt(String name) {
     String val = get(name);
     return val == null ? null : Integer.valueOf(val);
   }
-
+  private static native String getImpl(JavaScriptObject p, String name) /*-{
+    return p[name] ? p[name].toString() : p[name] === false ? "false" : null;
+  }-*/;
 }
-
 }}}
