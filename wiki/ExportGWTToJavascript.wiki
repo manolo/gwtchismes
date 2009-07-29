@@ -32,14 +32,14 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
     }-*/;
  }
 }}}
- Uso en la pagina html
+ Codigo HTML
 {{{
   <script language='javascript'>
     window.hello("Manolo");
   </script>
 }}}
 
- * ¿Qué podemos hacer para simplificar este proceso?. Sencillo, usar la libreria gwt-exporter. Con ella y haciendo anotaciones en nuestro código java, el compilador es el que genera todo el codigo para publicar nuestros atributos en el objeto window.
+ * ¿Qué podemos hacer para simplificar este proceso?. Sencillo, usar la libreria [http://code.google.com/p/gwt-exporter/ gwt-exporter]. Con ella y haciendo anotaciones en nuestro código java, el compilador es el que genera todo el codigo para publicar nuestros atributos en el objeto window.
 {{{
  package jschismes.client;
  @Export
@@ -50,7 +50,7 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
     }
  }
 }}}
- Uso en la pagina html
+ Código HTML
 {{{
   <script language='javascript'>
     var hello = new jschismes.client.HelloClass();
