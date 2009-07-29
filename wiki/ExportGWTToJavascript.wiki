@@ -32,7 +32,7 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
     }-*/;
  }
 }}}
-Uso en la pagina html
+  Uso en la pagina html
 {{{
   <script language='javascript'>
     window.hello("Manolo");
@@ -51,7 +51,7 @@ Uso en la pagina html
     }
  }
 }}}
-Uso en la pagina html
+  Uso en la pagina html
 {{{
   <script language='javascript'>
     var hello = new jschismes.client.HelloClass();
@@ -90,7 +90,7 @@ public class JsChismes implements EntryPoint {
   }
 }
 }}}
- # También en este punto de entrada, y debido a que nuestra libreria tarda un tiempo en estar disponible, es conveniente hacer una llamada a un metodo javascript que use nuestra librería.
+ # También en este punto de entrada, y debido a que nuestra libreria tarda un tiempo en estar disponible, es conveniente hacer una llamada a un metodo javascript que la use.
 {{{
 package gwtchismes.client;
 public class JsChismes implements EntryPoint {
