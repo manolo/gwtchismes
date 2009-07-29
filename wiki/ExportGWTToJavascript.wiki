@@ -32,7 +32,7 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
     }-*/;
  }
 }}}
-  Uso en la pagina html
+ Uso en la pagina html
 {{{
   <script language='javascript'>
     window.hello("Manolo");
@@ -51,7 +51,7 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
     }
  }
 }}}
-  Uso en la pagina html
+ Uso en la pagina html
 {{{
   <script language='javascript'>
     var hello = new jschismes.client.HelloClass();
