@@ -147,7 +147,6 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-
  # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges'. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque el comportamiento sea similar.
 {{{
 @Export
@@ -198,9 +197,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
- Este es un ejemplo basico de la clase puente, una implementación completa la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
 {{{
-package jschismes.client;
 public class JsProperties {
   JavaScriptObject prop = null;
   JsProperties(JavaScriptObject properties) {
