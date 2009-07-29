@@ -40,7 +40,6 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
 }}}
 
  * ¿Qué podemos hacer para simplificar este proceso?. Sencillo, usar la libreria gwt-exporter. Con ella y haciendo anotaciones en nuestro código java, el compilador es el que genera todo el codigo para publicar nuestros atributos en el objeto window.
-
 {{{
  package jschismes.client;
  @Export
