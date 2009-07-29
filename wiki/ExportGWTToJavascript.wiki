@@ -124,8 +124,6 @@ public class myClass implements Exportable {
 }}}
  # Para pasar funciones javascript como argumentos a nuestras funciones, hay que utilizar la anotacion @ExportClosure y crear un interface con los metodos publicos que queramos exportar. Estos metodos reciben los mismos argumentos y tipos que los que  recibe la funcion nativa de javascript.
 {{{
-package jschismes.client;
-
 @Export
 @ExportPackage("jsc")
 @ExportClosure
@@ -134,8 +132,6 @@ public interface JsClosure extends Exportable {
 }
 }}}
 {{{
-package jschismes.client;
-
 @Export
 @ExportPackage("jsc")
 public class DatePicker implements Exportable {
@@ -152,10 +148,8 @@ public class DatePicker implements Exportable {
   </script>
 }}}
 
- # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges' usando la clase JavaScriptObject. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque un comportamiento similar.
+ # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges'. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque el comportamiento sea similar.
 {{{
-package jschismes.client;
-
 @Export
 @ExportPackage("jsc")
 public class DatePicker implements Exportable {
@@ -182,10 +176,8 @@ public class DatePicker implements Exportable {
      alert(picker.getCurrentDate());
   </script>
 }}}
- # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestros objetos exportados tengan un constructor que aceptando un objeto javascript sea capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
+ # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestras clases acepten un objeto javascript y ser capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
 {{{
-package jschismes.client;
-
 @Export
 @ExportPackage("jsc")
 public class DatePicker implements Exportable {
@@ -206,8 +198,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-}}}
- Esta es un ejemplo basico de la clase puente, una implementación completa la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
+ Este es un ejemplo basico de la clase puente, una implementación completa la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
 {{{
 package jschismes.client;
 public class JsProperties {
