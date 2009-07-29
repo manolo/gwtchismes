@@ -1,0 +1,258 @@
+Exportando librerias desarrolladas en GWT a javascript.
+
+= Introducción =
+Hay numerosas ventajas en usar GWT para desarrollar codigo javascript, especialmente que el programador se puede despreocupar de ser un experto en javascript, tipos de navegadores, empaquetamiento, ofuscación, dependencias, etc.
+
+Para mi, la relación GWT con javascript, es la misma que el lenguaje C con ensamblador. Para qué voy a programar en un lenguaje de bajo nivel con caracteristicas distintas para cada plataforma si se puede trabajar en un lenguaje de mas alto nivel, y dejar que sea el compilador el que corrija errores, compile, optimice, ofusque, y genere el codigo javascript mas apropiado para cada plataforma, y ademas, al igual que en C se puede usar ensamblador 'inline', en GWT podemos introducir codigo javascript en nuestro codigo java utilizando JSNI. 
+
+= Detalles =
+Pero, ¿porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque la optimizacion de GWT renombra clases, variables, metodos, descarta todo el codigo innecesario, genera nuevas clases, metodos, etc. En pocas palabras, el codigo js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicacion java, y ademas es distinto para cada navegador.
+
+Entonces, ¿cómo se pueden hacer llamadas desde javascript a codigo generado por GWT?. Se consigue introduciendo llamadas nativas a javascript que guarden atributos y funciones en los objetos del navegador, y que hacen referencia a nuestros metodos gwt con etiquetas que el compilador conoce, y las actualiza con el nombre final de nuestro metodo compilado y ofuscado.
+{{{
+ package jschismes.client;
+ public class HelloClass implements EntryPoint{
+    String prefix = "Hello: ";
+    public void onModuleLoad() {
+        exportHelloMethod();
+    }
+    public String helloMethod(String name) {
+        return prefix + " " + name;
+    }
+    private native void exportHelloMethod() /*-{
+      $wnd.hello: function(param1, param2) {
+         return this.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
+      };
+    }-*/;
+ }
+}}}
+{{{
+  <script language='javascript'>
+    window.hello("Manolo");
+  </script>
+}}}
+
+¿Qué podemos hacer para que este proceso no sea tan laborioso?. Sencillo, usar la libreria gwt-exporter. Con esta libreria y haciendo anotaciones en nuestro codigo java, el compilador es el que genera todo el codigo para publicar nuestros atributos en el objeto window.
+
+= Usando gwt-exporter =
+Consideraciones a tener en cuenta a la hora de usar gwt-exporter.
+ # Sólo las clases anotadas como @Export y que implementan 'Exportable' seran procesadas, y sólo los métodos públicos de estas clases estaran disponibles. Por defecto gwt-exporter pondrá nuestras clases en el objeto window bajo un name-space que coincida con el de nuestra aplicación (window.jschismes.client), pero podemos modificarlo usando la anotación @ExportPackage
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+  public void show(){
+  }
+}
+}}}
+ # Las clases heredadas, y sus métodos públicos no se exportan a no ser que se anoten especificamente. Aun así será necesario que implementen el interfaz 'Exportable'
+{{{
+package gwtchismes.client;
+public class GWTCDatePickerAbstract implements Exportable {
+  @Export
+  public void foo(){
+  }
+}
+}}}
+ # En el entry-point de nuestra aplicación es necesario notificar a GWT qué clases queremos exportar en esta aplicación. Y debido a desconocemos cuándo la aplicación GWT estará disponible, es conveniente configurar una llamada al metodo javascript nativo que usa nuestra librería.
+{{{
+package gwtchismes.client;
+public class JsChismes implements EntryPoint {
+  public void onModuleLoad() {
+    ((Exporter) GWT.create(DatePicker.class)).export();
+    onLoadImpl();
+  }
+  private native void onLoadImpl() /*-{
+    if ($wnd.jscOnLoad && typeof $wnd.jscOnLoad == 'function') $wnd.jscOnLoad();
+  }-*/;
+}
+}}}
+{{{
+  <script language='javascript'>
+    function jscOnLoad() {
+        var picker = new jsc.DatePicker({
+        });
+        picker.show();
+    }
+  </script>
+}}}
+ # Los argumentos y retornos de funcion deben utilizar tipos basicos u Objetos que se han definido como Exportable, de los cuales sólo estarán disponibles los metodos públicos.
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+  public String show(boolean a1, char a2, int a3, long a3, double a3){
+  }
+}
+}}}
+
+ # Para objetos que estan implementados tanto en Javascript como en GWT, como es el caso de Date, será necesario implementar 'JSNI bridges' que utilicen la clase JavaScriptObject y tipos primitivos. 
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+  Date currentDate = new Date();
+  public JavaScriptObject getCurrentDate(){
+     return timeToJsObject(currentDate.getTime());
+  }
+  public void setCurrentDate(JavaScriptObject date){
+     currentDate = new Date(jsObjectToTime(date));
+  }
+
+  private static native JavaScriptObject timeToJsObject(double time) /*-{
+    return new Date(time);
+  }-*/;
+  private static native double jsObjectToTime(JavaScriptObject d) /*-{
+    return (d && d.getTime) ? d.getTime(): 0;
+  }-*/;
+}
+}}}
+{{{
+  <script language='javascript'>
+    function jscOnLoad() {
+        var picker = new jsc.DatePicker();
+        picker.setCurrentDate(new Date());
+        window.alert(picker.getCurrentDate());
+    }
+  </script>
+}}}
+
+ # Otra cosa interesante para tener una libreria que se comporte de una manera tradicional será útil implementar constructores de nuestros objetos que acepten como argumento objetos de propiedades javascript. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT:
+{{{
+package jschismes.client;
+
+@Export
+@ExportPackage("jsc")
+public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+  Date selectedDate = new Date();
+  int type = 0;
+  public DatePicker(JavaScriptObject prop) {
+    this.jsProp = new JsProperties(prop);
+    type = jsProp.getInt("type");
+    selectedDate = jsProp.getDate("selectedDate");
+  });
+
+}
+
+package jschismes.client;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
+
+public class JsProperties {
+
+  JavaScriptObject p = null;
+
+  JsProperties(JavaScriptObject p) {
+    this.p = p;
+  }
+
+  public String get(String name) {
+    return getImpl(p, name, "");
+  }
+
+  private static native String getImpl(JavaScriptObject p, String name) /*-{
+    return p[name] ? p[name].toString() : p[name] === false ? "false" : null;
+  }-*/;
+
+  public int getInt(String name) {
+    String val = get(name);
+    return val == null ? null : Integer.valueOf(val);
+  }
+
+  public int getInt(String name) {
+    return getInt(name, 0);
+  }
+
+  public float getFloat(String name) {
+    return getFloatImpl(p, name);
+  }
+
+  public boolean getBoolean(String name) {
+    return getBoolean(name, false);
+  }
+
+  public boolean getBoolean(String name, boolean deFault) {
+    String val = get(name).toLowerCase();
+    if ("true".equals(val))
+      return true;
+    if ("false".equals(val))
+      return true;
+    if ("on".equals(val))
+      return true;
+    if ("off".equals(val))
+      return false;
+    if ("1".equals(val))
+      return true;
+    if ("0".equals(val))
+      return false;
+    return deFault;
+  }
+
+  public JsProperties getJsProperties(String name) {
+    return new JsProperties(getJSObjectImpl(p, name));
+  }
+
+  public JsChangeClosure getClosure(String name) {
+    return new JSChangeClosureImpl(getJSObjectImpl(p, name));
+  }
+
+  public final String[] keys() {
+    JsArrayString a = keysImpl(p);
+    String[] ret = new String[a.length()];
+    for (int i = 0; i < a.length(); i++) {
+      ret[i] = "" + a.get(i);
+    }
+    return ret;
+  }
+
+  private static native boolean definedImpl(JavaScriptObject p, String name) /*-{
+    return p[name] ? true : false;
+  }-*/;
+
+  private static native String getImpl(JavaScriptObject p, String name, String defa) /*-{
+    return p[name] ? "" + p[name] : p[name] === false ? "false" : defa;
+  }-*/;
+
+  private static native float getFloatImpl(JavaScriptObject p, String name) /*-{
+    return p[name] ? p[name]: 0;
+  }-*/;
+
+  private static native JavaScriptObject getJSObjectImpl(JavaScriptObject p, String name) /*-{
+    return p[name] ? p[name] : null ;
+  }-*/;
+
+  private static final native JsArrayString keysImpl(JavaScriptObject p) /*-{
+    var key, keys=[];
+    for(key in p) keys.push("" + key); 
+    return keys;
+  }-*/;
+
+  private class JSChangeClosureImpl implements JsChangeClosure {
+    JavaScriptObject jsobject;
+
+    JSChangeClosureImpl(JavaScriptObject o) {
+      jsobject = o;
+    }
+
+    public void onChange(Object object) {
+      onChangeImpl(jsobject, object);
+    }
+
+    public native void onChangeImpl(JavaScriptObject f, Object o)/*-{
+      if (f && o && typeof f == 'function') f(o);
+    }-*/;
+  }
+}
+
+}}}
+
+
+
+
