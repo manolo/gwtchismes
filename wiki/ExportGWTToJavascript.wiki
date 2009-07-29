@@ -71,16 +71,29 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
   }
 }
 }}}
- # Las clases heredadas, y sus métodos públicos no se exportan a no ser que se anoten especificamente. Aun así será necesario que implementen el interfaz 'Exportable'
+{{{
+  <script language='javascript'>
+     var picker = new jsc.DatePicker();
+     picker.show();
+  </script>
+}}}
+ # Las clases heredadas, y sus métodos públicos no se exportan a no ser que se anoten especificamente. Aun así será necesario que implementen el interfaz 'Exportable'. La anotación  @Export permite publicar el metodo con otro nombre.
 {{{
 package gwtchismes.client;
 public class GWTCDatePickerAbstract implements Exportable {
-  @Export
-  public void foo(){
+  @Export("foo")
+  public void initialise(){
   }
 }
 }}}
- # En el punto de entrada de nuestra aplicación será necesario notificar a GWT qué clases queremos exportar.
+{{{
+  <script language='javascript'>
+     var picker = new jsc.DatePicker();
+     picker.show();
+     picker.foo();
+  </script>
+}}}
+ # En el punto de entrada de nuestra aplicación será necesario decir a GWT qué clases queremos exportar. Las clases exportables que se usen en la aplicacion como argumentos o retornos de otras se exportarán automáticamente.
 {{{
 package gwtchismes.client;
 public class JsChismes implements EntryPoint {
