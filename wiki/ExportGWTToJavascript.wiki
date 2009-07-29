@@ -82,12 +82,20 @@ public class GWTCDatePickerAbstract implements Exportable {
   }
 }
 }}}
- # En el entry-point de nuestra aplicación es necesario notificar a GWT qué clases queremos exportar en esta aplicación. Y debido a desconocemos cuándo la aplicación GWT estará disponible, es conveniente configurar una llamada al metodo javascript nativo que usa nuestra librería.
+ # En el entry-point de nuestra aplicación es necesario notificar a GWT qué clases queremos exportar en nuestra aplicación. 
 {{{
 package gwtchismes.client;
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     ((Exporter) GWT.create(DatePicker.class)).export();
+  }
+}
+}}}
+ # Como nuestra libreria tarda un tiempo en estar disponible, es conveniente configurar una llamada al metodo javascript nativo que usa nuestra librería cuando se cargue.
+{{{
+package gwtchismes.client;
+public class JsChismes implements EntryPoint {
+  public void onModuleLoad() {
     onLoadImpl();
   }
   private native void onLoadImpl() /*-{
@@ -103,18 +111,21 @@ public class JsChismes implements EntryPoint {
     }
   </script>
 }}}
- # Los argumentos y retornos de funcion deben utilizar tipos basicos u Objetos que se han definido como Exportable, de los cuales sólo estarán disponibles los metodos públicos.
+ # Los argumentos y retornos de funcion deben utilizar tipos basicos u Objetos que se han anotado como Exportable.
 {{{
-package jschismes.client;
 @Export
-@ExportPackage("jsc")
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
-  public String show(boolean a1, char a2, int a3, long a3, double a3){
+  public String show(boolean a1, char a2, int a3, long a4, double a5, myClass a6){
   }
 }
 }}}
+{{{
+@Export
+public class myClass implements Exportable {
+}
+}}}
 
- # Hay objetos que pueden tener una implementacion parecida tanto en Javascript como en GWT y para ellos será necesario implementar 'JSNI bridges' usando la clase JavaScriptObject y tipos primitivos. Un claro ejemplo es el objeto Date que tiene distinta implementacion aunque un comportamiento similar.
+ # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges' usando la clase JavaScriptObject. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque un comportamiento similar.
 {{{
 package jschismes.client;
 
@@ -139,11 +150,9 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 }}}
 {{{
   <script language='javascript'>
-    function jscOnLoad() {
-        var picker = new jsc.DatePicker();
-        picker.setCurrentDate(new Date());
-        window.alert(picker.getCurrentDate());
-    }
+     var picker = new jsc.DatePicker();
+     picker.setCurrentDate(new Date());
+     window.alert(picker.getCurrentDate());
   </script>
 }}}
 
@@ -166,8 +175,8 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 
 }
 }}}
-Un ejemplo más completo de la implementación de esta clase la puedes copiar de [
-http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aqui]
+Un ejemplo más completo de esta clase la puedes obtener de [
+http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
 {{{
 package jschismes.client;
 
