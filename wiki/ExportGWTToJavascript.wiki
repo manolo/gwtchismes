@@ -122,14 +122,13 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
-
  # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges' usando la clase JavaScriptObject. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque un comportamiento similar.
 {{{
 package jschismes.client;
 
 @Export
 @ExportPackage("jsc")
-public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+public class DatePicker implements Exportable {
   Date currentDate = new Date();
   public JavaScriptObject getCurrentDate(){
      return timeToJsObject(currentDate.getTime());
@@ -153,7 +152,6 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
      window.alert(picker.getCurrentDate());
   </script>
 }}}
-
  # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestros objetos exportados tengan un constructor que aceptando un objeto javascript sea capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
 {{{
 package jschismes.client;
@@ -173,11 +171,9 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 
 }
 }}}
-Un ejemplo más completo de esta clase la puedes obtener de [
-http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
+ Un ejemplo más completo de esta clase la puedes obtener de [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/src/jsupload/client/JsProperties.java aquí]
 {{{
 package jschismes.client;
-
 public class JsProperties {
 
   JavaScriptObject p = null;
