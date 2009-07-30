@@ -121,6 +121,19 @@ public class GWTCButton extends Button implements HasMouseOverHandlers, HasMouse
     setType(DEFAULT_TYPE);
   }
 
+  /**
+   * Deprecated: use GWTCButton(String html, ClickHandler clickHandler) constructor
+   * 
+   * @param html
+   * @param clickListener
+   */
+  @SuppressWarnings("deprecation")
+  @Deprecated
+  public GWTCButton(String html, com.google.gwt.user.client.ui.ClickListener clickListener) {
+    this(html);
+    addClickListener(clickListener);
+  }
+  
   public GWTCButton(String html, ClickHandler clickHandler) {
     this(html);
     addClickHandler(clickHandler);
@@ -192,7 +205,6 @@ public class GWTCButton extends Button implements HasMouseOverHandlers, HasMouse
   }
 
   public HandlerRegistration addClickHandler(ClickHandler handler) {
-    //return container != null ? textPanel.addClickHandler(handler):  super.addClickHandler(handler);
     return super.addClickHandler(handler);
   }
 

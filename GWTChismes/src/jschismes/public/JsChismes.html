@@ -12,6 +12,17 @@ body {
       <script language='javascript'>
       
       function jscOnLoad() {
+          var jsbox = new jsc.Box({
+                  title: "Advice:",
+                  text: "<b>Your present plans will be successful.</b>",
+                  html: "<i>Your mode of life will be changed for the better because of new developments.</i>",
+                  containerId: "boxContainer"
+          });
+          jsbox.addListener(function(str, i) {
+              alert(str + " " + i);
+          });
+          jsbox.fire();
+          /*
         var embeded = new jsc.DatePicker({
           containerId: "calendarContainer", 
           className: "GWTCDatePicker-custom",
@@ -143,6 +154,7 @@ body {
             calendar.show();
           }
        });
+        */
      }
    </script>
    <table style="vertical-align: top">

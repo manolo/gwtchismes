@@ -44,6 +44,6 @@ public class JsChismes implements EntryPoint {
   }
 
   private native void onLoadImpl() /*-{
-    if ($wnd.jscOnLoad) $wnd.jscOnLoad();
+    if ($wnd.jscOnLoad && typeof $wnd.jscOnLoad == 'function') $wnd.jscOnLoad();
   }-*/;
 }

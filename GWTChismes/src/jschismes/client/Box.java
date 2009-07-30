@@ -25,6 +25,7 @@ import com.google.code.p.gwtchismes.client.GWTCBox;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
+
 /**
  * A decorated with rounded corners panel
  */
@@ -78,5 +79,25 @@ public class Box extends GWTCBox implements Exportable {
   public void add(Object object, DockLayoutConstant direction) {
     super.add(object, direction);
   }
+  
+
+  
+  MyClickListener listener;
+  /**
+   */
+  @Export("addListener")
+  public void addClickListener(MyClickListener listener) {
+    this.listener = listener;
+  }
+
+  /**
+   */
+  @Export("fire")
+  public void fireClickListener() {
+    if (listener != null) {
+      listener.onClick( "Hello", 1);
+    }
+  }
+
 
 }
