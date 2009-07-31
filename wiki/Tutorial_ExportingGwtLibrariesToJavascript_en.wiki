@@ -1,10 +1,10 @@
-Exporting libraries developed using GWT to javascript.
+Exporting libraries developed in GWT to javascript.
 
 = Introduction =
-There are several advantages using GWT to produce quality javascript code, especially the programmer does not have to be an expert in javascript, and don't need to know each browser, packing, obfuscation, units, etc..
+There are several advantages using GWT to produce high quality javascript code, especially, the programmer does not need to be an expert in javascript, or to know peculiarities of each browser, javascript packing, obfuscation, dependency, etc.
 
-The relationship between GWT and javascript is the same as C and assembler. Why code in a low-level language which has different features for each platform when you can work in a high-level language, and leave the compiler to correct mistakes, compile, link, optimise, ofusque, and generate the most appropriate code for each platform.
-Also, that you do with C using assembler 'inline', you can put javascript in our java code using [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html # DevGuideJavaScriptNativeInterface JSNI] .
+The relationship between GWT and javascript is the same as C and assembler. Why do you code in a low-level language which has different features for each platform, when you could do it in a high-level language, and give the compiler the responsibility of warn about mistakes, link, optimise, obfuscate, and generate the most appropriate code for each platform.
+Also, as you can do with C inlining assembler, you can put javascript in our java code using [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html#DevGuideJavaScriptNativeInterface JSNI] .
 
 	
 = Details =
@@ -294,7 +294,5 @@ Note: GWT 1.6.x & 1.7.0 so far, don't support xs linker in hosted mode, so you h
 
 ----
 _©2009 Manolo Carrasco Moñino_ 
-
-
 
 
