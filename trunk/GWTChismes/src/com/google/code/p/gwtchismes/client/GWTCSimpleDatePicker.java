@@ -731,6 +731,10 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   ValueChangeEvent<GWTCSimpleDatePicker> valueChangeEvent = new ValueChangeEvent<GWTCSimpleDatePicker>(this) {};
   Vector<ValueChangeHandler<GWTCSimpleDatePicker>> valueChanges = new Vector<ValueChangeHandler<GWTCSimpleDatePicker>>();
 
+  /**
+   * Adds a change handler that will be executed when a new date is selected by the user.
+   * It returns a HandlerRegistration that you can save and use to remove the handler.
+   */
   public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<GWTCSimpleDatePicker> handler) {
     valueChanges.add(handler);
     return new HandlerRegistration() {
@@ -740,7 +744,13 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     };
   }
 
-  public void removeValueChangeHandler(ValueChangeHandler<GWTCSimpleDatePicker> handler) {
+  /**
+   * Removes a previously added handler.
+   * Deprecated because the normal way to do this in gwt 1.7 is using the HandlerRegistration returned when the handler was added
+   * 
+   */
+  @Deprecated
+  protected void removeValueChangeHandler(ValueChangeHandler<GWTCSimpleDatePicker> handler) {
     valueChanges.remove(handler);
   }
 
