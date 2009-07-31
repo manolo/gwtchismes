@@ -120,7 +120,7 @@ public class Progress extends GWTCProgress implements Exportable {
     return super.getElement();
   }
 
-  class pTimer extends Timer {
+  static class pTimer extends Timer {
     int done = 0;
     int total = 100;
     public static final int steps = 15;

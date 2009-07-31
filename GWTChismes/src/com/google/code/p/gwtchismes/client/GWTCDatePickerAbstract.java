@@ -169,7 +169,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   public static final int CONFIG_FLAT_BUTTONS = (int) Math.pow(2, constant_cont++);
   public static final int CONFIG_STANDARD_BUTTONS = (int) Math.pow(2, constant_cont++);
 
-  public static String MONTH_FORMAT = "MMMM, yyyy";
+  public static final String MONTH_FORMAT = "MMMM, yyyy";
 
   protected GWTCAlert helpDlg = new GWTCAlert(GWTCAlert.OPTION_ROUNDED_BLUE);
 

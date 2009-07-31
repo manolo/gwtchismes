@@ -65,7 +65,7 @@ public class GWTCAlert extends GWTCPopupBox implements HasClickHandlers {
   static final String STYLE_BTN = "btnCell";
   static final String STYLE_BUTTON = "okButton";
 
-  static public int OPTION_DISABLE_OK_BUTTON = 1;
+  static final public int OPTION_DISABLE_OK_BUTTON = 1;
 
   FocusWidget focusWidget = null;
 

@@ -23,8 +23,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.HasMouseOutHandlers;
-import com.google.gwt.event.dom.client.HasMouseOverHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
@@ -93,10 +91,10 @@ import com.google.gwt.user.client.ui.Widget;
  * </ul>
  * 
  */
-public class GWTCButton extends Button implements HasMouseOverHandlers, HasMouseOutHandlers {
+public class GWTCButton extends Button {
   public static final int BUTTON_TYPE_0 = 0;
   public static final int BUTTON_TYPE_1 = 1;
-  public static int DEFAULT_TYPE = 1;
+  public static final int DEFAULT_TYPE = 1;
 
   private static final String S_BTN = "GWTCBtn";
   private static final String S_OVER = "over";
@@ -127,7 +125,6 @@ public class GWTCButton extends Button implements HasMouseOverHandlers, HasMouse
    * @param html
    * @param clickListener
    */
-  @SuppressWarnings("deprecation")
   @Deprecated
   public GWTCButton(String html, com.google.gwt.user.client.ui.ClickListener clickListener) {
     this(html);

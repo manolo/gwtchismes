@@ -89,7 +89,7 @@ public class GWTCBox extends DecoratorPanel {
    */
   public GWTCBox(String style) {
     this();
-    if (style != null && style.length() > 0 && style != DEFAULT_STYLE)
+    if (!DEFAULT_STYLE.equals(style))
       addStyleName(style);
   }
 
