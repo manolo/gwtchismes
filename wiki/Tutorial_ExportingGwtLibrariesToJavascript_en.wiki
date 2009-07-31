@@ -1,5 +1,7 @@
 Exporting libraries developed in GWT to javascript.
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 
 There are several advantages using GWT to produce high quality javascript code. For instance, the programmer does not need to be an expert in javascript, to know peculiarities of each browser, or spent time about packing, compressing, obfuscating, calculating dependencies, etc.
