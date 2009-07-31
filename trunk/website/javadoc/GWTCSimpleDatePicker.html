@@ -8,7 +8,7 @@
 GWTCSimpleDatePicker (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-07-27">
+<META NAME="date" CONTENT="2009-07-31">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -209,7 +209,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;java.lang.String[]</CODE></FONT></TD>
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#WEEK_DAYS">WEEK_DAYS</A></B></CODE>
 
 <BR>
@@ -275,7 +275,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">addValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a change handler that will be executed when a new date is selected by the user.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -468,7 +468,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">removeValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -625,7 +625,7 @@ public static final com.google.gwt.i18n.client.constants.DateTimeConstants <B>da
 <A NAME="WEEK_DAYS"><!-- --></A><H3>
 WEEK_DAYS</H3>
 <PRE>
-public static java.lang.String[] <B>WEEK_DAYS</B></PRE>
+public java.lang.String[] <B>WEEK_DAYS</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1191,6 +1191,9 @@ addValueChangeHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</PRE>
 <DL>
+<DD>Adds a change handler that will be executed when a new date is selected by the user.
+ It returns a HandlerRegistration that you can save and use to remove the handler.
+<P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE>addValueChangeHandler</CODE> in interface <CODE>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;</CODE></DL>
 </DD>
@@ -1203,8 +1206,14 @@ public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler<
 <A NAME="removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)"><!-- --></A><H3>
 removeValueChangeHandler</H3>
 <PRE>
-protected void <B>removeValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>protected void <B>removeValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</PRE>
 <DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+<DD>Removes a previously added handler.
+ Deprecated because the normal way to do this in gwt 1.7 is using the HandlerRegistration returned when the handler was added
+<P>
 <DD><DL>
 </DL>
 </DD>
