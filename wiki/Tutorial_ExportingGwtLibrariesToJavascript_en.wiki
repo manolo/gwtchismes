@@ -231,7 +231,7 @@ public class JsProperties {
 }
 }}}
 
-= GWT module configuration =
+= Configuring the GWT module =
 
  It is recommendable to create a new module to export our GWT library. In fact, it is better not modify our original GWT library, so we can publish it as a .jar file without depending on gwt-exporter. These are the steps to do that:
 
@@ -284,8 +284,6 @@ public class JsChismes implements EntryPoint {
 
 }}}
  # Compile the module using the cross-site linker, so the produced library could be hosted in any domain or in any CDN server.
-
-Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you have to comment this line in development time, or you can create another .gwt.xml file for this purpose. 
 {{{
 <module>
   [...]
@@ -293,11 +291,15 @@ Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you ha
 </module>
 }}}
 
-= Library Documentation = 
+Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you have to comment this line in development time, or you can create another .gwt.xml file for this purpose. 
+
+= Documenting the Javascript Library = 
 
 Unless java packages that can be easily used letting the java IDE to suggest us about the usage and automatically documented using javadoc tool, to use a javascript library it is necessary to have a little documentation about the usage of classes and methods.
 
 So don't forget to create and maintain this documentation of your library. Take a look to the documentation I've produced for my projects.
+
+Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some propietary conventions, and them you can create your own parser to produce a wiki markup page. I use this technique and an ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
 = References =
  * [http://code.google.com/p/gwt-exporter gwt-exporter] library is no documented at all, you have to read the code and in line comments in the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] to learn how to use it. 
