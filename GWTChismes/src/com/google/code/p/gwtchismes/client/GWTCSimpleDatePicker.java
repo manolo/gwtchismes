@@ -740,7 +740,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     };
   }
 
-  protected void removeValueChangeHandler(final ValueChangeHandler<GWTCSimpleDatePicker> handler) {
+  public void removeValueChangeHandler(ValueChangeHandler<GWTCSimpleDatePicker> handler) {
     valueChanges.remove(handler);
   }
 
