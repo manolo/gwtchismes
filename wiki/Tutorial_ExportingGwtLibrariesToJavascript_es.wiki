@@ -5,8 +5,10 @@ Exportando librerias desarrolladas en GWT a javascript.
 = Introducción =
 Hay numerosas ventajas en usar GWT para desarrollar codigo javascript de calidad, especialmente que el programador no tiene que ser un experto en javascript, conocer particularidaded de cada navegador, empaquetamiento de javascript, ofuscación, dependencias entre librerías, etc.
 
-Comparando, la relación que existe entre GWT y javascript, es la misma que entre el lenguaje C y código ensamblador. Para qué voy a programar en un lenguaje de bajo nivel con caracteristicas distintas para cada plataforma si se puede trabajar en un lenguaje de alto nivel, y dejar al compilador que corrija errores, compile, enlace, optimice, ofusque, y genere el código mas apropiado para cada plataforma.
+Comparando, la relación que existe entre GWT y javascript, es la misma que entre el lenguaje C y código ensamblador. ¿Para qué voy a programar en un lenguaje de bajo nivel con caracteristicas distintas para cada plataforma si se puede trabajar en un lenguaje de alto nivel, y dejar al compilador que corrija errores, compile, enlace, optimice, ofusque, y genere el código mas apropiado para cada plataforma?.
 Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos introducir código javascript en nuestro código java utilizando [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html#DevGuideJavaScriptNativeInterface JSNI]. 
+
+I finalmente, tambien existen ventajas en publicar tu libreria tanto en gwt como en javascript. Principalmente porque así se podrán aprovechar desarrolladores que utilicen otros lenguages y frameworks, y que no conozcan nada de java y gwt.
 
 = Detalles =
  * ¿porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque en el proceso de compilado,  GWT renombra clases, variables, métodos, descarta todo el codigo innecesario, genera nuevas clases, metodos, etc. En pocas palabras, el codigo js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicacion java, ademas es distinto para cada navegador y es ilegible.
