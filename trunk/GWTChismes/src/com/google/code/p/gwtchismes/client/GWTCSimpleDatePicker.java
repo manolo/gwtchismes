@@ -118,7 +118,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   // Internationalizable elements
   public static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
   private static final int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
-  public static String[] WEEK_DAYS = dateTimeConstants.shortWeekdays();
+  public String[] WEEK_DAYS = dateTimeConstants.shortWeekdays();
 
   // Dates panel
   private final FlexTable calendarGrid = new FlexTable();
@@ -481,7 +481,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
    */
   public static int compareDate(Date a, Date b) {
     long diff = setHourToZero(b).getTime() - setHourToZero(a).getTime();
-    double hours = Math.ceil(diff / (1000 * 60 * 60));
+    double hours = Math.ceil((double) diff / (1000 * 60 * 60));
     int days = (int) (hours / 24);
     if (hours % 24 > 12)
       days += 1;

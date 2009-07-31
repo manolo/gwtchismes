@@ -81,23 +81,4 @@ public class Box extends GWTCBox implements Exportable {
   }
   
 
-  
-  MyClickListener listener;
-  /**
-   */
-  @Export("addListener")
-  public void addClickListener(MyClickListener listener) {
-    this.listener = listener;
-  }
-
-  /**
-   */
-  @Export("fire")
-  public void fireClickListener() {
-    if (listener != null) {
-      listener.onClick( "Hello", 1);
-    }
-  }
-
-
 }

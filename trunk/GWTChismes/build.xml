@@ -158,6 +158,7 @@
 		<delete dir="${project}-${version}" />
 		<delete file="${project}-${version}.jar" />
 		<delete file="${project}-${version}.zip" />
+		<delete file="jschismes-${version}.zip" />
 		<delete dir ="build"/>
 		<delete dir ="sample"/>
 		<delete dir ="javadoc"/>
