@@ -12,7 +12,7 @@ To setup use gwtchismes in a maven project just edit the pom.xml file and add th
       [...]
       <repository>
         <id>gwtchismes</id>
-        <url>http://gwtchismes.googlecode.com/svn/trunk/mavenrepo/</url>
+        <url>http://gwtchismes.googlecode.com/svn/mavenrepo/</url>
       </repository>
     </repositories>
     <dependencies>
@@ -52,7 +52,7 @@ To setup use gwtchismes in a maven project just edit the pom.xml file and add th
    <repositories>
       <repository>
         <id>gwtchismes</id>
-        <url>http://gwtchismes.googlecode.com/svn/trunk/mavenrepo/</url>
+        <url>http://gwtchismes.googlecode.com/svn/mavenrepo/</url>
       </repository>
     </repositories>
 }}}
