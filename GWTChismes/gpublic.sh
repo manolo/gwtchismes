@@ -1,12 +1,13 @@
 #!/bin/sh
-C=../GWTChismes-public
-M=../GWTChismes-maven
+C=../GWTChismes-website
+M=../GWTChismes-mavenrepo
+W=../GWTChismes-wiki
 
-[ ! -d "$C" ] && echo "GWTChismes-public project don't exist: $C" && exit
-[ ! -d "$M" ] && echo "GWTChismes-maven project don't exist: $C" && exit
+[ ! -d "$C" ] && echo "project doesn't exist: $C" && exit
+[ ! -d "$M" ] && echo "project doesn't exist: $M" && exit
+[ ! -d "$W" ] && echo "project doesn't exist: $W" && exit
 
 [ ! -f "build.xml" ] && echo "build.xml don't exist" && exit
-
 
 V=`grep "property name=\"version" build.xml | sed -e 's#^.*value="##' -e 's#".*$##'`
 [ -z "$V" ] && echo "Unable to get version from buld.xml" && exit
@@ -23,6 +24,9 @@ sh gsample.sh
 find $C/javadoc -name "*.html" -exec rm '{}' ';'
 find $C/sample -name "*.html" -exec rm '{}' ';'
 find $C/jslib -name "*.js" -exec rm '{}' ';'
+find $C/javadoc $C/sample -name "*html" | xargs svn add
+find $C/javadoc $C/sample -name "*js" | xargs svn add
+find $C/javadoc $C/sample -name "*html" | xargs svn propset svn:mime-type text/html
 
 cmd="cp -r gwtchismes-$V/gdocs/*   $C/javadoc/"
 echo "Executing: $cmd" && $cmd
@@ -30,6 +34,8 @@ cmd="cp -r gwtchismes-$V/gsample/* $C/sample/"
 echo "Executing: $cmd" && $cmd
 cmd="cp -r gwtchismes-$V/jslib/* $C/jslib"
 echo "Executing: $cmd" && $cmd
+
+perl gjslib.pl > ../GWTChismes-wiki/JsChismes_Documentation.wiki
 
 
 mkdir -p $M/gwtchismes/gwtchismes/$V
