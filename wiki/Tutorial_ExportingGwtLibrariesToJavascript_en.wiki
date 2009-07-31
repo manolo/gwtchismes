@@ -139,7 +139,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
-  # To pass javascript functions as arguments, use the annotation @ExportClosure and create an interface with the public methods you want to export. These methods will receive the same arguments and types that the javascript function.
+  # To pass javascript functions as arguments, use the annotation @Exportclosure and create an interface with the public methods you want to export. These methods will receive the same arguments and types that the javascript function.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -233,7 +233,7 @@ public class JsProperties {
 }
 }}}
 
-= Configuring the GWT module =
+= Creating and configuring the GWT module to export =
 
  It is recommendable to create a new module to export our GWT library. In fact, it is better not modify our original GWT library, so we can publish it as a .jar file without depending on gwt-exporter. These are the steps to do that:
 
@@ -295,15 +295,15 @@ public class JsChismes implements EntryPoint {
 
 Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you have to comment this line in development time, or you can create another .gwt.xml file for this purpose. 
 
-= Documenting the Javascript Library = 
+= Documenting the produced Library = 
 
-Unless java packages that can be easily used letting the java IDE to suggest us about the usage and automatically documented using javadoc tool, to use a javascript library it is necessary to have a little documentation about the usage of classes and methods.
+Unless java packages that can be easily used letting the java IDE make suggestions about the classes, methods, parameters, etc, to make use of a javascript library it is necessary to have a little documentation about the usage of it.
 
-So don't forget to create and maintain this documentation of your library. Take a look to the documentation I've produced for my projects.
+So, don't forget to create and maintain this documentation of your library. 
 
-Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some propietary conventions, and them you can create your own parser to produce a wiki markup page. I use this technique and an ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
+Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and an ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
-= References =
+= References an examples =
  * [http://code.google.com/p/gwt-exporter gwt-exporter] library is no documented at all, you have to read the code and in line comments in the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] to learn how to use it. 
  * [http://code.google.com/p/gwtchismes Gwtchismes] was the first gwt library I exported using this method. It's javascript version is published under the name Jschismes. And here you have the [http://code.google.com/p/gwtchismes/wiki/JsChismes_Documentation documentation], [http://code.google.com/p/gwtchismes/source/browse/#svn/trunk/GWTChismes/src/jschismes/client source code] and [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html live sample].
  * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload.JsUpload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GWTUpload/src/jsupload/client code].  
