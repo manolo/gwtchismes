@@ -237,11 +237,12 @@ public class JsProperties {
 
  Es conveniente generar un nuevo módulo para exportar nuestra librería. De hecho es mejor no modificar nuestra librería original gwt sino usarla en nuestro nuevo módulo, de esta manera la libreria gwt publicada no dependerá de gwt-exporter. Los pasos para hacer esto son:
 
- # Crear un nuevo módulo e importar nuestra libreria y la libreria gwt-exporter en el fichero .gwt.xml
+ # Crear un nuevo módulo e importar nuestra libreria y la libreria gwt-exporter en el fichero .gwt.xml, y establecer la variable export a 'true'
 {{{
 <module>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
   <inherits name="org.timepedia.exporter.Exporter"/>
+  <set-property name="export" value="yes"/>
 </module>
 }}}
  # Crear tantas clases java como objetos queramos exportar a javascript. Estas clases seran las que implementen el interfaz Exportable, las que usen las anotaciones de gwt-exporter, y extenderán las clases originales y publicando solo los metodos deseados.
