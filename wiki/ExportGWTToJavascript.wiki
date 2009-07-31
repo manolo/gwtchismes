@@ -135,7 +135,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
- # Para pasar funciones javascript como argumentos a nuestras funciones, hay que utilizar la anotacion @ExportClosure y crear un interface con los metodos publicos que queramos exportar. Estos metodos reciben los mismos argumentos y tipos que los que  recibe la funcion nativa de javascript.
+ # Para pasar funciones javascript como argumentos a nuestros métodos, hay que utilizar la anotacion @ExportClosure y crear un interface con los metodos publicos que queramos exportar. Estos metodos reciben los mismos argumentos y tipos que los de la funcion javascript.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -227,4 +227,65 @@ public class JsProperties {
     return p[name] ? p[name].toString() : p[name] === false ? "false" : null;
   }-*/;
 }
+}}}
+
+= Configuración del módulo GWT =
+
+ Es conveniente generar un nuevo módulo para exportar nuestra librería. De hecho es mejor no modificar nuestra librería original gwt sino usarla en nuestro nuevo módulo, de esta manera la libreria gwt publicada no dependerá de gwt-exporter. Los pasos para hacer esto son:
+
+ # Crear un nuevo módulo e importar nuestra libreria y la libreria gwt-exporter en el fichero .gwt.xml
+{{{
+<module>
+  <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
+  <inherits name="org.timepedia.exporter.Exporter"/>
+</module>
+}}}
+ # Crear tantas clases java como objetos queramos exportar a javascript. Estas clases seran las que implementen el interfaz Exportable, las que usen las anotaciones de gwt-exporter, y extenderán las clases originales y publicando solo los metodos deseados.
+{{{
+@Export
+public class Alert extends GWTCAlert implements Exportable {
+  private JsProperties jsProp;
+  public Alert(JavaScriptObject prop) {
+    super();
+    this.jsProp = new JsProperties(prop);
+    if (jsProp.defined("className"))
+      super.setStyleName(jsProp.get("className"));
+  }
+  public void show(int seconds) {
+    super.show(seconds);
+  }
+  public void alert(String msg) {
+    super.alert(msg);
+  }
+  public void hide() {
+    super.hide();
+  }
+}
+}}}
+ # Crear un punto de entrada en nuestro modulo que notifique a GWT qué clases debe exportar, y ejecute una funcion javascript nativa al cargar la librería.
+{{{
+<module>
+  [...]
+  <entry-point class="jschismes.client.JsChismes"/>
+</module>
+}}}
+{{{
+public class JsChismes implements EntryPoint {
+  public void onModuleLoad() {
+    ((Exporter) GWT.create(Alert.class)).export();
+    onLoadImpl();
+  }
+  private native void onLoadImpl() /*-{
+    if ($wnd.jscOnLoad && typeof $wnd.jscOnLoad == 'function') $wnd.jscOnLoad();
+  }-*/;
+
+}}}
+ # Compilar nuestro modulo utilizando el linker 'cross-site' de esta manera la libreria javascript podrá residir en un dominio diferente que el de la aplicacion, por ejemplo usar CDN's. 
+
+Nota: las versiones 1.6.x y 1.7.0 de momento no soportan el 'linker xs' en modo 'hosted', por lo que tendreis que comentar esta linea cuando useis este modo, o crear otro fichero gwt.xml para desarrollo.
+{{{
+<module>
+  [...]
+  <add-linker name="xs"/>
+</module>
 }}}
