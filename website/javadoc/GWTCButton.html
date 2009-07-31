@@ -8,7 +8,7 @@
 GWTCButton (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-07-27">
+<META NAME="date" CONTENT="2009-07-31">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -107,7 +107,7 @@ java.lang.Object
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>GWTCButton</B><DT>extends com.google.gwt.user.client.ui.Button<DT>implements com.google.gwt.event.dom.client.HasMouseOverHandlers, com.google.gwt.event.dom.client.HasMouseOutHandlers</DL>
+<DT><PRE>public class <B>GWTCButton</B><DT>extends com.google.gwt.user.client.ui.Button</DL>
 </PRE>
 
 <P>
@@ -266,6 +266,13 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="GWTCButton.html#GWTCButton(java.lang.String, com.google.gwt.user.client.ui.ClickListener)">GWTCButton</A></B>(java.lang.String&nbsp;html,
+           com.google.gwt.user.client.ui.ClickListener&nbsp;clickListener)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -592,10 +599,10 @@ public static final int <B>BUTTON_TYPE_1</B></PRE>
 <A NAME="DEFAULT_TYPE"><!-- --></A><H3>
 DEFAULT_TYPE</H3>
 <PRE>
-public static int <B>DEFAULT_TYPE</B></PRE>
+public static final int <B>DEFAULT_TYPE</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCButton.DEFAULT_TYPE">Constant Field Values</A></DL>
 </DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
@@ -613,6 +620,22 @@ GWTCButton</H3>
 <PRE>
 public <B>GWTCButton</B>()</PRE>
 <DL>
+</DL>
+<HR>
+
+<A NAME="GWTCButton(java.lang.String, com.google.gwt.user.client.ui.ClickListener)"><!-- --></A><H3>
+GWTCButton</H3>
+<PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>GWTCButton</B>(java.lang.String&nbsp;html,
+                             com.google.gwt.user.client.ui.ClickListener&nbsp;clickListener)</PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+<DD>Deprecated: use GWTCButton(String html, ClickHandler clickHandler) constructor
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>html</CODE> - <DD><CODE>clickListener</CODE> - </DL>
 </DL>
 <HR>
 
@@ -666,9 +689,6 @@ setType</H3>
 <PRE>
 public void <B>setType</B>(int&nbsp;type)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -795,9 +815,6 @@ public void <B>setLeftHTML</B>(java.lang.String&nbsp;html)</PRE>
 <DD><DL>
 </DL>
 </DD>
-<DD><DL>
-</DL>
-</DD>
 </DL>
 <HR>
 
@@ -806,9 +823,6 @@ setLeftWidget</H3>
 <PRE>
 public void <B>setLeftWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -823,9 +837,6 @@ public void <B>setRightHTML</B>(java.lang.String&nbsp;html)</PRE>
 <DD><DL>
 </DL>
 </DD>
-<DD><DL>
-</DL>
-</DD>
 </DL>
 <HR>
 
@@ -834,9 +845,6 @@ setRightWidget</H3>
 <PRE>
 public void <B>setRightWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -851,9 +859,6 @@ public void <B>setImage</B>(com.google.gwt.user.client.ui.Image&nbsp;img)</PRE>
 <DD><DL>
 </DL>
 </DD>
-<DD><DL>
-</DL>
-</DD>
 </DL>
 <HR>
 
@@ -862,9 +867,6 @@ setImageSrc</H3>
 <PRE>
 public void <B>setImageSrc</B>(java.lang.String&nbsp;src)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
 <DD><DL>
 </DL>
 </DD>
