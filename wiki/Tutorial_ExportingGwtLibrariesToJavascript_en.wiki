@@ -245,7 +245,7 @@ public class JsProperties {
   <set-porperty name="export" value="yes"/>
 </module>
 }}}
- # Create so many classes as objects we want to export into javascript. These classes will be the ones that implement the Exportable interface, that use gwt-exporter's annotations, and they have to extend the original classes of our library, publishing a constructor that accepts javascript properties and the methods we want to be available.
+ # Create so many classes as objects we want to export into javascript. These classes will implement the Exportable interface, will use gwt-exporter's annotations, and will have to extend the original classes of your original gwt library, publishing a constructor that accepts javascript properties, and the methods you want to be available to javascript.
 {{{
 @Export
 public class Alert extends GWTCAlert implements Exportable {
@@ -301,10 +301,10 @@ Unless java packages that can be easily used letting the java IDE make suggestio
 
 So, don't forget to create and maintain this documentation of your library. 
 
-Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and an ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
+Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and a home-brew and ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
 = References an examples =
- * [http://code.google.com/p/gwt-exporter Gwt-exporter] library is no documented at all, you have to read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and comment to learn how to use it. 
+ * [http://code.google.com/p/gwt-exporter Gwt-exporter] library is no documented at all, you have to read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments to learn how to use it. 
  * [http://code.google.com/p/gwtchismes Gwtchismes] was the first gwt library I exported using this method. It's javascript version its called Jschismes, and here you have the [http://code.google.com/p/gwtchismes/wiki/JsChismes_Documentation documentation], [http://code.google.com/p/gwtchismes/source/browse/#svn/trunk/GWTChismes/src/jschismes/client source code] and [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html live sample].
  * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload.JsUpload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GWTUpload/src/jsupload/client code].  
 
