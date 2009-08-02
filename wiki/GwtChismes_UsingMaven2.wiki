@@ -47,7 +47,7 @@ To setup gwtchismes in a maven project just edit the pom.xml file and add the re
       <gwtVersion>1.7.0</gwtVersion>
   </properties>
 }}}
-   * comment the goal test from gwt-maven plugin and rename GwtTest*.java classes to Test*.java
+   * comment the goal test from gwt-maven plugin and remove Gwt prefix from the gwttestcase that the archetype has generated as example.
 {{{
   <plugin>
     <groupId>com.totsp.gwt</groupId>
@@ -58,7 +58,7 @@ To setup gwtchismes in a maven project just edit the pom.xml file and add the re
 }}}
 {{{
 $ mv src/test/java/com/foo/client/GwtTestExampleA.java src/test/java/com/foo/client/TestExampleA.java
-# Edit your file or use thise command if you have perl installed
+# Edit your text editor, or this regular expresion in perl to rename the class name
 $ perl -pi -e s/GwtTestExampleA/TestExampleA/g src/test/java/com/foo/client/TestExampleA.java
 }}}
    * include the gwtchismes repository
