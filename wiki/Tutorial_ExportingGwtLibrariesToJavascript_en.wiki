@@ -82,7 +82,14 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 }}}
   # Inherited classes and their public methods are not exported by default, unless they are specifically annotated with @Export. Even so, it will be necessary to implement the interface 'Exportable'. Speaking about the @Export annotation, it accepts an optional argument to change the name of the exported method.
 {{{
-package gwtchismes.client;
+@Export
+@ExportPackage("jsc")
+public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
+  public void show(){
+  }
+}
+}}}
+{{{
 public class GWTCDatePickerAbstract implements Exportable {
   @Export("foo")
   public void initialise(){
@@ -98,7 +105,6 @@ public class GWTCDatePickerAbstract implements Exportable {
 }}}
   # In the entry point of our application it will be necessary to specify which classes we want to export. However, exportable classes used as arguments or returned in application's methods will be exported automatically.
 {{{
-package gwtchismes.client;
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     ((Exporter) GWT.create(DatePicker.class)).export();
@@ -107,7 +113,6 @@ public class JsChismes implements EntryPoint {
 }}}
   # Also in the entry point, and because our library will be abailable after all the document is loaded, it is convenient to invoke a call-back javascript function.
 {{{
-package gwtchismes.client;
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     onLoadImpl();
