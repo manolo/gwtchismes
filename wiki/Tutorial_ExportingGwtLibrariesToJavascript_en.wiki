@@ -59,7 +59,6 @@ And also, there are many advantages in publishing your library not only in java 
   <script language='javascript'>
     var hello = new jschismes.client.HelloClass();
     hello.helloMethod("Manuel");
-    window.hello("Manolo");
   </script>
 }}}
 
