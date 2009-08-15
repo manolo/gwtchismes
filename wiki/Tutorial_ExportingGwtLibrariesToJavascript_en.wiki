@@ -43,7 +43,7 @@ And also, there are many advantages in publishing your library not only in java 
   </script>
 }}}
 
-  * Is it possible to simplify this process?. Of course, just use the library [http://code.google.com/p/gwt-exporter/ GWT-exporter]. Importing it and making annotations in our java code, the compiler will generate all the necessary stuff to populate our classes and methods in the object window.
+  * Is it possible to simplify this process?. Of course, just use the library [http://code.google.com/p/gwt-exporter/ GWT-exporter], importing it, and make annotations in your java code, then, the compiler will generate all the necessary stuff to populate our classes and methods in the object window.
 {{{
  package jschismes.client;
  @Export
