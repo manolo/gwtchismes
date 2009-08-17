@@ -198,7 +198,7 @@ public class DatePicker implements Exportable {
 @Export
 @ExportPackage("jsc")
 public class DatePicker implements Exportable {
-  String caption = "Select a day";
+  String caption = "Make your selection";
   int type = 0;
   public DatePicker(JavaScriptObject prop) {
     JsProperties jsProp = new JsProperties(prop);
@@ -222,11 +222,11 @@ public class JsProperties {
     this.prop = properties;
   }
   public String get(String name) {
-    return getImpl(this.prop, name, "");
+    return getImpl(this.prop, name);
   }
   public int getInt(String name) {
     String val = get(name);
-    return val == null ? null : Integer.valueOf(val);
+    return val == null ? 0 : Integer.valueOf(val);
   }
   private static native String getImpl(JavaScriptObject p, String name) /*-{
     return p[name] ? p[name].toString() : p[name] === false ? "false" : null;
@@ -238,7 +238,7 @@ public class JsProperties {
 
  It is recommended that you create a new module to export your GWT library. In fact, it is better not modify your original GWT library, so you can publish it as a _'.jar'_ file without depending on gwt-exporter. These are the steps to do that:
 
- # Create a new module and import both, our library and gwt-exporter in the .gwt.xml, and set the property export to 'yes'
+ # Create a new module and import both, your library and gwt-exporter in the '_.gwt.xml_', and set the property export to '_yes_'
 {{{
 <module>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
@@ -246,7 +246,7 @@ public class JsProperties {
   <set-porperty name="export" value="yes"/>
 </module>
 }}}
- # Create as many classes as objects that you want to export into javascript. These classes will implement the `Exportable` interface, will use gwt-exporter's annotations, and will have to extend the original classes of your original gwt library, publishing a constructor that accepts javascript properties, and the methods you want to be available to javascript.
+ # Create as many classes as objects that you want to export into javascript. These classes will implement the `Exportable` interface, will use gwt-exporter's annotations, and will have to extend the original classes of your gwt library, publishing a constructor that accepts '_javascript properties_', and the public methods you want to be available from javascript.
 {{{
 @Export
 public class Alert extends GWTCAlert implements Exportable {
@@ -298,9 +298,7 @@ Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you ha
 
 = Documenting the produced Library = 
 
-Unless java packages that can be easily used letting the java IDE make suggestions about the classes, methods, parameters, etc, to make use of a javascript library it is necessary to have a little documentation about the usage of it.
-
-So, don't forget to create and maintain the documentation of your library. 
+Unless java packages that can be easily used letting the java IDE make suggestions about the classes, methods, parameters, etc, to make use of a javascript library it is necessary to have a little documentation about the usage of it. So, don't forget to create and maintain the appropriate documentation of your library. 
 
 Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and a home-brewed ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
