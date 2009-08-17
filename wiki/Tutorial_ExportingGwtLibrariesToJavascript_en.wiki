@@ -165,7 +165,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-  # For objects that are implemented in both Javascript and GWT worlds, we need _JSNI bridges_. An example of this, is the Date object which has different implementations, although the behaviours are similar.
+  # For objects that are implemented in both Javascript and GWT worlds, we need '_JSNI bridges_'. An example of this, is the Date object which has different implementations, although the behaviours are similar.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -193,7 +193,7 @@ public class DatePicker implements Exportable {
      alert(picker.getCurrentDate());
   </script>
 }}}
-  # Javascript constructors generally accept an object of type 'javascript properties' as argument. Therefore, it would be interesting if our classes could accept a javascript properties' object as argument in the constructor, being able to extract the configuration you want. This is achieved by creating a class that serves as a bridge between these javascript attributes and GWT.
+  # Javascript constructors generally accept an object of type '_javascript properties_' as argument. Therefore, it would be interesting if our classes could accept a javascript properties' object as argument in the constructor, being able to extract the configuration you want. This is achieved by creating a class that serves as a bridge between these javascript attributes and GWT.
 {{{
 @Export
 @ExportPackage("jsc")
