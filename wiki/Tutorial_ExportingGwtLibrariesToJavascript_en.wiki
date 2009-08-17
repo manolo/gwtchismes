@@ -4,7 +4,7 @@ Exporting libraries developed in GWT to javascript.
 
 = Introduction =
 
-There are several advantages to use GWT to produce high quality javascript code. For instance, the programmer does not need to be an expert in javascript, nor know peculiarities of each browser, or spend time packing, compressing, obfuscating, calculating dependencies, etc.
+There are several advantages to using GWT to produce high quality javascript code. For instance, the programmer does not need to be an expert in javascript, nor know peculiarities of each browser, or spend time packing, compressing, obfuscating, calculating dependencies, etc.
 
 The relationship between GWT and javascript is the same than C and assembler. Why do you code in a low-level language which has different features for each platform, when you could do it in a high-level language, and give the compiler the responsibility of warning about mistakes, linking, optimising, obfuscating, and generating the most appropriate code for each platform?. Also, just as you can do with C inlining assembler, you can put javascript in your java code using [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html#DevGuideJavaScriptNativeInterface JSNI].
 
@@ -42,8 +42,9 @@ And also, there are many advantages in publishing your library not only in java 
   </script>
 }}}
 
-  * Is it possible to simplify this process?. Of course, just use the library [http://code.google.com/p/gwt-exporter/ GWT-exporter], importing it, and make annotations in your java code, then, the compiler will generate all the necessary stuff to populate our classes and methods in the object window.
+  * Is it possible to simplify this process?. Of course, just use the  [http://code.google.com/p/gwt-exporter/ gwt-exporter] library, import it and make annotations in your java code, then, the compiler will generate all the necessary code to populate your classes and methods in the object window.
 {{{
+ package jschismes.client;
  @Export
  public class HelloClass implements Exportable {
     String prefix = "Hello: ";
@@ -61,7 +62,7 @@ And also, there are many advantages in publishing your library not only in java 
 }}}
 
 = Using GWT-exporter = 
-  # Only classes that implement `Exportable` and are annotated with `@Export` will be exported, and only their public methods will be  available. By default GWT-exporter puts our classes in the object window under the package's name-space, but it can be changed using the annotation `@ExportPackage`.
+  # Only classes that implement `Exportable` and are annotated with `@Export` will be exported, and only their public methods will be  available. By default gwt-exporter puts our classes in the object window under the package's name-space, but it can be changed using the annotation `@ExportPackage`.
 {{{
 package jschismes.client;
 @ExportPackage("jsc")
@@ -77,7 +78,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
      picker.show();
   </script>
 }}}
-  # Inherited classes and their public methods are not exported by default, unless they are specifically annotated with @Export. Even so, it will be necessary to implement the interface 'Exportable'. Speaking about the @Export annotation, it accepts an optional argument to change the name of the exported method.
+  # Inherited classes and their public methods are not exported by default, unless they are specifically annotated with `@Export`. Even so, it will be necessary to implement the interface 'Exportable'. Additionally, `@Export` annotation accepts an optional argument to change the name of the exported method.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -108,7 +109,7 @@ public class JsChismes implements EntryPoint {
   }
 }
 }}}
-  # Also in the entry point, and because our library will be abailable after all the document is loaded, it is convenient to invoke a call-back javascript function.
+  # Also in the entry point, because our library will be available after all the document is loaded, it is convenient to invoke a call-back javascript function.
 {{{
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
@@ -127,7 +128,7 @@ public class JsChismes implements EntryPoint {
     }
   </script>
 }}}
-  # The arguments and return of functions must use primitive types or objects which are marked as exportable.
+  # The arguments and return values of functions must use primitive types or objects which are marked as exportable.
 {{{
 @Export
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
@@ -140,7 +141,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
-  # To pass javascript functions as arguments, use the annotation @Exportclosure and create an interface with the public methods you want to export. These methods will receive the same arguments and types that the javascript function.
+  # To pass javascript functions as arguments, use the annotation `@ExportClosure` and create an interface with the public methods you want to export. These methods will receive the same arguments and types as the javascript function.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -165,7 +166,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-  # For objects that are implemented in both Javascript and GWT worlds, we need 'JSNI bridges. An example is the Date object that has different implementations although the behaviour is similar.
+  # For objects that are implemented in both Javascript and GWT worlds, we need 'JSNI bridges. An example is the Date object that has different implementations although the behaviours are similar.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -193,7 +194,7 @@ public class DatePicker implements Exportable {
      alert(picker.getCurrentDate());
   </script>
 }}}
-  # Javascript constructors generally accept an object of type 'javascript properties' as argument. Therefore, it would be interesting that our classes would accept a javascript properties object as argument in the constructor, being able to extract the configuration you want. This is achieved by creating a class that serves as a bridge between these javascript attributes and GWT.
+  # Javascript constructors generally accept an object of type 'javascript properties' as argument. Therefore, it would be interesting if our classes could accept a javascript properties' object as argument in the constructor, being able to extract the configuration you want. This is achieved by creating a class that serves as a bridge between these javascript attributes and GWT.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -236,7 +237,7 @@ public class JsProperties {
 
 = Creating and configuring the GWT module to export =
 
- It is recommendable to create a new module to export our GWT library. In fact, it is better not modify our original GWT library, so we can publish it as a .jar file without depending on gwt-exporter. These are the steps to do that:
+ It is recommended that you create a new module to export your GWT library. In fact, it is better not modify your original GWT library, so you can publish it as a _'.jar'_ file without depending on gwt-exporter. These are the steps to do that:
 
  # Create a new module and import both, our library and gwt-exporter in the .gwt.xml, and set the property export to 'yes'
 {{{
@@ -246,7 +247,7 @@ public class JsProperties {
   <set-porperty name="export" value="yes"/>
 </module>
 }}}
- # Create so many classes as objects we want to export into javascript. These classes will implement the Exportable interface, will use gwt-exporter's annotations, and will have to extend the original classes of your original gwt library, publishing a constructor that accepts javascript properties, and the methods you want to be available to javascript.
+ # Create as many classes as objects that you want to export into javascript. These classes will implement the `Exportable` interface, will use gwt-exporter's annotations, and will have to extend the original classes of your original gwt library, publishing a constructor that accepts javascript properties, and the methods you want to be available to javascript.
 {{{
 @Export
 public class Alert extends GWTCAlert implements Exportable {
@@ -294,15 +295,15 @@ public class JsChismes implements EntryPoint {
 </module>
 }}}
 
-Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you have to comment this line in development time, or you can create another .gwt.xml file for this purpose. 
+Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you have to comment this line at development time, or you can create another _.gwt.xml_ file for this purpose. 
 
 = Documenting the produced Library = 
 
 Unless java packages that can be easily used letting the java IDE make suggestions about the classes, methods, parameters, etc, to make use of a javascript library it is necessary to have a little documentation about the usage of it.
 
-So, don't forget to create and maintain this documentation of your library. 
+So, don't forget to create and maintain the documentation of your library. 
 
-Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and a home-brew and ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
+Unfortunately there isn't any tool to produce this documentation automatically, but you can document your library in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and a home-brewed ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
 = References an examples =
  * [http://code.google.com/p/gwt-exporter Gwt-exporter] library is no documented at all, you have to read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments to learn how to use it. 
