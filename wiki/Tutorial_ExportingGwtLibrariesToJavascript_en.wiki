@@ -77,7 +77,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
      picker.show();
   </script>
 }}}
-  # Inherited classes and their public methods are not exported by default, unless they are specifically annotated with `@Export`. Even so, it will be necessary to implement the interface 'Exportable'. Additionally, `@Export` annotation accepts an optional argument to change the name of the exported method.
+  # Inherited classes and their public methods are not exported by default, unless they are specifically annotated with `@Export`. Even so, it will be necessary to implement the `Exportable` interface. Additionally, `@Export` annotation accepts an optional argument to change the name of the exported method.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -100,7 +100,7 @@ public class GWTCDatePickerAbstract implements Exportable {
      picker.foo();
   </script>
 }}}
-  # In the entry point of our application it will be necessary to specify which classes we want to export. However, exportable classes used as arguments or returned in application's methods will be exported automatically.
+  # In the entry-point of our application it will be necessary to specify which classes we want to export. However, exportable classes used as arguments or returned in application's methods will be exported automatically.
 {{{
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
@@ -108,7 +108,7 @@ public class JsChismes implements EntryPoint {
   }
 }
 }}}
-  # Also in the entry point, because our library will be available after all the document is loaded, it is convenient to invoke a call-back javascript function.
+  # Also in the entry-point, because our library will be available after all the document is loaded, it is convenient to invoke a call-back javascript function.
 {{{
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
