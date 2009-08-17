@@ -165,7 +165,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-  # For objects that are implemented in both Javascript and GWT worlds, we need 'JSNI bridges. An example is the Date object that has different implementations although the behaviours are similar.
+  # For objects that are implemented in both Javascript and GWT worlds, we need _JSNI bridges_. An example of this, is the Date object which has different implementations, although the behaviours are similar.
 {{{
 @Export
 @ExportPackage("jsc")
