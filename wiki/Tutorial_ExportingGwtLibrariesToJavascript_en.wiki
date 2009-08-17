@@ -61,7 +61,7 @@ And also, there are many advantages in publishing your library not only in java 
 }}}
 
 = Using GWT-exporter = 
-  # Only classes that implement `Exportable` and are annotated with `@Export` will be exported, and only their public methods will be  available. By default GWT-exporter puts our classes in the object window under the package's name-space, but it can be changed using the annotation `@Exportpackage`.
+  # Only classes that implement `Exportable` and are annotated with `@Export` will be exported, and only their public methods will be  available. By default GWT-exporter puts our classes in the object window under the package's name-space, but it can be changed using the annotation `@ExportPackage`.
 {{{
 package jschismes.client;
 @ExportPackage("jsc")
