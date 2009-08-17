@@ -41,7 +41,7 @@ The relationship between GWT and javascript is the same than C and assembler. Wh
   </script>
 }}}
 
-  * Is it possible to simplify this process?. Of course, just use the  [http://code.google.com/p/gwt-exporter/ gwt-exporter] library, import it and make annotations in your java code, then, the compiler will generate all the necessary code to populate your classes and methods in the object window.
+  * Is it possible to simplify this process?. Of course, just use the  [http://code.google.com/p/gwt-exporter/ gwt-exporter] library, import it and make annotations in your java code, then the compiler will generate all the necessary code to populate your classes and methods in the object window.
 {{{
  package jschismes.client;
  @Export
