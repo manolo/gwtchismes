@@ -8,7 +8,7 @@
 GWTCSimpleDatePicker (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-07-31">
+<META NAME="date" CONTENT="2009-08-24">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -124,6 +124,7 @@ java.lang.Object
  <ul>
  <li>Uses GWT-i18n for date formating.</li>
  <li>The class provides useful public methods for Date manipulation</li>
+ <li>It supports week numbers</li>
  </ul>
  
  <h3>Example</h3>
@@ -287,6 +288,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#clickOnWeekNumbers(boolean)">clickOnWeekNumbers</A></B>(boolean&nbsp;b)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add click handlers to week number labels in order to select the first day of this week's row</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A></B>(java.util.Date&nbsp;a,
             java.util.Date&nbsp;b)</CODE>
@@ -326,6 +335,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the first day of the month</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.util.Date</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#getFirstDayOfWeek(java.util.Date)">getFirstDayOfWeek</A></B>(java.util.Date&nbsp;date)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -374,6 +391,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a string with the selected date in the desired format</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#getWeekOfYear(java.util.Date)">getWeekOfYear</A></B>(java.util.Date&nbsp;date)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -464,11 +489,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">removeValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a previously added handler.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -508,7 +533,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#setNumberOfLettersInDayNames(int)">setNumberOfLettersInDayNames</A></B>(int&nbsp;n)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the number of letters to show in the name of the week day</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -542,6 +567,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCSimpleDatePicker.html#showWeekNumbers(boolean)">showWeekNumbers</A></B>(boolean&nbsp;b)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show the week numbers</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -1027,7 +1060,7 @@ public static java.lang.String <B>formatDate</B>(java.lang.String&nbsp;format,
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>format</CODE> - format patern as explained in DataTimeFormat (GyMdhHmsSakKzv')<DD><CODE>date</CODE> - the date to represent
+<DT><B>Parameters:</B><DD><CODE>format</CODE> - format patern as explained in DateTimeFormat (GyMdkHmsSEDahKzZv')<DD><CODE>date</CODE> - the date to represent
 <DT><B>Returns:</B><DD>formated string</DL>
 </DD>
 </DL>
@@ -1093,6 +1126,34 @@ public static java.util.Date <B>getLastDayOfMonth</B>(java.util.Date&nbsp;date)<
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>date</CODE> - Date</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getWeekOfYear(java.util.Date)"><!-- --></A><H3>
+getWeekOfYear</H3>
+<PRE>
+public static int <B>getWeekOfYear</B>(java.util.Date&nbsp;date)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFirstDayOfWeek(java.util.Date)"><!-- --></A><H3>
+getFirstDayOfWeek</H3>
+<PRE>
+public static java.util.Date <B>getFirstDayOfWeek</B>(java.util.Date&nbsp;date)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1163,6 +1224,8 @@ setNumberOfLettersInDayNames</H3>
 <PRE>
 public void <B>setNumberOfLettersInDayNames</B>(int&nbsp;n)</PRE>
 <DL>
+<DD>Set the number of letters to show in the name of the week day
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -1206,13 +1269,45 @@ public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler<
 <A NAME="removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)"><!-- --></A><H3>
 removeValueChangeHandler</H3>
 <PRE>
-<FONT SIZE="-1">@Deprecated
-</FONT>protected void <B>removeValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</PRE>
+public void <B>removeValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A>&gt;&nbsp;handler)</PRE>
 <DL>
-<DD><B>Deprecated.</B>&nbsp;
-<P>
 <DD>Removes a previously added handler.
- Deprecated because the normal way to do this in gwt 1.7 is using the HandlerRegistration returned when the handler was added
+ 
+ The normal way to do this in gwt 1.7 is using the HandlerRegistration 
+ returned when the handler was added, but this is needed because it is used 
+ by GWTCDatePickerAbstract
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showWeekNumbers(boolean)"><!-- --></A><H3>
+showWeekNumbers</H3>
+<PRE>
+public void <B>showWeekNumbers</B>(boolean&nbsp;b)</PRE>
+<DL>
+<DD>Show the week numbers
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clickOnWeekNumbers(boolean)"><!-- --></A><H3>
+clickOnWeekNumbers</H3>
+<PRE>
+public void <B>clickOnWeekNumbers</B>(boolean&nbsp;b)</PRE>
+<DL>
+<DD>Add click handlers to week number labels in order to select the first day of this week's row
 <P>
 <DD><DL>
 </DL>

@@ -8,7 +8,7 @@
 GWTCDatePickerAbstract (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-07-31">
+<META NAME="date" CONTENT="2009-08-24">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -379,6 +379,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;com.google.gwt.user.client.ui.DockPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#leftButtons">leftButtons</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#MONTH_FORMAT">MONTH_FORMAT</A></B></CODE>
 
@@ -469,6 +477,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;com.google.gwt.user.client.ui.Button</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#prevYBtn">prevYBtn</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;com.google.gwt.user.client.ui.DockPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#rightButtons">rightButtons</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -696,10 +712,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#cfg(java.lang.String)">cfg</A></B>(java.lang.String&nbsp;buttonsLayout)</CODE>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#clickOnWeekNumbers(boolean)">clickOnWeekNumbers</A></B>(boolean&nbsp;b)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add click handlers to week number labels in order to select the first day of this week's row</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -940,6 +956,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show the calendar container besides the element passed as argument</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCDatePickerAbstract.html#showWeekNumbers(boolean)">showWeekNumbers</A></B>(boolean&nbsp;b)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show the week numbers</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -947,7 +971,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.code.p.gwtchismes.client.<A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)">add</A>, <A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)">increaseWeek</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)">parseDate</A>, <A HREF="GWTCSimpleDatePicker.html#removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">removeValueChangeHandler</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#setNumberOfLettersInDayNames(int)">setNumberOfLettersInDayNames</A>, <A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)">setSelectedDateStr</A></CODE></TD>
+<TD><CODE><A HREF="GWTCSimpleDatePicker.html#add(java.util.Date, java.lang.String)">add</A>, <A HREF="GWTCSimpleDatePicker.html#belongsToMonth(java.util.Date)">belongsToMonth</A>, <A HREF="GWTCSimpleDatePicker.html#compareDate(java.util.Date, java.util.Date)">compareDate</A>, <A HREF="GWTCSimpleDatePicker.html#daysInMonth(java.util.Date)">daysInMonth</A>, <A HREF="GWTCSimpleDatePicker.html#formatDate(java.lang.String, java.util.Date)">formatDate</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfMonth(java.util.Date)">getFirstDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getFirstDayOfWeek(java.util.Date)">getFirstDayOfWeek</A>, <A HREF="GWTCSimpleDatePicker.html#getLastDayOfMonth(java.util.Date)">getLastDayOfMonth</A>, <A HREF="GWTCSimpleDatePicker.html#getMaximalDate()">getMaximalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMinimalDate()">getMinimalDate</A>, <A HREF="GWTCSimpleDatePicker.html#getMonthNumber(java.util.Date)">getMonthNumber</A>, <A HREF="GWTCSimpleDatePicker.html#getSelectedDateStr(java.lang.String)">getSelectedDateStr</A>, <A HREF="GWTCSimpleDatePicker.html#getWeekOfYear(java.util.Date)">getWeekOfYear</A>, <A HREF="GWTCSimpleDatePicker.html#increaseDate(java.util.Date, int)">increaseDate</A>, <A HREF="GWTCSimpleDatePicker.html#increaseMonth(java.util.Date, int)">increaseMonth</A>, <A HREF="GWTCSimpleDatePicker.html#increaseWeek(java.util.Date, int)">increaseWeek</A>, <A HREF="GWTCSimpleDatePicker.html#increaseYear(java.util.Date, int)">increaseYear</A>, <A HREF="GWTCSimpleDatePicker.html#isVisibleMonth(int)">isVisibleMonth</A>, <A HREF="GWTCSimpleDatePicker.html#newDateFromYMD(int, int, int)">newDateFromYMD</A>, <A HREF="GWTCSimpleDatePicker.html#parseDate(java.lang.String, java.lang.String)">parseDate</A>, <A HREF="GWTCSimpleDatePicker.html#removeValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">removeValueChangeHandler</A>, <A HREF="GWTCSimpleDatePicker.html#setHourToZero(java.util.Date)">setHourToZero</A>, <A HREF="GWTCSimpleDatePicker.html#setNumberOfLettersInDayNames(int)">setNumberOfLettersInDayNames</A>, <A HREF="GWTCSimpleDatePicker.html#setSelectedDateStr(java.lang.String, java.lang.String)">setSelectedDateStr</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -1368,6 +1392,26 @@ protected final com.google.gwt.user.client.ui.DockPanel <B>bottomButtonsRow2</B>
 </DL>
 <HR>
 
+<A NAME="leftButtons"><!-- --></A><H3>
+leftButtons</H3>
+<PRE>
+protected final com.google.gwt.user.client.ui.DockPanel <B>leftButtons</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="rightButtons"><!-- --></A><H3>
+rightButtons</H3>
+<PRE>
+protected final com.google.gwt.user.client.ui.DockPanel <B>rightButtons</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
 <A NAME="helpBtn"><!-- --></A><H3>
 helpBtn</H3>
 <PRE>
@@ -1560,17 +1604,6 @@ public void <B>configure</B>(java.lang.String&nbsp;buttonsLayout,
       Available buttons are:<br/>
        help(?), close(x), nextMonth(>), previowusMonsh(<), nextYear(n), prevYear(p)<br/>
        monthMenu(m), today(-), empty(space)<br/><DD><CODE>months</CODE> - number of months to display<DD><CODE>monthsPerRow</CODE> - number of month columns<DD><CODE>monthsStep</CODE> - number of months to jump when the buttons > or < are pushed<DD><CODE>monthsInSelector</CODE> - number of items (months) in the months selector menu.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="cfg(java.lang.String)"><!-- --></A><H3>
-cfg</H3>
-<PRE>
-public void <B>cfg</B>(java.lang.String&nbsp;buttonsLayout)</PRE>
-<DL>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <HR>
@@ -1922,6 +1955,40 @@ public void <B>setSelectedDate</B>(java.util.Date&nbsp;d)</PRE>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>d</CODE> - Date</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showWeekNumbers(boolean)"><!-- --></A><H3>
+showWeekNumbers</H3>
+<PRE>
+public void <B>showWeekNumbers</B>(boolean&nbsp;b)</PRE>
+<DL>
+<DD><B>Description copied from class: <CODE><A HREF="GWTCSimpleDatePicker.html#showWeekNumbers(boolean)">GWTCSimpleDatePicker</A></CODE></B></DD>
+<DD>Show the week numbers
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="GWTCSimpleDatePicker.html#showWeekNumbers(boolean)">showWeekNumbers</A></CODE> in class <CODE><A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clickOnWeekNumbers(boolean)"><!-- --></A><H3>
+clickOnWeekNumbers</H3>
+<PRE>
+public void <B>clickOnWeekNumbers</B>(boolean&nbsp;b)</PRE>
+<DL>
+<DD><B>Description copied from class: <CODE><A HREF="GWTCSimpleDatePicker.html#clickOnWeekNumbers(boolean)">GWTCSimpleDatePicker</A></CODE></B></DD>
+<DD>Add click handlers to week number labels in order to select the first day of this week's row
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="GWTCSimpleDatePicker.html#clickOnWeekNumbers(boolean)">clickOnWeekNumbers</A></CODE> in class <CODE><A HREF="GWTCSimpleDatePicker.html" title="class in com.google.code.p.gwtchismes.client">GWTCSimpleDatePicker</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>

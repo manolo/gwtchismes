@@ -54,9 +54,12 @@
 }
 
 .GWTCDatePicker-custom .buttonsRow_2,
-.GWTCDatePicker-custom .panelMonths .monthLabels {
-	padding: 0.2em 0 0.3em;
+.GWTCDatePicker-custom .panelMonths .monthLabels{
 	background: #444;
+}
+.GWTCDatePicker-custom .buttonsRow_2,
+.GWTCDatePicker-custom .panelMonths .monthLabels div {
+	padding-top: 4px;
 	text-align: center;
 	font-weight: bold;
 	height: 1.7em;
@@ -144,3 +147,10 @@
 	color: red;
 	font-weight: normal;
 }
+
+.GWTCDatePicker-custom .GWTCDatePicker .panelDays .cellWeekNumbers div {
+  background: #7d7e7d;
+  border: none;
+  color: #ddd;
+}
+
