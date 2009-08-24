@@ -8,7 +8,7 @@
 GWTCIntervalSelector (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-07-31">
+<META NAME="date" CONTENT="2009-08-24">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -478,7 +478,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="GWTCIntervalSelector.html#GWTCIntervalSelector(int)">GWTCIntervalSelector</A></B>(int&nbsp;layout)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This constructor calls initialize and setups the desired layout;</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -497,6 +497,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a change listener</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#configureDatePickers(int)">configureDatePickers</A></B>(int&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -610,14 +618,6 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCIntervalSelector.html#setDatePickerOptions(int)">setDatePickerOptions</A></B>(int&nbsp;options)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCIntervalSelector.html#setDatePickerPosition(int)">setDatePickerPosition</A></B>(int&nbsp;position)</CODE>
 
 <BR>
@@ -667,10 +667,26 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#setMaximalDate(java.lang.String)">setMaximalDate</A></B>(java.lang.String&nbsp;s)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCIntervalSelector.html#setMinimalDate(java.util.Date)">setMinimalDate</A></B>(java.util.Date&nbsp;d)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the minimal selectable date for the interval</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#setMinimalDate(java.lang.String)">setMinimalDate</A></B>(java.lang.String&nbsp;s)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -690,8 +706,32 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#showCheckinCalendar()">showCheckinCalendar</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="GWTCIntervalSelector.html#updateTextElements()">updateTextElements</A></B>()</CODE>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#showCheckinCalendar(com.google.gwt.user.client.ui.Widget)">showCheckinCalendar</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;sender)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#showCheckoutCalendar()">showCheckoutCalendar</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCIntervalSelector.html#showWeekNumbers(boolean)">showWeekNumbers</A></B>(boolean&nbsp;b)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -1093,8 +1133,7 @@ GWTCIntervalSelector</H3>
 <PRE>
 public <B>GWTCIntervalSelector</B>(int&nbsp;layout)</PRE>
 <DL>
-<DD>Constructor. 
- You haven't to call initialize.
+<DD>This constructor calls initialize and setups the desired layout;
 <P>
 <DL>
 <DT><B>Parameters:</B><DD><CODE>layout</CODE> - layout for the interval selector</DL>
@@ -1161,10 +1200,10 @@ public void <B>configureDatePickers</B>(int&nbsp;options,
 </DL>
 <HR>
 
-<A NAME="setDatePickerOptions(int)"><!-- --></A><H3>
-setDatePickerOptions</H3>
+<A NAME="configureDatePickers(int)"><!-- --></A><H3>
+configureDatePickers</H3>
 <PRE>
-public void <B>setDatePickerOptions</B>(int&nbsp;options)</PRE>
+public void <B>configureDatePickers</B>(int&nbsp;options)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1179,20 +1218,6 @@ public void <B>setDatePickerOptions</B>(int&nbsp;options)</PRE>
 getGrid</H3>
 <PRE>
 public com.google.gwt.user.client.ui.FlexTable <B>getGrid</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="updateTextElements()"><!-- --></A><H3>
-updateTextElements</H3>
-<PRE>
-protected void <B>updateTextElements</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1364,6 +1389,48 @@ public void <B>setDatePickerPosition</B>(int&nbsp;position)</PRE>
 </DL>
 <HR>
 
+<A NAME="showCheckinCalendar(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+showCheckinCalendar</H3>
+<PRE>
+protected void <B>showCheckinCalendar</B>(com.google.gwt.user.client.ui.Widget&nbsp;sender)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showCheckinCalendar()"><!-- --></A><H3>
+showCheckinCalendar</H3>
+<PRE>
+public void <B>showCheckinCalendar</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showCheckoutCalendar()"><!-- --></A><H3>
+showCheckoutCalendar</H3>
+<PRE>
+public void <B>showCheckoutCalendar</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="setI18nMessages(java.util.Map)"><!-- --></A><H3>
 setI18nMessages</H3>
 <PRE>
@@ -1425,6 +1492,34 @@ public void <B>setMinimalDate</B>(java.util.Date&nbsp;d)</PRE>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>d</CODE> - Date</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMinimalDate(java.lang.String)"><!-- --></A><H3>
+setMinimalDate</H3>
+<PRE>
+public void <B>setMinimalDate</B>(java.lang.String&nbsp;s)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMaximalDate(java.lang.String)"><!-- --></A><H3>
+setMaximalDate</H3>
+<PRE>
+public void <B>setMaximalDate</B>(java.lang.String&nbsp;s)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1503,6 +1598,20 @@ public void <B>setDateFormat</B>(java.lang.String&nbsp;dateFormat)</PRE>
 setWeekDayFormat</H3>
 <PRE>
 public void <B>setWeekDayFormat</B>(java.lang.String&nbsp;weekDayFormat)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showWeekNumbers(boolean)"><!-- --></A><H3>
+showWeekNumbers</H3>
+<PRE>
+public void <B>showWeekNumbers</B>(boolean&nbsp;b)</PRE>
 <DL>
 <DD><DL>
 </DL>

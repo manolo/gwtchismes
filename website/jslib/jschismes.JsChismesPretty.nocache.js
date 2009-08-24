@@ -207,10 +207,16 @@ function jschismes_JsChismesPretty(){
       return 'safari';
     }
      else if (ua.indexOf('msie') != -1) {
-      var result_0 = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
-      if (result_0 && result_0.length == 3) {
-        if (makeVersion(result_0) >= 6000) {
-          return 'ie6';
+      if (document.documentMode >= 8) {
+        return 'ie8';
+      }
+       else {
+        var result_0 = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
+        if (result_0 && result_0.length == 3) {
+          var v = makeVersion(result_0);
+          if (v >= 6000) {
+            return 'ie6';
+          }
         }
       }
     }
@@ -225,7 +231,7 @@ function jschismes_JsChismesPretty(){
     return 'unknown';
   }
   ;
-  values['user.agent'] = {gecko:0, gecko1_8:1, ie6:2, opera:3, safari:4};
+  values['user.agent'] = {gecko:0, gecko1_8:1, ie6:2, ie8:3, opera:4, safari:5};
   jschismes_JsChismesPretty.onScriptLoad = function(gwtOnLoadFunc){
     jschismes_JsChismesPretty = null;
     gwtOnLoad = gwtOnLoadFunc;
@@ -241,31 +247,36 @@ function jschismes_JsChismesPretty(){
   $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'bootstrap', millis:(new Date()).getTime(), type:'selectingPermutation'});
   var strongName;
   try {
-    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_17.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_11.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_7.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_1.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_5.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_10.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_15.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_24.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_2.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_13.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_19.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_6.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_8.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_22.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_18.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_9.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_23.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_4.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_12.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_3.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_21.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_16.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_25.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_20.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_14.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_25.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_18.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_26.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_10.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_59.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'ie8'], 'file_55.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'ie8'], 'file_7.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'ie8'], 'file_23.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'ie8'], 'file_32.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'ie8'], 'file_51.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_20.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_56.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_6.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_39.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_53.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_16.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_37.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_24.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_35.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_40.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_47.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_54.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_49.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_52.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_1.cache.js');
+    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_3.cache.js');
+    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_13.cache.js');
+    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_15.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_57.cache.js');
+    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_50.cache.js');
     strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
   }
    catch (e) {
