@@ -77,6 +77,10 @@ td .sampleContainer .panel {
 	border: 2px ridge red;
 	min-height: 20px;
 }
+.GWTCIntervalSelector-custom .checkinRow,
+.GWTCIntervalSelector-custom .checkoutRow {
+    min-width: 10em;
+}
 
 .GWTCIntervalSelector-custom .checkoutDateValue,
 .GWTCIntervalSelector-custom .checkinDateValue,
@@ -85,12 +89,6 @@ td .sampleContainer .panel {
 }
 .GWTCIntervalSelector-custom .nightsValue {
   text-align: center;
-}
-
-.GWTCIntervalSelector-week .checkinRow,
-.GWTCIntervalSelector-week .nightsValue { 
-    border: 2px ridge grey;
-    min-height: 20px;
 }
 
 
