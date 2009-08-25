@@ -16,17 +16,15 @@ cat src/jschismes/public/JsChismes.html | sed -e 's/JsChismes.nocache/JsChismesP
 
 ant clean zip || exit
 
-echo "Executing gdoc"
+#echo "Executing gdoc"
 sh gdoc.sh
-echo "Executing gsample"
+#echo "Executing gsample"
 sh gsample.sh
 
 find $C/javadoc -name "*.html" -exec rm '{}' ';'
 find $C/sample -name "*.html" -exec rm '{}' ';'
+find $C/jslib -name "*.html" -exec rm '{}' ';'
 find $C/jslib -name "*.js" -exec rm '{}' ';'
-find $C/javadoc $C/sample -name "*html" | xargs svn add
-find $C/javadoc $C/sample -name "*js" | xargs svn add
-find $C/javadoc $C/sample -name "*html" | xargs svn propset svn:mime-type text/html
 
 cmd="cp -r gwtchismes-$V/gdocs/*   $C/javadoc/"
 echo "Executing: $cmd" && $cmd
@@ -35,8 +33,25 @@ echo "Executing: $cmd" && $cmd
 cmd="cp -r gwtchismes-$V/jslib/* $C/jslib"
 echo "Executing: $cmd" && $cmd
 
-perl gjslib.pl > ../GWTChismes-wiki/JsChismes_Documentation.wiki
+for i in `find $C/javadoc $C/sample $C/jslib -name "*js"`
+do
+   JS="$JS $i"
+done
+for i in `find $C/javadoc $C/sample $C/jslib -name "*html"`
+do
+   HT="$HT $i"
+done
 
+if [ -n "$JS$HT" ]
+then
+   svn add $JS $HT
+fi
+if [ -n "$HT" ]
+then
+   svn propset svn:mime-type text/html $HT
+fi
+
+perl gjslib.pl > $W/JsChismes_Documentation.wiki
 
 mkdir -p $M/gwtchismes/gwtchismes/$V
 cp gwtchismes-$V.jar $M/gwtchismes/gwtchismes/$V

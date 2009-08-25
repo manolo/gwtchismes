@@ -72,7 +72,6 @@ do
   renameFiles $DJ $e
 done
 
-set -x
 cd $DD/$M/ 
 rm -rf jschismes
 cp -r jschismes.JsChismes jschismes

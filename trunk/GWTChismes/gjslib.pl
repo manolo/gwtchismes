@@ -15,7 +15,7 @@ use strict;
 # Folder with source java files
 my $path = "src/jschismes/client/";
 # Java classes to inspect
-my @classes = ('Utils', 'DatePicker', 'IntervalSelector', 'Progress', 'Wait', 'Alert', 'Box', 'Button', 'Popup');
+my @classes = ('Utils', 'DatePicker', 'IntervalSelector', 'WeekSelector', 'Progress', 'Wait', 'Alert', 'Box', 'Button', 'Popup');
 # Class with static constants
 my $constants = 'Const';
 # Html file with javascript sample code
@@ -54,7 +54,7 @@ sub processConst {
   my $class = shift;
   my %c;
   $c{class} = $class;
-  
+
   my %c;
   my $file=$path . $class . ".java";
   open(F, "$file") || die $!;
@@ -71,7 +71,7 @@ sub processConst {
    $on = 0 if (/\s*\*\//);
    if (/^\s*public\s+class\s+$class/) {
       $c{desc} = $com;
-      $com = ""; 
+      $com = "";
    }
    if ( /(protected|private)\s+.*String.*\s+(T[XI]T_[A-Z]+).*\s+=\s+"([^\"]+).*$/ ) {
       my ($nam, $def) = ($3);
@@ -79,16 +79,16 @@ sub processConst {
           $def = $2;
           $com = $3;
           my $c = $1;
-          foreach (split(/[ ,]+/, $c)) { 
+          foreach (split(/[ ,]+/, $c)) {
             $c{const}{$_}{regional} .= "        $nam = $def, // $com\n";
           }
       }
       $com = "";
    }
    elsif (/^\s*(public|protected)\s+.*static\s+.*\s+([A-Z_]+)\s*=/) {
-   
+
       my ($type, $const, $nam, $def) = ($1, $2, "", "");
-      
+
       if ( /\s*=\s*\"([^"]+)/ ) {
          $nam = $1;
       }
@@ -181,11 +181,11 @@ sub printClass {
   my $desc = $c{desc};
   $desc =~ s/^[\r\n]+//g;
   $desc =~ s/[\r\n]+/\n    /g;
-  
+
   my $ret = unc("\n== $name ==\n_${desc}_\n");
-  
+
   $ret .= printConstructor($name, %c) if ($c{hasconstructor});
-  
+
   my $a = $c{public};
   my $t = "";
   foreach my $idx (keys %$a) {
@@ -198,7 +198,7 @@ sub printClass {
   foreach my $idx (keys %$a) {
      $t .= printMethod(0, $name, $idx, %c);
   }
-  
+
   $ret .=  "   * Static methods\n{{{\n$t}}}\n" if ($t ne '');
   return $ret;
 }
@@ -267,7 +267,7 @@ sub printMethod {
 
 sub docheader {
   return <<EOF
-  
+
 _JSChismes is the exported version of the GWTChismes collection._
 
 _The library has been developed using java and exported to javascript using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
@@ -277,19 +277,19 @@ _The library has been developed using java and exported to javascript using gwt-
 = Goals =
 
 The set of widgets can be used directly in html pages without the need of knowing anything about gwt and java.
-The generated javascript code is minimized, optimized and obfuscated and works fine in Gwt supported browsers. 
+The generated javascript code is minimized, optimized and obfuscated and works fine in Gwt supported browsers.
 
 = Setup instructions =
 
  # Download last version of the library: jschismes-x.x.x.jar and uncompress it in a folder.
  # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed images and css.
- # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page. 
+ # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page.
 {{{
 <html>
  <head>
-  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
-  <!-- 
-   <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script> 
+  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script>
+  <!--
+   <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script>
   -->
  </head>
  <body>
@@ -330,3 +330,4 @@ sub docsample {
    return $ret;
 }
 exit;
+

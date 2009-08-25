@@ -27,7 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 
 /**
- * <b>A popup with a glass panel that can be decorated with rounded borders.</b>
+ * <b>A popup with a glass panel, it can contain a GWTCBox or a DockPanel. 
+ * In both cases you can add widgets specifying or not the direction </b>
  * 
  * @author Manuel Carrasco Moñino
    <h3>Example</h3>
@@ -40,6 +41,7 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
  * <h3>CSS Style Rules</h3>
  * <ul class="css">
  * <li>.GWTCPopupBox { main style for the PopupPanel }</li>
+ * <li>.GWTCPopupBox-box { Aditional style added when the content is a GWTCBox }</li>
  * </ul>
  * 
  * <h3>Options</h3>
@@ -60,12 +62,13 @@ public class GWTCPopupBox extends PopupPanel {
   private static final String MAIN_STYLE = "GWTCPopupBox";
   static final String STYLE_BOX = "box";
 
-  static public int OPTION_ROUNDED_FLAT = 2;
-  static public int OPTION_ROUNDED_GREY = 4;
-  static public int OPTION_ROUNDED_BLUE = 8;
-  static public int OPTION_ANIMATION = 32;
-  static public int OPTION_DISABLE_BACKGROUND = 16;
-  static public int OPTION_DISABLE_AUTOHIDE = 64;
+  final static public int OPTION_DEFAULT = 0;
+  final static public int OPTION_ROUNDED_FLAT = 2;
+  final static public int OPTION_ROUNDED_GREY = 4;
+  final static public int OPTION_ROUNDED_BLUE = 8;
+  final static public int OPTION_ANIMATION = 32;
+  final static public int OPTION_DISABLE_BACKGROUND = 16;
+  final static public int OPTION_DISABLE_AUTOHIDE = 64;
 
   private int zIndex = 999;
   private GWTCBox panelbox;

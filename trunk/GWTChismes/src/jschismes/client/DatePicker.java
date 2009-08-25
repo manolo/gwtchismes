@@ -82,6 +82,9 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 
     if (jsProp.defined(Const.CLASS_NAME))
       super.setStyleName(jsProp.get(Const.CLASS_NAME));
+    
+    super.showWeekNumbers(jsProp.getBoolean(Const.SHOW_WEEKS, false));
+    super.clickOnWeekNumbers(jsProp.getBoolean(Const.SELECT_WEEKS, false));
 
     addValueChangeHandler(new ValueChangeHandler<GWTCSimpleDatePicker>() {
       public void onValueChange(ValueChangeEvent<GWTCSimpleDatePicker> event) {

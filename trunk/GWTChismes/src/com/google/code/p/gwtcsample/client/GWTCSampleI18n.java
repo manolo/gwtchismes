@@ -241,6 +241,15 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String descr_wait();
 
   /**
+   * Translated "Week Picker.".
+   * 
+   * @return translated "Week Picker."
+   */
+  @DefaultStringValue("Week Picker.")
+  @Key("descr_week_interval_custom")
+  String descr_week_interval_custom();
+
+  /**
    * Translated "Select your checkin date".
    * 
    * @return translated "Select your checkin date"
@@ -511,6 +520,24 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   String progress_total();
 
   /**
+   * Translated "Select a week.".
+   * 
+   * @return translated "Select a week."
+   */
+  @DefaultStringValue("Select a week.")
+  @Key("select_week")
+  String select_week();
+
+  /**
+   * Translated "Pulse over the desired week.".
+   * 
+   * @return translated "Pulse over the desired week."
+   */
+  @DefaultStringValue("Pulse over the desired week.")
+  @Key("select_week_caption")
+  String select_week_caption();
+
+  /**
    * Translated "Rounded boxes".
    * 
    * @return translated "Rounded boxes"
@@ -572,4 +599,22 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Please wait ...")
   @Key("wait_message")
   String wait_message();
+
+  /**
+   * Translated "From:".
+   * 
+   * @return translated "From:"
+   */
+  @DefaultStringValue("From:")
+  @Key("week_from")
+  String week_from();
+
+  /**
+   * Translated "To:".
+   * 
+   * @return translated "To:"
+   */
+  @DefaultStringValue("To:")
+  @Key("week_to")
+  String week_to();
 }
