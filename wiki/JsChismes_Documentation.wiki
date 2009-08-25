@@ -1,4 +1,4 @@
-  
+
 _JSChismes is the exported version of the GWTChismes collection._
 
 _The library has been developed using java and exported to javascript using gwt-compiler and [http://code.google.com/p/gwt-exporter/ gwt-exporter] library._
@@ -8,19 +8,19 @@ _The library has been developed using java and exported to javascript using gwt-
 = Goals =
 
 The set of widgets can be used directly in html pages without the need of knowing anything about gwt and java.
-The generated javascript code is minimized, optimized and obfuscated and works fine in Gwt supported browsers. 
+The generated javascript code is minimized, optimized and obfuscated and works fine in Gwt supported browsers.
 
 = Setup instructions =
 
  # Download last version of the library: jschismes-x.x.x.jar and uncompress it in a folder.
  # Include either the obfuscated or the readable version of the javascript library in your html file.  You can use relative paths or full qualified ones because the library has been compiled using cross-site linker. The library takes care loading dynamically the needed images and css.
- # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page. 
+ # Define the function jscOnLoad() wich is called once the library is loaded, and create the widgets using native javascript in your page.
 {{{
 <html>
  <head>
-  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script> 
-  <!-- 
-   <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script> 
+  <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismes.nocache.js"></script>
+  <!--
+   <script language="javascript" src="http://gwtchismes.googlecode.com/svn/trunk/website/jslib/jschismes.JsChismesPretty.nocache.js"></script>
   -->
  </head>
  <body>
@@ -123,7 +123,7 @@ var datepicker = new jsc.DatePicker ({
    },
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
                                 //  Each action is represented with a character:  
-                                //  ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
+                                //  ';' panel-delimiter (There are 8 panels availables, 3 at the top and 3 at the bottom of the date-picker, 1 at the right side of the headers and another at the left side). 
                                 //  '?' help, 'x' close, '_' separator, '-' today,
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    numberOfMonths: 1  // Number of months to show at a time
@@ -173,7 +173,7 @@ var intervalselector = new jsc.IntervalSelector ({
    stepMonths: 1,  // Number of months to step back/forward
    buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
                                 //  Each action is represented with a character:  
-                                //  ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
+                                //  ';' panel-delimiter (There are 8 panels availables, 3 at the top and 3 at the bottom of the date-picker, 1 at the right side of the headers and another at the left side). 
                                 //  '?' help, 'x' close, '_' separator, '-' today,
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    minDate: "+0d",  // The earliest selectable date
@@ -228,6 +228,78 @@ var date = intervalselector.getInit();
 
 /* Returns the number of nights in the interval */
 var int = intervalselector.getNights();
+}}}
+
+== Week Selector ==
+_An Week selector.
+    _
+   * Constructor
+{{{
+var weekselector = new jsc.WeekSelector ({
+   numberOfMonths: 1,  // Number of months to show at a time
+   numberOfColums: 3,  // Number of months per row when displaying multiple months
+   monthRange: 12,  // Number of months to show in the months menu selector
+   stepMonths: 1,  // Number of months to step back/forward
+   buttonsLayout: "?mx;p<->n",  // define which buttons to use and where to place them in datepickers. 
+                                //  Each action is represented with a character:  
+                                //  ';' panel-delimiter (There are 8 panels availables, 3 at the top and 3 at the bottom of the date-picker, 1 at the right side of the headers and another at the left side). 
+                                //  '?' help, 'x' close, '_' separator, '-' today,
+                                //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
+   minDate: "+0d",  // The earliest selectable date
+   maxDate: "+1y",  // The latest selectable date
+   maxDays: 0,  // Limit for the number of days in an inteval.
+   className: "",  // Add an optional classname to the container
+   onSelect: new function(data){},  // Define a callback function when a date is selected
+   regional: {     // hash with the set of key/values to internationalize the widget
+        helpText = "?", // Display text for close button
+        closeText = "x", // Display text for close button
+        currentText = "-", // Display text for current month button
+        prevText = "<", // Display text for previous month button
+        nextText = ">", // Display text for next month button
+        prevYearText = "<<", // Display text for previous year button
+        nextYearText = ">>", // Display text for next year button
+        fromText = "From", // Text of the from label, referencing the start day of the selected week
+        toText = "To", // Text of the to label, referencing the final day of the selected week
+        selectWeekText = "Select a week", // Text of the week selector title
+        helpTitle = null, // Title for help button when the mouse is over
+        closeTitle = null, // Title for close button when the mouse is over
+        currentTitle = null, // Title for current month button when the mouse is over
+        prevTitle = null, // Title for previous month button when the mouse is over
+        nextTitle = null, // Title for next month button when the mouse is over
+        prevYearTitle = null, // Title for previous year button when the mouse is over
+        nextYearTitle = null // Title for next year button when the mouse is over
+   },
+   containerId: null  // Id of the element where the widget will be inserted
+});
+}}}
+   * Instance methods
+{{{
+
+/*  */
+weekselector.onValueChange();
+
+/* Returns the final date of the selected interval */
+var date = weekselector.getEnd();
+
+/* Returns a JavaScript hash structure with this information:
+data.init     // The start date that has selected the userhj
+data.end      // The end date selected by the user
+data.nights   // Number of nights in the interval
+data.days     // Number of days in the interval (identical to nights)
+data.maximal  // The maximal date allowed to select  
+data.minimal  // The minimal date allowed to select
+data.maxdays  // The maximal of days(nights) allowed in the interval   */
+var javascriptobject = weekselector.data();
+
+/* Specify the JavaScript function which will be called when the user selects a date o changes the number of days
+The function have to define the parameter data used to return the datepicker information  */
+weekselector.addSelectListener(c);
+
+/* Returns the initial date of the selected interval */
+var date = weekselector.getInit();
+
+/* Returns the number of nights in the interval */
+var int = weekselector.getNights();
 }}}
 
 == Progress ==
@@ -555,7 +627,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Tue Aug 25 13:41:15 CEST 2009_
+*Date:* _Tue Aug 25 13:45:08 CEST 2009_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
