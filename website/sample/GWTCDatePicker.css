@@ -75,8 +75,11 @@
 
 .GWTCDatePicker .panelDays .cellWeekNumbers div.gwt-HTML {
   cursor: pointer;
-  color: grey;
   text-align: right;
+}
+.GWTCDatePicker .panelDays .cellWeekNumbers div.disabled {
+  text-align: right;
+  color: grey;
 }
 
 .GWTCDatePicker .panelDays td.cellDays {

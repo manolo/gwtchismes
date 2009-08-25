@@ -66,4 +66,12 @@
 
 .GWTCIntervalSelector .checkinWeekValue, .GWTCIntervalSelector .checkoutWeekValue  {
     padding: 0px 5px;
-} 
+}
+
+.GWTCIntervalSelector-week .checkinRow,
+.GWTCIntervalSelector-week .nightsValue { 
+    border: 2px ridge grey;
+    min-height: 20px;
+}
+
+

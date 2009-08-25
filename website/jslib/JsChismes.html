@@ -107,6 +107,28 @@ body {
           }
         });
 
+        var week= new jsc.WeekSelector({
+          numberOfMonths: 2,
+          maxDate: "3y",
+          containerId: "weekContainer",
+          regional: {
+            closeText: "Close",
+            closeTitle: "Close dialog",
+            todayText: "Today",
+            todayTitle: "Display the actual month",
+            nextMonthTitle: "Jump to the next month",
+            prevMonthTitle: "Jump to previous month",
+            nextYearTitle: "Jump to the next year",
+            prevYearTitle: "Jump to the previos year",
+            calendarCheckinCaption: "Click over any day of the desired week"
+          },
+          onSelect: function(data){
+            alrt.alert( "You have selected the week number: " + data.week 
+                      + "\nwhich starts on: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.init) 
+                      + "\nand ends on: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.end));
+          }
+        });
+
         progress = new jsc.Progress({
           dialog: true
         });
@@ -140,7 +162,7 @@ body {
            }
         });
         new jsc.Button({
-          text: "Show a tree months date picker",
+          text: "Show a three months date picker",
           containerId: "button5",
           onClick: function(elem){
             calendar.show();
@@ -159,8 +181,10 @@ body {
      </td>
      <td><div id="boxContainer" >jsc.Box</div></td>
     </tr><tr> 
-     <td>jsc.Interval<div id="intervalContainer" style="border: 3px groove pink"></div></td>
-     <td><div align="center" id="calendarContainer">jsc.Calendar</div></td>
+     <td>jsc.IntervalSelector<div id="intervalContainer" style="border: 3px groove pink"></div></td>
+     <td rowspan="2"><div align="center" id="calendarContainer">jsc.Calendar</div></td>
+    </tr><tr> 
+     <td>jsc.WeekSelector<div id="weekContainer" style="border: 3px groove pink"></div></td>
     </tr><tr> 
     </tr><tr> 
     </tr>
