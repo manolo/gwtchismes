@@ -8,7 +8,7 @@
 GWTCPopupBox (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-08-24">
+<META NAME="date" CONTENT="2009-08-25">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -111,7 +111,8 @@ java.lang.Object
 </PRE>
 
 <P>
-<b>A popup with a glass panel that can be decorated with rounded borders.</b>
+<b>A popup with a glass panel, it can contain a GWTCBox or a DockPanel. 
+ In both cases you can add widgets specifying or not the direction </b>
 <P>
 
 <P>
@@ -128,6 +129,7 @@ java.lang.Object
  <h3>CSS Style Rules</h3>
  <ul class="css">
  <li>.GWTCPopupBox { main style for the PopupPanel }</li>
+ <li>.GWTCPopupBox-box { Aditional style added when the content is a GWTCBox }</li>
  </ul>
  
  <h3>Options</h3>
@@ -185,6 +187,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="GWTCPopupBox.html#OPTION_ANIMATION">OPTION_ANIMATION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="GWTCPopupBox.html#OPTION_DEFAULT">OPTION_DEFAULT</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -406,63 +416,73 @@ java.lang.Object
 </TR>
 </TABLE>
 
+<A NAME="OPTION_DEFAULT"><!-- --></A><H3>
+OPTION_DEFAULT</H3>
+<PRE>
+public static final int <B>OPTION_DEFAULT</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_DEFAULT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
 <A NAME="OPTION_ROUNDED_FLAT"><!-- --></A><H3>
 OPTION_ROUNDED_FLAT</H3>
 <PRE>
-public static int <B>OPTION_ROUNDED_FLAT</B></PRE>
+public static final int <B>OPTION_ROUNDED_FLAT</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_ROUNDED_FLAT">Constant Field Values</A></DL>
 </DL>
 <HR>
 
 <A NAME="OPTION_ROUNDED_GREY"><!-- --></A><H3>
 OPTION_ROUNDED_GREY</H3>
 <PRE>
-public static int <B>OPTION_ROUNDED_GREY</B></PRE>
+public static final int <B>OPTION_ROUNDED_GREY</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_ROUNDED_GREY">Constant Field Values</A></DL>
 </DL>
 <HR>
 
 <A NAME="OPTION_ROUNDED_BLUE"><!-- --></A><H3>
 OPTION_ROUNDED_BLUE</H3>
 <PRE>
-public static int <B>OPTION_ROUNDED_BLUE</B></PRE>
+public static final int <B>OPTION_ROUNDED_BLUE</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_ROUNDED_BLUE">Constant Field Values</A></DL>
 </DL>
 <HR>
 
 <A NAME="OPTION_ANIMATION"><!-- --></A><H3>
 OPTION_ANIMATION</H3>
 <PRE>
-public static int <B>OPTION_ANIMATION</B></PRE>
+public static final int <B>OPTION_ANIMATION</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_ANIMATION">Constant Field Values</A></DL>
 </DL>
 <HR>
 
 <A NAME="OPTION_DISABLE_BACKGROUND"><!-- --></A><H3>
 OPTION_DISABLE_BACKGROUND</H3>
 <PRE>
-public static int <B>OPTION_DISABLE_BACKGROUND</B></PRE>
+public static final int <B>OPTION_DISABLE_BACKGROUND</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_DISABLE_BACKGROUND">Constant Field Values</A></DL>
 </DL>
 <HR>
 
 <A NAME="OPTION_DISABLE_AUTOHIDE"><!-- --></A><H3>
 OPTION_DISABLE_AUTOHIDE</H3>
 <PRE>
-public static int <B>OPTION_DISABLE_AUTOHIDE</B></PRE>
+public static final int <B>OPTION_DISABLE_AUTOHIDE</B></PRE>
 <DL>
 <DL>
-</DL>
+<DT><B>See Also:</B><DD><A HREF="constant-values.html#com.google.code.p.gwtchismes.client.GWTCPopupBox.OPTION_DISABLE_AUTOHIDE">Constant Field Values</A></DL>
 </DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->

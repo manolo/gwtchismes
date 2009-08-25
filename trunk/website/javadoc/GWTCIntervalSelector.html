@@ -8,7 +8,7 @@
 GWTCIntervalSelector (GWTChismes)
 </TITLE>
 
-<META NAME="date" CONTENT="2009-08-24">
+<META NAME="date" CONTENT="2009-08-25">
 
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 
@@ -100,6 +100,9 @@ java.lang.Object
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener</DD>
 </DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="GWTCWeekSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCWeekSelector</A></DD>
+</DL>
 <HR>
 <DL>
 <DT><PRE>public class <B>GWTCIntervalSelector</B><DT>extends com.google.gwt.user.client.ui.Composite<DT>implements com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;<A HREF="GWTCIntervalSelector.html" title="class in com.google.code.p.gwtchismes.client">GWTCIntervalSelector</A>&gt;</DL>
@@ -125,8 +128,6 @@ java.lang.Object
  <pre>
    // Configure internationalizable messages
    private HashMap strs = new HashMap();
-   strs.put("format.date", "MMM  dd, yyyy");
-   strs.put("format.day", "(ddd.)");
    strs.put("key.checkin", "Check-in");
    strs.put("key.checkout", "Check-out");
    strs.put("key.nights", "Nights");
