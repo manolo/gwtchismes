@@ -103,6 +103,8 @@ var datepicker = new jsc.DatePicker ({
    defaultDate: 0,  // actual date.
    onSelect: new function(data){},  // Define a callback function when a date is selected
    className: "",  // Add an optional classname to the container
+   showWeekNumbers: false,  // Show week numbers
+   weekSelection: false,  // Set week numbers clickable in order to select entire weeks
    regional: {     // hash with the set of key/values to internationalize the widget
         helpText = "?", // Display text for close button
         closeText = "x", // Display text for close button
@@ -414,26 +416,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 {{{
       
       function jscOnLoad() {
-          var jsbox = new jsc.Box({
-                  title: "Advice:",
-                  text: "<b>Your present plans will be successful.</b>",
-                  html: "<i>Your mode of life will be changed for the better because of new developments.</i>",
-                  containerId: "boxContainer"
-          });
-          jsbox.addListener(function(str, i) {
-              alert(str + " " + i);
-          });
-          jsbox.fire();
-          /*
-        var embeded = new jsc.DatePicker({
-          containerId: "calendarContainer", 
-          className: "GWTCDatePicker-custom",
-          buttons: "flat",
-          onSelect: function(data) {
-            alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
-          }
-        });
-        
+          
         var wait = new jsc.Wait({
           text: "Espere por favor ..."
         });
@@ -461,6 +444,17 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
           containerId: "boxContainer"
         });
 
+        var embeded = new jsc.DatePicker({
+            containerId: "calendarContainer", 
+            className: "GWTCDatePicker-custom",
+            buttons: "flat",
+            numberOfMonths: 1,
+            showWeekNumbers: true,
+            buttonsLayout: "? ;;;;;;p<;n>",
+            onSelect: function(data) {
+              alrt.alert("Selected: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.selected) );
+            }
+        });
 
         var calendar = new jsc.DatePicker({
           numberOfMonths: 3,
@@ -556,13 +550,12 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
             calendar.show();
           }
        });
-        */
      }
 
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Fri Jul 31 14:36:50 CEST 2009_
+*Date:* _Tue Aug 25 13:41:15 CEST 2009_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
