@@ -71,21 +71,26 @@ td .sampleContainer .panel {
 
 
 
-.GWTCIntervalLayout0 .checkinRow,
-.GWTCIntervalLayout0 .nightsValue, 
-.GWTCIntervalLayout0 .checkoutRow {
+.GWTCIntervalSelector-custom .checkinRow,
+.GWTCIntervalSelector-custom .nightsValue, 
+.GWTCIntervalSelector-custom .checkoutRow {
 	border: 2px ridge red;
 	min-height: 20px;
 }
+.GWTCIntervalSelector-custom .checkinRow,
+.GWTCIntervalSelector-custom .checkoutRow {
+    min-width: 10em;
+}
 
-.GWTCIntervalLayout0 .checkoutDateValue,
-.GWTCIntervalLayout0 .checkinDateValue,
-.GWTCIntervalLayout0 .nightsValue {
+.GWTCIntervalSelector-custom .checkoutDateValue,
+.GWTCIntervalSelector-custom .checkinDateValue,
+.GWTCIntervalSelector-custom .nightsValue {
 	font-size: 14px;
 }
-.GWTCIntervalLayout0 .nightsValue {
+.GWTCIntervalSelector-custom .nightsValue {
   text-align: center;
 }
+
 
 .GWTCProgress .prg-numbers {
    width:100px;

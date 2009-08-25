@@ -34,6 +34,7 @@ public class JsChismes implements EntryPoint {
     ((Exporter) GWT.create(Utils.class)).export();
     ((Exporter) GWT.create(DatePicker.class)).export();
     ((Exporter) GWT.create(IntervalSelector.class)).export();
+    ((Exporter) GWT.create(WeekSelector.class)).export();
     ((Exporter) GWT.create(Button.class)).export();
     ((Exporter) GWT.create(Wait.class)).export();
     ((Exporter) GWT.create(Alert.class)).export();

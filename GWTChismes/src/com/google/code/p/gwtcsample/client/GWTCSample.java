@@ -32,6 +32,7 @@ import com.google.code.p.gwtchismes.client.GWTCProgress;
 import com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.code.p.gwtchismes.client.GWTCWait;
+import com.google.code.p.gwtchismes.client.GWTCWeekSelector;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -61,8 +62,9 @@ public class GWTCSample implements EntryPoint {
   private static final String STYLE_SAMPLE_CONTAINER = "sampleContainer";
 
   private HashMap<String, String> intervalStrs = new HashMap<String, String>();
-  private HashMap<String, String> pickStrs = new HashMap<String, String>();
-  private HashMap<String, String> pickTitStrs = new HashMap<String, String>();
+  private HashMap<String, String> pickerStrs = new HashMap<String, String>();
+  private HashMap<String, String> pickerTitleStrs = new HashMap<String, String>();
+  private HashMap<String, String> pickerNavigationStrs = new HashMap<String, String>();
 
   private final GWTCSampleI18n i18n = (GWTCSampleI18n) GWT.create(GWTCSampleI18n.class);
 
@@ -86,23 +88,24 @@ public class GWTCSample implements EntryPoint {
     intervalStrs.put("key.calendar.checkout.title", i18n.key_calendar_checkout_title());
     intervalStrs.put("key.calendar.help", i18n.key_calendar_help());
 
-    pickTitStrs.put("key.next.month.title", i18n.key_next_month_title());
-    pickTitStrs.put("key.prev.month.title", i18n.key_prev_month_title());
-    pickTitStrs.put("key.today.title", i18n.key_today_title());
-    pickTitStrs.put("key.next.year.title", i18n.key_next_year_title());
-    pickTitStrs.put("key.prev.year.title", i18n.key_prev_year_title());
-    pickTitStrs.put("key.help.title", i18n.key_help_title());
-    pickTitStrs.put("key.close.title", i18n.key_close_title());
+    pickerTitleStrs.put("key.next.month.title", i18n.key_next_month_title());
+    pickerTitleStrs.put("key.prev.month.title", i18n.key_prev_month_title());
+    pickerTitleStrs.put("key.today.title", i18n.key_today_title());
+    pickerTitleStrs.put("key.next.year.title", i18n.key_next_year_title());
+    pickerTitleStrs.put("key.prev.year.title", i18n.key_prev_year_title());
+    pickerTitleStrs.put("key.help.title", i18n.key_help_title());
+    pickerTitleStrs.put("key.close.title", i18n.key_close_title());
 
-    pickStrs.put("key.next.month", i18n.key_next_month());
-    pickStrs.put("key.prev.month", i18n.key_prev_month());
-    pickStrs.put("key.today", i18n.key_today());
-    pickStrs.put("key.next.year", i18n.key_next_year());
-    pickStrs.put("key.prev.year", i18n.key_prev_year());
-    pickStrs.put("key.help", i18n.key_help());
-    pickStrs.put("key.close", i18n.key_close());
+    pickerStrs.put("key.today", i18n.key_today());
+    pickerStrs.put("key.help", i18n.key_help());
+    pickerStrs.put("key.close", i18n.key_close());
 
-    pickStrs.putAll(pickTitStrs);
+    pickerNavigationStrs.put("key.next.month", i18n.key_next_month());
+    pickerNavigationStrs.put("key.prev.month", i18n.key_prev_month());
+    pickerNavigationStrs.put("key.next.year", i18n.key_next_year());
+    pickerNavigationStrs.put("key.prev.year", i18n.key_prev_year());
+    
+    pickerStrs.putAll(pickerTitleStrs);
 
     wait.setMessage(i18n.wait_message());
   }
@@ -321,7 +324,7 @@ public class GWTCSample implements EntryPoint {
 
     int options = GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_ROUNDED_BOX | GWTCDatePicker.CONFIG_BACKGROUND;
     GWTCDatePickerAbstract picker = new GWTCDatePicker(options);
-    picker.setI18nMessages(pickTitStrs);
+    picker.setI18nMessages(pickerTitleStrs);
     Widget widget = createPickerWidget(picker, true);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_1()));
 
@@ -329,44 +332,44 @@ public class GWTCSample implements EntryPoint {
           | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_FLAT_BUTTONS;
     picker = new GWTCDatePicker(options);
     picker.setCaptionText("Please, select a date");
-    picker.setI18nMessages(pickTitStrs);
+    picker.setI18nMessages(pickerTitleStrs);
     widget = createPickerWidget(picker, true);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_2()));
 
     options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3 | GWTCDatePicker.CONFIG_DIALOG
           | GWTCDatePicker.CONFIG_BACKGROUND;
     picker = new GWTCDatePicker(options);
-    picker.setI18nMessages(pickStrs);
+    picker.setI18nMessages(pickerStrs);
     picker.addStyleName("GWTCDatePicker-custom");
     widget = createPickerWidget(picker, true);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_3()));
 
     picker = new GWTCDatePicker(options, 2, "? x;p<->n");
-    picker.setI18nMessages(pickStrs);
+    picker.setI18nMessages(pickerStrs);
     picker.addStyleName("GWTCDatePicker-custom");
     widget = createPickerWidget(picker, true);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_4()));
 
     picker = new GWTCDatePickerCustom();
     widget = createPickerWidget(picker, true);
-    picker.setI18nMessages(pickStrs);
+    picker.setI18nMessages(pickerStrs);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_5()));
 
     options = GWTCDatePicker.CONFIG_DEFAULT;
     picker = new GWTCDatePicker(options);
-    picker.setI18nMessages(pickTitStrs);
+    picker.setI18nMessages(pickerTitleStrs);
     widget = createPickerWidget(picker, false);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_6()));
 
     options = GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_LAYOUT_2 | GWTCDatePicker.CONFIG_STANDARD_BUTTONS;
     picker = new GWTCDatePicker(options);
-    picker.setI18nMessages(pickTitStrs);
+    picker.setI18nMessages(pickerTitleStrs);
     widget = createPickerWidget(picker, false);
     box.add(createPanelWithDescription(widget, i18n.descr_picker_7()));
 
     options = GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON | GWTCDatePicker.CONFIG_FLAT_BUTTONS | GWTCDatePicker.CONFIG_LAYOUT_3;
     picker = new GWTCDatePicker(options);
-    picker.setI18nMessages(pickTitStrs);
+    picker.setI18nMessages(pickerTitleStrs);
     picker.addStyleName("GWTCDatePicker-custom");
     picker.addStyleName("ppp");
     widget = createPickerWidget(picker, false);
@@ -379,19 +382,30 @@ public class GWTCSample implements EntryPoint {
 
     HashMap<String, String> strs = new HashMap<String, String>();
     strs.putAll(intervalStrs);
-    strs.putAll(pickTitStrs);
+    strs.putAll(pickerTitleStrs);
 
     for (int i : new int[] { 6, 5, 4, 3, 2, 1 }) {
       GWTCIntervalSelector interval = new GWTCIntervalSelector(i);
       interval.setI18nMessages(strs);
       box.add(createPanelWithDescription(interval, i18n.descr_interval_layout() + " " + i), DockPanel.SOUTH);
     }
+    
+    final GWTCWeekSelector weekInterval = new GWTCWeekSelector();
+    weekInterval.setMinimalDate("-4y");
+    weekInterval.setMaximalDate("-4y");
+    strs.putAll(pickerStrs);
+    strs.put("key.calendar.checkin.title", i18n.select_week_caption());
+    strs.put("key.from", i18n.week_from());
+    strs.put("key.to", i18n.week_to());
+    strs.put("key.select.week", i18n.select_week());
+    weekInterval.setI18nMessages(strs);
+    box.add(createPanelWithDescription(weekInterval, i18n.descr_week_interval_custom()), DockPanel.NORTH);
 
-    final GWTCIntervalSelector intervalCustomized = new CustomIntervalSelector(0);
+
+    final GWTCIntervalSelector intervalCustomized = new CustomIntervalSelector();
     intervalCustomized.setDateFormat(DateTimeFormat.getShortDateFormat().getPattern().replace("yy", "yyyy"));
     intervalCustomized.setMaxdays(31);
-    strs.putAll(pickStrs);
-    intervalCustomized.setI18nMessages(strs);
+    strs.putAll(pickerNavigationStrs);
     final Button customizedButton = new GWTCButton(i18n.click_button(), new ClickHandler() {
       public void onClick(ClickEvent event) {
         String ci = GWTCSimpleDatePicker.formatDate(DateTimeFormat.getFullDateFormat().getPattern(), intervalCustomized.getInitDate());
@@ -407,7 +421,11 @@ public class GWTCSample implements EntryPoint {
         customizedButton.setVisible(true);
       }
     });
+    intervalCustomized.setI18nMessages(strs);
     box.add(createPanelWithDescription(intervalCustomized, i18n.descr_interval_custom()), DockPanel.NORTH);
+    
+    
+
 
   }
 

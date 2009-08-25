@@ -8,7 +8,7 @@
   
   <set-property name="export" value="yes"/>
   
-<!--  <add-linker name="xs"/>-->
+  <add-linker name="xs"/>
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="es"/>
   <extend-property name="locale" values="fr"/>

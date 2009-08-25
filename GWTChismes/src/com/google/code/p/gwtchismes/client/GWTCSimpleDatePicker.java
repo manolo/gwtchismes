@@ -51,6 +51,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <ul>
  * <li>Uses GWT-i18n for date formating.</li>
  * <li>The class provides useful public methods for Date manipulation</li>
+ * <li>It supports week numbers</li>
  * </ul>
  * 
  * <h3>Example</h3>
@@ -104,6 +105,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   private static final String StyleCGrid = "panelDays";
   private static final String StyleCWeekHeader = "weekHeader";
   private static final String StyleCCellDayNames = "cellDayNames";
+  private static final String StyleCCellWeekNumber = "cellWeekNumbers";
 
   private Date minimalDate = setHourToZero(new Date());
   private Date selectedDate = setHourToZero(new Date());
@@ -114,6 +116,8 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   private long monthNumber = getMonthNumber(cursorDate);
   protected boolean needsRedraw = true;
   private boolean initialized = false;
+  private int showWeekNumbers = 0;
+  private boolean clickOnWeekNumbers = false;
 
   // Internationalizable elements
   public static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
@@ -130,6 +134,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     if (create)
       initWidget(calendarGrid);
   }
+  
 
   @SuppressWarnings("deprecation")
   public void refresh() {
@@ -140,29 +145,34 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
 
     if (!initialized) {
       initialized = true;
-
       calendarGrid.clear();
       calendarGrid.setStyleName(StyleCGrid);
       calendarGrid.setCellSpacing(0);
       calendarGrid.getRowFormatter().setStyleName(0, StyleCWeekHeader);
       int l = 0;
       for (int i = weekStart; i < 7; i++) {
-        calendarGrid.getCellFormatter().setStyleName(0, l, StyleCCellDayNames);
-        calendarGrid.setText(0, l++, WEEK_DAYS[i]);
+        calendarGrid.getCellFormatter().setStyleName(0, showWeekNumbers + l, StyleCCellDayNames);
+        calendarGrid.setText(0, showWeekNumbers + l++, WEEK_DAYS[i]);
       }
       while (l < 7) {
-        calendarGrid.getCellFormatter().setStyleName(0, l, StyleCCellDayNames);
-        calendarGrid.setText(0, l++, WEEK_DAYS[0]);
+        calendarGrid.getCellFormatter().setStyleName(0, showWeekNumbers + l, StyleCCellDayNames);
+        calendarGrid.setText(0, showWeekNumbers + l++, WEEK_DAYS[0]);
       }
       for (int i = 1; i < 7; i++) {
         for (int k = 0; k < 7; k++) {
           CellHTML html = new CellHTML();
-          calendarGrid.setWidget(i, k, html);
+          calendarGrid.setWidget(i, showWeekNumbers + k, html);
           html.addClickHandler(this);
+        }
+        if (showWeekNumbers == 1) {}
+      }
+      if (showWeekNumbers == 1) {
+        for (int i = 0; i < 7; i++) {
+          calendarGrid.setText(i, 0, "");
+          calendarGrid.getCellFormatter().setStyleName(i, 0, StyleCCellWeekNumber);
         }
       }
     }
-
     long todayNum = 1 + GWTCSimpleDatePicker.compareDate(firstMonthDay, new Date());
     long minimalNum = 1 + GWTCSimpleDatePicker.compareDate(firstMonthDay, minimalDate);
     long maximalNum = 1 + GWTCSimpleDatePicker.compareDate(firstMonthDay, maximalDate);
@@ -176,7 +186,20 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     for (int i = 1; i < 7; i++) { // each week
       for (int k = 0; k < 7; k++, j++) { // each day in the week
         int displayNum = (firstWDay < weekStart) ? (j - firstWDay - 6) : (j - firstWDay + 1);
+        
+        // weekNumbers
+        if (showWeekNumbers == 1 && k == 6 - weekStart) {
+          int firstNum = displayNum - (i == 1 ? 0 : 6 - weekStart);
+          if (firstNum > numOfDays) {
+            calendarGrid.setText(i, 0, "");
+          } else {
+            Date refDate = new Date(cursorDate.getYear(), cursorDate.getMonth(), firstNum);
+            int week = getWeekOfYear(refDate);
+            putWeekNumber(i, displayNum, week);
+          }
+        }
 
+        // Each calendar cell
         String styles = "";
         boolean enabled = true;
         if (j < firstWDay || displayNum > numOfDays || displayNum < 1) {
@@ -203,12 +226,41 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
           styles += " " + StyleCCellDays;
         }
 
-        CellHTML html = (CellHTML) calendarGrid.getWidget(i, k);
+        CellHTML html = (CellHTML) calendarGrid.getWidget(i, showWeekNumbers + k);
         html.setEnabled(enabled);
         html.setDay(displayNum);
         html.setStyleName(styles);
+
       }
     }
+  }
+
+  @SuppressWarnings("deprecation")
+  private void putWeekNumber(int i, int displayNum, int week) {
+    if (clickOnWeekNumbers) {
+      boolean enabled = true; 
+      Date weekDate = getFirstDayOfWeek(new Date(cursorDate.getYear(), cursorDate.getMonth(), displayNum));
+      int diff = compareDate(minimalDate, weekDate);
+      if (diff < 0 && diff+7 <0)
+        enabled = false;
+      diff = compareDate(maximalDate, weekDate);
+      if (diff > 0 && diff+7 >0)
+        enabled = false;
+      
+      if (enabled) {
+        CellHTML weekHtml = (CellHTML) calendarGrid.getWidget(i, 0);
+        if (weekHtml == null) {
+          weekHtml = new CellHTML();
+          weekHtml.addClickHandler(this);
+        }
+        weekHtml.setEnabled(true);
+        weekHtml.setDay(week);
+        weekHtml.setDate(weekDate);
+        calendarGrid.setWidget(i, 0, weekHtml);
+        return;
+      } 
+    }
+    calendarGrid.setHTML(i, 0, "<div class=\"disabled\">" + week + "</div>");
   }
 
   /**
@@ -528,7 +580,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
       return d;
 
     int n = Integer.valueOf(s.replaceAll("[^\\d\\-]", ""));
-    if (n < 1)
+    if (n == 0 )
       return d;
 
     char c = s.toLowerCase().charAt(s.length() - 1);
@@ -551,7 +603,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
    * Method for formating dates using DateTimeFormat
    * 
    * @param format
-   *            format patern as explained in DataTimeFormat (GyMdhHmsSakKzv')
+   *            format patern as explained in DateTimeFormat (GyMdkHmsSEDahKzZv')
    * @param date
    *            the date to represent
    * @return formated string
@@ -615,7 +667,36 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   public static Date getLastDayOfMonth(Date date) {
     return increaseDate(getFirstDayOfMonth(date), daysInMonth(date) - 1);
   }
+  
+  @SuppressWarnings("deprecation")
+  public static int getWeekOfYear(Date date) {
+      int base_wDay = 4;// - weekStart;
+      Date jan01_Date = new Date(date.getYear(), 0, 1);
+      int jan01_wDay = jan01_Date.getDay();
+      int incr = jan01_wDay <= base_wDay ? (base_wDay- jan01_wDay) : (base_wDay + 7 - jan01_wDay);
+      Date baseDay = GWTCSimpleDatePicker.increaseDate(jan01_Date, incr);
+      Date baseSun = GWTCSimpleDatePicker.increaseDate(baseDay, - 4);
+      if (jan01_wDay > 4) {
+          int n = GWTCSimpleDatePicker.compareDate(baseSun, date);
+          if (n < 0) {
+              Date dec31 = new Date(date.getYear()-1, 11, 31);
+              return getWeekOfYear(dec31);
+          }
+      }
+      int diff = GWTCSimpleDatePicker.compareDate(baseSun, date);
+      int ret =  (int)Math.ceil(1 + diff / 7);
+      return ret;
+  }
 
+  
+  @SuppressWarnings("deprecation")
+  public static Date getFirstDayOfWeek(Date date) {
+    int n = date.getDay();
+    if (n< weekStart)
+      n+=7;
+    int diff = n - weekStart;
+    return increaseDate(date, -diff);
+  }
   /**
    * Create a new Date
    * 
@@ -644,8 +725,18 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   private static class CellHTML extends HTML {
     private int day = -1;
     private boolean enabled = true;
+    private Date date = null;
 
-    public void setEnabled(boolean b) {
+    public Date getDate() {
+    	return date;
+    }
+
+		public void setDate(Date date) {
+    	this.date = date;
+    	enabled = true;
+    }
+
+		public void setEnabled(boolean b) {
       enabled = b;
     }
 
@@ -672,7 +763,7 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     }
 
     private void setCellContent() {
-      setHTML((day < 1 || day > 31) ? "&nbsp;" : String.valueOf(day));
+      setHTML(day < 1 ? "&nbsp;" : String.valueOf(day));
     }
 
     MouseOverHandler mouseOverHandler = new MouseOverHandler() {
@@ -702,6 +793,9 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     show();
   }
 
+  /**
+   * Set the number of letters to show in the name of the week day 
+   */
   public void setNumberOfLettersInDayNames(int n) {
     WEEK_DAYS = new String[7];
     for (int i = 0; i < 7; i++) {
@@ -716,7 +810,8 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
     if (event.getSource() instanceof CellHTML) {
       CellHTML cell = (CellHTML) event.getSource();
       if (cell.isEnabled()) {
-        setSelectedDate(new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay()));
+      	Date d = cell.getDate() != null ? cell.getDate() : new Date(cursorDate.getYear(), cursorDate.getMonth(), cell.getDay());
+        setSelectedDate(d);
         for (ValueChangeHandler<GWTCSimpleDatePicker> change : valueChanges) {
           change.onValueChange(valueChangeEvent);
         }
@@ -746,12 +841,35 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
 
   /**
    * Removes a previously added handler.
-   * Deprecated because the normal way to do this in gwt 1.7 is using the HandlerRegistration returned when the handler was added
+   * 
+   * The normal way to do this in gwt 1.7 is using the HandlerRegistration 
+   * returned when the handler was added, but this is needed because it is used 
+   * by GWTCDatePickerAbstract
    * 
    */
-  @Deprecated
-  protected void removeValueChangeHandler(ValueChangeHandler<GWTCSimpleDatePicker> handler) {
+  public void removeValueChangeHandler(ValueChangeHandler<GWTCSimpleDatePicker> handler) {
     valueChanges.remove(handler);
+  }
+  
+  /**
+   *  Show the week numbers
+   */
+  public void showWeekNumbers(boolean b) {
+      if (b != (showWeekNumbers==1)) {
+          initialized = false;
+          needsRedraw = true;
+      }
+      showWeekNumbers = b ? 1 : 0;
+  }
+  
+  /**
+   * Add click handlers to week number labels in order to select the first day of this week's row 
+   */
+  public void clickOnWeekNumbers(boolean b) {
+      if (b != clickOnWeekNumbers) {
+          needsRedraw = true;
+      }
+      clickOnWeekNumbers = b;
   }
 
 }

@@ -73,6 +73,8 @@ public class Const implements Exportable {
   protected static final String NUM_COLUMS = "numberOfColums"; //[3] Number of months per row when displaying multiple months
   protected static final String STEP_MONTHS = "stepMonths"; //[1] Number of months to step back/forward
   protected static final String MONTH_RANGE = "monthRange"; //[12] Number of months to show in the months menu selector
+  protected static final String SHOW_WEEKS = "showWeekNumbers"; //[false] Show week numbers
+  protected static final String SELECT_WEEKS = "weekSelection"; //[false] Set week numbers clickable in order to select entire weeks
   protected static final String DIALOG = "dialog"; //[true] the widget is shown in a popup dialog
   protected static final String CONT_ID = "containerId"; //[null] Id of the element where the widget will be inserted
   protected static final String RND_BOX = "roundedBox"; //[false] show the element inside a decorated rounded container
@@ -83,7 +85,7 @@ public class Const implements Exportable {
   /**
    * ["?mx;p<->n"] define which buttons to use and where to place them in datepickers. 
    *               Each action is represented with a character:  
-   *               ';' panel-delimiter (There are 6 panels availables, 3 at the top and 3 at the bottom) 
+   *               ';' panel-delimiter (There are 8 panels availables, 3 at the top and 3 at the bottom of the date-picker, 1 at the right side of the headers and another at the left side). 
    *               '?' help, 'x' close, '_' separator, '-' today,
    *               '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    */
@@ -110,19 +112,23 @@ public class Const implements Exportable {
 
   protected static final String REGIONAL = "regional"; //[null] hash with the set of key/values to internationalize the widget
 
-  protected static final String TXT_HELP = "helpText"; //(DatePicker,IntervalSelector) ["?"] Display text for close button
-  protected static final String TXT_CLOSE = "closeText"; //(DatePicker,IntervalSelector)["x"] Display text for close button
-  protected static final String TXT_CURR = "currentText"; //(DatePicker,IntervalSelector)["-"] Display text for current month button
-  protected static final String TXT_PREV = "prevText"; //(DatePicker,IntervalSelector)["<"] Display text for previous month button
-  protected static final String TXT_NEXT = "nextText"; //(DatePicker,IntervalSelector)[">"] Display text for next month button
-  protected static final String TXT_PREV_Y = "prevYearText"; //(DatePicker,IntervalSelector)["<<"] Display text for previous year button
-  protected static final String TXT_NEXT_Y = "nextYearText"; //(DatePicker,IntervalSelector)[">>"] Display text for next year button
+  protected static final String TXT_HELP = "helpText"; //(DatePicker,IntervalSelector,WeekSelector) ["?"] Display text for close button
+  protected static final String TXT_CLOSE = "closeText"; //(DatePicker,IntervalSelector,WeekSelector)["x"] Display text for close button
+  protected static final String TXT_CURR = "currentText"; //(DatePicker,IntervalSelector,WeekSelector)["-"] Display text for current month button
+  protected static final String TXT_PREV = "prevText"; //(DatePicker,IntervalSelector,WeekSelector)["<"] Display text for previous month button
+  protected static final String TXT_NEXT = "nextText"; //(DatePicker,IntervalSelector,WeekSelector)[">"] Display text for next month button
+  protected static final String TXT_PREV_Y = "prevYearText"; //(DatePicker,IntervalSelector,WeekSelector)["<<"] Display text for previous year button
+  protected static final String TXT_NEXT_Y = "nextYearText"; //(DatePicker,IntervalSelector,WeekSelector)[">>"] Display text for next year button
 
-  protected static final String TIT_HELP = "helpTitle"; //(DatePicker,IntervalSelector)[null] Title for help button when the mouse is over
-  protected static final String TIT_CLOSE = "closeTitle"; //(DatePicker,IntervalSelector)[null] Title for close button when the mouse is over
-  protected static final String TIT_CURR = "currentTitle"; //(DatePicker,IntervalSelector)[null] Title for current month button when the mouse is over
-  protected static final String TIT_PREV = "prevTitle"; //(DatePicker,IntervalSelector)[null] Title for previous month button when the mouse is over
-  protected static final String TIT_NEXT = "nextTitle"; //(DatePicker,IntervalSelector)[null] Title for next month button when the mouse is over
-  protected static final String TIT_PREV_Y = "prevYearTitle"; //(DatePicker,IntervalSelector)[null] Title for previous year button when the mouse is over
-  protected static final String TIT_NEXT_Y = "nextYearTitle"; //(DatePicker,IntervalSelector)[null] Title for next year button when the mouse is over
+  protected static final String TXT_FROM = "fromText"; //(WeekSelector)["From"] Text of the from label, referencing the start day of the selected week
+  protected static final String TXT_TO = "toText"; //(WeekSelector)["To"] Text of the to label, referencing the final day of the selected week
+  protected static final String TXT_SELECT_WEEK = "selectWeekText"; //(WeekSelector)["Select a week"] Text of the week selector title
+
+  protected static final String TIT_HELP = "helpTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for help button when the mouse is over
+  protected static final String TIT_CLOSE = "closeTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for close button when the mouse is over
+  protected static final String TIT_CURR = "currentTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for current month button when the mouse is over
+  protected static final String TIT_PREV = "prevTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for previous month button when the mouse is over
+  protected static final String TIT_NEXT = "nextTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for next month button when the mouse is over
+  protected static final String TIT_PREV_Y = "prevYearTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for previous year button when the mouse is over
+  protected static final String TIT_NEXT_Y = "nextYearTitle"; //(DatePicker,IntervalSelector,WeekSelector)[null] Title for next year button when the mouse is over
 }

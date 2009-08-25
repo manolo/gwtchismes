@@ -20,7 +20,7 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.9.4" />
+	<property name="version" value="0.9.6" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
@@ -173,15 +173,17 @@
 	<target name="distribution" depends="clean, zip, clean" />
          <target name="install">
              <exec dir="." executable="mvn">
-                <arg line="deploy:deploy-file" />
+                <arg line="install:install-file" />
                 <arg line="-DgroupId=gwtchismes
                            -DartifactId=${project}
-                           -DrepositoryId=mirai
-                           -Durl=http://draco:8080/archiva/repository/internal/
                            -Dfile=${project}-${version}.jar
                            -Dversion=${version} -Dpackaging=jar
                            -DgeneratePom=true"
                            />
              </exec>
+<!--
+                           -DrepositoryId=mirai
+                           -Durl=http://draco:8080/archiva/repository/internal/
+-->
          </target>
 </project>

@@ -228,7 +228,7 @@ public class GWTCButton extends Button {
     container.getCellFormatter().setStyleName(0, 2, S_BTN + "-" + S_R);
 
     replaceElement(container.getElement());
-    DOM.sinkEvents(textPanel.getElement(), Event.ONCLICK | Event.FOCUSEVENTS | Event.ONMOUSEDOWN | Event.ONMOUSEOVER | Event.ONMOUSEOUT);
+    //DOM.sinkEvents(textPanel.getElement(), Event.ONCLICK | Event.FOCUSEVENTS | Event.ONMOUSEDOWN | Event.ONMOUSEOVER | Event.ONMOUSEOUT);
   }
 
   @Override

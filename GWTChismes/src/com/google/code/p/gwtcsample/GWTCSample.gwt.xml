@@ -8,7 +8,7 @@
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>
    
-  <stylesheet src="GWTC-compressed.css"/>
-  <stylesheet src="GWTCSample.css"/>
+  <stylesheet src="GWTC-compressed.css"/> 
+  <stylesheet src="GWTCSample.css"/> 
   
 </module>

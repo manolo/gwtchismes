@@ -28,7 +28,7 @@ public class GWTCDatePickerCustom extends GWTCDatePickerAbstract {
 
   @Override
   public void drawDatePickerWidget() {
-    String buttonsLayout = "< >;;;-  x";
+    String buttonsLayout = ";; ;-  x;;;<:>"; // "< >; ; ;-  x; ; ;<;>;p;n";
     int monthsToDisplay = 6;
     int monthsPerColumn = 3;
     int monthsIncrement = 6;

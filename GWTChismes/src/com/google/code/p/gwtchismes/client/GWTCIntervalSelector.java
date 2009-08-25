@@ -53,8 +53,6 @@ import com.google.gwt.user.client.ui.Widget;
  * <pre>
    // Configure internationalizable messages
    private HashMap strs = new HashMap();
-   strs.put("format.date", "MMM  dd, yyyy");
-   strs.put("format.day", "(ddd.)");
    strs.put("key.checkin", "Check-in");
    strs.put("key.checkout", "Check-out");
    strs.put("key.nights", "Nights");
@@ -139,6 +137,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
   private int maxdays = 365 * 2;
   private String dateFormat = DateTimeFormat.getLongDateFormat().getPattern();
   private String weekDayFormat = "(EEE)";
+  private boolean showWeekNumbers = false;
 
   private final HorizontalPanel outer = new HorizontalPanel();
 
@@ -169,8 +168,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
   }
 
   /**
-   * Constructor. 
-   * You haven't to call initialize.
+   * This constructor calls initialize and setups the desired layout;
    * 
    * @param layout
    *            layout for the interval selector
@@ -191,7 +189,8 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     initWidget(outer);
 
     mainGrid.addStyleName(GWTCINTERVAL_GRID);
-    mainGrid.addStyleName(GWTCINTERVAL_LAYOUT + layout);
+    if (layout != 0)
+       mainGrid.addStyleName(GWTCINTERVAL_LAYOUT + layout);
 
     checkinLabel.addStyleName(LABELS);
     checkinDateValue.addStyleName(VALUES);
@@ -216,7 +215,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     nightsListBox.addStyleName(NIGHTS_LIST_BOX);
 
     layoutType = layout;
-    setDatePickerOptions(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON);
+    configureDatePickers(GWTCDatePicker.CONFIG_DIALOG | GWTCDatePicker.CONFIG_NO_HELP_BUTTON | GWTCDatePicker.CONFIG_NO_YEAR_BUTTON);
     drawIntervalWidget();
   }
 
@@ -406,24 +405,26 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
   }
 
   public void configureDatePickers(int options, String buttonsLayout, int months, int monthsPerRow, int increment, int monthsInSelector) {
-    options |= GWTCDatePicker.CONFIG_DIALOG;
-    checkinCalendar = new GWTCDatePicker(options);
-    checkoutCalendar = new GWTCDatePicker(options);
-    checkinCalendar.addStyleName(PICKER_CHECKIN);
-    checkoutCalendar.addStyleName(PICKER_CHECKOUT);
+    configureDatePickers(options);
     checkinCalendar.configure(buttonsLayout, months, monthsPerRow, increment, monthsInSelector);
     checkoutCalendar.configure(buttonsLayout, months, monthsPerRow, increment, monthsInSelector);
     initListeners();
-    setMaxdays(maxdays);
   }
 
-  public void setDatePickerOptions(int options) {
+  public void configureDatePickers(int options) {
+    setDatePickerOptions(options);
+    initListeners();
+  }
+
+  // Setting different options implies create new datePicker instances
+  private void setDatePickerOptions(int options) {
     options |= GWTCDatePicker.CONFIG_DIALOG;
     checkinCalendar = new GWTCDatePicker(options);
     checkoutCalendar = new GWTCDatePicker(options);
-    checkoutCalendar.addStyleName(PICKER_CHECKOUT);
     checkinCalendar.addStyleName(PICKER_CHECKIN);
-    initListeners();
+    checkoutCalendar.addStyleName(PICKER_CHECKOUT);
+    checkinCalendar.showWeekNumbers(showWeekNumbers);
+    checkoutCalendar.showWeekNumbers(showWeekNumbers);
     setMaxdays(maxdays);
   }
 
@@ -432,7 +433,9 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
   }
 
   private void updateInputsFromNights() {
-    checkoutCalendar.setSelectedDate(GWTCSimpleDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex()));
+  	Date checkout = GWTCSimpleDatePicker.increaseDate(getInitDate(), nightsListBox.getSelectedIndex());
+    checkoutCalendar.setSelectedDate(checkout);
+    checkoutCalendar.setCursorDate(checkout);
     checkoutDateValue.setText(checkoutCalendar.getSelectedDateStr(dateFormat));
     checkoutWeekValue.setText(checkoutCalendar.getSelectedDateStr(weekDayFormat));
     nightsValue.setText("" + getNights());
@@ -462,7 +465,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     updateTextElements();
   }
 
-  protected void updateTextElements() {
+  private void updateTextElements() {
     checkinDateValue.setText(checkinCalendar.getSelectedDateStr(dateFormat));
     checkinWeekValue.setText(checkinCalendar.getSelectedDateStr(weekDayFormat));
 
@@ -480,6 +483,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
    */
   public void setInitDate(Date d) {
     checkinCalendar.setSelectedDate(d);
+    checkinCalendar.setCursorDate(d);
     updateTextElementsFromCheckin();
   }
 
@@ -489,7 +493,8 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
    * @param n
    */
   public void setNights(int n) {
-    nightsListBox.setItemSelected(n, true);
+    if (nightsListBox !=null && nightsListBox.getItemCount() >= n)
+       nightsListBox.setItemSelected(n, true);
     updateInputsFromNights();
   }
 
@@ -629,26 +634,42 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     public void onClick(ClickEvent event) {
       Widget sender = (Widget) event.getSource();
       if (sender == checkinButton || sender == checkinDateValue || sender == checkinWeekValue || sender == changeCheckinLink) {
-        if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
-          checkinCalendar.show(checkinDateValue);
-        else if ((calendarPosition & PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
-          checkinCalendar.center();
-        else
-          checkinCalendar.show(sender);
-        checkoutCalendar.hide();
+      	showCheckinCalendar(sender);
       } else if (sender == checkoutButton || sender == checkoutDateValue || sender == checkoutWeekValue) {
-        if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
-          checkoutCalendar.show(checkoutDateValue);
-        else if ((calendarPosition & PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
-          checkoutCalendar.center();
-        else
-          checkoutCalendar.show(sender);
-        checkinCalendar.hide();
+      	showCheckoutCalendar(sender);
       } else {
         return;
       }
     }
   };
+  
+  protected void showCheckinCalendar(Widget sender) {
+    if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
+      checkinCalendar.show(checkinDateValue);
+    else if ((calendarPosition & PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
+      checkinCalendar.center();
+    else
+      checkinCalendar.show(sender);
+    checkoutCalendar.hide();
+  }
+  
+  public void showCheckinCalendar() {
+  	showCheckinCalendar(null);
+  }
+
+  private void showCheckoutCalendar(Widget sender) {
+    if ((calendarPosition & PICKER_POSITION_NEAR_DATEVALUES) == PICKER_POSITION_NEAR_DATEVALUES)
+      checkoutCalendar.show(checkoutDateValue);
+    else if ((calendarPosition & PICKER_POSITION_CENTERED) == PICKER_POSITION_CENTERED)
+      checkoutCalendar.center();
+    else
+      checkoutCalendar.show(sender);
+    checkinCalendar.hide();
+  }
+
+  public void showCheckoutCalendar() {
+  	showCheckoutCalendar(null);
+  }
 
   /**
    * <p>
@@ -714,6 +735,14 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     }
     updateTextElementsFromCheckin();
   }
+  
+  public void setMinimalDate(String s) {
+    setMinimalDate(GWTCSimpleDatePicker.add(new Date(), s));
+  }
+
+  public void setMaximalDate(String s) {
+    setMinimalDate(GWTCSimpleDatePicker.add(new Date(), s));
+  }
 
   public void setMaximalDate(Date d) {
     checkinCalendar.setMaximalDate(d);
@@ -744,5 +773,10 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     this.weekDayFormat = weekDayFormat;
     updateTextElements();
   }
-
+  
+  public void showWeekNumbers(boolean b){
+    this.showWeekNumbers = b;
+      checkinCalendar.showWeekNumbers(b);
+      checkoutCalendar.showWeekNumbers(b);
+  }
 }

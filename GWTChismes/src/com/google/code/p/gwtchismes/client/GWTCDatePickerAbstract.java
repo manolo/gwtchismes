@@ -18,6 +18,7 @@
 package com.google.code.p.gwtchismes.client;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -192,6 +193,8 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   protected final DockPanel bottomButtonsRow0 = new DockPanel();
   protected final DockPanel bottomButtonsRow1 = new DockPanel();
   protected final DockPanel bottomButtonsRow2 = new DockPanel();
+  protected final DockPanel leftButtons = new DockPanel();
+  protected final DockPanel rightButtons = new DockPanel();
   protected Button helpBtn;
   protected Button closeBtn;
   protected Button todayBtn;
@@ -212,6 +215,8 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   protected int monthColumns = 3;
   protected int monthSelector = 12;
   protected int monthStep = 1;
+  private boolean showWeekNumbers = false;
+  private boolean clickOnWeekNumbers = false; 
 
   /**
    * Classes implementing this abstract class, have to implement this method
@@ -340,28 +345,16 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     adjustDimensions();
   }
 
-  public void cfg(String buttonsLayout) {
-    System.out.println(buttonsLayout);
-    monthColumns = 3;
-    monthSelector = 10;
-    monthStep = 2;
-    setNumberOfMonths(2);
-
-    monthSelectorHeader.removeFromParent();
-
-    layoutButtons(buttonsLayout);
-    layoutCalendar();
-    refresh();
-    adjustDimensions();
-  }
-
   protected void setNumberOfMonths(int months) {
     monthColumns = Math.min(monthColumns, months);
     monthStep = Math.min(monthStep, months);
     simpleDatePickers = new Vector<GWTCSimpleDatePicker>();
 
     for (int i = 0; i < Math.max(1, months); i++) {
-      simpleDatePickers.add(new GWTCSimpleDatePicker(true));
+      GWTCSimpleDatePicker picker = new GWTCSimpleDatePicker(true);
+      picker.showWeekNumbers(showWeekNumbers);
+      picker.clickOnWeekNumbers(clickOnWeekNumbers);
+      simpleDatePickers.add(picker);
       Label l = new Label();
       DOM.setElementAttribute(l.getElement(), "align", "center");
       monthHeaders.add(l);
@@ -370,7 +363,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     setMaximalDate(super.getMaximalDate());
     setSelectedDate(super.getSelectedDate());
   }
-
+  
   private Widget getButton(String s, int pos) {
     if (pos < s.length()) {
       int c = s.charAt(pos);
@@ -399,7 +392,7 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   protected void layoutButtons(String distribution) {
     navButtonsBottom.clear();
     navButtonsTop.clear();
-    DockPanel[] panels = { topButtonsRow0, topButtonsRow1, topButtonsRow2, bottomButtonsRow0, bottomButtonsRow1, bottomButtonsRow2 };
+    DockPanel[] panels = { topButtonsRow0, topButtonsRow1, topButtonsRow2, bottomButtonsRow0, bottomButtonsRow1, bottomButtonsRow2, leftButtons, rightButtons };
     String s[] = distribution.split("[;:,]");
 
     Widget w = null, m = null;
@@ -412,23 +405,29 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
 
       for (int j = 0; j < s[i].length(); j++) {
         if ((w = getButton(s[i], j)) != null) {
-          p.add(w, DockPanel.WEST);
+          p.add(w, p != rightButtons ? DockPanel.WEST : DockPanel.EAST );
         }
         if (j == s[i].length() / 2)
           m = w;
       }
+      
+      if (!p.iterator().hasNext())
+        continue;
 
       p.setWidth("100%");
-      if (m != null) {
-        p.setCellWidth(m, "100%");
-        m.setWidth("100%");
+      if (p != leftButtons && p != rightButtons) {
+        if (m != null) {
+          p.setCellWidth(m, "100%");
+          m.setWidth("100%");
+        }
       }
       if (i < 3)
         navButtonsTop.add(p, DockPanel.NORTH);
-      else
+      else if (i < 6)
         navButtonsBottom.add(p, DockPanel.NORTH);
 
-      p.addStyleName(StyleCButtonsRow + (i % 3));
+      if (i < 6)
+        p.addStyleName(StyleCButtonsRow + (i % 3));
     }
   }
 
@@ -452,10 +451,33 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
           calendarGrid.getRowFormatter().addStyleName(row, StyleMonthLabels);
           calendarGrid.getRowFormatter().addStyleName(row + 1, StyleMonthCell);
         }
+        Widget w = null; 
         if (i == 0 && monthSelectorHeader.getElement().getParentElement() == null)
-          calendarGrid.setWidget(row, col, monthSelectorHeader);
+          w = monthSelectorHeader;
+          //calendarGrid.setWidget(row, col, monthSelectorHeader);
         else
-          calendarGrid.setWidget(row, col, monthHeaders.get(i));
+          w = monthHeaders.get(i);
+          //calendarGrid.setWidget(row, col, monthHeaders.get(i));
+        
+        DockPanel p=null;
+        if (leftButtons.iterator().hasNext() && leftButtons.getParent() == null && col == 0 ) {
+          p = leftButtons;
+          p.add(w, DockPanel.WEST);
+          p.setCellWidth(w, "100%");
+          w = p;
+          if (simpleDatePickers.size() == 1) {
+            Iterator<Widget> it = p.iterator();
+            while (it.hasNext()) {
+              p.add(it.next(), DockPanel.WEST);
+            }
+          }
+        } if (rightButtons.iterator().hasNext() && rightButtons.getParent() == null && ((i+1) % monthColumns) == 0 ) {
+          p = rightButtons;
+          p.add(w, DockPanel.WEST);
+          p.setCellWidth(w, "100%");
+          w = p;
+        }
+        calendarGrid.setWidget(row, col, w);
       }
 
       calendarGrid.setWidget(row + 1, col, simpleDatePickers.get(i));
@@ -514,9 +536,11 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         monthMenu.addItem(t, c);
       }
     }
+    
   }
 
-  protected static void internationalize(Widget b, Map<String, String> strs, String ktext) {
+    
+  public static void internationalize(Widget b, Map<String, String> strs, String ktext) {
     if (strs == null)
       return;
     String text = strs.get(ktext);
@@ -605,6 +629,10 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     } else {
       outer.addStyleName(s);
     }
+    addStyleToMonthMenu(s);
+  }
+  
+  private void addStyleToMonthMenu(String s){
     monthSelectorHeader.addStyleName(s + "-MenuBar");
     monthMenu.addStyleName(s + "-MenuBar");
     monthSelectorHeader.addStyleName(s + "-MenuBar-horizontal");
@@ -623,6 +651,8 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
       calendarDlg.addStyleDependentName(s);
     else
       outer.addStyleDependentName(s);
+    
+    addStyleToMonthMenu(getStylePrimaryName() + "-" + s);
   }
 
   /* (non-Javadoc)
@@ -828,6 +858,22 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     for (int i = 0; i < simpleDatePickers.size(); i++) {
       simpleDatePickers.get(i).setSelectedDate(d);
       simpleDatePickers.get(i).refresh();
+    }
+  }
+  
+  @Override
+  public void showWeekNumbers(boolean b) {
+    this.showWeekNumbers = b;
+    for (int i = 0; i < simpleDatePickers.size(); i++) {
+          simpleDatePickers.get(i).showWeekNumbers(b);
+          simpleDatePickers.get(i).refresh();
+    }
+  }
+  @Override
+  public void clickOnWeekNumbers(boolean b) {
+    this.clickOnWeekNumbers = b;
+    for (int i = 0; i < simpleDatePickers.size(); i++) {
+          simpleDatePickers.get(i).clickOnWeekNumbers(b);
     }
   }
 
