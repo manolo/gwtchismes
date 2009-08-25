@@ -247,7 +247,6 @@ var weekselector = new jsc.WeekSelector ({
                                 //  '>' next-month, '<' prev-month, 'n' next-year, 'p' prev-year
    minDate: "+0d",  // The earliest selectable date
    maxDate: "+1y",  // The latest selectable date
-   maxDays: 0,  // Limit for the number of days in an inteval.
    className: "",  // Add an optional classname to the container
    onSelect: new function(data){},  // Define a callback function when a date is selected
    regional: {     // hash with the set of key/values to internationalize the widget
@@ -284,11 +283,9 @@ var date = weekselector.getEnd();
 /* Returns a JavaScript hash structure with this information:
 data.init     // The start date that has selected the userhj
 data.end      // The end date selected by the user
-data.nights   // Number of nights in the interval
-data.days     // Number of days in the interval (identical to nights)
 data.maximal  // The maximal date allowed to select  
 data.minimal  // The minimal date allowed to select
-data.maxdays  // The maximal of days(nights) allowed in the interval   */
+data.week  // The selected week number */
 var javascriptobject = weekselector.data();
 
 /* Specify the JavaScript function which will be called when the user selects a date o changes the number of days
@@ -583,6 +580,28 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
           }
         });
 
+        var week= new jsc.WeekSelector({
+          numberOfMonths: 2,
+          maxDate: "3y",
+          containerId: "weekContainer",
+          regional: {
+            closeText: "Close",
+            closeTitle: "Close dialog",
+            todayText: "Today",
+            todayTitle: "Display the actual month",
+            nextMonthTitle: "Jump to the next month",
+            prevMonthTitle: "Jump to previous month",
+            nextYearTitle: "Jump to the next year",
+            prevYearTitle: "Jump to the previos year",
+            calendarCheckinCaption: "Click over any day of the desired week"
+          },
+          onSelect: function(data){
+            alrt.alert( "You have selected the week number: " + data.week 
+                      + "\nwhich starts on: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.init) 
+                      + "\nand ends on: " + jsc.Utils.formatDate(jsc.Const.LONG_FORMAT, data.end));
+          }
+        });
+
         progress = new jsc.Progress({
           dialog: true
         });
@@ -616,7 +635,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
            }
         });
         new jsc.Button({
-          text: "Show a tree months date picker",
+          text: "Show a three months date picker",
           containerId: "button5",
           onClick: function(elem){
             calendar.show();
@@ -627,7 +646,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Tue Aug 25 13:45:08 CEST 2009_
+*Date:* _Tue Aug 25 14:56:41 CEST 2009_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
