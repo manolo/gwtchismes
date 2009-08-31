@@ -4,17 +4,17 @@ Exportando librerias desarrolladas en GWT a javascript.
 <wiki:toc max_depth="3" />
 
 = Introducción =
-Hay numerosas ventajas en usar GWT para desarrollar codigo javascript de calidad, especialmente que el programador no tiene que ser un experto en javascript, conocer particularidaded de cada navegador, empaquetamiento de javascript, ofuscación, dependencias entre librerías, etc.
+Hay numerosas ventajas en usar GWT para desarrollar código javascript de calidad, especialmente que el programador no tiene que ser un experto en javascript, conocer particularidades de cada navegador, empaquetamiento de javascript, ofuscación, dependencias entre librerías, etc.
 
-Comparando, la relación que existe entre GWT y javascript, es la misma que entre el lenguaje C y código ensamblador. ¿Para qué voy a programar en un lenguaje de bajo nivel con caracteristicas distintas para cada plataforma si se puede trabajar en un lenguaje de alto nivel, y dejar al compilador que corrija errores, compile, enlace, optimice, ofusque, y genere el código mas apropiado para cada plataforma?.
+Comparando, la relación que existe entre GWT y javascript, es la misma que entre el lenguaje C y código ensamblador. ¿Para qué voy a programar en un lenguaje de bajo nivel con características distintas para cada plataforma si se puede trabajar en un lenguaje de alto nivel, y dejar al compilador que corrija errores, compile, enlace, optimice, ofusque, y genere el código mas apropiado para cada plataforma?.
 Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos introducir código javascript en nuestro código java utilizando [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html#DevGuideJavaScriptNativeInterface JSNI]. 
 
-Y finalmente, también existen ventajas en publicar tu libreria tanto en gwt como en javascript. Principalmente porque así se podrán aprovechar desarrolladores que utilicen otros lenguages y frameworks, y que no conozcan nada de java y gwt.
+Y finalmente, también existen ventajas en publicar tu librería tanto en gwt como en javascript. Principalmente porque así se podrán aprovechar desarrolladores que utilicen otros lenguages y frameworks, y que no conozcan nada de java y gwt.
 
 = Detalles =
- * ¿porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque en el proceso de compilado,  GWT renombra clases, variables, métodos, descarta todo el codigo innecesario, genera nuevas clases, metodos, etc. En pocas palabras, el codigo js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicacion java, ademas es distinto para cada navegador y es ilegible.
+ * ¿porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque en el proceso de compilado,  GWT renombra clases, variables, métodos, descarta todo el cogido innecesario, genera nuevas clases, métodos, etc. En pocas palabras, el código js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicación java, ademas es distinto para cada navegador y es ilegible.
 
- * Entonces, ¿cómo se pueden hacer llamadas desde javascript a codigo generado por GWT?. Se consigue guardando referencias a nuestro codigo javascript en el objeto window del navegador. Para ello, en el código javascript del método nativo que guarda esta referencia, debemos utilizar etiquetas especiales que el compilador actualiza con el nombre final de nuestro método compilado.
+ * Entonces, ¿cómo se pueden hacer llamadas desde javascript a código generado por GWT?. Se consigue guardando referencias a nuestro código javascript en el objeto 'window' del navegador. Para ello, en el código javascript del método nativo que guarda esta referencia, debemos utilizar etiquetas especiales que el compilador actualiza con el nombre final de nuestro método compilado.
 {{{
  package jschismes.client;
  public class HelloClass implements EntryPoint{
@@ -44,7 +44,7 @@ Y finalmente, también existen ventajas en publicar tu libreria tanto en gwt com
   </script>
 }}}
 
- * ¿Qué podemos hacer para simplificar este proceso?. Sencillo, usar la libreria [http://code.google.com/p/gwt-exporter/ gwt-exporter]. Con ella y haciendo anotaciones en nuestro código java, el compilador es el que genera todo el codigo para publicar nuestros atributos en el objeto window.
+ * ¿Qué podemos hacer para simplificar este proceso?. Sencillo, usar la librería [http://code.google.com/p/gwt-exporter/ gwt-exporter]. Con ella y haciendo anotaciones en nuestro código java, el compilador es el que genera todo el código para publicar nuestros atributos en el objeto 'window'.
 {{{
  package jschismes.client;
  @Export
@@ -60,15 +60,13 @@ Y finalmente, también existen ventajas en publicar tu libreria tanto en gwt com
   <script language='javascript'>
     var hello = new jschismes.client.HelloClass();
     hello.helloMethod("Manuel");
-    window.hello("Manolo");
   </script>
 }}}
 
 = Usando gwt-exporter =
- # Sólo las clases anotadas como @Export y que implementan 'Exportable' seran procesadas, y sólo sus métodos públicos estaran disponibles. Por defecto gwt-exporter pondrá nuestras clases en el objeto window bajo el name-space del paquete de nuestra aplicación, en nuestro caso seria window.jschismes.client, pero se puede modificar usando la anotación @Exportpackage.
+ # Sólo las clases anotadas como `@Export` y que implementan `Exportable` serán procesadas, y sólo sus métodos públicos estarán disponibles. Por defecto gwt-exporter pondrá nuestras clases en el objeto 'window' bajo el 'name-space' del paquete de nuestra aplicación, en nuestro caso seria `window.jschismes.client`, pero se puede modificar usando la anotación `@ExportPackage`.
 {{{
 package jschismes.client;
-
 @Export
 @ExportPackage("jsc")
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
@@ -82,9 +80,8 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
      picker.show();
   </script>
 }}}
- # Las clases heredadas, y sus métodos públicos no se exportan a no ser que se anoten especificamente. Aun así será necesario que implementen el interfaz 'Exportable'. La anotación  @Export permite publicar el metodo con otro nombre.
+ # Las clases heredadas, y sus métodos públicos no se exportan a no ser que se anoten específicamente. Aun así será necesario que implementen el interfaz 'Exportable'. La anotación `@Export` permite publicar el método con otro nombre.
 {{{
-package gwtchismes.client;
 public class GWTCDatePickerAbstract implements Exportable {
   @Export("foo")
   public void initialise(){
@@ -98,18 +95,16 @@ public class GWTCDatePickerAbstract implements Exportable {
      picker.foo();
   </script>
 }}}
- # En el punto de entrada de nuestra aplicación será necesario decir a GWT qué clases queremos exportar. Las clases exportables que se usen en la aplicacion como argumentos o retornos de otras se exportarán automáticamente.
+ # En el punto de entrada (`EntryPoint`) de nuestra aplicación será necesario decir a GWT qué clases queremos exportar. Las clases exportables que se usen en la aplicación como argumentos o retornos de otras se exportarán automáticamente.
 {{{
-package gwtchismes.client;
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     ((Exporter) GWT.create(DatePicker.class)).export();
   }
 }
 }}}
- # También en este punto de entrada, y debido a que nuestra libreria tarda un tiempo en estar disponible, es conveniente hacer una llamada a un metodo javascript que la use.
+ # También en este punto de entrada, y debido a que nuestra librería tardará algún tiempo en estar disponible, es conveniente hacer una llamada a un método javascript que la use, cuando la librería esté cargada.
 {{{
-package gwtchismes.client;
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     onLoadImpl();
@@ -127,7 +122,7 @@ public class JsChismes implements EntryPoint {
     }
   </script>
 }}}
- # Los argumentos y retornos de funcion deben utilizar tipos primitivos u Objetos que se hayan anotado como  @Export.
+ # Los argumentos y retornos de las funcions deben utilizar tipos primitivos u Objetos que se hayan anotado como `@Export`.
 {{{
 @Export
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
@@ -140,7 +135,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 public class myClass implements Exportable {
 }
 }}}
- # Para pasar funciones javascript como argumentos a nuestros métodos, hay que utilizar la anotacion @ExportClosure y crear un interface con los metodos publicos que queramos exportar. Estos metodos reciben los mismos argumentos y tipos que los de la funcion javascript.
+ # Para pasar funciones javascript como argumentos a nuestros métodos, hay que utilizar la anotacion `@ExportClosure` y crear un 'interface' con los métodos públicos que queramos exportar. Estos métodos reciben los mismos argumentos y tipos que los de la función javascript.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -165,7 +160,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
- # Hay objetos que pueden estar implementados tanto en Javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges'. Un claro ejemplo es el objeto Date que tiene distinta implementación aunque el comportamiento sea similar.
+ # Hay objetos que pueden estar implementados tanto en javascript como en GWT, para ellos será necesario desarrollar 'JSNI bridges'. Un claro ejemplo es el objeto `Date` que tiene distinta implementación aunque el comportamiento sea similar.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -193,7 +188,7 @@ public class DatePicker implements Exportable {
      alert(picker.getCurrentDate());
   </script>
 }}}
- # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestras clases acepten un objeto javascript y ser capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
+ # Los constructores de objetos en javascript generalmente aceptan un objeto de tipo 'javascript properties'. Por tanto será interesante que nuestras clases acepten un objeto 'javascript' y ser capaz de extraer la configuración que el usuario quiere. Esto se consigue creando una clase que sirva de puente entre estos atributos javascript y GWT.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -238,7 +233,7 @@ public class JsProperties {
 
  Es conveniente generar un nuevo módulo para exportar nuestra librería. De hecho es mejor no modificar nuestra librería original gwt sino usarla en nuestro nuevo módulo, de esta manera la libreria gwt publicada no dependerá de gwt-exporter. Los pasos para hacer esto son:
 
- # Crear un nuevo módulo e importar nuestra libreria y la libreria gwt-exporter en el fichero .gwt.xml, y establecer la variable export a 'true'
+ # Crear un nuevo módulo e importar nuestra librería y la librería 'gwt-exporter' en el fichero `.gwt.xml`, y establecer la variable `export` a `true`.
 {{{
 <module>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
@@ -246,7 +241,7 @@ public class JsProperties {
   <set-property name="export" value="yes"/>
 </module>
 }}}
- # Crear tantas clases java como objetos queramos exportar a javascript. Estas clases seran las que implementen el interfaz Exportable, las que usen las anotaciones de gwt-exporter, y extenderán las clases originales y publicando solo los metodos deseados.
+ # Crear tantas clases java como objetos queramos exportar a javascript. Estas clases serán las que implementen el interfaz Exportable, las que usen las anotaciones de 'gwt-exporter', y extenderán las clases originales, publicando solo los métodos deseados.
 {{{
 @Export
 public class Alert extends GWTCAlert implements Exportable {
@@ -298,11 +293,11 @@ Nota: las versiones 1.6.x y 1.7.0 de momento no soportan el 'linker xs' en modo 
 
 = Documentión de la librería javascript = 
 
-A diferencia de java, donde es fácil adivinar qué clases, métodos y argumentos usar al usar una libreria en un IDE, en javascript es necesario tener una pequeña documentación que nos indique su uso.
+A diferencia de java, donde es fácil adivinar qué clases, métodos y argumentos usar al utilizar una libreria en un IDE, en javascript es necesario tener una pequeña documentación que nos indique su uso.
 
 Dicho esto, no olvides crear y mantener la documentación de tu librería javascript.
 
-Desafortunadamente, no hay ninguna utilidad que genere esta documentación automáticamente, pero siempre podrás crearte tus propias convenciones para anotar tu código java y crear tu propio script para generar una pagina de texto com marcas wiki. Yo he usado esta técnica en mis proyectos, y utilizo un [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script casero] para ello.
+Desafortunadamente, no hay ninguna utilidad que genere esta documentación automáticamente, pero siempre podrás crearte tus propias convenciones para anotar tu código java y crear tu propio script para generar una página de texto com marcas 'wiki'. Yo he usado esta técnica en mis proyectos, y utilizo un [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script casero] para ello.
 
 = Referencias y ejemplos =
  * La libreria [http://code.google.com/p/gwt-exporter Gwt-exporter] no está documentada en absoluto y es necesario echar un vistazo al código y comentarios del [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client ejemplo] para aprender a usarla.
@@ -310,4 +305,4 @@ Desafortunadamente, no hay ninguna utilidad que genere esta documentación autom
  * [http://code.google.com/p/gwtupload/ Gwtupload] es otra librería que he exportado usando esta técnica. Puedes echar un vistazo al [http://gwtupload.alcala.org/gupld/jsupload.JsUpload/JsUpload.html ejemplo], la [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentación] y el [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GWTUpload/src/jsupload/client código].  
 
 ----
-_©2009 Manolo Carrasco Moñino_ 
+_©2009 [http://manolocarrasco.blogspot.com/ Manolo Carrasco Moñino]_ 
