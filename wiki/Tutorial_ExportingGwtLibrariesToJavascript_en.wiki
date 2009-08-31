@@ -1,4 +1,5 @@
 Exporting libraries developed in GWT to javascript.
+This article is also available in [http://code.google.com/p/gwtchismes/wiki/Tutorial_ExportingGwtLibrariesToJavascript_es spanish]
 
 <wiki:toc max_depth="3" />
 
@@ -308,4 +309,4 @@ Unfortunately there isn't any tool to produce this documentation automatically, 
  * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload.JsUpload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GWTUpload/src/jsupload/client code].  
 
 ----
-_©2009 Manolo Carrasco Moñino_ 
+_©2009 [http://manolocarrasco.blogspot.com/2009/07/gwtupload-released.html Manolo Carrasco Moñino]_ 
