@@ -1,5 +1,6 @@
 Exporting libraries developed in GWT to javascript.
-This article is also available in [http://code.google.com/p/gwtchismes/wiki/Tutorial_ExportingGwtLibrariesToJavascript_es spanish]
+
+Note: This article is also available in [http://code.google.com/p/gwtchismes/wiki/Tutorial_ExportingGwtLibrariesToJavascript_es spanish]
 
 <wiki:toc max_depth="3" />
 
