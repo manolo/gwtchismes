@@ -31,7 +31,7 @@ Y finalmente, también existen ventajas en publicar tu librería tanto en gwt co
     
     // Solo se usa para crear una referencia a nuestra funcion en el navegador
     private native void exportHelloMethod() /*-{
-      $wnd.hello: function(param1, param2) {
+      $wnd.hello = function(param1, param2) {
          return this.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
       };
     }-*/;
