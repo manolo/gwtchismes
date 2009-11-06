@@ -29,7 +29,7 @@ The relationship between GWT and javascript is the same than C and assembler. Wh
     
     // It is only used to create a reference in the browser to the final method
     private native void exportHelloMethod() /*-{
-      $wnd.hello: function(name) {
+      $wnd.hello = function(name) {
          return this.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
       };
     }-*/;
