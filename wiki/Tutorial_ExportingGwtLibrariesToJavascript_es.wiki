@@ -12,7 +12,7 @@ Además, al igual que en C se puede usar ensamblador 'inline', en GWT podemos in
 Y finalmente, también existen ventajas en publicar tu librería tanto en gwt como en javascript. Principalmente porque así se podrán aprovechar desarrolladores que utilicen otros lenguages y frameworks, y que no conozcan nada de java y gwt.
 
 = Detalles =
- * ¿Porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque en el proceso de compilado,  GWT renombra clases, variables, métodos, descarta todo el cogido innecesario, genera nuevas clases, métodos, etc. En pocas palabras, el código js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicación java, ademas es distinto para cada navegador y es ilegible.
+ * ¿Porqué el código que genera GWT no es usable desde javascript nativo?. Básicamente porque en el proceso de compilado,  GWT renombra clases, variables, métodos, descarta todo el código innecesario, genera nuevas clases, métodos, etc. En pocas palabras, el código js producido se comporta justamente como queremos, pero no se corresponde con el diseño que tenemos en nuestra aplicación java, ademas es distinto para cada navegador y es ilegible.
 
  * Entonces, ¿cómo se pueden hacer llamadas desde javascript a código generado por GWT?. Se consigue guardando referencias a nuestro código javascript en el objeto 'window' del navegador. Para ello, en el código javascript del método nativo que guarda esta referencia, debemos utilizar etiquetas especiales que el compilador actualiza con el nombre final de nuestro método compilado.
 {{{
