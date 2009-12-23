@@ -23,14 +23,14 @@ The relationship between GWT and javascript is the same than C and assembler. Wh
     }
     
     // Method that we want to use from javascript 
-    public String helloMethod(String name) {
+    static public String helloMethod(String name) {
         return prefix + " " + name;
     }
     
     // It is only used to create a reference in the browser to the final method
     private native void exportHelloMethod() /*-{
       $wnd.hello = function(name) {
-         return this.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
+         return @jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
       };
     }-*/;
  }
