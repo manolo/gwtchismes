@@ -21,7 +21,7 @@ Y finalmente, también existen ventajas en publicar tu librería tanto en gwt co
     String prefix = "Hello: ";
     public void onModuleLoad() {
         // Al cargar la aplicacion, exportamos el metodo
-        exportHelloMethod();
+        exportHelloMethod(this);
     }
     
     // Metodo que queremos usar desde javascript
@@ -30,9 +30,9 @@ Y finalmente, también existen ventajas en publicar tu librería tanto en gwt co
     }
     
     // Solo se usa para crear una referencia a nuestra funcion en el navegador
-    private native void exportHelloMethod() /*-{
+    private native void exportHelloMethod(HelloClass instance) /*-{
       $wnd.hello = function(param1, param2) {
-         return this.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
+         return instance.@jschismes.client.HelloClass::helloMethod(Ljava/lang/String;) (name);
       };
     }-*/;
  }
