@@ -640,13 +640,29 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
           onClick: function(elem){
             calendar.show();
           }
-       });
+        });
+        var colorpicker = new jsc.ColorPicker({
+          onSelect: function(color){
+            alert(color);
+          }
+        });
+        var mbut = new jsc.Button({
+            text: "Show a colorPicker",
+            containerId: "button7",
+            onClick: function(elem){
+               colorpicker.show(mbut.getElement());
+            }
+          });
+        new jsc.Editor({
+            containerId: "editor",
+            html: "Write here <b> any thing </b> you want"
+        });
      }
 
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Tue Aug 25 14:56:41 CEST 2009_
+*Date:* _Wed Feb 17 17:01:33 CET 2010_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
