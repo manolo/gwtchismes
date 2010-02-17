@@ -17,10 +17,10 @@
 
 package jschismes.client;
 
-import org.timepedia.exporter.client.Exporter;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+
+import org.timepedia.exporter.client.Exporter;
 
 /**
  * @author Manuel Carrasco Moñino 
@@ -41,6 +41,8 @@ public class JsChismes implements EntryPoint {
     ((Exporter) GWT.create(Popup.class)).export();
     ((Exporter) GWT.create(Box.class)).export();
     ((Exporter) GWT.create(Progress.class)).export();
+    ((Exporter) GWT.create(Editor.class)).export();
+    ((Exporter) GWT.create(ColorPicker.class)).export();
     onLoadImpl();
   }
 

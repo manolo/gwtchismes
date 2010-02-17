@@ -16,10 +16,6 @@
  */
 package com.google.code.p.gwtchismes.client;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.Vector;
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,14 +25,18 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.Date;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  *<p>
@@ -150,7 +150,7 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
   protected final Label checkinWeekValue = new Label();
   protected final Label checkinDateValue = new Label();
   protected final Button checkinButton = new Button("...");
-  protected final Hyperlink changeCheckinLink = new Hyperlink();
+  protected final Anchor changeCheckinLink = new Anchor();
   protected final Label checkoutLabel = new Label("Checkout");
   protected final Label checkoutWeekValue = new Label();
   protected final Label checkoutDateValue = new Label();
@@ -553,8 +553,6 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
 
   /**
    * Adds a change listener
-   * 
-   * @param listener
    */
   public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<GWTCIntervalSelector> handler) {
     changeHandlers.add(handler);
@@ -567,8 +565,6 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
 
   /**
    * Removes a change listener
-   * 
-   * @param listener
    */
   public void removeValueChangeHandler(final ValueChangeHandler<GWTCIntervalSelector> handler) {
     changeHandlers.remove(handler);
@@ -612,7 +608,6 @@ public class GWTCIntervalSelector extends Composite implements HasValueChangeHan
     checkinWeekValue.addClickHandler(clickListener);
 
     changeCheckinLink.addClickHandler(clickListener);
-    changeCheckinLink.setTargetHistoryToken("");
 
     checkoutButton.addClickHandler(clickListener);
   }

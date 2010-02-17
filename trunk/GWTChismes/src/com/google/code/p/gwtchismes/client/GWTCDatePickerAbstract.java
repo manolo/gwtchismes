@@ -307,7 +307,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
 
     drawDatePickerWidget();
     refresh();
-    adjustDimensions();
 
     DOM.sinkEvents(outer.getElement(), Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK);
     DOM.setStyleAttribute(outer.getElement(), "cursor", "default");
@@ -342,7 +341,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
     layoutButtons(buttonsLayout);
     layoutCalendar();
     refresh();
-    adjustDimensions();
   }
 
   protected void setNumberOfMonths(int months) {
@@ -485,7 +483,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
       simpleDatePickers.get(i).addValueChangeHandler(onDaySelected);
       col++;
     }
-    adjustDimensions();
   }
 
   /**
@@ -693,15 +690,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   @Override
   protected void onAttach() {
     super.onAttach();
-    this.adjustDimensions();
-    /*
-    Timer t = new Timer() {
-        public void run() {
-            adjustDimensions();
-        }
-    };
-    t.schedule(1000);
-    */
   }
 
   ValueChangeHandler<GWTCSimpleDatePicker> onDaySelected = new ValueChangeHandler<GWTCSimpleDatePicker>() {
@@ -765,7 +753,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
         calendarDlg.center();
       }
     }
-    adjustDimensions();
     todayBtn.setFocus(true);
   }
 
@@ -790,24 +777,6 @@ public abstract class GWTCDatePickerAbstract extends GWTCSimpleDatePicker {
   }
 
   int max = 0;
-
-  private void adjustDimensions() {
-    if (true)
-      return;
-
-    int a = calendarGrid.getOffsetWidth();
-    int b = navButtonsTop.getOffsetWidth();
-    int c = navButtonsBottom.getOffsetWidth();
-    max = Math.max(max, Math.max(a, Math.max(b, c)));
-    if (max != 0) {
-      if (a < max)
-        calendarGrid.setWidth(max + "px");
-      if (b < max)
-        navButtonsTop.setWidth(max + "px");
-      if (c < max)
-        navButtonsBottom.setWidth(max + "px");
-    }
-  }
 
   private void moveIntoVisibleArea() {
     if (calendarDlg != null) {

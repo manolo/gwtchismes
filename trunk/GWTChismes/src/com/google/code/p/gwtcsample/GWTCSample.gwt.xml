@@ -1,9 +1,9 @@
 <module>
 
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
   
   <entry-point class="com.google.code.p.gwtcsample.client.GWTCSample"/>
-  
   <extend-property name="locale" values="es"/>
   <extend-property name="locale" values="en"/>
   <extend-property name="locale" values="ja"/>

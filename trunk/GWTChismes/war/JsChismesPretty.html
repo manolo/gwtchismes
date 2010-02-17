@@ -167,23 +167,7 @@ body {
           onClick: function(elem){
             calendar.show();
           }
-        });
-        var colorpicker = new jsc.ColorPicker({
-          onSelect: function(color){
-            alert(color);
-          }
-        });
-        var mbut = new jsc.Button({
-            text: "Show a colorPicker",
-            containerId: "button7",
-            onClick: function(elem){
-               colorpicker.show(mbut.getElement());
-            }
-          });
-        new jsc.Editor({
-            containerId: "editor",
-            html: "Write here <b> any thing </b> you want"
-        });
+       });
      }
    </script>
    <table style="vertical-align: top">
@@ -193,20 +177,16 @@ body {
        <div id="button2">jsc.Popup</div><br/>
        <div id="button3">jsc.Alert</div><br/>
        <div id="button4">jsc.Progress</div><br/>
-       <div id="button5">jsc.Calendar</div><br/>
-       <div id="button7">jsc.ColorPicker</div>
+       <div id="button5">jsc.Calendar</div>
      </td>
-     <td>
-       <span id="boxContainer" >jsc.Box</span><br/>
-       <span id="editor" >jsc.Editor</span>
-     </td>
+     <td><div id="boxContainer" >jsc.Box</div></td>
     </tr><tr> 
      <td>jsc.IntervalSelector<div id="intervalContainer" style="border: 3px groove pink"></div></td>
-     <td rowspan="2">
-       <div align="center" id="calendarContainer">jsc.Calendar</div>
-      </td>
+     <td rowspan="2"><div align="center" id="calendarContainer">jsc.Calendar</div></td>
     </tr><tr> 
      <td>jsc.WeekSelector<div id="weekContainer" style="border: 3px groove pink"></div></td>
+    </tr><tr> 
+    </tr><tr> 
     </tr>
    </table> 
     </body>

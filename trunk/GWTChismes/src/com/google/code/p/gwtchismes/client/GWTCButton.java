@@ -17,6 +17,8 @@
 
 package com.google.code.p.gwtchismes.client;
 
+import com.google.code.p.gwtchismes.client.bundles.ButtonImages;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,6 +35,7 @@ import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -304,11 +307,16 @@ public class GWTCButton extends Button {
     container.setWidget(0, textPosIdx + 1, w);
   }
 
+  public void setImage(ImageResource resource) {
+    setImage(new Image(resource));
+  }
+
   public void setImage(Image img) {
     img.setStyleName(S_BTN + "-" + S_IMG);
     setLeftWidget(img);
   }
 
+  @Deprecated
   public void setImageSrc(String src) {
     setImage(new Image(src));
   }
@@ -449,6 +457,16 @@ public class GWTCButton extends Button {
       super.setTabIndex(index);
     else
       textPanel.setTabIndex(index);
+  }
+  
+  ButtonImages images = null;
+  
+  public void setImagesBundle(ButtonImages images) {
+    this.images = images;
+  }
+  
+  public ButtonImages getImagesBundle() {
+    return images != null ? images : (ButtonImages) GWT.create(ButtonImages.class);
   }
 
 }

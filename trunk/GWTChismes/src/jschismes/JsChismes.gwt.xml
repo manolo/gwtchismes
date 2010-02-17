@@ -4,13 +4,13 @@
   
   <entry-point class="jschismes.client.JsChismes"/>
   
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <stylesheet src="GWTC-compressed.css"/>
   
   <set-property name="export" value="yes"/>
   
   <add-linker name="xs"/>
-  <extend-property name="locale" values="en"/>
-  <extend-property name="locale" values="es"/>
-  <extend-property name="locale" values="fr"/>
-  <extend-property name="locale" values="ja"/>
+  <extend-property name="locale" values="en,es,fr,ja"/>
+  <set-property-fallback name="locale" value="en"/>
+  
 </module>
