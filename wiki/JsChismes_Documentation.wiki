@@ -480,6 +480,31 @@ popup.hide();
 A value of 0 means show it untill hide() method is called */
 popup.show(seconds);
 }}}
+
+== Editor ==
+_A Rich Editor
+    _
+   * Constructor
+{{{
+var editor = new jsc.Editor ({
+   className: "",  // Add an optional classname to the container
+   html: null,  // html content
+   containerId: null  // Id of the element where the widget will be inserted
+});
+}}}
+   * Instance methods
+{{{
+
+/* Put the editor in read-only or writing mode */
+editor.setEnabled(b);
+
+/* Get the content of the rich area
+@param html */
+editor.html(html);
+
+/* Set the html content of the rich area */
+var string = editor.html();
+}}}
 = Sample Code =
 You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html here]
 {{{
@@ -662,7 +687,7 @@ You can view this example  [http://gwtchismes.googlecode.com/svn/trunk/website/j
 }}}
 *Author:* _Manolo Carrasco Moñino_
 
-*Date:* _Wed Feb 17 17:01:33 CET 2010_
+*Date:* _Wed Feb 17 17:37:14 CET 2010_
 
 This documentation has been generated automatically parsing comments in java files, if you realise any error, please report it
 
