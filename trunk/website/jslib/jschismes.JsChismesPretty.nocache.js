@@ -3,7 +3,7 @@ function jschismes_JsChismesPretty(){
     return $wnd_0.__gwtStatsEvent(a);
   }
   :null, gwtOnLoad, bodyDone, base = '', metaProps = {}, values = [], providers = [], answers = [], onLoadErrorFunc, propertyErrorFunc;
-  $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'bootstrap', millis:(new Date()).getTime(), type:'begin'});
+  $stats && $stats({moduleName:'jschismes.JsChismesPretty', sessionId:$sessionId, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'begin'});
   if (!$wnd_0.__gwt_stylesLoaded) {
     $wnd_0.__gwt_stylesLoaded = {};
   }
@@ -22,7 +22,7 @@ function jschismes_JsChismesPretty(){
   function maybeStartModule(){
     if (gwtOnLoad && bodyDone) {
       gwtOnLoad(onLoadErrorFunc, 'jschismes.JsChismesPretty', base);
-      $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'moduleStartup', millis:(new Date()).getTime(), type:'end'});
+      $stats && $stats({moduleName:'jschismes.JsChismesPretty', sessionId:$sessionId, subSystem:'startup', evtGroup:'moduleStartup', millis:(new Date).getTime(), type:'end'});
     }
   }
 
@@ -153,6 +153,7 @@ function jschismes_JsChismesPretty(){
   providers['locale'] = function(){
     try {
       var locale;
+      var defaultLocale = 'default' || 'default';
       if (locale == null) {
         var args = location.search;
         var startLang = args.indexOf('locale=');
@@ -172,13 +173,16 @@ function jschismes_JsChismesPretty(){
       if (locale == null) {
         locale = $wnd_0['__gwt_Locale'];
       }
+       else {
+        $wnd_0['__gwt_Locale'] = locale || defaultLocale;
+      }
       if (locale == null) {
-        return 'default';
+        return defaultLocale;
       }
       while (!__gwt_isKnownPropertyValue('locale', locale)) {
         var lastIndex = locale.lastIndexOf('_');
         if (lastIndex == -1) {
-          locale = 'default';
+          locale = defaultLocale;
           break;
         }
          else {
@@ -244,39 +248,39 @@ function jschismes_JsChismesPretty(){
   }
   computeScriptBase();
   processMetas();
-  $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'bootstrap', millis:(new Date()).getTime(), type:'selectingPermutation'});
+  $stats && $stats({moduleName:'jschismes.JsChismesPretty', sessionId:$sessionId, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   var strongName;
   try {
-    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_50.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_3.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_55.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_56.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_5.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'ie8'], 'file_10.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'ie8'], 'file_18.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'ie8'], 'file_8.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'ie8'], 'file_22.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'ie8'], 'file_19.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_32.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_26.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_48.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_45.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_52.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_42.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_35.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_41.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_28.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_39.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_37.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_29.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_17.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_23.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_13.cache.js');
-    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_57.cache.js');
-    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_20.cache.js');
-    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_36.cache.js');
-    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_58.cache.js');
-    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_25.cache.js');
+    unflattenKeylistIntoAnswers(['fr', 'gecko'], 'file_1');
+    unflattenKeylistIntoAnswers(['es', 'ie6'], 'file_3');
+    unflattenKeylistIntoAnswers(['ja', 'ie6'], 'file_5');
+    unflattenKeylistIntoAnswers(['fr', 'ie8'], 'file_8');
+    unflattenKeylistIntoAnswers(['es', 'safari'], 'file_9');
+    unflattenKeylistIntoAnswers(['ja', 'ie8'], 'file_11');
+    unflattenKeylistIntoAnswers(['default', 'opera'], 'file_12');
+    unflattenKeylistIntoAnswers(['ja', 'opera'], 'file_15');
+    unflattenKeylistIntoAnswers(['ja', 'gecko1_8'], 'file_16');
+    unflattenKeylistIntoAnswers(['en', 'safari'], 'file_17');
+    unflattenKeylistIntoAnswers(['fr', 'safari'], 'file_18');
+    unflattenKeylistIntoAnswers(['default', 'safari'], 'file_19');
+    unflattenKeylistIntoAnswers(['en', 'ie6'], 'file_20');
+    unflattenKeylistIntoAnswers(['es', 'gecko'], 'file_26');
+    unflattenKeylistIntoAnswers(['en', 'opera'], 'file_28');
+    unflattenKeylistIntoAnswers(['fr', 'gecko1_8'], 'file_29');
+    unflattenKeylistIntoAnswers(['default', 'gecko1_8'], 'file_30');
+    unflattenKeylistIntoAnswers(['default', 'ie8'], 'file_32');
+    unflattenKeylistIntoAnswers(['default', 'ie6'], 'file_34');
+    unflattenKeylistIntoAnswers(['en', 'gecko'], 'file_41');
+    unflattenKeylistIntoAnswers(['es', 'opera'], 'file_42');
+    unflattenKeylistIntoAnswers(['es', 'ie8'], 'file_47');
+    unflattenKeylistIntoAnswers(['ja', 'safari'], 'file_48');
+    unflattenKeylistIntoAnswers(['en', 'gecko1_8'], 'file_49');
+    unflattenKeylistIntoAnswers(['default', 'gecko'], 'file_51');
+    unflattenKeylistIntoAnswers(['en', 'ie8'], 'file_52');
+    unflattenKeylistIntoAnswers(['fr', 'opera'], 'file_54');
+    unflattenKeylistIntoAnswers(['fr', 'ie6'], 'file_55');
+    unflattenKeylistIntoAnswers(['ja', 'gecko'], 'file_56');
+    unflattenKeylistIntoAnswers(['es', 'gecko1_8'], 'file_60');
     strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
   }
    catch (e) {
@@ -286,6 +290,13 @@ function jschismes_JsChismesPretty(){
   function onBodyDone(){
     if (!bodyDone) {
       bodyDone = true;
+      if (!__gwt_stylesLoaded['GWTCStandard.css']) {
+        var l = $doc_0.createElement('link');
+        __gwt_stylesLoaded['GWTCStandard.css'] = l;
+        l.setAttribute('rel', 'stylesheet');
+        l.setAttribute('href', base + 'GWTCStandard.css');
+        $doc_0.getElementsByTagName('head')[0].appendChild(l);
+      }
       if (!__gwt_stylesLoaded['GWTC.css']) {
         var l = $doc_0.createElement('link');
         __gwt_stylesLoaded['GWTC.css'] = l;
@@ -315,10 +326,10 @@ function jschismes_JsChismesPretty(){
     }
   }
   , 50);
-  $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'bootstrap', millis:(new Date()).getTime(), type:'end'});
-  $stats && $stats({moduleName:'jschismes.JsChismesPretty', subSystem:'startup', evtGroup:'loadExternalRefs', millis:(new Date()).getTime(), type:'begin'});
-  var compiledScriptTag = '"<script src=\\"' + base + strongName + '\\"><\/scr" + "ipt>"';
-  $doc_0.write('<script><!--\n' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", subSystem:"startup",' + 'evtGroup: "loadExternalRefs", millis:(new Date()).getTime(),' + 'type: "end"});' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", subSystem:"startup",' + 'evtGroup: "moduleStartup", millis:(new Date()).getTime(),' + 'type: "moduleRequested"});' + 'document.write(' + compiledScriptTag + ');' + '\n--><\/script>');
+  $stats && $stats({moduleName:'jschismes.JsChismesPretty', sessionId:$sessionId, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'end'});
+  $stats && $stats({moduleName:'jschismes.JsChismesPretty', sessionId:$sessionId, subSystem:'startup', evtGroup:'loadExternalRefs', millis:(new Date).getTime(), type:'begin'});
+  var compiledScriptTag = '"<script src=\\"' + base + strongName + '.cache.js\\"><\/scr" + "ipt>"';
+  $doc_0.write('<script><!--\n' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", sessionId:$sessionId, subSystem:"startup",' + 'evtGroup: "loadExternalRefs", millis:(new Date()).getTime(),' + 'type: "end"});' + 'window.__gwtStatsEvent && window.__gwtStatsEvent({' + 'moduleName:"jschismes.JsChismesPretty", sessionId:$sessionId, subSystem:"startup",' + 'evtGroup: "moduleStartup", millis:(new Date()).getTime(),' + 'type: "moduleRequested"});' + 'document.write(' + compiledScriptTag + ');' + '\n--><\/script>');
 }
 
 jschismes_JsChismesPretty();

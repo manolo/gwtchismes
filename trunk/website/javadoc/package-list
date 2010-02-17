@@ -1,1 +1,4 @@
 com.google.code.p.gwtchismes.client
+com.google.code.p.gwtchismes.client.bundles
+com.google.code.p.gwtchismes.client.editor
+com.google.code.p.gwtchismes.client.editor.bundles
