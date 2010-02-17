@@ -15,7 +15,7 @@ use strict;
 # Folder with source java files
 my $path = "src/jschismes/client/";
 # Java classes to inspect
-my @classes = ('Utils', 'DatePicker', 'IntervalSelector', 'WeekSelector', 'Progress', 'Wait', 'Alert', 'Box', 'Button', 'Popup');
+my @classes = ('Utils', 'DatePicker', 'IntervalSelector', 'WeekSelector', 'Progress', 'Wait', 'Alert', 'Box', 'Button', 'Popup', 'Editor');
 # Class with static constants
 my $constants = 'Const';
 # Html file with javascript sample code
