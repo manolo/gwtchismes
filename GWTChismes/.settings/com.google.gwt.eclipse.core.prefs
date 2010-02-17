@@ -1,3 +1,4 @@
-#Mon Aug 24 07:46:04 CEST 2009
+#Wed Jan 20 13:41:18 CET 2010
 eclipse.preferences.version=1
 entryPointModules=com.google.code.p.gwtcsample.GWTCSample|jschismes.JsChismes
+filesCopiedToWebInfLib=gwt-servlet.jar

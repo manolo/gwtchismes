@@ -20,12 +20,12 @@
 <project name="GWT Project" default="jar">
 
 	<property name="project" value="gwtchismes" />
-	<property name="version" value="0.9.6" />
+	<property name="version" value="0.9.7" />
 
 	<property environment="env" />
 	<property name="gwt.dir" value="${env.GWT_HOME}" />
 	<property name="gwt.user.jar" value="${gwt.dir}/gwt-user.jar" />
-	<property name="gwt.dev.jar" value="${gwt.dir}/gwt-dev-linux.jar" />
+	<property name="gwt.dev.jar" value="${gwt.dir}/gwt-dev.jar" />
 	<property name="gwt.servlet.jar" value="${gwt.dir}/gwt-servlet.jar" />
 
 	<property name="src.dir" value="src" />
@@ -82,37 +82,37 @@
 		</javadoc>
 	</target>
 
-	<target name="js" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
+	<target name="js" description="Generates the static javascript files needed for deploy the provided example">
 		<echo message="Compiling jschismes library into javascript" />
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+		<java classname="com.google.gwt.dev.Compiler" fork="yes" failonerror="true" 
                       classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
 			<arg value="PRETTY"/>
-			<arg value="-out" />
+			<arg value="-war" />
 			<arg file="${www.dir}" />
 			<arg value="${jsc.module}Pretty" />
 		</java>
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+		<java classname="com.google.gwt.dev.Compiler" fork="yes" failonerror="true" 
                       classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
 			<arg value="OBFUSCATED"/>
-			<arg value="-out" />
+			<arg value="-war" />
 			<arg file="${www.dir}" />
 			<arg value="${jsc.module}" />
 		</java>
                 <delete dir="${www.dir}/.gwt-tmp"/>
 	</target>
 
-	<target name="sample" depends="i18n" description="Generates the static javascript files needed for deploy the provided example">
+	<target name="sample" description="Generates the static javascript files needed for deploy the provided example">
 		<echo message="Compiling sample code from java to javascript" />
-		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" 
+		<java classname="com.google.gwt.dev.Compiler" fork="yes" failonerror="true" 
                       classpathref="compile.sample.classpath">
 			<sysproperty key="ENCODING" value="UTF-8"/>
 			<arg value="-style"/>
 			<arg value="OBFUSCATED"/>
-			<arg value="-out" />
+			<arg value="-war" />
 			<arg file="${www.dir}" />
 			<arg value="${sample.module}" />
 		</java>

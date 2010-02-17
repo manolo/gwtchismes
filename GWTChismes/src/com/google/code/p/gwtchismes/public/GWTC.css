@@ -1,3 +1,4 @@
+@import url("GWTCStandard.css");
 @import url("GWTCAlert.css");
 @import url("GWTCWait.css");
 @import url("GWTCBox.css");
@@ -8,4 +9,5 @@
 @import url("GWTCProgress.css");
 @import url("GWTCDialog.css");
 @import url("GWTCTabPanel.css");
+@import url("GWTCEditor.css");
 

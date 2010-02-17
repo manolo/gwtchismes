@@ -17,10 +17,6 @@
 
 package com.google.code.p.gwtchismes.client;
 
-import java.util.Date;
-import java.util.Vector;
-
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -33,12 +29,16 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.i18n.client.constants.DateTimeConstants;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.Date;
+import java.util.Vector;
 
 /**
  * <p>
@@ -120,7 +120,8 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   private boolean clickOnWeekNumbers = false;
 
   // Internationalizable elements
-  public static final DateTimeConstants dateTimeConstants = (DateTimeConstants) GWT.create(DateTimeConstants.class);
+  
+  public static final DateTimeConstants dateTimeConstants = LocaleInfo.getCurrentLocale().getDateTimeConstants();
   private static final int weekStart = Integer.valueOf(dateTimeConstants.firstDayOfTheWeek()).intValue() - 1;;
   public String[] WEEK_DAYS = dateTimeConstants.shortWeekdays();
 
@@ -523,20 +524,24 @@ public class GWTCSimpleDatePicker extends Composite implements ClickHandler, Has
   }
 
   /**
-   * Calculate diference in days between two days
+   * Calculate difference in days between two days
    * 
    * @param a
    *            Date
    * @param b
    *            Date
    * @return the difference in days between b and a (b - a)
+   * 
+   * @tip: Date.compareTo returns 1, 0 or -1
    */
   public static int compareDate(Date a, Date b) {
+    
     long diff = setHourToZero(b).getTime() - setHourToZero(a).getTime();
     double hours = Math.ceil((double) diff / (1000 * 60 * 60));
     int days = (int) (hours / 24);
     if (hours % 24 > 12)
       days += 1;
+    
     return days;
   }
 

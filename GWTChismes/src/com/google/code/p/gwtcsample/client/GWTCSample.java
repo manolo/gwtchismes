@@ -33,6 +33,7 @@ import com.google.code.p.gwtchismes.client.GWTCSimpleDatePicker;
 import com.google.code.p.gwtchismes.client.GWTCTabPanel;
 import com.google.code.p.gwtchismes.client.GWTCWait;
 import com.google.code.p.gwtchismes.client.GWTCWeekSelector;
+import com.google.code.p.gwtchismes.client.editor.GWTCEditor;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -181,14 +182,17 @@ public class GWTCSample implements EntryPoint {
     p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
     testProgressBar(p1);
     tp.add(p1, i18n.tab_progress());
-
-    tp.selectTab(0);
+    
+    p1 = new GWTCBox(STYLE_SAMPLE_CONTAINER);
+    testEditor(p1);
+    tp.add(p1, i18n.tab_editor());
 
     RootPanel p = RootPanel.get("gwtchismes-sample");
     if (p == null)
       p = RootPanel.get();
 
     p.add(tp);
+    tp.selectTab(0);
 
   }
 
@@ -228,7 +232,7 @@ public class GWTCSample implements EntryPoint {
     button = new GWTCButton(i18n.click_button(), buttonClickHandler) {
       {
         setEnabled(false);
-        setImageSrc("images/button/dialog-cancel.gif");
+        setImage(this.getImagesBundle().dialogCancel());
       }
     };
     box.add(createPanelWithDescription(button, i18n.descr_button_d()));
@@ -276,7 +280,7 @@ public class GWTCSample implements EntryPoint {
 
     // GWTCAlert
     button = new GWTCButton(GWTCButton.BUTTON_TYPE_1, i18n.click_button());
-    button.setImageSrc("images/button/warning.gif");
+    button.setImage(button.getImagesBundle().warning());
     button.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         alert.alert(i18n.alert_message());
@@ -286,7 +290,7 @@ public class GWTCSample implements EntryPoint {
 
     // GWTCAlert in a rounded box
     button = new GWTCButton(i18n.click_button());
-    button.setImageSrc("images/button/warning.gif");
+    button.setImage(button.getImagesBundle().warning());
     button.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         decorAlert.alert(i18n.alert_message());
@@ -307,7 +311,7 @@ public class GWTCSample implements EntryPoint {
 
     if (asDialog) {
       final GWTCButton button = new GWTCButton(i18n.click_button());
-      button.setImageSrc("images/gwtc-calendar.gif");
+      button.setImage(button.getImagesBundle().calendar());
       button.addClickHandler(new ClickHandler() {
         public void onClick(ClickEvent event) {
           picker.show(button);
@@ -529,6 +533,13 @@ public class GWTCSample implements EntryPoint {
     distributionBox.add(new Label("EAST 2"), DockPanel.EAST);
     distributionBox.add(new Label("EAST 3"), DockPanel.EAST);
     box.add(createPanelWithDescription(distributionBox, i18n.descr_box_2()));
+  }
+
+  public void testEditor(GWTCBox box) {
+    box.setTitle("GWTCEditor");
+    GWTCEditor editor = new GWTCEditor();
+    editor.setWidth("100%");
+    box.add(editor);
   }
 
 }

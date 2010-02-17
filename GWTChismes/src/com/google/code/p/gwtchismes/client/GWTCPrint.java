@@ -59,7 +59,7 @@ public class GWTCPrint extends GWTCButton {
         print();
       }
     });
-    setImageSrc("images/button/print.gif");
+    setImage(getImagesBundle().print());
   }
 
   /**

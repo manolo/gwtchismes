@@ -108,8 +108,8 @@ public class GWTCAlert extends GWTCPopupBox implements HasClickHandlers {
     contentTable = new FlexTable();
     txt = new HTML();
     okButton = new GWTCButton("OK");
-
-    okButton.setImageSrc("images/button/dialog-ok.gif");
+    
+    okButton.setImage(okButton.getImagesBundle().dialogOk());
 
     if ((options & OPTION_DISABLE_OK_BUTTON) == OPTION_DISABLE_OK_BUTTON)
       okButtonDisabled = true;

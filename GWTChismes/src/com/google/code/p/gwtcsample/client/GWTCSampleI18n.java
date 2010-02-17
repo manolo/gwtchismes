@@ -2,7 +2,7 @@ package com.google.code.p.gwtcsample.client;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'/home/pairprog/workspace_j2ee/GWTChismes/src/com/google/code/p/gwtcsample/client/GWTCSampleI18n.properties'.
+ * 	'/home/manolo/workspace/GWTChismes/src/com/google/code/p/gwtcsample/client/GWTCSampleI18n.properties'.
  */
 public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   
@@ -590,6 +590,15 @@ public interface GWTCSampleI18n extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Progress bars")
   @Key("tab_progress")
   String tab_progress();
+
+  /**
+   * Translated "Rich Editor".
+   * 
+   * @return translated "Rich Editor"
+   */
+  @DefaultStringValue("Rich Editor")
+  @Key("tab_editor")
+  String tab_editor();
 
   /**
    * Translated "Please wait ...".
