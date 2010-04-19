@@ -32,34 +32,41 @@ To setup gwtchismes in a maven project just edit the pom.xml file and add the re
 
  # Create a new project using gwt-maven archetype and change to the generated folder
 {{{
- $ mvn archetype:create -DarchetypeGroupId=com.totsp.gwt \
-    -DarchetypeArtifactId=maven-googlewebtoolkit2-archetype \
-    -DarchetypeVersion=1.0.4 \
-    -DremoteRepositories=http://gwt-maven.googlecode.com/svn/trunk/mavenrepo \
-    -DgroupId=com.foo \
-    -DartifactId=myApplication
+ $ mvn archetype:generate  -DarchetypeGroupId=org.codehaus.mojo \
+   -DarchetypeArtifactId=gwt-maven-plugin  -DarchetypeVersion=1.1 \
+   -DgroupId=com.foo  -DartifactId=myApplication
+
  $ cd myApplication
 }}}
  # Modify the generated pom.xml in order to:
    * use the appropriate gwt version.
 {{{
   <properties>
-      <gwtVersion>1.7.0</gwtVersion>
+      <gwt.version>2.0.3</gwt.version>
   </properties>
 }}}
-   * comment the goal test from gwt-maven plugin and remove Gwt prefix from the gwttestcase that the archetype has generated as example.
+   * Maven is able to run GWTestCase (2.0.x) out of the box, so comment all the goals except the compile one, and make compile goal to be executed after the test phase, because you don't need to compile your project to javascript to run tests.
+   * Add also your module(s) to the configuration.
 {{{
   <plugin>
-    <groupId>com.totsp.gwt</groupId>
-    [...]
-    <!-- <goal>test</goal> -->
-    [...]
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>gwt-maven-plugin</artifactId>
+    <executions>
+       <execution>
+        <phase>prepare-package</phase>
+        <goals>
+           <goal>compile</goal>
+        </goals>
+       </execution>
+    </executions>
+    <configuration>
+         <runTarget>myGroupId.Application/Application.html</runTarget>
+    </configuration>
   </plugin>
 }}}
+   * Now you should be able to run the project:
 {{{
-$ mv src/test/java/com/foo/client/GwtTestExampleA.java src/test/java/com/foo/client/TestExampleA.java
-# Edit your text editor, or this regular expresion in perl to rename the class name
-$ perl -pi -e s/GwtTestExampleA/TestExampleA/g src/test/java/com/foo/client/TestExampleA.java
+$ mvn clean compile test package
 }}}
    * include the gwtchismes repository
 {{{
