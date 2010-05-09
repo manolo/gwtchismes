@@ -7,7 +7,7 @@ Exporting libraries developed in GWT to javascript.
 
 There are several advantages to using GWT to produce high quality javascript code. For instance, the programmer does not need to be an expert in javascript, nor know peculiarities of each browser, or spend time packing, compressing, obfuscating, calculating dependencies, etc. And also, there are many advantages in publishing your library not only in java but in javascript, mainly because developers using other languages and frameworks, can take advantage of it without knowing anything about java and gwt.
 
-The relationship between GWT and javascript is the same than C and assembler. Why do you code in a low-level language which has different features for each platform, when you could do it in a high-level language, and give the compiler the responsibility of warning about mistakes, linking, optimising, obfuscating, and generating the most appropriate code for each platform?. Also, just as you can do with C inlining assembler, you can put javascript in your java code using [http://code.google.com/webtoolkit/doc/1.6/DevGuideCodingBasics.html#DevGuideJavaScriptNativeInterface JSNI].
+The relationship between GWT and javascript is the same than C and assembler. Why do you code in a low-level language which has different features for each platform, when you could do it in a high-level language, and give the compiler the responsibility of warning about mistakes, linking, optimising, obfuscating, and generating the most appropriate code for each platform?. Also, just as you can do with C inlining assembler, you can put javascript in your java code using [http://code.google.com/webtoolkit/doc/latest/DevGuideCodingBasicsJSNI.html JSNI].
 
 	
 = The Basics =
