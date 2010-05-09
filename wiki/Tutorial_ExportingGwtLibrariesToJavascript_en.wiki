@@ -306,7 +306,7 @@ Unfortunately there isn't any tool to produce this documentation automatically, 
 = References and examples =
  * [http://code.google.com/p/gwt-exporter Gwt-exporter] library is no documented at all, you have to read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments to learn how to use it. 
  * [http://code.google.com/p/gwtchismes Gwtchismes] was the first gwt library I exported using this method. It's javascript version its called Jschismes, and here you have the [http://code.google.com/p/gwtchismes/wiki/JsChismes_Documentation documentation], [http://code.google.com/p/gwtchismes/source/browse/#svn/trunk/GWTChismes/src/jschismes/client source code] and [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html live sample].
- * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload.JsUpload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GWTUpload/src/jsupload/client code].  
+ * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GwtUpload/jsupload/src/main/java/jsupload/client code].  
 
 ----
 _©2009 [http://manolocarrasco.blogspot.com/2009/07/gwtupload-released.html Manolo Carrasco Moñino]_ 
