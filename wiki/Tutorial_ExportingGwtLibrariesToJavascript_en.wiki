@@ -128,7 +128,7 @@ public class JsChismes implements EntryPoint {
     }
   </script>
 }}}
-  # The arguments and return values of functions must use primitive types or objects which are marked as exportable.
+  # The arguments and return values of functions must use primitive types or objects which are marked as `Exportable`.
 {{{
 @Export
 public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
