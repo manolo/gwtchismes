@@ -102,6 +102,8 @@ public class JsChismes implements EntryPoint {
     GWT.create(DatePicker.class);
   }
 }
+{{{
+}}}
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
     ExporterUtil.exportAll();
