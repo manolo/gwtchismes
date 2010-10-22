@@ -308,9 +308,9 @@ Note: So far GWT 1.6.x & 1.7.0 don't support xs linker in hosted mode, so you ha
 
 Unless java packages that can be easily used letting the java IDE make suggestions about the classes, methods, parameters, etc, to make use of a javascript library it is necessary to have a little documentation about the usage of it. So, don't forget to create and maintain the appropriate documentation of your library. 
 
-Unfortunately there wasn't any tool to produce this documentation automatically when I wrote this article, so I documented my libraries in the java code using some proprietary conventions, and then create your own parser to produce a wiki markup page. I use this technique and a home-brewed ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
+Unfortunately there wasn't any tool to produce this documentation automatically when I wrote this article, so I documented my libraries in the java code using some proprietary conventions. I use this technique and a home-brewed ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
-In latest version of gwt-exporter there is a tool producing simple html pages from javadoc comments see [http://timepedia.blogspot.com/2009/01/gwt-exporter-now-generates-javascript.html this announce]
+In latest versions of gwt-exporter there is a tool able to produce simple html pages from javadoc comments see [http://timepedia.blogspot.com/2009/01/gwt-exporter-now-generates-javascript.html this announce].
 
 = References and examples =
  * [http://code.google.com/p/gwt-exporter Gwt-exporter] apart of this article, read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments to learn how to use it. 
