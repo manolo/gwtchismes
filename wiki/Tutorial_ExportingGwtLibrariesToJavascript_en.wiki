@@ -113,6 +113,7 @@ public class JsChismes implements EntryPoint {
     ExporterUtil.exportAll();
   }
 }
+}}}
   # Also, in the entry-point we have to invoke a javascript call-back function, so as our library will be available after the entire document is loaded.
 {{{
 public class JsChismes implements EntryPoint {
