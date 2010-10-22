@@ -95,11 +95,16 @@ public class GWTCDatePickerAbstract implements Exportable {
      picker.foo();
   </script>
 }}}
- # En el punto de entrada (`EntryPoint`) de nuestra aplicación será necesario decir a GWT qué clases queremos exportar. Las clases exportables que se usen en la aplicación como argumentos o retornos de otras se exportarán automáticamente.
+ # En el punto de entrada (`EntryPoint`) de nuestra aplicación será necesario decir a GWT las clases exportar, podemos esportarlas todas o seleccionar algunas. Las clases exportables que se usen en la aplicación como argumentos o retornos de otras se exportarán automáticamente.
 {{{
 public class JsChismes implements EntryPoint {
   public void onModuleLoad() {
-    ((Exporter) GWT.create(DatePicker.class)).export();
+    GWT.create(DatePicker.class);
+  }
+}
+public class JsChismes implements EntryPoint {
+  public void onModuleLoad() {
+    ExporterUtil.exportAll();
   }
 }
 }}}
