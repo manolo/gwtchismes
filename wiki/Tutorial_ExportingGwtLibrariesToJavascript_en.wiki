@@ -145,6 +145,7 @@ public class DatePicker extends GWTCDatePickerAbstract implements Exportable {
 }}}
 {{{
 @Export
+@ExportPackage("jsc")
 public class myClass implements Exportable {
 }
 }}}
@@ -161,7 +162,7 @@ public interface JsClosure extends Exportable {
 @Export
 @ExportPackage("jsc")
 public class DatePicker implements Exportable {
-  public executeJsClosure(JsClosure closure){
+  public void executeJsClosure(JsClosure closure){
      closure.execute("Hello", "Friend");
   }
 }}}
