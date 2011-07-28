@@ -174,7 +174,7 @@ public class DatePicker implements Exportable {
      });
   </script>
 }}}
-  # For objects that are implemented in both Javascript and GWT worlds, we need '_JSNI bridges_'. An example of this, is the Date object which has different implementations, although the behaviours are similar.
+  # For objects that are implemented in both Javascript and GWT worlds, we need '_JSNI bridges_'. An example of this, is the Date object which has different implementations, although the behaviours are similar. *EDITED:* last release of gwt-exporter supports java.util.Date type, so you do not need this bridge any more, I leave this code here as information.
 {{{
 @Export
 @ExportPackage("jsc")
@@ -252,7 +252,7 @@ public class JsProperties {
 <module>
   <inherits name="com.google.code.p.gwtchismes.GWTChismes"/>
   <inherits name="org.timepedia.exporter.Exporter"/>
-  <set-porperty name="export" value="yes"/>
+  <set-property name="export" value="yes"/>
 </module>
 }}}
  # Create as many classes as objects that you want to export into javascript. These classes will implement the `Exportable` interface, will use gwt-exporter's annotations, and will have to extend the original classes of your gwt library, publishing a constructor that accepts '_javascript properties_', and the public methods you want to be available from javascript.
@@ -311,13 +311,16 @@ Unless java packages that can be easily used letting the java IDE make suggestio
 
 Unfortunately there wasn't any tool to produce this documentation automatically when I wrote this article, so I documented my libraries in the java code using some proprietary conventions. I use this technique and a home-brewed ugly [http://code.google.com/p/gwtupload/source/browse/trunk/GWTUpload/gjslib.pl perl script] to do that.
 
+*EDITED:* Last release of gwt-exporter includes a [http://code.google.com/p/gwt-exporter/wiki/GettingStarted#Generator_of_Javascript_API_Documentation doclet class] to generate the javascript api documentation.
+
 In latest versions of gwt-exporter there is a tool able to produce simple html pages from javadoc comments see [http://timepedia.blogspot.com/2009/01/gwt-exporter-now-generates-javascript.html this announce].
 
 = References and examples =
- * [http://code.google.com/p/gwt-exporter Gwt-exporter] apart of this article, read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments to learn how to use it. 
+ * *EDITED:* [http://code.google.com/p/gwt-exporter Gwt-exporter] has recently added a [http://code.google.com/p/gwt-exporter/wiki/GettingStarted GettingStarted page]
+ *  Read the [http://code.google.com/p/gwt-exporter/source/browse/#svn/trunk/samples/src/exporterdemo/client sample code] and its comments.
  * [http://code.google.com/p/gwt-chronoscope/ Chronoscope] chronoscope was the first opensource project using the library, in fact gwtexported was created thanks to it.
  * [http://code.google.com/p/gwtchismes Gwtchismes] was the first gwt library I exported using this method. It's javascript version its called Jschismes, and here you have the [http://code.google.com/p/gwtchismes/wiki/JsChismes_Documentation documentation], [http://code.google.com/p/gwtchismes/source/browse/#svn/trunk/GWTChismes/src/jschismes/client source code] and [http://gwtchismes.googlecode.com/svn/trunk/website/jslib/JsChismes.html live sample].
  * [http://code.google.com/p/gwtupload/ Gwtupload] is another library I've exported whith the name of Jsupload. You can take a look to the [http://gwtupload.alcala.org/gupld/jsupload/JsUpload.html example], the [http://code.google.com/p/gwtupload/wiki/JsUpload_Documentation documentation] and the [http://code.google.com/p/gwtupload/source/browse/#svn/trunk/GwtUpload/jsupload/src/main/java/jsupload/client code].  
 
 ----
-_©2009 [http://manolocarrasco.blogspot.com/2009/07/gwtupload-released.html Manolo Carrasco Moñino]_ 
+_©2011 [http://manolocarrasco.blogspot.com/2009/07/gwtupload-released.html Manolo Carrasco Moñino]_ 
