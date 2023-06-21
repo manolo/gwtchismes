@@ -5,7 +5,7 @@
   <artifactId>gwtchismes-project</artifactId>
   <name>GwtChismes project</name>
   <packaging>pom</packaging>
-  <version>0.9.7</version>
+  <version>0.9.8-SNAPSHOT</version>
 
   <modules>
     <module>core</module>
