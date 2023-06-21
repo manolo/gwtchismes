@@ -1,0 +1,12 @@
+
+
+Developer Notes:
+
+- To deploy snapshot:
+ $ mvn clean package gpg:sign deploy
+
+- To deploy a new release
+ $ mvn release:clean -Pprod
+ $ mvn release:prepare -Pprod
+ $ mvn release:perform -Pprod
+ Release in this url: https://oss.sonatype.org/index.html#stagingRepositories
