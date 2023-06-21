@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>gwtchismes</artifactId>
+  <packaging>jar</packaging>
+  <name>GwtChismes library</name>
+  <description>GwtChismes library</description>
+
+  <parent>
+    <groupId>com.github.manolo.gwtchismes</groupId>
+    <artifactId>gwtchismes-project</artifactId>
+    <version>0.9.7-SNAPSHOT</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${gwtVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junitVersion}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource><directory>${basedir}/src/main/java</directory></resource>
+    </resources>
+    <plugins>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <site>
+      <id>googlecode</id>
+      <url>svn:https://gwtupload.googlecode.com/svn/site/${artifactId}</url>
+    </site>
+  </distributionManagement>
+
+</project>
